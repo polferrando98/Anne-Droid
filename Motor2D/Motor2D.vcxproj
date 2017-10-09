@@ -91,6 +91,8 @@
     <ClCompile Include="j1FadeToBlack.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Animation.h" />
+    <ClInclude Include="Globals.h" />
     <ClInclude Include="j1FadeToBlack.h" />
     <ClInclude Include="j1Player.h" />
     <ClInclude Include="j1Map.h" />
