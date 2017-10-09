@@ -50,16 +50,16 @@ bool j1Scene::Update(float dt)
 		App->SaveGame();
 
 	if(App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
-		player.y += 1;
+		player.y += 10;
 
 	if(App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
-		player.y -= 1;
+		player.y -= 10;
 
 	if(App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
-		player.x += 1;
+		player.x += 10;
 
 	if(App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
-		player.x -= 1;
+		player.x -= 10;
 
 	App->render->camera.x = player.x;
 	App->render->camera.y = player.y;
