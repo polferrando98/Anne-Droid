@@ -16,26 +16,6 @@ j1Map::j1Map() : j1Module(), map_loaded(false)
 j1Map::~j1Map()
 {}
 
-SDL_Rect j1Map::Tile_Rect(int tileid)
-{
-
-	tileid = tileid - data.tilesets.At(0)->data->firstgid;
-
-	int row = tileid / data.tilesets.At(0)->data->num_tiles_width;
-
-	int column = tileid - row*data.tilesets.At(0)->data->num_tiles_width;
-
-	SDL_Rect rect;
-	rect.w = data.tilesets.At(0)->data->tile_width;
-	rect.h = data.tilesets.At(0)->data->tile_height;
-
-	rect.x = data.tilesets.At(0)->data->margin + (rect.w + data.tilesets.At(0)->data->spacing)*column;
-
-	rect.y = data.tilesets.At(0)->data->margin + (rect.h + data.tilesets.At(0)->data->spacing)*row;
-
-	return rect;
-}
-
 // Called before render is available
 bool j1Map::Awake(pugi::xml_node& config)
 {
@@ -54,55 +34,27 @@ void j1Map::Draw()
 
 	// TODO 5: Prepare the loop to draw all tilesets + Blit
 	int tile_num = 0;
-	if (data.layers.At(0) != nullptr)
+	for (p2List_item<Layer*> *layer_iterator = data.layers.At(0); layer_iterator != nullptr; layer_iterator = layer_iterator->next)
 	{
-		int layer_width = data.layers.At(0)->data->width;
-		int layer_height = data.layers.At(0)->data->height;
-		int layer_dimensions = data.layers.At(0)->data->height*data.layers.At(0)->data->width;
+		int layer_width = layer_iterator->data->width;
+		int layer_height = layer_iterator->data->height;
+		int layer_dimensions = layer_iterator->data->height*data.layers.At(0)->data->width;
 
-		//while (tile_num < layer_width*layer_height)
-		//{
-		//	int id = data.layers.At(0)->data->data[tile_num];
-		//	int x = tile_num;
-		//	int y = data.layers.At(0)->data->width;
-		//	
-		//	ToRowsAndCols(&x, &y);
-
-		//	//Now, x and y are the coordinates of the tileset
-
-		//	convert_to_real_world(&x, &y);
-
-		//	//Now they are in pixels
-
-		//	App->render->Blit(data.tilesets.At(0)->data->texture, x, y, &data.tilesets.At(0)->data->GetTileRect(id));
-		//	App->render->Blit(data.tilesets.At(0)->data->texture, x, y, &Tile_Rect(id));
-		//	tile_num++;
-		//}
-
-		for (int row = 0; row < layer_width; row++) {
-			for (int col = 0; col < layer_height; col++) {
-				int id = data.layers.At(0)->data->data[tile_num];
-				int x = tile_num;
-				int y = data.layers.At(0)->data->width;
-
-				ToRowsAndCols(&x, &y);
-
-				//Now, x and y are the coordinates of the tileset
+		for (int row = 0; row < layer_height; row++) {
+			for (int col = 0; col < layer_width; col++) {
+				int id = layer_iterator->data->data[tile_num];
 
 				int real_row;
 				int real_col;
 
+				Get_pixels_from_tiles(row, col, &real_row, &real_col);
 
-				convert_to_real_world(row, col, &real_row, &real_col);
-				convert_to_real_world(x, y, &x, &y);
-
-				//Now they are in pixels
-
-				App->render->Blit(data.tilesets.At(0)->data->texture, x, y, &data.tilesets.At(0)->data->GetTileRect(id));
-				App->render->Blit(data.tilesets.At(0)->data->texture, x, y, &Tile_Rect(id));
+				App->render->Blit(data.tilesets.At(0)->data->texture, real_col, real_row, &data.tilesets.At(0)->data->GetTileRect(id));
 				tile_num++;
 			}
 		}
+
+
 		// TODO 9: Complete the draw function
 	}
 }
