@@ -1,3 +1,4 @@
+
 #include <math.h>
 #include "Globals.h"
 #include "j1App.h"
@@ -82,3 +83,4 @@ bool j1FadeToBlack::FadeToBlack(j1Module* module_off, j1Module* module_on, float
 
 	return ret;
 }
+

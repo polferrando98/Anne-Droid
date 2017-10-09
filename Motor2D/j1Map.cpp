@@ -48,13 +48,17 @@ void j1Map::Draw()
 				int real_row;
 				int real_col;
 
+
+
 				Get_pixels_from_tiles(row, col, &real_row, &real_col);
-				//if (layer_iterator->data->name == "Capa de Patrones 1") {
-				//	App->render->Blit(data.tilesets.At(0)->data->texture, real_col*layer2_parallax, real_row*layer2_parallax, &data.tilesets.At(0)->data->GetTileRect(id));
-				//}
-				//else 
+
+				//provisional parallax
+				if (layer_iterator->data->name == "Capa de Patrones 1")
+					real_col += (int)(layer2_parallax*float(App->render->camera.x));
+
 				App->render->Blit(data.tilesets.At(0)->data->texture, real_col, real_row, &data.tilesets.At(0)->data->GetTileRect(id));
 				tile_num++;
+			
 			}
 		}
 

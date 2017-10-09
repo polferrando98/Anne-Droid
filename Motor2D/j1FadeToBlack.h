@@ -1,10 +1,11 @@
+
 #ifndef __MODULEFADETOBLACK_H__
 #define __MODULEFADETOBLACK_H__
 
 #include "j1Module.h"
 #include "SDL\include\SDL_rect.h"
 
-class j1FadeToBlack : public Module
+class j1FadeToBlack : public j1Module
 {
 public:
 	j1FadeToBlack();
@@ -32,4 +33,4 @@ private:
 	SDL_Rect screen;
 };
 
-#endif //__MODULEFADETOBLACK_H__
+#endif
