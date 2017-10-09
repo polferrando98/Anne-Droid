@@ -87,8 +87,12 @@
     <ClCompile Include="j1Textures.cpp" />
     <ClCompile Include="j1Window.cpp" />
     <ClCompile Include="PugiXml\src\pugixml.cpp" />
+    <ClCompile Include="j1Player.cpp" />
+    <ClCompile Include="j1FadeToBlack.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="j1FadeToBlack.h" />
+    <ClInclude Include="j1Player.h" />
     <ClInclude Include="j1Map.h" />
     <ClInclude Include="j1Scene.h" />
     <ClInclude Include="p2DynArray.h" />
