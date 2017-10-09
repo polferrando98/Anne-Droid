@@ -33,9 +33,10 @@ void j1Map::Draw()
 		return;
 
 	// TODO 5: Prepare the loop to draw all tilesets + Blit
-	int tile_num = 0;
-	for (p2List_item<Layer*> *layer_iterator = data.layers.At(0); layer_iterator != nullptr; layer_iterator = layer_iterator->next)
+	
+	for (p2List_item<Layer*> *layer_iterator = data.layers.At(0); layer_iterator; layer_iterator = layer_iterator->next)
 	{
+		int tile_num = 0;
 		int layer_width = layer_iterator->data->width;
 		int layer_height = layer_iterator->data->height;
 		int layer_dimensions = layer_iterator->data->height*data.layers.At(0)->data->width;
@@ -48,7 +49,10 @@ void j1Map::Draw()
 				int real_col;
 
 				Get_pixels_from_tiles(row, col, &real_row, &real_col);
-
+				//if (layer_iterator->data->name == "Capa de Patrones 1") {
+				//	App->render->Blit(data.tilesets.At(0)->data->texture, real_col*layer2_parallax, real_row*layer2_parallax, &data.tilesets.At(0)->data->GetTileRect(id));
+				//}
+				//else 
 				App->render->Blit(data.tilesets.At(0)->data->texture, real_col, real_row, &data.tilesets.At(0)->data->GetTileRect(id));
 				tile_num++;
 			}
@@ -68,7 +72,6 @@ void j1Map::Draw()
 iPoint j1Map::MapToWorld(int x, int y) const
 {
 	iPoint ret;
-
 	ret.x = x * data.tile_width;
 	ret.y = y * data.tile_height;
 

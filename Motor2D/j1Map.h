@@ -118,6 +118,9 @@ private:
 public:
 
 	MapData data;
+	int layer1_parallax = 0;
+	int layer2_parallax = 5;
+
 
 private:
 

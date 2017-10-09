@@ -9,6 +9,9 @@ class j1Scene : public j1Module
 {
 public:
 
+	iPoint player{ 0,0 };
+
+
 	j1Scene();
 
 	// Destructor
