@@ -54,7 +54,7 @@ void j1Map::Draw()
 
 				//provisional parallax
 				if (layer_iterator->data->name == "Capa de Patrones 1")
-					real_col += (int)(layer2_parallax*float(App->render->camera.x));
+					real_col += (int)(-layer2_parallax * (App->render->camera.x));
 
 				App->render->Blit(data.tilesets.At(0)->data->texture, real_col, real_row, &data.tilesets.At(0)->data->GetTileRect(id));
 				tile_num++;

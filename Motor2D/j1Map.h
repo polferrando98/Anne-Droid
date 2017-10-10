@@ -118,8 +118,11 @@ private:
 public:
 
 	MapData data;
-	int layer1_parallax = 0;
-	float layer2_parallax = 1.001;
+
+
+	//////////////HARDCODING
+	float layer2_parallax = 1.1f;
+
 
 
 private:

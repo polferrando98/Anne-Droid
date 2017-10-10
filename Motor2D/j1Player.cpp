@@ -14,7 +14,7 @@
 #include "Animation.h"
 #include "p2Log.h"
 
-j1Player::j1Player()
+j1Player::j1Player() 
 {
 	graphics = NULL;
 	current_animation = NULL;
@@ -33,14 +33,18 @@ j1Player::~j1Player()
 bool j1Player::Start()
 {
 	current_animation = &idle;
-	position.x = 5;
-	position.y = 500;
+
 	
 	direction = 0;
 	state = IDLE;
 	
 	LOG("Loading player textures");
 	graphics = App->tex->Load("textures/player_sprites.png");
+
+	////////////////HARDCODING
+	position.x = 0;
+	position.y = 2950;
+	
 
 	return true;
 }
@@ -57,7 +61,7 @@ bool j1Player::Update(float dt)
 {
 	// Draw everything --------------------------------------
 	AnimationFrame frame = current_animation->GetCurrentFrame();
-	App->render->Blit(graphics, 0, 2950, &frame.rect);
+	App->render->Blit(graphics, position.x, position.y, &frame.rect);
 
 	return UPDATE_CONTINUE;
 }

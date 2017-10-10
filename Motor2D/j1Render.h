@@ -49,6 +49,9 @@ public:
 	SDL_Rect		camera;
 	SDL_Rect		viewport;
 	SDL_Color		background;
+
+	//////////////HARDCODING
+	int camera_speed = 10;
 };
 
 #endif // __j1RENDER_H__
