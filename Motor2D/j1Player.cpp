@@ -21,6 +21,15 @@ j1Player::j1Player()
 	
 	//idle animation
 	idle.PushBack({90,35,208,353});
+
+	idle.PushBack({ 90,35,208,353});
+	idle.PushBack({ 90,35,208,353 });
+	idle.PushBack({ 90,35,208,353 });
+	idle.PushBack({ 90,35,208,353 });
+	idle.PushBack({ 90,35,208,353 });
+	idle.PushBack({ 90,35,208,353 });
+	idle.PushBack({ 90,35,208,353 });
+	idle.PushBack({ 90,35,208,353 });
 	idle.loop = true;
 	idle.speed = 1.0f;
 
