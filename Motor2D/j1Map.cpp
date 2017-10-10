@@ -48,8 +48,6 @@ void j1Map::Draw()
 				int real_row;
 				int real_col;
 
-
-
 				Get_pixels_from_tiles(row, col, &real_row, &real_col);
 
 				//provisional parallax
