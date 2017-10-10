@@ -20,18 +20,22 @@ j1Player::j1Player()
 	current_animation = NULL;
 	
 	//idle animation
-	idle.PushBack({90,35,208,353});
+	
+	idle.PushBack({ 50,16,110,193 });
+	idle.PushBack({ 291,16,110,193 });
+	idle.PushBack({ 532,16,110,193 });
+	idle.PushBack({ 773,16,110,193 });
+	idle.PushBack({ 1014,16,110,193 });
 
-	idle.PushBack({ 90,35,208,353});
-	idle.PushBack({ 90,35,208,353 });
-	idle.PushBack({ 90,35,208,353 });
-	idle.PushBack({ 90,35,208,353 });
-	idle.PushBack({ 90,35,208,353 });
-	idle.PushBack({ 90,35,208,353 });
-	idle.PushBack({ 90,35,208,353 });
-	idle.PushBack({ 90,35,208,353 });
+	idle.PushBack({ 1014,16,110,193 });
+	idle.PushBack({ 773,16,110,193 });
+	idle.PushBack({ 532,16,110,193 });
+	idle.PushBack({ 291,16,110,193 });
+	idle.PushBack({ 50,16,110,193 });
+	
+	
 	idle.loop = true;
-	idle.speed = 1.0f;
+	idle.speed = 0.15f;
 
 }
 
@@ -66,7 +70,7 @@ bool j1Player::Update(float dt)
 {
 	// Draw everything --------------------------------------
 	AnimationFrame frame = current_animation->GetCurrentFrame();
-	App->render->Blit(graphics, 0, 2950, &frame.rect);
+	App->render->Blit(graphics, 0, 3145, &frame.rect);
 
 	return UPDATE_CONTINUE;
 }
