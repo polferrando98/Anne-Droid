@@ -6,6 +6,7 @@
 #include "p2Point.h"
 #include "Animation.h"
 #include "Globals.h"
+#include "j1Physics.h"
 
 struct SDL_Texture;
 struct Mix_Chunk;
@@ -38,7 +39,10 @@ public:
 
 	PLAYER_STATE state = IDLE;
 	fPoint position;
+	fPoint velocity;
+	fPoint acceleration;
 	
+	Collider *player_coll;
 private:
 	SDL_Texture* graphics = nullptr;
 	Animation* current_animation = nullptr;
@@ -52,12 +56,10 @@ private:
 	int player_min_y;
 	int direction;
 
+	SDL_Rect collider_rect;
+
 	void checkInput();
 	void processInput();
-	
-	
-
-
 };
 
 

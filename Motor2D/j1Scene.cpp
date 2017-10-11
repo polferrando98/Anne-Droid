@@ -32,6 +32,13 @@ bool j1Scene::Awake()
 bool j1Scene::Start()
 {
 	App->map->Load("LEVEL_1.tmx");
+
+	///////////////////////HARDCODING
+
+	col_rect = { 0, 3280, 10000, 10000 };
+
+	col1 = App->physics->AddCollider(&col_rect, COLLIDER_TYPE::WALL);
+	
 	return true;
 }
 

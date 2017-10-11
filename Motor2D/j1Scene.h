@@ -2,16 +2,13 @@
 #define __j1SCENE_H__
 
 #include "j1Module.h"
+#include "j1Physics.h"
 
 struct SDL_Texture;
 
 class j1Scene : public j1Module
 {
 public:
-
-
-
-
 	j1Scene();
 
 	// Destructor
@@ -35,7 +32,11 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
-private:
+	//HARDCODING
+
+	Collider* col1;
+
+	SDL_Rect col_rect;
 };
 
 #endif // __j1SCENE_H__

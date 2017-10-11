@@ -16,6 +16,8 @@
 
 j1Player::j1Player() 
 {
+	name.create("player");
+
 	graphics = NULL;
 	current_animation = NULL;
 	
@@ -50,10 +52,28 @@ j1Player::j1Player()
 
 	jump.loop = false;
 	jump.speed = 0.15f;
+
+	////////////////HARDCODING
+	position.x = 0;
+	position.y = 3000;
+
+	velocity.x = 0;
+	velocity.y = 0;
+
+	acceleration.x = 0;
+	acceleration.y = 0.01;
+
+
+	collider_rect.h = 185;
+	collider_rect.w = 100;
+	collider_rect.x = position.x;
+	collider_rect.y = position.y;
 }
 
 j1Player::~j1Player()
-{}
+{
+
+}
 
 // Load assets
 bool j1Player::Start()
@@ -67,10 +87,7 @@ bool j1Player::Start()
 	LOG("Loading player textures");
 	graphics = App->tex->Load("textures/player_sprites.png");
 
-	////////////////HARDCODING
-	position.x = 0;
-	position.y = 3000;
-	
+	player_coll = App->physics->AddCollider(&collider_rect, COLLIDER_TYPE::PLAYER);
 
 	return true;
 }
@@ -88,6 +105,7 @@ bool j1Player::Update(float dt)
 	// Draw everything --------------------------------------
 	AnimationFrame frame = current_animation->GetCurrentFrame();
 
+	App->physics->UpdatePhysics(&position, &velocity, &acceleration);
 
 	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 		position.x -= speed;
@@ -95,9 +113,10 @@ bool j1Player::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 		position.x += speed;
 
+	player_coll->rect->x = position.x;
+	player_coll->rect->y = position.y;
 
 	App->render->Blit(graphics, position.x, position.y, &frame.rect);
-
 
 	return UPDATE_CONTINUE;
 }

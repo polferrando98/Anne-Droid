@@ -2,10 +2,21 @@
 #ifndef __j1PHYSICS_H__
 #define __j1PHYSICS_H__
 
+#include "SDL/include/SDL.h"
 #include "PugiXml/src/pugixml.hpp"
 #include "p2List.h"
 #include "p2Point.h"
 #include "j1Module.h"
+
+enum COLLIDER_TYPE {PLAYER, WALL};
+
+struct Collider{
+	Collider(SDL_Rect *rectangle, COLLIDER_TYPE type);
+	SDL_Rect *rect;
+	COLLIDER_TYPE type;
+	bool visble;
+};
+
 
 // ----------------------------------------------------
 class j1Physics : public j1Module
@@ -23,18 +34,31 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
-	virtual bool Update(float dt);
+	bool Update(float dt);
+
+	void Debug_draw() const;
+
+	void UpdatePhysics(fPoint *position, fPoint *velocity, fPoint *acceleration);
+
+	Collider* AddCollider(SDL_Rect *rect, const COLLIDER_TYPE type);
 
 
 private:
 
 
 public:
-	float gravity = 9.8f;
 
+	p2List<Collider*>	collider_list;
+
+
+	//HARDCODING
+	float gravity = 9.8f;
+	Uint8 alpha = 80;
 
 private:
 
 };
+
+
 
 #endif // __j1MAP_H__
