@@ -24,6 +24,10 @@ bool j1Physics::Awake(pugi::xml_node& config)
 	return true;
 }
 
+bool Update(float dt) {
+
+}
+
 
 bool j1Physics::CleanUp()
 {

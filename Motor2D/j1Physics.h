@@ -23,11 +23,14 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+	virtual bool Update(float dt);
+
 
 private:
 
 
 public:
+	float gravity = 9.8f;
 
 
 private:
