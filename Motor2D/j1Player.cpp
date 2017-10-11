@@ -56,7 +56,7 @@ bool j1Player::Start()
 
 	////////////////HARDCODING
 	position.x = 0;
-	position.y = 2950;
+	position.y = 3000;
 	
 
 	return true;
@@ -74,6 +74,14 @@ bool j1Player::Update(float dt)
 {
 	// Draw everything --------------------------------------
 	AnimationFrame frame = current_animation->GetCurrentFrame();
+
+
+	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+		position.x -= speed;
+
+	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+		position.x += speed;
+
 
 	App->render->Blit(graphics, position.x, position.y, &frame.rect);
 

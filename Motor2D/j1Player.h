@@ -47,7 +47,8 @@ private:
 	Animation left;
 	Animation jump;
 
-	int speed;
+	/////////HARDCODE
+	int speed = 5;
 	int player_min_y;
 	int direction;
 

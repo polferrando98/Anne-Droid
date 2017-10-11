@@ -62,8 +62,11 @@ bool j1Scene::Update(float dt)
 	if(App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 		App->render->camera.x -= App->render->camera_speed;
 
-	//App->render->camera.x = App->player->position.x;
-	//App->render->camera.y = App->player->position.y;
+	uint w, h; 
+	App->win->GetWindowSize(w, h); 
+
+	App->render->camera.x = -App->player->position.x + w/3;
+	App->render->camera.y = -App->player->position.y + h/2;
 
 	App->map->Draw();
 

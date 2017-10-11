@@ -121,7 +121,7 @@ public:
 
 
 	//////////////HARDCODING
-	float layer2_parallax = 1.1f;
+	float layer2_parallax = -1.1f;
 
 
 
