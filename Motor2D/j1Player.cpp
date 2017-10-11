@@ -33,10 +33,23 @@ j1Player::j1Player()
 	idle.PushBack({ 291,16,110,193 });
 	idle.PushBack({ 50,16,110,193 });
 	
-	
 	idle.loop = true;
 	idle.speed = 0.15f;
 
+
+	jump.PushBack({ 64, 507, 115, 186 });
+	jump.PushBack({ 292, 505, 131, 193 });
+	jump.PushBack({ 520, 504, 136, 180 });
+	jump.PushBack({ 520, 504, 136, 180 });
+	jump.PushBack({ 758, 504, 137, 178 });
+	jump.PushBack({ 998, 505, 141, 172 });
+	jump.PushBack({ 1236, 505, 153, 165 });
+	jump.PushBack({ 1474, 505, 154, 190 });
+	jump.PushBack({ 25, 746, 154, 189 });
+	jump.PushBack({ 280, 746, 142, 200 });
+
+	jump.loop = false;
+	jump.speed = 0.15f;
 }
 
 j1Player::~j1Player()
@@ -114,7 +127,7 @@ void j1Player::processInput() {
 	case MOVING_RIGHT:
 
 		direction = 90;
-		current_animation = &right;
+		current_animation = &jump;
 		break;
 
 	case MOVING_LEFT:

@@ -43,9 +43,9 @@ private:
 	SDL_Texture* graphics = nullptr;
 	Animation* current_animation = nullptr;
 	Animation idle;
-	Animation right;
-	Animation left;
 	Animation jump;
+	Animation left;
+	Animation right;
 
 	/////////HARDCODE
 	int speed = 5;
