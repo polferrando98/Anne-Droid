@@ -39,6 +39,8 @@ bool j1Physics::CleanUp()
 bool j1Physics::Update(float dt)
 {
 	Debug_draw();
+
+
 	return UPDATE_CONTINUE;
 }
 
@@ -74,6 +76,26 @@ Collider* j1Physics::AddCollider(SDL_Rect *rect,const COLLIDER_TYPE type)
 	collider_list.add(pCollider);
 
 	return pCollider;
+}
+
+void j1Physics::checkCollisions()
+{
+	p2List_item<Collider*>* collider_iterator_a;
+	p2List_item<Collider*>* collider_iterator_b;
+
+	Collider* pCollider_a = nullptr;
+	Collider* pCollider_b = nullptr;
+
+	for (collider_iterator_a = collider_list.start; collider_iterator_a != NULL; collider_iterator_a = collider_iterator_a->next)
+	{
+		pCollider_a = collider_iterator_a->data;
+
+		for (collider_iterator_b = collider_list.start; collider_iterator_b != NULL; collider_iterator_b = collider_iterator_b->next)
+		{
+
+		}
+
+	}
 }
 
 Collider::Collider(SDL_Rect *rectangle, COLLIDER_TYPE type)

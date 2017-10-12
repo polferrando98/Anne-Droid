@@ -42,6 +42,8 @@ public:
 
 	Collider* AddCollider(SDL_Rect *rect, const COLLIDER_TYPE type);
 
+	void checkCollisions();
+
 
 private:
 
