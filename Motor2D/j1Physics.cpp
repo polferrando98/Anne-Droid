@@ -38,9 +38,8 @@ bool j1Physics::CleanUp()
 
 bool j1Physics::Update(float dt)
 {
+	checkCollisions();
 	Debug_draw();
-
-
 	return UPDATE_CONTINUE;
 }
 
@@ -83,18 +82,29 @@ void j1Physics::checkCollisions()
 	p2List_item<Collider*>* collider_iterator_a;
 	p2List_item<Collider*>* collider_iterator_b;
 
-	Collider* pCollider_a = nullptr;
-	Collider* pCollider_b = nullptr;
+	SDL_Rect* rect_a = nullptr;
+	SDL_Rect* rect_b = nullptr;
 
-	for (collider_iterator_a = collider_list.start; collider_iterator_a != NULL; collider_iterator_a = collider_iterator_a->next)
-	{
-		pCollider_a = collider_iterator_a->data;
+	SDL_Rect intersection;
 
-		for (collider_iterator_b = collider_list.start; collider_iterator_b != NULL; collider_iterator_b = collider_iterator_b->next)
+	int col_count = collider_list.count();
+
+	if (col_count > 1) {
+		for (collider_iterator_a = collider_list.start; collider_iterator_a != NULL; collider_iterator_a = collider_iterator_a->next)
 		{
+			rect_a = collider_iterator_a->data->rect;
 
+			for (collider_iterator_b = collider_list.start; collider_iterator_b != NULL; collider_iterator_b = collider_iterator_b->next)
+			{
+				rect_b = collider_iterator_b->data->rect;
+				if (rect_b != rect_a) {
+
+					if (SDL_IntersectRect(rect_a, rect_b, &intersection)) {
+						LOG("YE");
+					}
+				}
+			}
 		}
-
 	}
 }
 
