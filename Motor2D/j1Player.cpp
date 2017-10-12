@@ -53,6 +53,30 @@ j1Player::j1Player()
 	jump.loop = false;
 	jump.speed = 0.15f;
 
+
+	right.PushBack({ 58, 985, 103, 195 });
+	right.PushBack({ 289, 986, 103, 198 });
+	right.PushBack({ 527, 986, 131, 186 });
+	right.PushBack({ 762, 985, 124, 192 });
+	right.PushBack({ 1018, 985, 119, 192 });
+	right.PushBack({ 1249, 985, 135, 200 });
+	right.PushBack({ 1477, 986, 147, 189 });
+
+	right.loop = true;
+	right.speed = 0.12f;
+
+
+	left.PushBack({ 1755, 1245, 108, 195 });
+	left.PushBack({ 1525, 1246, 103, 198 });
+	left.PushBack({ 1259, 1246, 131, 186 });
+	left.PushBack({ 1031, 1245, 124, 192 });
+	left.PushBack({ 780, 1245, 119, 192 });
+	left.PushBack({ 533, 1245, 135, 200 });
+	left.PushBack({ 293, 1246, 147, 189 });
+	left.PushBack({ 58, 1247, 126, 191 });
+
+	left.loop = true;
+	left.speed = 0.12f;
 	////////////////HARDCODING
 	position.x = 0;
 	position.y = 3000;
@@ -113,6 +137,13 @@ bool j1Player::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 		position.x += speed;
 
+	//to test if animations work properly
+	if (App->input->GetKey(SDL_SCANCODE_T) == KEY_REPEAT)
+		current_animation = &jump;
+	if (App->input->GetKey(SDL_SCANCODE_P) == KEY_REPEAT)
+		current_animation = &right;
+	if (App->input->GetKey(SDL_SCANCODE_G) == KEY_REPEAT)
+		current_animation = &left;
 	player_coll->rect->x = position.x;
 	player_coll->rect->y = position.y;
 
@@ -146,7 +177,7 @@ void j1Player::processInput() {
 	case MOVING_RIGHT:
 
 		direction = 90;
-		current_animation = &jump;
+		current_animation = &right;
 		break;
 
 	case MOVING_LEFT:
@@ -154,6 +185,9 @@ void j1Player::processInput() {
 		direction = 270;
 		current_animation = &left;
 		break;
+
+	
+
 	}
 }
 
