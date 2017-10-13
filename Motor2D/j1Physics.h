@@ -43,6 +43,7 @@ public:
 	Collider* AddCollider(SDL_Rect *rect, const COLLIDER_TYPE type);
 
 	bool checkCollisions(Collider* object_col);
+	bool checkCollisions(Collider* object_col, char axis); //HARDCODE
 
 
 private:
@@ -55,7 +56,7 @@ public:
 	p2List<Collider*>	collider_list;
 
 
-	//HARDCODING
+	//HARDCODE
 	float gravity = 9.8f;
 	Uint8 alpha = 80;
 

@@ -77,7 +77,8 @@ j1Player::j1Player()
 
 	left.loop = true;
 	left.speed = 0.12f;
-	////////////////HARDCODING
+
+	////////////////HARDCODE
 	position.x = 0;
 	position.y = 3000;
 
@@ -92,6 +93,9 @@ j1Player::j1Player()
 	collider_rect.w = 100;
 	collider_rect.x = position.x;
 	collider_rect.y = position.y;
+
+	maxVelocity.x = 2; 
+	maxVelocity.y = 20;
 }
 
 j1Player::~j1Player()
@@ -132,10 +136,16 @@ bool j1Player::Update(float dt)
 	App->physics->UpdatePhysics(&position, &velocity, &acceleration, player_coll);
 
 	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
-		position.x -= speed;
+	{
+			acceleration.x = -0.1;
+	}
+	else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+	{
+			acceleration.x = 0.1;
+	}
+	else {
 
-	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
-		position.x += speed;
+	}
 
 	//to test if animations work properly
 	if (App->input->GetKey(SDL_SCANCODE_T) == KEY_REPEAT)
@@ -144,6 +154,7 @@ bool j1Player::Update(float dt)
 		current_animation = &right;
 	if (App->input->GetKey(SDL_SCANCODE_G) == KEY_REPEAT)
 		current_animation = &left;
+
 	player_coll->rect->x = position.x;
 	player_coll->rect->y = position.y;
 

@@ -61,6 +61,8 @@ void j1Physics::Debug_draw() const
 void j1Physics::UpdatePhysics(fPoint * position, fPoint * velocity, fPoint * acceleration, Collider* collider)
 {
 	Collider newCollider = *collider;
+	bool colliding_x = false;
+	bool colliding_y = false;
 
 	//for some reason this does not work
 	//fPoint newVelocity = *velocity + *acceleration;
@@ -83,15 +85,46 @@ void j1Physics::UpdatePhysics(fPoint * position, fPoint * velocity, fPoint * acc
 	pos_differential.y = newPosition.y - position->y;
 
 
-	if (checkCollisions(&newCollider)) {
-		if (pos_differential.y == 0) {
-			velocity->y += acceleration->y;
-			position->y += velocity->y;
+	//if (checkCollisions(&newCollider)) {		
+	//	if (pos_differential.y < 0) {
+	//		velocity->y += acceleration->y;
+	//		position->y += velocity->y;
+	//	}
+	//	if (intersection.w > 10) {
+	//		velocity->x += acceleration->x;
+	//		position->x += velocity->x;
+	//	}
+	//}
+	//else {
+	//	velocity->y += acceleration->y;
+	//	position->y += velocity->y;
+	//	velocity->x += acceleration->x;
+	//	position->x += velocity->x;
+	//}
+
+	if (pos_differential.y != 0) {
+		if (checkCollisions(&newCollider))
+			colliding_y = true;
+	}
+
+	if (pos_differential.x != 0) {
+		if (checkCollisions(&newCollider)) {
+			if (colliding_y) {
+				if (intersection.x != position->x)
+					colliding_x = true;
+			}
+			else
+				colliding_x = true;
 		}
 	}
-	else {
+
+	if (!colliding_y) {
 		velocity->y += acceleration->y;
 		position->y += velocity->y;
+	}
+	if (!colliding_x) {
+		velocity->x += acceleration->x;
+		position->x += velocity->x;
 	}
 }
 
@@ -107,7 +140,6 @@ Collider* j1Physics::AddCollider(SDL_Rect *rect, const COLLIDER_TYPE type)
 
 bool j1Physics::checkCollisions(Collider* object_col)
 {
-
 	p2List_item<Collider*>* collider_iterator_b;
 
 	SDL_Rect* rect_a = nullptr;
@@ -129,10 +161,9 @@ bool j1Physics::checkCollisions(Collider* object_col)
 		}
 	}
 
-
 	return false;
-
 }
+
 
 Collider::Collider(SDL_Rect *rectangle, COLLIDER_TYPE type)
 {

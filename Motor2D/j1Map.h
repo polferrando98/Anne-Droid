@@ -120,7 +120,7 @@ public:
 	MapData data;
 
 
-	//////////////HARDCODING
+	//////////////HARDCODE
 	float layer2_parallax = -0.5f;
 
 
