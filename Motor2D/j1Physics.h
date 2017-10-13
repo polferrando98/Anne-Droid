@@ -42,12 +42,13 @@ public:
 
 	Collider* AddCollider(SDL_Rect *rect, const COLLIDER_TYPE type);
 
-	void checkCollisions(Collider* object_col);
+	bool checkCollisions(Collider* object_col);
 
 
 private:
 
-	SDL_Rect* intersection = nullptr;
+	SDL_Rect intersection = { 0,0,0,0 };
+	SDL_Rect empty_rect = { 0,0,0,0 };
 
 public:
 
