@@ -60,13 +60,32 @@ void j1Physics::Debug_draw() const
 
 void j1Physics::UpdatePhysics(fPoint * position, fPoint * velocity, fPoint * acceleration, Collider* collider)
 {
+	Collider newCollider = *collider;
 
-	if (checkCollisions(collider)) {
+	//for some reason this does not work
+	//fPoint newVelocity = *velocity + *acceleration;
+	//fPoint newPosition = *position + newVelocity;
+
+	fPoint newVelocity;
+	newVelocity.x = velocity->x + acceleration->x;
+	newVelocity.y = velocity->y + acceleration->y;
+
+	fPoint newPosition;
+	newPosition.x = position->x + newVelocity.x;
+	newPosition.y = position->y + newVelocity.y;
+
+	newCollider.rect->x = newPosition.x;
+	newCollider.rect->y = newPosition.y;
+
+
+	if (checkCollisions(&newCollider)) {
 		LOG("YEA");
 	}
-	velocity->y += acceleration->y;
+	else {
+		velocity->y += acceleration->y;
 
-	position->y += velocity->y;
+		position->y += velocity->y;
+	}
 }
 
 Collider* j1Physics::AddCollider(SDL_Rect *rect, const COLLIDER_TYPE type)
