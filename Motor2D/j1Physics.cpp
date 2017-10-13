@@ -84,7 +84,7 @@ void j1Physics::UpdatePhysics(fPoint * position, fPoint * velocity, fPoint * acc
 
 
 	if (checkCollisions(&newCollider)) {
-		if (pos_differential.x != 0) {
+		if (pos_differential.y == 0) {
 			velocity->y += acceleration->y;
 			position->y += velocity->y;
 		}
