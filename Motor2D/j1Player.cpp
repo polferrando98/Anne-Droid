@@ -77,7 +77,8 @@ j1Player::j1Player()
 
 	left.loop = true;
 	left.speed = 0.12f;
-	////////////////HARDCODING
+
+	////////////////HARDCODE
 	position.x = 0;
 	position.y = 3000;
 
@@ -92,6 +93,9 @@ j1Player::j1Player()
 	collider_rect.w = 100;
 	collider_rect.x = position.x;
 	collider_rect.y = position.y;
+
+	maxVelocity.x = 2; 
+	maxVelocity.y = 20;
 }
 
 j1Player::~j1Player()
@@ -134,6 +138,7 @@ bool j1Player::Update(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
 
+<<<<<<< HEAD
 		position.x -= speed;
 		App->player->current_animation = &left;
 	}
@@ -146,11 +151,30 @@ bool j1Player::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) {
 		position.y -= speed;
 		App->player->current_animation = &jump;
+=======
+	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+	{
+			acceleration.x = -0.1;
+	}
+	else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+	{
+			acceleration.x = 0.1;
+	}
+	else {
+
+>>>>>>> 0f01b21b7ee626f52308fc74ddda022c1d3f03ef
 	}
 
 	//to test if animations work properly
 	if (App->input->GetKey(SDL_SCANCODE_T) == KEY_REPEAT)
 		current_animation = &jump;
+<<<<<<< HEAD
+=======
+	if (App->input->GetKey(SDL_SCANCODE_P) == KEY_REPEAT)
+		current_animation = &right;
+	if (App->input->GetKey(SDL_SCANCODE_G) == KEY_REPEAT)
+		current_animation = &left;
+>>>>>>> 0f01b21b7ee626f52308fc74ddda022c1d3f03ef
 
 	player_coll->rect->x = position.x;
 	player_coll->rect->y = position.y;

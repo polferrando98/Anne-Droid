@@ -41,8 +41,12 @@ public:
 	fPoint position;
 	fPoint velocity;
 	fPoint acceleration;
-	
 	Collider *player_coll;
+	
+	//HARDCODE
+	fPoint maxVelocity;
+	float friction_x = 0.1;
+
 private:
 	SDL_Texture* graphics = nullptr;
 	Animation* current_animation = nullptr;

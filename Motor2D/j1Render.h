@@ -50,7 +50,7 @@ public:
 	SDL_Rect		viewport;
 	SDL_Color		background;
 
-	//////////////HARDCODING
+	//////////////HARDCODE
 	int camera_speed = 10;
 };
 

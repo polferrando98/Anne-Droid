@@ -32,11 +32,12 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
-	//HARDCODING
+	//HARDCODE
 
 	Collider* col1;
 
 	SDL_Rect col_rect;
+	SDL_Rect col_rect2;
 };
 
 #endif // __j1SCENE_H__
