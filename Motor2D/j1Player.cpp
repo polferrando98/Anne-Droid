@@ -50,7 +50,7 @@ j1Player::j1Player()
 	jump.PushBack({ 25, 746, 154, 189 });
 	jump.PushBack({ 280, 746, 142, 200 });
 
-	jump.loop = false;
+	jump.loop = true;
 	jump.speed = 0.15f;
 
 
@@ -130,20 +130,28 @@ bool j1Player::Update(float dt)
 	AnimationFrame frame = current_animation->GetCurrentFrame();
 
 	App->physics->UpdatePhysics(&position, &velocity, &acceleration, player_coll);
+	current_animation = &idle;
 
-	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
+
 		position.x -= speed;
+		App->player->current_animation = &left;
+	}
 
-	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
 		position.x += speed;
+		App->player->current_animation = &right;
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) {
+		position.y -= speed;
+		App->player->current_animation = &jump;
+	}
 
 	//to test if animations work properly
 	if (App->input->GetKey(SDL_SCANCODE_T) == KEY_REPEAT)
 		current_animation = &jump;
-	if (App->input->GetKey(SDL_SCANCODE_P) == KEY_REPEAT)
-		current_animation = &right;
-	if (App->input->GetKey(SDL_SCANCODE_G) == KEY_REPEAT)
-		current_animation = &left;
+
 	player_coll->rect->x = position.x;
 	player_coll->rect->y = position.y;
 

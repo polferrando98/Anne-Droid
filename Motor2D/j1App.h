@@ -12,9 +12,13 @@ class j1Render;
 class j1Textures;
 class j1Audio;
 class j1Scene;
+class j1Scene_2;
+class j1FadeToBlack;
+class j1Transition;
 class j1Map;
 class j1Player;
 class j1Physics;
+
 
 class j1App
 {
@@ -84,6 +88,9 @@ public:
 	j1Textures*			tex;
 	j1Audio*			audio;
 	j1Scene*			scene;
+	j1Scene_2*			scene_2;
+	j1Transition*		transition;
+	j1FadeToBlack*		fade;
 	j1Map*				map;
 	j1Player*			player;
 	j1Physics*			physics;

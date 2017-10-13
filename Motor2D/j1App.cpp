@@ -13,6 +13,10 @@
 #include "j1App.h"
 #include "j1Player.h"
 #include "j1Physics.h"
+#include "j1Scene_2.h"
+#include "j1Transition.h"
+#include "j1FadeToBlack.h"
+
 
 // Constructor
 j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
@@ -26,9 +30,13 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	tex = new j1Textures();
 	audio = new j1Audio();
 	scene = new j1Scene();
+	scene_2 = new j1Scene_2();
+	transition = new j1Transition();
+	fade = new j1FadeToBlack();
 	map = new j1Map();
 	player = new j1Player();
 	physics = new j1Physics();
+	
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -38,6 +46,9 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(audio);
 	AddModule(map);
 	AddModule(scene);
+	AddModule(scene_2);
+	AddModule(fade);
+	AddModule(transition);
 	AddModule(player);
 	AddModule(physics);
 
