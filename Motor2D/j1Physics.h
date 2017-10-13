@@ -38,15 +38,16 @@ public:
 
 	void Debug_draw() const;
 
-	void UpdatePhysics(fPoint *position, fPoint *velocity, fPoint *acceleration);
+	void UpdatePhysics(fPoint *position, fPoint *velocity, fPoint *acceleration, Collider* collider);
 
 	Collider* AddCollider(SDL_Rect *rect, const COLLIDER_TYPE type);
 
-	void checkCollisions();
+	void checkCollisions(Collider* object_col);
 
 
 private:
 
+	SDL_Rect* intersection = nullptr;
 
 public:
 

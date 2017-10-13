@@ -129,7 +129,7 @@ bool j1Player::Update(float dt)
 	// Draw everything --------------------------------------
 	AnimationFrame frame = current_animation->GetCurrentFrame();
 
-	App->physics->UpdatePhysics(&position, &velocity, &acceleration);
+	App->physics->UpdatePhysics(&position, &velocity, &acceleration, player_coll);
 
 	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 		position.x -= speed;

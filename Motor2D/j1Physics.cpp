@@ -38,7 +38,6 @@ bool j1Physics::CleanUp()
 
 bool j1Physics::Update(float dt)
 {
-	checkCollisions();
 	Debug_draw();
 	return UPDATE_CONTINUE;
 }
@@ -59,15 +58,19 @@ void j1Physics::Debug_draw() const
 	}
 }
 
-void j1Physics::UpdatePhysics(fPoint * position, fPoint * velocity, fPoint * acceleration)
+void j1Physics::UpdatePhysics(fPoint * position, fPoint * velocity, fPoint * acceleration, Collider* collider)
 {
 
+	checkCollisions(collider);
+	if (intersection) {
+		LOG("YEA");
+	}
 	velocity->y += acceleration->y;
 
 	position->y += velocity->y;
 }
 
-Collider* j1Physics::AddCollider(SDL_Rect *rect,const COLLIDER_TYPE type)
+Collider* j1Physics::AddCollider(SDL_Rect *rect, const COLLIDER_TYPE type)
 {
 	Collider *pCollider = nullptr;
 
@@ -77,35 +80,32 @@ Collider* j1Physics::AddCollider(SDL_Rect *rect,const COLLIDER_TYPE type)
 	return pCollider;
 }
 
-void j1Physics::checkCollisions()
+void j1Physics::checkCollisions(Collider* object_col)
 {
-	p2List_item<Collider*>* collider_iterator_a;
 	p2List_item<Collider*>* collider_iterator_b;
 
 	SDL_Rect* rect_a = nullptr;
 	SDL_Rect* rect_b = nullptr;
 
-	SDL_Rect intersection;
-
 	int col_count = collider_list.count();
 
 	if (col_count > 1) {
-		for (collider_iterator_a = collider_list.start; collider_iterator_a != NULL; collider_iterator_a = collider_iterator_a->next)
+
+		rect_a = object_col->rect;
+
+		for (collider_iterator_b = collider_list.start; collider_iterator_b != NULL; collider_iterator_b = collider_iterator_b->next)
 		{
-			rect_a = collider_iterator_a->data->rect;
+			rect_b = collider_iterator_b->data->rect;
+			if (rect_b != rect_a) {
 
-			for (collider_iterator_b = collider_list.start; collider_iterator_b != NULL; collider_iterator_b = collider_iterator_b->next)
-			{
-				rect_b = collider_iterator_b->data->rect;
-				if (rect_b != rect_a) {
-
-					if (SDL_IntersectRect(rect_a, rect_b, &intersection)) {
-						LOG("YE");
-					}
-				}
+				
+				bool intersect = SDL_IntersectRect(rect_a, rect_b, intersection);
+				LOG("PENE");
 			}
 		}
 	}
+
+
 }
 
 Collider::Collider(SDL_Rect *rectangle, COLLIDER_TYPE type)
