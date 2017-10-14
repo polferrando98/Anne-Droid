@@ -14,15 +14,15 @@
 #include "Animation.h"
 #include "p2Log.h"
 
-j1Player::j1Player() 
+j1Player::j1Player()
 {
 	name.create("player");
 
 	graphics = NULL;
 	current_animation = NULL;
-	
+
 	//idle animation
-	
+
 	idle.PushBack({ 50,16,110,193 });
 	idle.PushBack({ 291,16,110,193 });
 	idle.PushBack({ 532,16,110,193 });
@@ -34,7 +34,7 @@ j1Player::j1Player()
 	idle.PushBack({ 532,16,110,193 });
 	idle.PushBack({ 291,16,110,193 });
 	idle.PushBack({ 50,16,110,193 });
-	
+
 	idle.loop = true;
 	idle.speed = 0.15f;
 
@@ -85,8 +85,9 @@ j1Player::j1Player()
 	velocity.x = 0;
 	velocity.y = 0;
 
+	////GRAVITY
 	acceleration.x = 0;
-	acceleration.y = 0.01;
+	acceleration.y = gravity;
 
 
 	collider_rect.h = 185;
@@ -94,8 +95,7 @@ j1Player::j1Player()
 	collider_rect.x = position.x;
 	collider_rect.y = position.y;
 
-	maxVelocity.x = 2; 
-	maxVelocity.y = 20;
+	maxVelocity.x = 15;
 }
 
 j1Player::~j1Player()
@@ -108,10 +108,9 @@ bool j1Player::Start()
 {
 	current_animation = &idle;
 
-	
+
 	direction = 0;
-	state = IDLE;
-	
+
 	LOG("Loading player textures");
 	graphics = App->tex->Load("textures/player_sprites.png");
 
@@ -137,44 +136,41 @@ bool j1Player::Update(float dt)
 	current_animation = &idle;
 
 	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
-
-<<<<<<< HEAD
-		position.x -= speed;
 		App->player->current_animation = &left;
+		acceleration.x = -acceleration_x;
 	}
-
-	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
-		position.x += speed;
+	else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
 		App->player->current_animation = &right;
-	}
-
-	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) {
-		position.y -= speed;
-		App->player->current_animation = &jump;
-=======
-	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
-	{
-			acceleration.x = -0.1;
-	}
-	else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
-	{
-			acceleration.x = 0.1;
+		acceleration.x = acceleration_x;
 	}
 	else {
+		applyFriction();
+	}
 
->>>>>>> 0f01b21b7ee626f52308fc74ddda022c1d3f03ef
+	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN) {
+		App->player->current_animation = &jump;
+		velocity.y = -jump_speed;
 	}
 
 	//to test if animations work properly
 	if (App->input->GetKey(SDL_SCANCODE_T) == KEY_REPEAT)
 		current_animation = &jump;
-<<<<<<< HEAD
-=======
 	if (App->input->GetKey(SDL_SCANCODE_P) == KEY_REPEAT)
 		current_animation = &right;
 	if (App->input->GetKey(SDL_SCANCODE_G) == KEY_REPEAT)
 		current_animation = &left;
->>>>>>> 0f01b21b7ee626f52308fc74ddda022c1d3f03ef
+
+	if (App->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN)
+		LOG("BREAK!");
+
+	if (velocity.x != 0) {
+		if (velocity.x > maxVelocity.x)
+			velocity.x = maxVelocity.x;
+		else if (velocity.x < -maxVelocity.x)
+			velocity.x = -maxVelocity.x;
+	}
+
+
 
 	player_coll->rect->x = position.x;
 	player_coll->rect->y = position.y;
@@ -182,57 +178,28 @@ bool j1Player::Update(float dt)
 	App->render->Blit(graphics, position.x, position.y, &frame.rect);
 
 	return UPDATE_CONTINUE;
+
 }
 
-void j1Player::checkInput() {
+void j1Player::applyFriction() {
+	if (abs(velocity.x) != 0) {
+		if (velocity.x > 0)
+			acceleration.x = -friction_x;
+		else if (velocity.x < 0)
+			acceleration.x = +friction_x;
 
-	
-		if (App->input->GetKey(SDL_SCANCODE_RIGHT) == j1KeyState::KEY_REPEAT)
-		{
-			state = MOVING_RIGHT | state;
-	
+		if (abs(velocity.x) <= friction_x) {
+			if (velocity.x > 0)
+				acceleration.x = -0.01;
+			else if (velocity.x < 0)
+				acceleration.x = +0.01;
+
+			if (abs(velocity.x) < 0.01) {
+				if (velocity.x > 0)
+					acceleration.x = -0.001;
+				else if (velocity.x < 0)
+					acceleration.x = +0.001;
+			}
 		}
-
-		if (App->input->GetKey(SDL_SCANCODE_LEFT) == j1KeyState::KEY_REPEAT)
-		{
-			state = MOVING_LEFT | state;
-		
-		}
-
-}
-
-void j1Player::processInput() {
-
-	switch (state) {
-
-
-	case MOVING_RIGHT:
-
-		direction = 90;
-		current_animation = &right;
-		break;
-
-	case MOVING_LEFT:
-
-		direction = 270;
-		current_animation = &left;
-		break;
-
-	
-
 	}
 }
-
-	PLAYER_STATE operator |(PLAYER_STATE p, PLAYER_STATE s) {
-		PLAYER_STATE ret = static_cast<PLAYER_STATE>((int)p | (int)s);
-		return ret;
-	}
-
-	iPoint toiPoint(fPoint a) {
-		return{ (int)a.x, (int)a.y };
-	}
-
-	fPoint tofPoint(iPoint a) {
-		return{ (float)a.x, (float)a.y };
-	}
-

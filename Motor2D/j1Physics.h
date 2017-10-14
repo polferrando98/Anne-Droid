@@ -43,7 +43,7 @@ public:
 	Collider* AddCollider(SDL_Rect *rect, const COLLIDER_TYPE type);
 
 	bool checkCollisions(Collider* object_col);
-	bool checkCollisions(Collider* object_col, char axis); //HARDCODE
+
 
 
 private:

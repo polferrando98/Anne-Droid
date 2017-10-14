@@ -14,18 +14,6 @@ class _Mix_Music;
 typedef _Mix_Music Mix_Music;
 struct Collider;
 
-enum PLAYER_STATE : int {
-	IDLE = 0,
-	JUMP = 1,
-	MOVING_RIGHT = 2,
-	MOVING_LEFT = 3,
-	DEAD = -1
-};
-
-PLAYER_STATE operator |(PLAYER_STATE p, PLAYER_STATE s);
-
-fPoint tofPoint(iPoint a);
-iPoint toiPoint(fPoint a);
 
 class j1Player : public j1Module
 {
@@ -37,7 +25,8 @@ public:
 	bool CleanUp();
 	bool Update(float dt);
 
-	PLAYER_STATE state = IDLE;
+	void applyFriction();
+
 	fPoint position;
 	fPoint velocity;
 	fPoint acceleration;
@@ -45,7 +34,10 @@ public:
 	
 	//HARDCODE
 	fPoint maxVelocity;
-	float friction_x = 0.1;
+	float friction_x = 0.5;
+	float acceleration_x = 0.3;
+	float gravity = 0.3;
+	float jump_speed = 15;
 
 private:
 	SDL_Texture* graphics = nullptr;
@@ -61,9 +53,6 @@ private:
 	int direction;
 
 	SDL_Rect collider_rect;
-
-	void checkInput();
-	void processInput();
 };
 
 
