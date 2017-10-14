@@ -25,7 +25,8 @@ public:
 	bool CleanUp();
 	bool Update(float dt);
 
-	void applyFriction();
+	void ApplyFriction();
+	void ApplyMaxVelocity();
 
 	fPoint position;
 	fPoint velocity;

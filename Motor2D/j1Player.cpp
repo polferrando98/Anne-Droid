@@ -144,7 +144,7 @@ bool j1Player::Update(float dt)
 		acceleration.x = acceleration_x;
 	}
 	else {
-		applyFriction();
+		ApplyFriction();
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN) {
@@ -163,14 +163,9 @@ bool j1Player::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN)
 		LOG("BREAK!");
 
-	if (velocity.x != 0) {
-		if (velocity.x > maxVelocity.x)
-			velocity.x = maxVelocity.x;
-		else if (velocity.x < -maxVelocity.x)
-			velocity.x = -maxVelocity.x;
-	}
 
 
+	ApplyMaxVelocity();
 
 	player_coll->rect->x = position.x;
 	player_coll->rect->y = position.y;
@@ -181,7 +176,7 @@ bool j1Player::Update(float dt)
 
 }
 
-void j1Player::applyFriction() {
+void j1Player::ApplyFriction() {
 	if (abs(velocity.x) != 0) {
 		if (velocity.x > 0)
 			acceleration.x = -friction_x;
@@ -201,5 +196,15 @@ void j1Player::applyFriction() {
 					acceleration.x = +0.001;
 			}
 		}
+	}
+}
+
+void j1Player::ApplyMaxVelocity()
+{
+	if (velocity.x != 0) {
+		if (velocity.x > maxVelocity.x)
+			velocity.x = maxVelocity.x;
+		else if (velocity.x < -maxVelocity.x)
+			velocity.x = -maxVelocity.x;
 	}
 }

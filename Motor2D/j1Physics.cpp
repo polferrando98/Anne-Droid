@@ -64,10 +64,6 @@ void j1Physics::UpdatePhysics(fPoint * position, fPoint * velocity, fPoint * acc
 	bool colliding_x = false;
 	bool colliding_y = false;
 
-	//for some reason this does not work
-	//fPoint newVelocity = *velocity + *acceleration;
-	//fPoint newPosition = *position + newVelocity;
-
 	fPoint newVelocity;
 	fPoint newPosition;
 	fPoint pos_differential;
@@ -76,11 +72,13 @@ void j1Physics::UpdatePhysics(fPoint * position, fPoint * velocity, fPoint * acc
 	newPosition.x = position->x + newVelocity.x;
 	newCollider.rect->x = newPosition.x;
 	pos_differential.x = newPosition.x - position->x;
-
+	
 	if (pos_differential.x != 0) {
 		if (checkCollisions(&newCollider))
 			colliding_x = true;
 	}
+
+	newCollider.rect->x = position->x;
 
 	newVelocity.y = velocity->y + acceleration->y;
 	newPosition.y = position->y + newVelocity.y;
@@ -92,16 +90,20 @@ void j1Physics::UpdatePhysics(fPoint * position, fPoint * velocity, fPoint * acc
 			colliding_y = true;
 	}
 
-
-
-
 	if (!colliding_y) {
 		velocity->y += acceleration->y;
 		position->y += velocity->y;
 	}
+	else {
+		velocity->y = 0;
+	}
+
 	if (!colliding_x) {
 		velocity->x += acceleration->x;
 		position->x += velocity->x;
+	}
+	else {
+		velocity->x = 0;
 	}
 }
 
