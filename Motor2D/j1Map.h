@@ -6,7 +6,10 @@
 #include "p2Point.h"
 #include "j1Module.h"
 
-// TODO 1: Create a struct for the map layer
+enum ObjectTypes {
+	OBJECT_TYPE_UNKNOWN = 0,
+	OBJECT_TYPE_GROUND
+};
 struct Layer {
 	p2SString name;
 	uint width;
@@ -15,7 +18,18 @@ struct Layer {
 	~Layer() { RELEASE(data) };
 };
 
-// ----------------------------------------------------
+struct objectGroup {
+	p2SString name;
+};
+
+struct object {
+	uint id;
+	ObjectTypes type;
+	int x;
+	int y;
+	int w;
+	int h;
+};
 
 	// TODO 6: Short function to get the value of x,y
 inline void ToRowsAndCols(int *x, int *y)  {
@@ -25,10 +39,6 @@ inline void ToRowsAndCols(int *x, int *y)  {
 	*x = column;
 	*y = row;
 }
-
-
-
-
 
 // ----------------------------------------------------
 struct TileSet

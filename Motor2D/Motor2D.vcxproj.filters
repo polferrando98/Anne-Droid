@@ -143,5 +143,13 @@
     <Filter Include="Desenvolupament  ========\Tools\PuguiXML">
       <UniqueIdentifier>{7cb78d67-17cc-45eb-af97-e2106becce7b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Desenvolupament  ========\Data">
+      <UniqueIdentifier>{09c42b9d-cdc4-4a7d-a5c1-f3df50ad86e3}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Game\maps\level_1.tmx">
+      <Filter>Desenvolupament  ========\Data</Filter>
+    </None>
   </ItemGroup>
 </Project>
