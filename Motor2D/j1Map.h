@@ -10,19 +10,8 @@ enum ObjectTypes {
 	OBJECT_TYPE_UNKNOWN = 0,
 	OBJECT_TYPE_GROUND
 };
-struct Layer {
-	p2SString name;
-	uint width;
-	uint height;
-	uint* data = nullptr;
-	~Layer() { RELEASE(data) };
-};
 
-struct objectGroup {
-	p2SString name;
-};
-
-struct object {
+struct Object {
 	uint id;
 	ObjectTypes type;
 	int x;
@@ -30,6 +19,21 @@ struct object {
 	int w;
 	int h;
 };
+
+struct Layer {
+	p2SString			name;
+	uint				width;
+	uint				height;
+	uint*				data = nullptr;
+	~Layer() { RELEASE(data) };
+};
+
+struct ObjectGroup {
+	p2SString			name;
+	p2List<Object*>		objects;
+};
+
+
 
 	// TODO 6: Short function to get the value of x,y
 inline void ToRowsAndCols(int *x, int *y)  {
@@ -79,6 +83,7 @@ struct MapData
 	MapTypes			type;
 	p2List<TileSet*>	tilesets;
 	p2List<Layer*>		layers;
+	ObjectGroup			objectGroup;
 	// TODO 2: Add a list/array of layers to the map!
 	
 };
@@ -99,11 +104,12 @@ public:
 	// Called each loop iteration
 	void Draw();
 
+
 	// Called before quitting
 	bool CleanUp();
 
 	// Load new map
-	bool Load(const char* path);
+	MapData* Load(const char* path);
 
 	// TODO 8: Create a method that translates x,y coordinates from map positions to world positions
 	iPoint MapToWorld(int x, int y) const;
@@ -114,6 +120,8 @@ private:
 	bool LoadTilesetDetails(pugi::xml_node& tileset_node, TileSet* set);
 	bool LoadLayer(pugi::xml_node& node, Layer* layer);
 	bool LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set);
+	bool LoadObjectGroup(pugi::xml_node& group_node, ObjectGroup* object_grup);
+	bool LoadObject(pugi::xml_node& object_node, Object* object);
 
 	void Get_pixels_from_tiles(int x, int y, int* dest_x, int* dest_y)
 	{

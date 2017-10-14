@@ -4,6 +4,7 @@
 #include "j1Render.h"
 #include "j1Textures.h"
 #include "j1Map.h"
+#include "j1Physics.h"
 #include <math.h>
 
 
@@ -32,8 +33,6 @@ void j1Map::Draw()
 	if (map_loaded == false)
 		return;
 
-	// TODO 5: Prepare the loop to draw all tilesets + Blit
-	
 	for (p2List_item<Layer*> *layer_iterator = data.layers.At(0); layer_iterator; layer_iterator = layer_iterator->next)
 	{
 		int tile_num = 0;
@@ -58,19 +57,10 @@ void j1Map::Draw()
 
 				App->render->Blit(data.tilesets.At(0)->data->texture, real_col, real_row, &data.tilesets.At(0)->data->GetTileRect(id));
 				tile_num++;
-			
 			}
 		}
-
-
-		// TODO 9: Complete the draw function
 	}
 }
-
-
-
-	// TODO 9: Complete the draw function
-
 
 
 iPoint j1Map::MapToWorld(int x, int y) const
@@ -129,7 +119,7 @@ bool j1Map::CleanUp()
 }
 
 // Load new map
-bool j1Map::Load(const char* file_name)
+MapData* j1Map::Load(const char* file_name)
 {
 	bool ret = true;
 	p2SString tmp("%s%s", folder.GetString(), file_name);
@@ -180,9 +170,15 @@ bool j1Map::Load(const char* file_name)
 		}
 
 		data.layers.add(layer);
-
-
 	}
+
+	pugi::xml_node object_group_node;
+	object_group_node = map_file.child("map").child("objectgroup");
+
+	if (ret == true)
+		ret = LoadObjectGroup(object_group_node, &data.objectGroup);
+
+
 
 	if(ret == true)
 	{
@@ -217,7 +213,8 @@ bool j1Map::Load(const char* file_name)
 
 	map_loaded = ret;
 
-	return ret;
+	if (ret)
+		return &data;
 }
 
 // Load map general properties
@@ -344,6 +341,48 @@ bool j1Map::LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set)
 	}
 
 	return ret;
+}
+
+bool j1Map::LoadObjectGroup(pugi::xml_node & group_node, ObjectGroup * object_grup)
+{
+	bool ret = true;
+
+	object_grup->name = group_node.attribute("name").as_string();
+
+	pugi::xml_node object_node;
+
+	Object *object = new Object();
+
+	
+	for (object_node = group_node.first_child(); object_node; object_node = object_node.next_sibling()) {
+		LoadObject(object_node,object);
+		object_grup->objects.add(object);
+	}
+
+	return ret;
+}
+
+bool j1Map::LoadObject(pugi::xml_node & object_node, Object * object)
+{
+	bool ret = true;
+	object->id = object_node.attribute("if").as_int();
+	p2SString object_type(object_node.attribute("type").as_string());
+
+	if (object_type == "ground")
+	{
+		object->type = OBJECT_TYPE_GROUND;
+	}
+	else
+	{
+		object->type = OBJECT_TYPE_UNKNOWN;
+	}
+
+	object->x = object_node.attribute("x").as_int();
+	object->y = object_node.attribute("y").as_int();
+	object->w = object_node.attribute("width").as_int();
+	object->h = object_node.attribute("height").as_int();
+
+	return true;
 }
 
 // TODO 3: Create the definition for a function that loads a single layer

@@ -3,6 +3,7 @@
 
 #include "j1Module.h"
 #include "j1Physics.h"
+#include "j1Map.h"
 
 struct SDL_Texture;
 
@@ -32,9 +33,15 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+	void PlaceColliders();
+
+	MapData* current_map;
+
 	//HARDCODE
 
 	Collider* col1;
+
+	p2List<SDL_Rect>* col_rects;
 
 	SDL_Rect col_rect;
 	SDL_Rect col_rect2;
