@@ -31,16 +31,23 @@ bool j1Scene::Awake()
 // Called before the first frame
 bool j1Scene::Start()
 {
+<<<<<<< HEAD
 	App->map->Load("level_1.tmx");
 	App->audio->PlayMusic("audio/music/anne-droid-music.ogg");
+=======
+	current_map = App->map->Load("level_1.tmx");
+>>>>>>> cf48062ae70543736088c7656c9260d27f5802ca
 
 	///////////////////////HARDCODE
 
-	col_rect = { 0, 3280, 10000, 10000 };
-	col_rect2 = { 1000, 3080, 10000, 10000 };
+	//col_rect = { 0, 3280, 10000, 10000 };
+	//col_rect2 = { 1000, 3080, 10000, 10000 };
 
 	//col1 = App->physics->AddCollider(&col_rect, COLLIDER_TYPE::WALL);
 	//col1 = App->physics->AddCollider(&col_rect2, COLLIDER_TYPE::WALL);
+
+	//PlaceColliders();
+	App->map->PlaceColliders();
 	
 	return true;
 }
@@ -80,6 +87,7 @@ bool j1Scene::Update(float dt)
 
 	App->map->Draw();
 
+
 	p2SString title("Map:%dx%d Tiles:%dx%d Tilesets:%d",
 					App->map->data.width, App->map->data.height,
 					App->map->data.tile_width, App->map->data.tile_height,
@@ -106,4 +114,24 @@ bool j1Scene::CleanUp()
 	LOG("Freeing scene");
 
 	return true;
+}
+
+void j1Scene::PlaceColliders()
+{
+	ObjectGroup object_group = current_map->objectGroup;
+	p2List_item<Object*>* collider_object;
+	p2List_item<SDL_Rect>* rect_item;
+	SDL_Rect Rect;
+	
+	for (collider_object = object_group.objects.start; collider_object; collider_object = collider_object->next) {
+		Rect.x = collider_object->data->x;
+		Rect.y = collider_object->data->y;
+		Rect.w = collider_object->data->x;
+		Rect.h = collider_object->data->x;
+		
+		col_rects->add(Rect);
+
+		App->physics->AddCollider(&col_rects->end->data, WALL);
+	}
+
 }

@@ -37,7 +37,7 @@ bool j1Scene_2::Start()
 
 	col_rect = { 0, 3280, 10000, 10000 };
 
-	col1 = App->physics->AddCollider(&col_rect, COLLIDER_TYPE::WALL);
+	//col1 = App->physics->AddCollider(col_rect, COLLIDER_TYPE::WALL);
 
 	return true;
 }

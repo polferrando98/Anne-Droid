@@ -153,6 +153,7 @@ bool j1Player::Update(float dt)
 	// Draw everything --------------------------------------
 	AnimationFrame frame = current_animation->GetCurrentFrame();
 
+
 	App->physics->UpdatePhysics(&position, &velocity, &acceleration, player_coll);
 	current_animation = &idle;
 
@@ -197,11 +198,17 @@ bool j1Player::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN)
 		LOG("BREAK!");
 
+<<<<<<< HEAD
+=======
+	
+
+
+>>>>>>> cf48062ae70543736088c7656c9260d27f5802ca
 	ApplyMaxVelocity();
 
-	player_coll->rect->x = position.x;
-	player_coll->rect->y = position.y;
 
+
+	player_coll->UpdatePosition(&position);
 	App->render->Blit(graphics, position.x, position.y, &frame.rect);
 
 	return UPDATE_CONTINUE;
