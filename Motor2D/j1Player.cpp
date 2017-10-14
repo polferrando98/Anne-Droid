@@ -160,13 +160,16 @@ bool j1Player::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
 		App->player->current_animation = &left;
 		acceleration.x = -acceleration_x;
+
 		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
 		{
 			velocity.y = -jump_speed;
 			acceleration.y = gravity;
 			acceleration.x = 0;
 			App->player->current_animation = &jump_left;
+
 		}
+		
 	}
 	else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
 		App->player->current_animation = &right;
@@ -177,10 +180,12 @@ bool j1Player::Update(float dt)
 			acceleration.y = gravity;
 			acceleration.x = 0;
 			App->player->current_animation = &jump;
+			
 		}
 	}
 	
 	else if (current_animation = &idle) {
+		ApplyFriction();
 		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
 		{
 			velocity.y = -jump_speed;
@@ -190,9 +195,9 @@ bool j1Player::Update(float dt)
 		}
 	}
 
-	else {
-		ApplyFriction();
-	}
+	
+	
+	
 
 	
 	if (App->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN)
