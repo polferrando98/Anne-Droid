@@ -38,7 +38,7 @@ j1Player::j1Player()
 	idle.loop = true;
 	idle.speed = 0.15f;
 
-
+	//right jump
 	jump.PushBack({ 64, 507, 115, 186 });
 	jump.PushBack({ 292, 505, 131, 193 });
 	jump.PushBack({ 520, 504, 136, 180 });
@@ -53,6 +53,25 @@ j1Player::j1Player()
 	jump.loop = true;
 	jump.speed = 0.15f;
 
+	//left jump
+
+	jump_left.PushBack({ 60,1530,154,190 });
+	jump_left.PushBack({ 299,1530,153,165 });
+	jump_left.PushBack({549,1530,141,172 });
+	jump_left.PushBack({ 793,1529,137,178 });
+	jump_left.PushBack({ 1032,1529,136,180 });
+	jump_left.PushBack({ 1265,1530,131,193 });
+	jump_left.PushBack({ 1509,1532,115,186 });
+
+
+	jump_left.PushBack({ 1020,1772,132,198 });
+	jump_left.PushBack({ 1226,1771,142,200 });
+	jump_left.PushBack({1509,1771,154,189});
+	
+	jump_left.loop = true;
+	jump_left.speed = 0.15f;
+
+	
 
 	right.PushBack({ 58, 985, 103, 195 });
 	right.PushBack({ 289, 986, 103, 198 });
@@ -71,9 +90,11 @@ j1Player::j1Player()
 	left.PushBack({ 1259, 1246, 131, 186 });
 	left.PushBack({ 1031, 1245, 124, 192 });
 	left.PushBack({ 780, 1245, 119, 192 });
-	left.PushBack({ 533, 1245, 135, 200 });
-	left.PushBack({ 293, 1246, 147, 189 });
 	left.PushBack({ 58, 1247, 126, 191 });
+	left.PushBack({ 293, 1246, 147, 189 });
+	left.PushBack({ 533, 1245, 135, 200 });
+	
+	
 
 	left.loop = true;
 	left.speed = 0.12f;
@@ -138,32 +159,43 @@ bool j1Player::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
 		App->player->current_animation = &left;
 		acceleration.x = -acceleration_x;
+		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
+		{
+			velocity.y = -jump_speed;
+			acceleration.y = gravity;
+			acceleration.x = 0;
+			App->player->current_animation = &jump_left;
+		}
 	}
 	else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
 		App->player->current_animation = &right;
 		acceleration.x = acceleration_x;
+		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
+		{
+			velocity.y = -jump_speed;
+			acceleration.y = gravity;
+			acceleration.x = 0;
+			App->player->current_animation = &jump;
+		}
 	}
+	
+	else if (current_animation = &idle) {
+		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
+		{
+			velocity.y = -jump_speed;
+			acceleration.y = gravity;
+			acceleration.x = 0;
+			App->player->current_animation = &jump;
+		}
+	}
+
 	else {
 		ApplyFriction();
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN) {
-		App->player->current_animation = &jump;
-		velocity.y = -jump_speed;
-	}
-
-	//to test if animations work properly
-	if (App->input->GetKey(SDL_SCANCODE_T) == KEY_REPEAT)
-		current_animation = &jump;
-	if (App->input->GetKey(SDL_SCANCODE_P) == KEY_REPEAT)
-		current_animation = &right;
-	if (App->input->GetKey(SDL_SCANCODE_G) == KEY_REPEAT)
-		current_animation = &left;
-
+	
 	if (App->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN)
 		LOG("BREAK!");
-
-
 
 	ApplyMaxVelocity();
 

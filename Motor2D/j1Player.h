@@ -37,6 +37,7 @@ public:
 	fPoint maxVelocity;
 	float friction_x = 0.5;
 	float acceleration_x = 0.3;
+	float acceleration_y = 0.5;
 	float gravity = 0.3;
 	float jump_speed = 15;
 
@@ -45,6 +46,7 @@ private:
 	Animation* current_animation = nullptr;
 	Animation idle;
 	Animation jump;
+	Animation jump_left;
 	Animation left;
 	Animation right;
 
