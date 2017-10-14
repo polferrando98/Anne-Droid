@@ -31,12 +31,12 @@ bool j1Scene::Awake()
 // Called before the first frame
 bool j1Scene::Start()
 {
-<<<<<<< HEAD
+
 	App->map->Load("level_1.tmx");
 	App->audio->PlayMusic("audio/music/anne-droid-music.ogg");
-=======
+
 	current_map = App->map->Load("level_1.tmx");
->>>>>>> cf48062ae70543736088c7656c9260d27f5802ca
+
 
 	///////////////////////HARDCODE
 

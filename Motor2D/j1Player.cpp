@@ -198,12 +198,6 @@ bool j1Player::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN)
 		LOG("BREAK!");
 
-<<<<<<< HEAD
-=======
-	
-
-
->>>>>>> cf48062ae70543736088c7656c9260d27f5802ca
 	ApplyMaxVelocity();
 
 
