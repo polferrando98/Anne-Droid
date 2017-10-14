@@ -103,6 +103,7 @@ public:
 
 	// Called each loop iteration
 	void Draw();
+	void PlaceColliders();
 
 
 	// Called before quitting

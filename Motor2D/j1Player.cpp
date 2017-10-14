@@ -171,8 +171,7 @@ bool j1Player::Update(float dt)
 
 
 
-	player_coll->rect->x = position.x;
-	player_coll->rect->y = position.y;
+	player_coll->UpdatePosition(&position);
 	App->render->Blit(graphics, position.x, position.y, &frame.rect);
 
 	return UPDATE_CONTINUE;

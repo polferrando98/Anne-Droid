@@ -12,7 +12,8 @@ enum COLLIDER_TYPE {PLAYER, WALL};
 
 struct Collider{
 	Collider(SDL_Rect *rectangle, COLLIDER_TYPE type);
-	SDL_Rect *rect;
+	void UpdatePosition(fPoint* newPos);
+	SDL_Rect rect;
 	COLLIDER_TYPE type;
 	bool visble;
 };
@@ -43,6 +44,8 @@ public:
 	Collider* AddCollider(SDL_Rect *rect, const COLLIDER_TYPE type);
 
 	bool checkCollisions(Collider* object_col);
+
+	bool rectsAreEqual(SDL_Rect rect_a, SDL_Rect rect_b);
 
 
 

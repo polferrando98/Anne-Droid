@@ -35,13 +35,14 @@ bool j1Scene::Start()
 
 	///////////////////////HARDCODE
 
-	col_rect = { 0, 3280, 10000, 10000 };
-	col_rect2 = { 1000, 3080, 10000, 10000 };
+	//col_rect = { 0, 3280, 10000, 10000 };
+	//col_rect2 = { 1000, 3080, 10000, 10000 };
 
-	col1 = App->physics->AddCollider(&col_rect, COLLIDER_TYPE::WALL);
-	col1 = App->physics->AddCollider(&col_rect2, COLLIDER_TYPE::WALL);
+	//col1 = App->physics->AddCollider(&col_rect, COLLIDER_TYPE::WALL);
+	//col1 = App->physics->AddCollider(&col_rect2, COLLIDER_TYPE::WALL);
 
 	//PlaceColliders();
+	App->map->PlaceColliders();
 	
 	return true;
 }
@@ -80,6 +81,7 @@ bool j1Scene::Update(float dt)
 	App->render->camera.y = -App->player->position.y + h/2;
 
 	App->map->Draw();
+
 
 	p2SString title("Map:%dx%d Tiles:%dx%d Tilesets:%d",
 					App->map->data.width, App->map->data.height,

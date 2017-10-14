@@ -53,7 +53,7 @@ void j1Physics::Debug_draw() const
 		pCollider = collider_iterator->data;
 
 		if (pCollider->visble) {
-			App->render->DrawQuad(*pCollider->rect, 0, 255, 0, alpha, true, true);
+			App->render->DrawQuad(pCollider->rect, 0, 255, 0, alpha, true, true);
 		}
 	}
 }
@@ -70,7 +70,7 @@ void j1Physics::UpdatePhysics(fPoint * position, fPoint * velocity, fPoint * acc
 
 	newVelocity.x = velocity->x + acceleration->x;
 	newPosition.x = position->x + newVelocity.x;
-	newCollider.rect->x = newPosition.x;
+	newCollider.rect.x = newPosition.x;
 	pos_differential.x = newPosition.x - position->x;
 	
 	if (pos_differential.x != 0) {
@@ -78,11 +78,11 @@ void j1Physics::UpdatePhysics(fPoint * position, fPoint * velocity, fPoint * acc
 			colliding_x = true;
 	}
 
-	newCollider.rect->x = position->x;
+	newCollider.rect.x = position->x;
 
 	newVelocity.y = velocity->y + acceleration->y;
 	newPosition.y = position->y + newVelocity.y;
-	newCollider.rect->y = newPosition.y;
+	newCollider.rect.y = newPosition.y;
 	pos_differential.y = newPosition.y - position->y;
 
 	if (pos_differential.y != 0) {
@@ -121,8 +121,8 @@ bool j1Physics::checkCollisions(Collider* object_col)
 {
 	p2List_item<Collider*>* collider_iterator_b;
 
-	SDL_Rect* rect_a = nullptr;
-	SDL_Rect* rect_b = nullptr;
+	SDL_Rect rect_a;
+	SDL_Rect rect_b;
 
 	int col_count = collider_list.count();
 
@@ -131,22 +131,44 @@ bool j1Physics::checkCollisions(Collider* object_col)
 
 	for (collider_iterator_b = collider_list.start; collider_iterator_b != NULL; collider_iterator_b = collider_iterator_b->next)
 	{
-		rect_b = collider_iterator_b->data->rect;
+		if (collider_iterator_b->data->type == !PLAYER) {  //HARDCODE
+			rect_b = collider_iterator_b->data->rect;
 
-		if (rect_b != rect_a) {
-			bool intersect = SDL_IntersectRect(rect_a, rect_b, &intersection);
-			if (intersect)
-				return true;
+			if (!rectsAreEqual(rect_a, rect_b)) {
+				bool intersect = SDL_IntersectRect(&rect_a, &rect_b, &intersection);
+				if (intersect)
+					return true;
+			}
 		}
 	}
 
 	return false;
 }
 
+bool j1Physics::rectsAreEqual(SDL_Rect rect_a, SDL_Rect rect_b)
+{
+	bool ret = true;
+	if (rect_a.x != rect_b.x)
+		ret = false;
+	if (rect_a.y != rect_b.y)
+		ret = false;
+	if (rect_a.w != rect_b.w)
+		ret = false;
+	if (rect_a.h != rect_b.h)
+		ret = false;
+	return ret;
+}
+
 
 Collider::Collider(SDL_Rect *rectangle, COLLIDER_TYPE type)
 {
-	this->rect = rectangle;
+	this->rect = *rectangle;
 	visble = true;
 	this->type = type;
+}
+
+void Collider::UpdatePosition(fPoint *newPos)
+{
+	rect.x = (int)newPos->x;
+	rect.y = (int)newPos->y;
 }

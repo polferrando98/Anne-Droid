@@ -62,6 +62,24 @@ void j1Map::Draw()
 	}
 }
 
+void j1Map::PlaceColliders()
+{
+	SDL_Rect col_rect;
+
+	p2List_item<Object*>* object_iterator;
+
+	for (object_iterator = data.objectGroup.objects.start; object_iterator; object_iterator = object_iterator->next) {
+
+		col_rect.x = object_iterator->data->x;
+		col_rect.y = object_iterator->data->y;
+		col_rect.w = object_iterator->data->w;
+		col_rect.h = object_iterator->data->h;
+
+
+		App->physics->AddCollider(&col_rect, WALL);
+	}
+}
+
 
 iPoint j1Map::MapToWorld(int x, int y) const
 {
@@ -351,10 +369,11 @@ bool j1Map::LoadObjectGroup(pugi::xml_node & group_node, ObjectGroup * object_gr
 
 	pugi::xml_node object_node;
 
-	Object *object = new Object();
+
 
 	
 	for (object_node = group_node.first_child(); object_node; object_node = object_node.next_sibling()) {
+		Object *object = new Object();
 		LoadObject(object_node,object);
 		object_grup->objects.add(object);
 	}
@@ -362,10 +381,10 @@ bool j1Map::LoadObjectGroup(pugi::xml_node & group_node, ObjectGroup * object_gr
 	return ret;
 }
 
-bool j1Map::LoadObject(pugi::xml_node & object_node, Object * object)
+bool j1Map::LoadObject(pugi::xml_node &object_node, Object *object)
 {
 	bool ret = true;
-	object->id = object_node.attribute("if").as_int();
+	object->id = object_node.attribute("id").as_int();
 	p2SString object_type(object_node.attribute("type").as_string());
 
 	if (object_type == "ground")
