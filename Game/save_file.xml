@@ -8,10 +8,10 @@
 	<map />
 	<scene />
 	<player>
-		<player x="-554.967773" y="11558" />
+		<player x="1073.77124" y="3138.5" />
 	</player>
 	<physics />
 	<renderer>
-		<camera x="895" y="-11059" />
+		<camera x="-732" y="-2754" />
 	</renderer>
 </save>
