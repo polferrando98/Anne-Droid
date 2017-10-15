@@ -5,6 +5,7 @@
 #include "j1Textures.h"
 #include "j1Map.h"
 #include "j1Physics.h"
+#include "j1Player.h"
 #include <math.h>
 
 
@@ -96,6 +97,8 @@ void j1Map::PlaceColliders()
 			case OBJECT_TYPE_PLAYER:
 				data.player_start_position.x = col_rect.x;
 				data.player_start_position.y = col_rect.y;
+				App->player->createCol(&col_rect);
+
 				break;
 			default:
 				break;
@@ -141,7 +144,7 @@ bool j1Map::CleanUp()
 	}
 	data.tilesets.clear();
 
-	// TODO 2: clean up all layer data
+	// Clean up all layer data
 	p2List_item<Layer*>* item_layer;
 	item_layer = data.layers.start;
 
@@ -153,6 +156,23 @@ bool j1Map::CleanUp()
 	data.tilesets.clear();
 	// Remove all layers
 	data.layers.clear();
+
+	// Clean up Objects
+	p2List_item<Object*>* item_object;
+	p2List_item<ObjectGroup*>* item_objectGroup = data.objectGroups.start;
+	item_object = data.objectGroups.start->data->objects.start;
+
+	while (item_object != NULL)
+	{
+		if (item_object->data != NULL)
+			RELEASE(item_object->data);
+		if (item_object->next != NULL)
+			item_object = item_object->next;
+		else
+			break;
+	}
+
+	data.objectGroups.clear();
 
 	// Clean up the pugui tree
 	map_file.reset();

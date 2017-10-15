@@ -32,6 +32,16 @@ bool j1Physics::Awake(pugi::xml_node& config)
 
 bool j1Physics::CleanUp()
 {
+
+	p2List_item<Collider*>* item_collider;
+	item_collider = collider_list.start;
+
+	while (item_collider != NULL)
+	{
+		RELEASE(item_collider->data);
+		item_collider = item_collider->next;
+	}
+
 	collider_list.clear();
 	return true;
 }

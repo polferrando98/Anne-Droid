@@ -111,13 +111,6 @@ j1Player::j1Player()
 	left.PushBack({ 530, 1245, 133, 201 });
 	left.PushBack({ 294, 1245, 146, 189 });
 	left.PushBack({ 60, 1245, 127, 190 });
-	
-	
-	
-	
-	
-	
-	
 
 	left.loop = true;
 	left.speed = 0.12f;
@@ -148,12 +141,7 @@ j1Player::j1Player()
 	acceleration.y = gravity;
 
 
-	collider_rect.h = 185;
-	collider_rect.w = 100;
-	collider_rect.x = position.x;
-	collider_rect.y = position.y;
-
-	maxVelocity.x = 15;
+	maxVelocity.x = 25;
 }
 
 j1Player::~j1Player()
@@ -174,8 +162,6 @@ bool j1Player::Start()
 
 	LOG("Loading player textures");
 	graphics = App->tex->Load("textures/player_sprites.png");
-
-	player_coll = App->physics->AddCollider(&collider_rect, COLLIDER_TYPE::PLAYER);
 
 	return true;
 }
@@ -316,4 +302,9 @@ void j1Player::ApplyMaxVelocity()
 		else if (velocity.x < -maxVelocity.x)
 			velocity.x = -maxVelocity.x;
 	}
+}
+
+void j1Player::createCol(SDL_Rect* Rect)
+{
+	player_coll = App->physics->AddCollider(Rect, COLLIDER_TYPE::PLAYER);
 }
