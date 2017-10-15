@@ -64,7 +64,7 @@ void j1Physics::Debug_draw() const
 	{
 		pCollider = collider_iterator->data;
 
-		
+
 		if (pCollider->visble) {
 			switch (pCollider->type)
 			{
@@ -94,50 +94,59 @@ void j1Physics::UpdatePlayerPhysics(fPoint * position, fPoint * velocity, fPoint
 
 void j1Physics::checkWallCollisions(fPoint * position, fPoint * velocity, fPoint * acceleration, Collider* collider)
 {
-		Collider newCollider = *collider;
-	bool colliding_x = false;
-	bool colliding_y = false;
-
+	Collider newCollider = *collider;
+	DIRECTION_X col_direction_x = NONE_X;
+	DIRECTION_Y col_direction_y = NONE_Y;
 	fPoint newVelocity;
 	fPoint newPosition;
 	fPoint pos_differential;
 
+	//The idea is to go one axis at a time
+
+	//X_AXIS
 	newVelocity.x = velocity->x + acceleration->x;
 	newPosition.x = position->x + newVelocity.x;
 	newCollider.rect.x = newPosition.x;
 	pos_differential.x = newPosition.x - position->x;
-	
-	if (pos_differential.x != 0) {
-		if (checkColliders(&newCollider,WALL))
-			colliding_x = true;
+
+	if (checkColliders(&newCollider, WALL)) {
+		if (pos_differential.x > 0)
+			col_direction_x = RIGHT;
+		if (pos_differential.x < 0)
+			col_direction_x = LEFT;
+	}
+
+	if (col_direction_x == RIGHT || col_direction_x == LEFT) {
+		velocity->x = 0;
 	}
 
 	newCollider.rect.x = position->x;
 
+	if (col_direction_x != RIGHT && col_direction_x != LEFT) {
+		velocity->x += acceleration->x;
+		position->x += velocity->x;
+	}
+
+	//Y_AXIS
 	newVelocity.y = velocity->y + acceleration->y;
 	newPosition.y = position->y + newVelocity.y;
 	newCollider.rect.y = newPosition.y;
 	pos_differential.y = newPosition.y - position->y;
 
-	if (pos_differential.y != 0) {
-		if (checkColliders(&newCollider,WALL))
-			colliding_y = true;
+	if (checkColliders(&newCollider, WALL)) {
+		if (pos_differential.y > 0)
+			col_direction_y = DOWN;
+		if (pos_differential.y < 0)
+			col_direction_y = UP;
 	}
-	
-	if (!colliding_y) {
-		velocity->y += acceleration->y;
-		position->y += velocity->y;
-	}
-	else {
+
+	if (col_direction_y == UP || col_direction_y == DOWN) {
 		velocity->y = 0;
 	}
 
-	if (!colliding_x) {
-		velocity->x += acceleration->x;
-		position->x += velocity->x;
-	}
-	else {
-		velocity->x = 0;
+	if (col_direction_y != UP && col_direction_y != DOWN) {
+		velocity->y += acceleration->y;
+		position->y += velocity->y;
 	}
 }
 
@@ -241,13 +250,6 @@ bool j1Physics::rectsAreEqual(SDL_Rect rect_a, SDL_Rect rect_b)
 		ret = false;
 	return ret;
 }
-
-DIRECTION j1Physics::getDirectionFromIntersection(Collider* source)
-{
-	
-	return DIRECTION();
-}
-
 
 Collider::Collider(SDL_Rect *rectangle, COLLIDER_TYPE type)
 {

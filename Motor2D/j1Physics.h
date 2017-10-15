@@ -9,7 +9,8 @@
 #include "j1Module.h"
 
 enum COLLIDER_TYPE {PLAYER, WALL, DEATH, DOOR};
-enum DIRECTION {LEFT, RIGHT, UP, DOWN};
+enum DIRECTION_X { NONE_X, LEFT, RIGHT};
+enum DIRECTION_Y { NONE_Y, UP, DOWN };
 
 struct Collider{
 	Collider(SDL_Rect *rectangle, COLLIDER_TYPE type);
@@ -53,8 +54,6 @@ public:
 	bool checkColliders(Collider* object_col, COLLIDER_TYPE type_to_ignore);
 
 	bool rectsAreEqual(SDL_Rect rect_a, SDL_Rect rect_b);
-
-	DIRECTION getDirectionFromIntersection(Collider* source);
 
 private:
 

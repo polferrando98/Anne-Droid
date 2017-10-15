@@ -133,15 +133,11 @@ j1Player::j1Player()
 	////////////////HARDCODE
 
 
-	velocity.x = 0;
-	velocity.y = 0;
-
 	////GRAVITY
-	acceleration.x = 0;
 	acceleration.y = gravity;
 
 
-	maxVelocity.x = 25;
+	maxVelocity.x = 30;
 }
 
 j1Player::~j1Player()
