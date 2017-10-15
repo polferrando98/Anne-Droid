@@ -33,6 +33,16 @@ bool j1Physics::Awake(pugi::xml_node& config)
 bool j1Physics::CleanUp()
 {
 
+	p2List_item<Collider*>* item_collider;
+	item_collider = collider_list.start;
+
+	while (item_collider != NULL)
+	{
+		RELEASE(item_collider->data);
+		item_collider = item_collider->next;
+	}
+
+	collider_list.clear();
 	return true;
 }
 
@@ -79,6 +89,7 @@ void j1Physics::UpdatePlayerPhysics(fPoint * position, fPoint * velocity, fPoint
 {
 	checkWallCollisions(position, velocity, acceleration, collider);
 	checkDeathCollisions(position, velocity, acceleration, collider);
+	CheckDoorEntry(position, velocity, acceleration, collider);
 }
 
 void j1Physics::checkWallCollisions(fPoint * position, fPoint * velocity, fPoint * acceleration, Collider* collider)
@@ -152,6 +163,30 @@ void j1Physics::checkDeathCollisions(fPoint * position, fPoint * velocity, fPoin
 	if (checkColliders(&newCollider, DEATH)) {
 		position->x = App->map->data.player_start_position.x;
 		position->y = App->map->data.player_start_position.y;
+	}
+}
+
+void j1Physics::CheckDoorEntry(fPoint * position, fPoint * velocity, fPoint * acceleration, Collider * collider)
+{
+	Collider newCollider = *collider;
+	bool colliding_x = false;
+
+
+	fPoint newVelocity;
+	fPoint newPosition;
+
+	newVelocity.x = velocity->x + acceleration->x;
+	newPosition.x = position->x + newVelocity.x;
+	newCollider.rect.x = newPosition.x;
+
+
+	newVelocity.y = velocity->y + acceleration->y;
+	newPosition.y = position->y + newVelocity.y;
+	newCollider.rect.y = newPosition.y;
+
+
+	if (checkColliders(&newCollider, DOOR)) {
+		App->scene->ChangeMap();
 	}
 }
 

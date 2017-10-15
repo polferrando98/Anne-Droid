@@ -33,7 +33,8 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
-	MapData* current_map;
+	void ChangeMap();
+
 
 	//HARDCODE
 
@@ -45,6 +46,9 @@ public:
 	SDL_Rect col_rect2;
 
 	
+
+	bool loading = false;
+
 };
 
 #endif // __j1SCENE_H__

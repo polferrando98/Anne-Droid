@@ -28,6 +28,8 @@ public:
 	void ApplyFriction();
 	void ApplyMaxVelocity();
 
+	void createCol(SDL_Rect* rect);
+
 	fPoint position;
 	fPoint velocity;
 	fPoint acceleration;
@@ -57,8 +59,6 @@ private:
 	int speed = 5;
 	int player_min_y;
 	int direction;
-
-	SDL_Rect collider_rect;
 };
 
 
