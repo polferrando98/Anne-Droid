@@ -15,7 +15,7 @@
   <tile id="53" terrain="0,,0,"/>
  </tileset>
  <tileset firstgid="67" name="ice" tilewidth="128" tileheight="128" tilecount="56" columns="14">
-  <image source="C:/Users/USUARIO/Desktop/ice.png" width="1800" height="542"/>
+  <image source="../../anne droid/ice.png" width="1800" height="542"/>
  </tileset>
  <layer name="background" width="130" height="30">
   <data>
@@ -7825,7 +7825,7 @@
    <tile gid="13"/>
   </data>
  </layer>
- <objectgroup color="#ff0000" name="ground" visible="0">
+ <objectgroup color="#ff0000" name="ground">
   <object id="1" type="ground" x="0" y="3328" width="894" height="136"/>
   <object id="3" type="ground" x="1536.36" y="3200" width="766.667" height="187.879"/>
   <object id="4" type="ground" x="2303.03" y="3327.27" width="893.939" height="84.8485"/>
@@ -7879,7 +7879,7 @@
   <object id="92" x="916" y="3348" width="204" height="108"/>
   <object id="93" x="1296" y="3346" width="210" height="106"/>
  </objectgroup>
- <objectgroup color="#0055ff" name="death" visible="0">
+ <objectgroup color="#0055ff" name="death">
   <object id="57" type="death" x="3198.67" y="3492" width="254.667" height="129.333"/>
   <object id="58" type="death" x="3713.33" y="3496" width="249.333" height="129.333"/>
   <object id="59" type="death" x="4606.67" y="3624" width="253.333" height="92"/>
@@ -7906,13 +7906,13 @@
   <object id="83" type="death" x="10896" y="3232" width="2000" height="168"/>
   <object id="84" type="death" x="13568" y="3360" width="1648" height="96"/>
  </objectgroup>
- <objectgroup color="#ffff00" name="door" visible="0">
+ <objectgroup color="#ffff00" name="door">
   <object id="76" type="door" x="16433.3" y="2969.7" width="39.3939" height="224.242"/>
  </objectgroup>
- <objectgroup name="player" visible="0">
+ <objectgroup name="player">
   <object id="85" type="player" x="136" y="3120" width="110" height="193"/>
  </objectgroup>
- <objectgroup name="ice" visible="0">
+ <objectgroup name="ice">
   <object id="103" type="ice" x="924" y="3352" width="196" height="98"/>
   <object id="104" type="ice" x="1306" y="3352" width="200" height="100"/>
   <object id="105" type="ice" x="2076" y="3096" width="196" height="98"/>
