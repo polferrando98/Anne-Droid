@@ -56,7 +56,7 @@ private:
 
 	int speed = 5;
 	int player_min_y;
-	/*int direction;*/
+	int direction;
 
 	SDL_Rect collider_rect;
 };

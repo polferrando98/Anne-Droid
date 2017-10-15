@@ -33,7 +33,7 @@ bool j1Scene::Start()
 {
 
 	App->map->Load("level_1.tmx");
-	App->audio->PlayMusic("audio/music/anne-droid-music.ogg");
+
 
 	current_map = App->map->Load("level_1.tmx");
 
