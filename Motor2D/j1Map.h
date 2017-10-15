@@ -10,7 +10,8 @@ enum ObjectTypes {
 	OBJECT_TYPE_UNKNOWN = 0,
 	OBJECT_TYPE_GROUND,
 	OBJECT_TYPE_DEATH,
-	OBJECT_TYPE_DOOR
+	OBJECT_TYPE_DOOR,
+	OBJECT_TYPE_PLAYER
 };
 
 struct Object {
@@ -86,6 +87,7 @@ struct MapData
 	p2List<TileSet*>		tilesets;
 	p2List<Layer*>			layers;
 	p2List<ObjectGroup*>	objectGroups;
+	iPoint					player_start_position;
 	// TODO 2: Add a list/array of layers to the map!
 	
 };

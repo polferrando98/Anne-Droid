@@ -50,7 +50,7 @@ void j1Map::Draw()
 				Get_pixels_from_tiles(row, col, &real_row, &real_col);
 
 				//provisional parallax
-				if (layer_iterator->data->name == "Capa de Patrones 1") {
+				if (layer_iterator->data->name == "background") {
 					float camera_increment = layer2_parallax * (App->render->camera.x);
 					real_col += (int)camera_increment;
 				}
@@ -92,6 +92,10 @@ void j1Map::PlaceColliders()
 				break;
 			case OBJECT_TYPE_DOOR:
 				App->physics->AddCollider(&col_rect, DOOR);
+				break;
+			case OBJECT_TYPE_PLAYER:
+				data.player_start_position.x = col_rect.x;
+				data.player_start_position.y = col_rect.y;
 				break;
 			default:
 				break;
@@ -426,6 +430,10 @@ bool j1Map::LoadObject(pugi::xml_node &object_node, Object *object)
 	else if (object_type == "door")
 	{
 		object->type = OBJECT_TYPE_DOOR;
+	}
+	else if (object_type == "player")
+	{
+		object->type = OBJECT_TYPE_PLAYER;
 	}
 	else
 	{

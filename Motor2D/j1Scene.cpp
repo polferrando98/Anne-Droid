@@ -37,16 +37,6 @@ bool j1Scene::Start()
 
 	current_map = App->map->Load("level_1.tmx");
 
-
-	///////////////////////HARDCODE
-
-	//col_rect = { 0, 3280, 10000, 10000 };
-	//col_rect2 = { 1000, 3080, 10000, 10000 };
-
-	//col1 = App->physics->AddCollider(&col_rect, COLLIDER_TYPE::WALL);
-	//col1 = App->physics->AddCollider(&col_rect2, COLLIDER_TYPE::WALL);
-
-	//PlaceColliders();
 	App->map->PlaceColliders();
 	
 	return true;

@@ -4,8 +4,7 @@
 #include "SDL\include\SDL_rect.h"
 
 void log(const char file[], int line, const char* format, ...);
-int clip(int val, int minn, int maxx);
-float clip(float val, int minn, int maxx);
+
 #define EXIT_FAILURE 1
 #define EXIT_SUCCESS 0
 
@@ -26,10 +25,5 @@ typedef unsigned int uint;
 #define SCREEN_SIZE 3
 #define SCREEN_WIDTH 216
 #define SCREEN_HEIGHT 256
-#define WIN_FULLSCREEN 0
-#define WIN_FULLSCREEN_DESKTOP 1
-#define WIN_BORDERLESS 0
-#define WIN_RESIZABLE 0
-#define REN_VSYNC 1
 
 #endif // __GLOBALS_H__

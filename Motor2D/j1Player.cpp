@@ -111,6 +111,7 @@ j1Player::j1Player()
 	left.PushBack({ 1755, 1245, 108, 195 });
 	
 	
+
 	left.loop = true;
 	left.speed = 0.12f;
 
@@ -130,8 +131,7 @@ j1Player::j1Player()
 	death.speed = 0.15f;
 
 	////////////////HARDCODE
-	position.x = 0;
-	position.y = 3000;
+
 
 	velocity.x = 0;
 	velocity.y = 0;
@@ -159,6 +159,8 @@ bool j1Player::Start()
 {
 	current_animation = &idle;
 
+	position.x = App->map->data.player_start_position.x;
+	position.y = App->map->data.player_start_position.y;
 
 	/*direction = 1;*/
 
