@@ -50,6 +50,9 @@ bool j1Audio::Awake(pugi::xml_node& config)
 		ret = true;
 	}
 
+	LoadFx("audio/fx/jump_fxt.wav");
+	PlayMusic("audio/music/anne-droid-music.ogg");
+
 	return ret;
 }
 

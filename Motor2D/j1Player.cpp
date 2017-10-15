@@ -90,25 +90,32 @@ j1Player::j1Player()
 
 	
 
-	right.PushBack({ 58, 985, 103, 195 });
-	right.PushBack({ 289, 986, 103, 198 });
-	right.PushBack({ 527, 986, 131, 186 });
-	right.PushBack({ 762, 985, 124, 192 });
-	right.PushBack({ 1018, 985, 119, 192 });
-	right.PushBack({ 1249, 985, 135, 200 });
-	right.PushBack({ 1477, 986, 147, 189 });
+	right.PushBack({ 60, 985, 101, 195 });
+	right.PushBack({ 290, 985, 103, 196 });
+	right.PushBack({ 525, 985, 130, 187 });
+	right.PushBack({ 760, 985, 124, 192 });
+	right.PushBack({ 1017, 985, 118, 192 });
+	right.PushBack({ 1250, 985, 133, 201 });
+	right.PushBack({ 1475, 985, 146, 189 });
+	right.PushBack({ 1734, 985, 127, 190 });
 
 	right.loop = true;
-	right.speed = 0.12f;
+	right.speed = 0.1f;
 
-	left.PushBack({ 533, 1245, 135, 200 });
-	left.PushBack({ 293, 1246, 147, 189 });
-	left.PushBack({ 58, 1247, 126, 191 });
-	left.PushBack({ 780, 1245, 119, 192 });
-	left.PushBack({ 1031, 1245, 124, 192 });
-	left.PushBack({ 1259, 1246, 131, 186 });
-	left.PushBack({ 1525, 1246, 103, 198 });
-	left.PushBack({ 1755, 1245, 108, 195 });
+	left.PushBack({ 1755, 1245, 101, 195 });
+	left.PushBack({ 1525, 1245, 103, 196 });
+	left.PushBack({ 1260, 1245, 130, 187 });
+	left.PushBack({ 1032, 1245, 124, 192 });
+	left.PushBack({ 780, 1245, 118, 192 });
+
+	left.PushBack({ 530, 1245, 133, 201 });
+	left.PushBack({ 294, 1245, 146, 189 });
+	left.PushBack({ 60, 1245, 127, 190 });
+	
+	
+	
+	
+	
 	
 	
 
@@ -211,6 +218,7 @@ bool j1Player::Update(float dt)
 
 		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
 		{
+			/*App->audio->PlayFx(1);*/
 			velocity.y = -jump_speed;
 			acceleration.y = gravity;
 			acceleration.x = 0;
@@ -225,13 +233,13 @@ bool j1Player::Update(float dt)
 		/*direction = 1;*/
 		App->player->current_animation = &right;
 		acceleration.x = acceleration_x;
-	//	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
-	//	{
-	//		velocity.y = -jump_speed;
-	//		acceleration.y = gravity;
-	//		acceleration.x = 0;
-	//		App->player->current_animation = &jump;
-	//	}
+		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
+		{
+			velocity.y = -jump_speed;
+			acceleration.y = gravity;
+			acceleration.x = 0;
+			App->player->current_animation = &jump;
+		}
 	//}
 	//
 	//else if (current_animation == &idle || current_animation == &idle_left ) {

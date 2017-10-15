@@ -32,7 +32,7 @@ bool j1Scene::Awake()
 bool j1Scene::Start()
 {
 	App->map->Load("level_1.tmx");
-	App->audio->PlayMusic("audio/music/anne-droid-music.ogg");
+
 
 	App->map->PlaceColliders();
 	
