@@ -14,8 +14,8 @@
 #include "j1Player.h"
 #include "j1Physics.h"
 #include "j1Scene_2.h"
-#include "j1Transition.h"
 #include "j1FadeToBlack.h"
+//#include "j1Scene_W.h"
 
 
 // Constructor
@@ -29,9 +29,9 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	render = new j1Render();
 	tex = new j1Textures();
 	audio = new j1Audio();
+	/*welc = new j1Scene_W();*/
 	scene = new j1Scene();
 	scene_2 = new j1Scene_2();
-	transition = new j1Transition();
 	fade = new j1FadeToBlack();
 	map = new j1Map();
 	player = new j1Player();
@@ -44,11 +44,13 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(win);
 	AddModule(tex);
 	AddModule(audio);
+	/*AddModule(welc);*/
 	AddModule(map);
+	
 	AddModule(scene);
 	AddModule(scene_2);
 	AddModule(fade);
-	AddModule(transition);
+	
 	AddModule(player);
 	AddModule(physics);
 

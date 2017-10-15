@@ -91,7 +91,7 @@ public:
 			CleanUp();
 		}
 	}
-
+	virtual void onFadeInEnd() {}
 public:
 
 	p2SString	name;
