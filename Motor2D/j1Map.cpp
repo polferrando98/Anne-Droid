@@ -33,7 +33,7 @@ void j1Map::Draw()
 	if (map_loaded == false)
 		return;
 
-	for (p2List_item<Layer*> *layer_iterator = data.layers.At(0); layer_iterator; layer_iterator = layer_iterator->next)
+	for (p2List_item<Layer*> *layer_iterator = data.layers.start; layer_iterator; layer_iterator = layer_iterator->next)
 	{
 		int tile_num = 0;
 		int layer_width = layer_iterator->data->width;
@@ -152,7 +152,7 @@ bool j1Map::CleanUp()
 	}
 	data.tilesets.clear();
 	// Remove all layers
-
+	data.layers.clear();
 
 	// Clean up the pugui tree
 	map_file.reset();
@@ -202,6 +202,9 @@ MapData* j1Map::Load(const char* file_name)
 	// TODO 4: Iterate all layers and load each of them
 	// Load layer info ----------------------------------------------
 	pugi::xml_node layer_node;
+	if (data.layers.start) {
+		LOG("FUCK");
+	}
 	for (layer_node = map_file.child("map").child("layer"); layer_node && ret; layer_node = layer_node.next_sibling("layer"))
 	{
 		Layer* layer = new Layer();

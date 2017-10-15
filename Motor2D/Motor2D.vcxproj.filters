@@ -151,5 +151,13 @@
     <None Include="..\Game\maps\level_1.tmx">
       <Filter>Desenvolupament  ========\Data</Filter>
     </None>
+    <None Include="..\Game\maps\level_2.tmx">
+      <Filter>Desenvolupament  ========\Data</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="..\Game\config.xml">
+      <Filter>Desenvolupament  ========\Data</Filter>
+    </Xml>
   </ItemGroup>
 </Project>

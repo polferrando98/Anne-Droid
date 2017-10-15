@@ -121,6 +121,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Game\maps\level_1.tmx" />
+    <None Include="..\Game\maps\level_2.tmx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="..\Game\config.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

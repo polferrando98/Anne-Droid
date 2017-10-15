@@ -48,32 +48,34 @@ bool j1Scene::PreUpdate()
 // Called each loop iteration
 bool j1Scene::Update(float dt)
 {
-	if(App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
-		App->LoadGame();
+	if (!loading) {
+		if (App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
+			App->LoadGame();
 
-	if(App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
-		App->SaveGame();
+		if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
+			App->SaveGame();
 
-	if(App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
-		App->render->camera.y += App->render->camera_speed;
+		if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
+			App->render->camera.y += App->render->camera_speed;
 
-	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
-		App->render->camera.y -= App->render->camera_speed;
+		if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
+			App->render->camera.y -= App->render->camera_speed;
 
-	if(App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
-		App->render->camera.x += App->render->camera_speed;
+		if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
+			App->render->camera.x += App->render->camera_speed;
 
-	if(App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
-		App->render->camera.x -= App->render->camera_speed;
+		if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
+			App->render->camera.x -= App->render->camera_speed;
 
-	uint w, h; 
-	App->win->GetWindowSize(w, h); 
+		uint w, h;
+		App->win->GetWindowSize(w, h);
 
-	App->render->camera.x = -App->player->position.x + w/3;
-	App->render->camera.y = -App->player->position.y + h/2;
+		App->render->camera.x = -App->player->position.x + w / 3;
+		App->render->camera.y = -App->player->position.y + h / 2;
 
-	App->map->Draw();
+		App->map->Draw();
 
+	}
 
 	p2SString title("Map:%dx%d Tiles:%dx%d Tilesets:%d",
 					App->map->data.width, App->map->data.height,
@@ -105,10 +107,13 @@ bool j1Scene::CleanUp()
 
 void j1Scene::ChangeMap()
 {
+	loading = true;
+	App->map->CleanUp();
 	App->physics->CleanUp();
 	App->map->Load("level_2.tmx");
 	App->map->PlaceColliders();
 	App->player->position.x = App->map->data.player_start_position.x;
 	App->player->position.y = App->map->data.player_start_position.y;
+	loading = false;
 }
 
