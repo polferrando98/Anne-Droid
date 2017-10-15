@@ -73,17 +73,18 @@ j1Player::j1Player()
 
 
 	//left jump
-
-	jump_left.PushBack({ 60,1530,154,190 });
-	jump_left.PushBack({ 299,1530,153,165 });
-	jump_left.PushBack({ 549,1530,141,172 });
-	jump_left.PushBack({ 793,1529,137,178 });
-	jump_left.PushBack({ 1032,1529,136,180 });
-	jump_left.PushBack({ 1265,1530,131,193 });
 	jump_left.PushBack({ 1509,1532,115,186 });
-	jump_left.PushBack({ 1020,1772,132,198 });
-	jump_left.PushBack({ 1226,1771,142,200 });
+	jump_left.PushBack({ 1265,1530,131,193 });
+	jump_left.PushBack({ 1032,1529,136,180 });
+	jump_left.PushBack({ 793,1529,137,178 });
+	jump_left.PushBack({ 549,1530,141,172 });
+	jump_left.PushBack({ 299,1530,153,165 });
+	jump_left.PushBack({ 60,1530,154,190 });
 	jump_left.PushBack({ 1509,1771,154,189 });
+	jump_left.PushBack({ 1226,1771,142,200 });
+	jump_left.PushBack({ 1020,1772,132,198 });
+	
+	
 
 	jump_left.loop = false;
 	jump_left.speed = animation_speed;
