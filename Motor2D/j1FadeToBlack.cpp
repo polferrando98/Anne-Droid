@@ -40,8 +40,8 @@ bool j1FadeToBlack::PostUpdate()
 		{
 			
 			//enable disable modules todo
-			/*module_off->Disable();
-			module_on->Enable();*/
+			module_off->Disable();
+			module_on->Enable();
 			
 			total_time += total_time;
 			start_time = SDL_GetTicks();
@@ -55,7 +55,7 @@ bool j1FadeToBlack::PostUpdate()
 
 		if (now >= total_time) {
 			//todo onfadeintheend
-			/*module_on->onFadeInEnd();*/
+			module_on->onFadeInEnd();
 			current_step = fade_step::none;
 		}
 	} break;

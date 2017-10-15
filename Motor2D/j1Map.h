@@ -88,7 +88,7 @@ struct MapData
 	p2List<Layer*>			layers;
 	p2List<ObjectGroup*>	objectGroups;
 	iPoint					player_start_position;
-	// TODO 2: Add a list/array of layers to the map!
+	bool					is_level_1;
 	
 };
 

@@ -31,6 +31,9 @@ bool j1Scene::Awake()
 // Called before the first frame
 bool j1Scene::Start()
 {
+
+	App->map->data.is_level_1 = true;
+
 	App->map->Load("level_1.tmx");
 
 
@@ -49,10 +52,10 @@ bool j1Scene::PreUpdate()
 bool j1Scene::Update(float dt)
 {
 
-	if (App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
+	if(App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
 		App->LoadGame();
 
-	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
+	if(App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
 		App->SaveGame();
 
 	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)

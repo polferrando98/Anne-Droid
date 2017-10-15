@@ -91,12 +91,12 @@
     <ClCompile Include="j1Player.cpp" />
     <ClCompile Include="j1FadeToBlack.cpp" />
     <ClCompile Include="j1Scene_2.cpp" />
-    <ClCompile Include="j1Transition.cpp" />
+    <ClCompile Include="j1Scene_W.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
     <ClInclude Include="Globals.h" />
-    <ClInclude Include="j1Transition.h" />
+    <ClInclude Include="j1Scene_W.h" />
     <ClInclude Include="j1Scene_2.h" />
     <ClInclude Include="j1FadeToBlack.h" />
     <ClInclude Include="j1Physics.h" />

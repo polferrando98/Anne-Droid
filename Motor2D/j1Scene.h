@@ -35,7 +35,20 @@ public:
 
 	void ChangeMap();
 
+
+	//HARDCODE
+
+	Collider* col1;
+
+	p2List<SDL_Rect>* col_rects;
+
+	SDL_Rect col_rect;
+	SDL_Rect col_rect2;
+
+	
+
 	bool loading = false;
+
 };
 
 #endif // __j1SCENE_H__

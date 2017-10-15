@@ -238,10 +238,6 @@ bool j1Player::Update(float dt)
 	//	}
 	//}
 
-
-	
-	
-	
 	}
 	
 	else {
@@ -249,13 +245,30 @@ bool j1Player::Update(float dt)
 
 	}
 
-
 	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
 	{
 		velocity.y = -jump_speed;
 		acceleration.y = gravity;
 		acceleration.x = 0;
 		App->player->current_animation = &jump_left;
+	}
+	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
+	{
+		if (App->map->data.is_level_1 == false)
+		{
+			App->map->data.is_level_1 == true;
+			App->map->CleanUp();
+			App->map->Load("level_1.xml");
+
+		}
+		App->player->position.x = App->map->data.player_start_position.x;
+		App->player->position.y = App->map->data.player_start_position.y;
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
+	{
+		App->player->position.x = App->map->data.player_start_position.x;
+		App->player->position.y = App->map->data.player_start_position.y;
 	}
 
 	ApplyMaxVelocity();
