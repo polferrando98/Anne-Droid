@@ -30,6 +30,9 @@ public:
 
 	void createCol(SDL_Rect* rect);
 
+	bool load(pugi::xml_node&save);
+	bool save(pugi::xml_node&save) const;
+
 	fPoint position;
 	fPoint velocity;
 	fPoint acceleration;

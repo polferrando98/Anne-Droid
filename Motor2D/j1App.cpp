@@ -29,9 +29,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	render = new j1Render();
 	tex = new j1Textures();
 	audio = new j1Audio();
-	/*welc = new j1Scene_W();*/
 	scene = new j1Scene();
-	scene_2 = new j1Scene_2();
 	fade = new j1FadeToBlack();
 	map = new j1Map();
 	player = new j1Player();
@@ -44,11 +42,9 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(win);
 	AddModule(tex);
 	AddModule(audio);
-	/*AddModule(welc);*/
 	AddModule(map);
 	
 	AddModule(scene);
-	AddModule(scene_2);
 	AddModule(fade);
 	
 	AddModule(player);
@@ -82,7 +78,6 @@ void j1App::AddModule(j1Module* module)
 // Called before render is available
 bool j1App::Awake()
 {
-	scene_2->Disable();
 	pugi::xml_document	config_file;
 	pugi::xml_node		config;
 	pugi::xml_node		app_config;
@@ -90,6 +85,7 @@ bool j1App::Awake()
 	bool ret = false;
 
 	config = LoadConfig(config_file);
+
 
 	if (config.empty() == false)
 	{
@@ -99,6 +95,13 @@ bool j1App::Awake()
 		title.create(app_config.child("title").child_value());
 		organization.create(app_config.child("organization").child_value());
 	}
+
+	if (ret)
+	{
+		ret = LoadSaveFile();
+	}
+
+
 
 	if (ret == true)
 	{
@@ -307,28 +310,36 @@ const char* j1App::GetOrganization() const
 	return organization.GetString();
 }
 
-// Load / Save
+
 void j1App::load()
 {
-	// we should be checking if that file actually exist
-	// from the "GetSaveGames" list
 	load_requested = true;
+}
+
+bool j1App::LoadSaveFile()
+{
+	bool ret = true;
+
+	pugi::xml_parse_result result = save_game_file.load_file("save_file.xml");
+
+	if (result == NULL)  //if there is no file let's create it
+	{
+		pugi::xml_node save_node = save_game_file.append_child("save");
+		save_node.append_child("app");
+
+	}
+	save_node = save_game_file.child("save");
+
+	return ret;
 }
 
 // ---------------------------------------
 void j1App::save() 
 {
-	// we should be checking if that file actually exist
-	// from the "GetSaveGames" list ... should we overwrite ?
-
 	save_requested = true;
 }
 
 // ---------------------------------------
-void j1App::GetSaveGames(p2List<p2SString>& list_to_fill) const
-{
-	// need to add functionality to file_system module for this to work
-}
 bool j1App::real_save()
 {
 	p2List_item<j1Module*>* item;

@@ -1,1 +1,17 @@
 <?xml version="1.0"?>
+<save>
+	<app />
+	<input />
+	<window />
+	<textures />
+	<audio />
+	<map />
+	<scene />
+	<player>
+		<player x="-554.967773" y="11558" />
+	</player>
+	<physics />
+	<renderer>
+		<camera x="895" y="-11059" />
+	</renderer>
+</save>

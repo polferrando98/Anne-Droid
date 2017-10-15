@@ -110,10 +110,10 @@ bool j1Render::save(pugi::xml_node &save) const
 	}
 
 	if (save.child("camera").attribute("y") == NULL) {
-		save.child("camera").append_attribute("y") = camera.x;
+		save.child("camera").append_attribute("y") = camera.y;
 	}
 	else {
-		save.child("camera").attribute("y").set_value(camera.x);
+		save.child("camera").attribute("y").set_value(camera.y);
 	}
 
 	return true;

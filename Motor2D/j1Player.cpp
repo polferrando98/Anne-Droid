@@ -225,24 +225,7 @@ bool j1Player::Update(float dt)
 		}
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
-	{
-		if (App->map->data.is_level_1 == false)
-		{
-			App->map->data.is_level_1 == true;
-			App->map->CleanUp();
-			App->map->Load("level_1.xml");
 
-		}
-		App->player->position.x = App->map->data.player_start_position.x;
-		App->player->position.y = App->map->data.player_start_position.y;
-	}
-
-	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
-	{
-		App->player->position.x = App->map->data.player_start_position.x;
-		App->player->position.y = App->map->data.player_start_position.y;
-	}
 
 	ApplyMaxVelocity();
 
@@ -327,4 +310,35 @@ void j1Player::ApplyMaxVelocity()
 void j1Player::createCol(SDL_Rect* Rect)
 {
 	player_coll = App->physics->AddCollider(Rect, COLLIDER_TYPE::PLAYER);
+}
+
+bool j1Player::load(pugi::xml_node &save)
+{
+	position.x = save.child("player").attribute("x").as_int();
+	position.y = save.child("player").attribute("y").as_int();
+
+	return true;
+}
+
+bool j1Player::save(pugi::xml_node &save) const
+{
+	if (save.child("player") == NULL) {
+		save.append_child("player");
+	}
+
+	if (save.child("player").attribute("x") == NULL) {
+		save.child("player").append_attribute("x") = position.x;
+	}
+	else {
+		save.child("player").attribute("x").set_value(position.x);
+	}
+
+	if (save.child("player").attribute("y") == NULL) {
+		save.child("player").append_attribute("y") = position.y;
+	}
+	else {
+		save.child("player").attribute("y").set_value(position.y);
+	}
+
+	return true;
 }

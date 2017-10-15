@@ -13,7 +13,6 @@ class j1Textures;
 class j1Audio;
 //class j1Scene_W;
 class j1Scene;
-class j1Scene_2;
 class j1FadeToBlack;
 class j1Map;
 class j1Player;
@@ -54,7 +53,6 @@ public:
 
 	void save();
 	void load();
-	void GetSaveGames(p2List<p2SString>& list_to_fill) const;
 
 private:
 
@@ -93,12 +91,10 @@ public:
 	j1Textures*			tex;
 	j1Audio*			audio;
 	j1Scene*			scene;
-	j1Scene_2*			scene_2;
 	j1FadeToBlack*		fade;
 	j1Map*				map;
 	j1Player*			player;
 	j1Physics*			physics;
-	/*j1Scene_W*			welc;*/
 
 private:
 
