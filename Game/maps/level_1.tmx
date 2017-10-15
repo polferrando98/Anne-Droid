@@ -14,9 +14,6 @@
   <tile id="52" terrain="0,0,0,0"/>
   <tile id="53" terrain="0,,0,"/>
  </tileset>
- <tileset firstgid="67" name="ice" tilewidth="128" tileheight="128" tilecount="56" columns="14">
-  <image source="ice.png" width="1800" height="542"/>
- </tileset>
  <layer name="background" width="130" height="30">
   <data>
    <tile gid="16"/>
@@ -7059,8 +7056,8 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="88"/>
-   <tile gid="89"/>
+   <tile gid="49"/>
+   <tile gid="50"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -7080,14 +7077,14 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="116"/>
-   <tile gid="117"/>
-   <tile gid="118"/>
-   <tile gid="0"/>
-   <tile gid="116"/>
-   <tile gid="117"/>
-   <tile gid="118"/>
-   <tile gid="0"/>
+   <tile gid="60"/>
+   <tile gid="61"/>
+   <tile gid="62"/>
+   <tile gid="63"/>
+   <tile gid="60"/>
+   <tile gid="61"/>
+   <tile gid="62"/>
+   <tile gid="63"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -7310,11 +7307,11 @@
    <tile gid="2"/>
    <tile gid="2"/>
    <tile gid="3"/>
-   <tile gid="88"/>
-   <tile gid="89"/>
+   <tile gid="49"/>
+   <tile gid="50"/>
    <tile gid="0"/>
-   <tile gid="88"/>
-   <tile gid="89"/>
+   <tile gid="49"/>
+   <tile gid="50"/>
    <tile gid="1"/>
    <tile gid="2"/>
    <tile gid="2"/>
