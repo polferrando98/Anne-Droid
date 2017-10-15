@@ -101,20 +101,33 @@ j1Player::j1Player()
 	right.loop = true;
 	right.speed = 0.12f;
 
-
-	left.PushBack({ 1755, 1245, 108, 195 });
-	left.PushBack({ 1525, 1246, 103, 198 });
-	left.PushBack({ 1259, 1246, 131, 186 });
-	left.PushBack({ 1031, 1245, 124, 192 });
-	left.PushBack({ 780, 1245, 119, 192 });
-	left.PushBack({ 58, 1247, 126, 191 });
-	left.PushBack({ 293, 1246, 147, 189 });
 	left.PushBack({ 533, 1245, 135, 200 });
+	left.PushBack({ 293, 1246, 147, 189 });
+	left.PushBack({ 58, 1247, 126, 191 });
+	left.PushBack({ 780, 1245, 119, 192 });
+	left.PushBack({ 1031, 1245, 124, 192 });
+	left.PushBack({ 1259, 1246, 131, 186 });
+	left.PushBack({ 1525, 1246, 103, 198 });
+	left.PushBack({ 1755, 1245, 108, 195 });
 	
 	
-
 	left.loop = true;
 	left.speed = 0.12f;
+
+
+	//death
+	death.PushBack({98,2470,111,212});
+	death.PushBack({ 234,2470,114,215 });
+	death.PushBack({ 350,2470,129,221});
+	death.PushBack({ 483,2470,137,225 });
+	death.PushBack({ 620,2470,140,221 });
+	death.PushBack({ 760,2470,120,220 });
+	death.PushBack({ 880,2470,120,220});
+	death.PushBack({ 1000,2470,120,220 });
+	death.PushBack({ 1172,2470,120,220 });
+
+	death.loop = false;
+	death.speed = 0.15f;
 
 	////////////////HARDCODE
 	position.x = 0;
@@ -171,7 +184,7 @@ bool j1Player::Update(float dt)
 	
 	// Draw everything --------------------------------------
 	AnimationFrame frame = current_animation->GetCurrentFrame();
-
+	current_animation = &idle;
 	//if (direction == 1)
 	//	current_animation = &idle;
 	//else
@@ -182,8 +195,11 @@ bool j1Player::Update(float dt)
 
 
 	App->physics->UpdatePlayerPhysics(&position, &velocity, &acceleration, player_coll);
-	current_animation = &idle;
-
+	
+	//death animatiton test
+	/*if (App->input->GetKey(SDL_SCANCODE_T) == KEY_DOWN) 
+		
+		App->player->current_animation = &death;*/
 
 	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
 		/*direction = -1;*/

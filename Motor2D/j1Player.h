@@ -50,6 +50,7 @@ private:
 	Animation jump_left;
 	Animation left;
 	Animation right;
+	Animation death;
 
 	/////////HARDCODE
 
