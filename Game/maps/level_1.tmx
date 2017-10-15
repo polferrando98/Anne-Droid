@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="130" height="30" tilewidth="128" tileheight="128" nextobjectid="81">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="130" height="30" tilewidth="128" tileheight="128" nextobjectid="85">
  <tileset firstgid="1" name="MAP" tilewidth="128" tileheight="128" tilecount="66" columns="11">
   <image source="tiles.png" width="1420" height="768"/>
   <terraintypes>
@@ -7875,31 +7875,33 @@
   <object id="54" x="13314.7" y="3014.67" width="45.3333" height="97.3333"/>
  </objectgroup>
  <objectgroup color="#0055ff" name="death">
-  <object id="57" x="3198.67" y="3492" width="254.667" height="129.333"/>
-  <object id="58" x="3713.33" y="3496" width="249.333" height="129.333"/>
-  <object id="59" x="4606.67" y="3624" width="253.333" height="92"/>
-  <object id="60" x="5378.79" y="3621.21" width="2678.79" height="81.8182"/>
-  <object id="61" x="6527.27" y="3251.52" width="251.515" height="69.697"/>
-  <object id="62" x="9990.91" y="3118.18" width="242.424" height="75.7576"/>
-  <object id="65" x="11042.4" y="3024.24" width="157.576" height="160.606">
+  <object id="57" type="death" x="3198.67" y="3492" width="254.667" height="129.333"/>
+  <object id="58" type="death" x="3713.33" y="3496" width="249.333" height="129.333"/>
+  <object id="59" type="death" x="4606.67" y="3624" width="253.333" height="92"/>
+  <object id="60" type="death" x="5378.79" y="3621.21" width="2678.79" height="81.8182"/>
+  <object id="61" type="death" x="6527.27" y="3251.52" width="251.515" height="69.697"/>
+  <object id="62" type="death" x="9990.91" y="3118.18" width="242.424" height="75.7576"/>
+  <object id="65" type="death" x="11042.4" y="3024.24" width="157.576" height="160.606">
    <ellipse/>
   </object>
-  <object id="66" x="11427.3" y="3030.3" width="151.515" height="160.606">
+  <object id="66" type="death" x="11427.3" y="3030.3" width="151.515" height="160.606">
    <ellipse/>
   </object>
-  <object id="67" x="11803" y="3024.24" width="169.697" height="166.667">
+  <object id="67" type="death" x="11803" y="3024.24" width="169.697" height="166.667">
    <ellipse/>
   </object>
-  <object id="70" x="12178.8" y="3018.18" width="184.848" height="184.848">
+  <object id="70" type="death" x="12178.8" y="3018.18" width="184.848" height="184.848">
    <ellipse/>
   </object>
-  <object id="71" x="12566.7" y="3021.21" width="184.848" height="184.848">
+  <object id="71" type="death" x="12566.7" y="3021.21" width="184.848" height="184.848">
    <ellipse/>
   </object>
-  <object id="72" x="13187.9" y="2990.91" width="121.212" height="78.7879"/>
-  <object id="73" x="14336.4" y="3118.18" width="124.242" height="72.7273"/>
+  <object id="72" type="death" x="13187.9" y="2990.91" width="121.212" height="78.7879"/>
+  <object id="73" type="death" x="14336.4" y="3118.18" width="124.242" height="72.7273"/>
+  <object id="83" type="death" x="10896" y="3232" width="2000" height="168"/>
+  <object id="84" type="death" x="13568" y="3360" width="1648" height="96"/>
  </objectgroup>
  <objectgroup color="#ffff00" name="door">
-  <object id="76" x="16433.3" y="2969.7" width="39.3939" height="224.242"/>
+  <object id="76" type="door" x="16433.3" y="2969.7" width="39.3939" height="224.242"/>
  </objectgroup>
 </map>
