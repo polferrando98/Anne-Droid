@@ -43,6 +43,10 @@ public:
 	float gravity = 0.5;
 	float jump_speed = 15;
 
+	DIRECTION_X colliding_x = NONE_X;
+	DIRECTION_Y colliding_y = NONE_Y;
+
+
 private:
 	SDL_Texture* graphics = nullptr;
 	Animation* current_animation = nullptr;
@@ -53,6 +57,8 @@ private:
 	Animation left;
 	Animation right;
 	Animation death;
+
+	float animation_speed = 0.19f;
 
 	/////////HARDCODE
 

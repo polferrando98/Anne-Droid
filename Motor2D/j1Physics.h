@@ -41,9 +41,9 @@ public:
 
 	void Debug_draw() const;
 
-	void UpdatePlayerPhysics(fPoint *position, fPoint *velocity, fPoint *acceleration, Collider* collider);
+	void UpdatePlayerPhysics(fPoint *position, fPoint *velocity, fPoint *acceleration, Collider* collider, DIRECTION_X* colliding_x, DIRECTION_Y* colliding_y);
 
-	void  checkWallCollisions(fPoint *position, fPoint *velocity, fPoint *acceleration, Collider* collider);
+	void  checkWallCollisions(fPoint *position, fPoint *velocity, fPoint *acceleration, Collider* collider, DIRECTION_X* colliding_x, DIRECTION_Y* colliding_y);
 
 	void  checkDeathCollisions(fPoint *position, fPoint *velocity, fPoint *acceleration, Collider* collider);
 

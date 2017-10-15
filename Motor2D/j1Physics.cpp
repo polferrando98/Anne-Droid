@@ -85,18 +85,17 @@ void j1Physics::Debug_draw() const
 	}
 }
 
-void j1Physics::UpdatePlayerPhysics(fPoint * position, fPoint * velocity, fPoint * acceleration, Collider* collider)  //If it was another game, this could be adapted for any moving object
+//The idea was that it could be used for any moving object, but in the case of this game it is just the player
+void j1Physics::UpdatePlayerPhysics(fPoint *position, fPoint *velocity, fPoint *acceleration, Collider* collider, DIRECTION_X* colliding_x, DIRECTION_Y* colliding_y) 
 {
-	checkWallCollisions(position, velocity, acceleration, collider);
+	checkWallCollisions(position, velocity, acceleration, collider, colliding_x, colliding_y);
 	checkDeathCollisions(position, velocity, acceleration, collider);
 	CheckDoorEntry(position, velocity, acceleration, collider);
 }
 
-void j1Physics::checkWallCollisions(fPoint * position, fPoint * velocity, fPoint * acceleration, Collider* collider)
+void j1Physics::checkWallCollisions(fPoint *position, fPoint *velocity, fPoint *acceleration, Collider* collider, DIRECTION_X* colliding_x, DIRECTION_Y* colliding_y)
 {
 	Collider newCollider = *collider;
-	DIRECTION_X col_direction_x = NONE_X;
-	DIRECTION_Y col_direction_y = NONE_Y;
 	fPoint newVelocity;
 	fPoint newPosition;
 	fPoint pos_differential;
@@ -111,18 +110,18 @@ void j1Physics::checkWallCollisions(fPoint * position, fPoint * velocity, fPoint
 
 	if (checkColliders(&newCollider, WALL)) {
 		if (pos_differential.x > 0)
-			col_direction_x = RIGHT;
+			*colliding_x = RIGHT;
 		if (pos_differential.x < 0)
-			col_direction_x = LEFT;
+			*colliding_x = LEFT;
 	}
 
-	if (col_direction_x == RIGHT || col_direction_x == LEFT) {
+	if (*colliding_x == RIGHT || *colliding_x == LEFT) {
 		velocity->x = 0;
 	}
 
 	newCollider.rect.x = position->x;
 
-	if (col_direction_x != RIGHT && col_direction_x != LEFT) {
+	if (*colliding_x != RIGHT && *colliding_x != LEFT) {
 		velocity->x += acceleration->x;
 		position->x += velocity->x;
 	}
@@ -135,19 +134,21 @@ void j1Physics::checkWallCollisions(fPoint * position, fPoint * velocity, fPoint
 
 	if (checkColliders(&newCollider, WALL)) {
 		if (pos_differential.y > 0)
-			col_direction_y = DOWN;
+			*colliding_y = DOWN;
 		if (pos_differential.y < 0)
-			col_direction_y = UP;
+			*colliding_y = UP;
 	}
 
-	if (col_direction_y == UP || col_direction_y == DOWN) {
+	if (*colliding_y == UP || *colliding_y == DOWN) {
 		velocity->y = 0;
 	}
 
-	if (col_direction_y != UP && col_direction_y != DOWN) {
+	if (*colliding_y != UP && *colliding_y != DOWN) {
 		velocity->y += acceleration->y;
 		position->y += velocity->y;
 	}
+	
+
 }
 
 void j1Physics::checkDeathCollisions(fPoint * position, fPoint * velocity, fPoint * acceleration, Collider * collider)
