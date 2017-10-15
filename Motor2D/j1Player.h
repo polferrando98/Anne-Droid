@@ -46,6 +46,9 @@ public:
 	DIRECTION_X colliding_x = NONE_X;
 	DIRECTION_Y colliding_y = NONE_Y;
 
+	DIRECTION_X last_direction_x = NONE_X;
+	DIRECTION_Y last_direction_y = NONE_Y;
+
 
 private:
 	SDL_Texture* graphics = nullptr;

@@ -87,7 +87,7 @@ j1Player::j1Player()
 	jump_left.PushBack({ 1226,1771,142,200 });
 	jump_left.PushBack({1509,1771,154,189});
 	
-	jump_left.loop = true;
+	jump_left.loop = false;
 	jump_left.speed = animation_speed;
 
 	
@@ -192,13 +192,16 @@ bool j1Player::Update(float dt)
 		App->player->current_animation = &death;*/
 
 	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
-		App->player->current_animation = &left;
 		acceleration.x = -acceleration_x;
+		last_direction_x = LEFT;
 	}
 	else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
-
-		App->player->current_animation = &right;
 		acceleration.x = acceleration_x;
+		last_direction_x = RIGHT;
+	}
+	else if (grounded){
+		last_direction_x = NONE_X;
+		ApplyFriction();
 	}
 	else {
 		ApplyFriction();
@@ -208,9 +211,9 @@ bool j1Player::Update(float dt)
 	{
 		if (grounded) {
 			jump.current_frame = 0.0f;
+			jump_left.current_frame = 0.0f;
 			velocity.y = -jump_speed;
 			acceleration.y = gravity;
-			App->player->current_animation = &jump_left;
 			grounded = false;
 		}
 	}
@@ -236,8 +239,28 @@ bool j1Player::Update(float dt)
 
 	ApplyMaxVelocity();
 
-	if (!grounded)
-		current_animation = &jump;
+	// Direction
+
+
+	switch (last_direction_x)
+	{
+	case NONE_X:
+		current_animation = &idle;
+		break;
+	case LEFT:
+		current_animation = &left;
+		if (!grounded)
+			current_animation = &jump_left;
+		break;
+	case RIGHT:
+		current_animation = &right;
+		if (!grounded)
+			current_animation = &jump;
+		break;
+	}
+
+
+	//
 
 	player_coll->UpdatePosition(&position);
 	App->render->Blit(graphics, position.x, position.y, &frame.rect);
