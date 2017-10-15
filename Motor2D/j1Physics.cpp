@@ -48,6 +48,7 @@ bool j1Physics::CleanUp()
 
 bool j1Physics::Update(float dt)
 {
+	if((App->input->GetKey(SDL_SCANCODE_9) == KEY_REPEAT))
 	Debug_draw();
 	return UPDATE_CONTINUE;
 }
