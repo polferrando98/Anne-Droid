@@ -15,7 +15,7 @@
   <tile id="53" terrain="0,,0,"/>
  </tileset>
  <tileset firstgid="67" name="ice" tilewidth="128" tileheight="128" tilecount="56" columns="14">
-  <image source="../../anne droid/ice.png" width="1800" height="542"/>
+  <image source="ice.png" width="1800" height="542"/>
  </tileset>
  <layer name="background" width="130" height="30">
   <data>
