@@ -36,11 +36,11 @@ j1Player::j1Player()
 	idle.PushBack({ 50,16,110,193 });
 
 	idle.loop = true;
-	idle.speed = 0.15f;
+	idle.speed = animation_speed;
 
 	//idle_left
 
-	idle_left.PushBack({1052,2272,110,187});
+	idle_left.PushBack({ 1052,2272,110,187 });
 	idle_left.PushBack({ 811,2272,110,187 });
 	idle_left.PushBack({ 570,2272,110,188 });
 	idle_left.PushBack({ 328,2271,111,188 });
@@ -52,7 +52,7 @@ j1Player::j1Player()
 	idle_left.PushBack({ 87,2031,110,187 });
 
 	idle_left.loop = true;
-	idle_left.speed = 0.15f;
+	idle_left.speed = animation_speed;
 
 
 	//right jump
@@ -67,28 +67,28 @@ j1Player::j1Player()
 	jump.PushBack({ 25, 746, 154, 189 });
 	jump.PushBack({ 280, 746, 142, 200 });
 
-	jump.loop = true;
-	jump.speed = 0.09f;
+	jump.loop = false;
+	jump.speed = animation_speed;
+
+
 
 	//left jump
 
 	jump_left.PushBack({ 60,1530,154,190 });
 	jump_left.PushBack({ 299,1530,153,165 });
-	jump_left.PushBack({549,1530,141,172 });
+	jump_left.PushBack({ 549,1530,141,172 });
 	jump_left.PushBack({ 793,1529,137,178 });
 	jump_left.PushBack({ 1032,1529,136,180 });
 	jump_left.PushBack({ 1265,1530,131,193 });
 	jump_left.PushBack({ 1509,1532,115,186 });
-
-
 	jump_left.PushBack({ 1020,1772,132,198 });
 	jump_left.PushBack({ 1226,1771,142,200 });
-	jump_left.PushBack({1509,1771,154,189});
-	
-	jump_left.loop = true;
-	jump_left.speed = 0.09f;
+	jump_left.PushBack({ 1509,1771,154,189 });
 
-	
+	jump_left.loop = false;
+	jump_left.speed = animation_speed;
+
+
 
 	right.PushBack({ 60, 985, 101, 195 });
 	right.PushBack({ 290, 985, 103, 196 });
@@ -100,7 +100,7 @@ j1Player::j1Player()
 	right.PushBack({ 1734, 985, 127, 190 });
 
 	right.loop = true;
-	right.speed = 0.1f;
+	right.speed = animation_speed;
 
 	left.PushBack({ 1755, 1245, 101, 195 });
 	left.PushBack({ 1525, 1245, 103, 196 });
@@ -113,35 +113,31 @@ j1Player::j1Player()
 	left.PushBack({ 60, 1245, 127, 190 });
 
 	left.loop = true;
-	left.speed = 0.12f;
+	left.speed = animation_speed;
 
 
 	//death
-	death.PushBack({98,2470,111,212});
+	death.PushBack({ 98,2470,111,212 });
 	death.PushBack({ 234,2470,114,215 });
-	death.PushBack({ 350,2470,129,221});
+	death.PushBack({ 350,2470,129,221 });
 	death.PushBack({ 483,2470,137,225 });
 	death.PushBack({ 620,2470,140,221 });
 	death.PushBack({ 760,2470,120,220 });
-	death.PushBack({ 880,2470,120,220});
+	death.PushBack({ 880,2470,120,220 });
 	death.PushBack({ 1000,2470,120,220 });
 	death.PushBack({ 1172,2470,120,220 });
 
 	death.loop = false;
-	death.speed = 0.15f;
+	death.speed = animation_speed;
 
 	////////////////HARDCODE
 
 
-	velocity.x = 0;
-	velocity.y = 0;
-
 	////GRAVITY
-	acceleration.x = 0;
 	acceleration.y = gravity;
 
 
-	maxVelocity.x = 25;
+	maxVelocity.x = 30;
 }
 
 j1Player::~j1Player()
@@ -176,86 +172,52 @@ bool j1Player::CleanUp() {
 
 bool j1Player::Update(float dt)
 {
-	
+
 	// Draw everything --------------------------------------
 	AnimationFrame frame = current_animation->GetCurrentFrame();
-	current_animation = &idle;
-	//if (direction == 1)
-	//	current_animation = &idle;
-	//else
-	//	current_animation = &idle_left;
-	//App->physics->UpdatePhysics(&position, &velocity, &acceleration, player_coll);
-	
 
 
 
-	App->physics->UpdatePlayerPhysics(&position, &velocity, &acceleration, player_coll);
-	
+	App->physics->UpdatePlayerPhysics(&position, &velocity, &acceleration, player_coll, &colliding_x, &colliding_y);
+
+	if (colliding_y == DOWN) {
+		grounded = true;
+	}
+
 	//death animatiton test
-	/*if (App->input->GetKey(SDL_SCANCODE_T) == KEY_DOWN) 
-		
+	/*if (App->input->GetKey(SDL_SCANCODE_T) == KEY_DOWN)
+
 		App->player->current_animation = &death;*/
 
 	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
-		/*direction = -1;*/
-		App->player->current_animation = &left;
 		acceleration.x = -acceleration_x;
-
-
-		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
-		{
-			/*App->audio->PlayFx(1);*/
-			velocity.y = -jump_speed;
-			acceleration.y = gravity;
-			acceleration.x = 0;
-			App->player->current_animation = &jump_left;
-
-		}
-	
-
+		last_direction_x = LEFT;
+		current_direction_x = LEFT;
 	}
-
 	else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
-		/*direction = 1;*/
-		App->player->current_animation = &right;
 		acceleration.x = acceleration_x;
-		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
-		{
-			velocity.y = -jump_speed;
-			acceleration.y = gravity;
-			acceleration.x = 0;
-			App->player->current_animation = &jump;
-		}
-	//}
-	//
-	//else if (current_animation == &idle || current_animation == &idle_left ) {
-	//	ApplyFriction();
-	//	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
-	//	{
-	//		velocity.y = -jump_speed;
-	//		acceleration.y = gravity;
-	//		acceleration.x = 0;
-	//		if(current_animation == &idle)
-	//			App->player->current_animation = &jump;
-	//		else
-	//			App->player->current_animation = &jump_left;
-	//	}
-	//}
-
+		last_direction_x = RIGHT;
+		current_direction_x = RIGHT;
 	}
-	
+	else if (grounded) {
+		current_direction_x = NONE_X;
+		ApplyFriction();
+	}
 	else {
 		ApplyFriction();
-
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
 	{
-		velocity.y = -jump_speed;
-		acceleration.y = gravity;
-		acceleration.x = 0;
-		App->player->current_animation = &jump_left;
+		if (grounded) {
+			jump.current_frame = 0.0f;
+			jump_left.current_frame = 0.0f;
+			velocity.y = -jump_speed;
+			acceleration.y = gravity;
+			grounded = false;
+		}
 	}
+
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
 	{
 		if (App->map->data.is_level_1 == false)
@@ -277,8 +239,45 @@ bool j1Player::Update(float dt)
 
 	ApplyMaxVelocity();
 
+	// Direction
+
+
+	switch (last_direction_x)
+	{
+	case LEFT:
+		current_animation = &idle_left;
+		if (!grounded)
+			current_animation = &jump_left;
+		break;
+	case RIGHT:
+		current_animation = &idle;
+		if (!grounded)
+			current_animation = &jump;
+		break;
+	}
+
+	if (grounded) {
+		switch (current_direction_x)
+		{
+		case LEFT:
+			current_animation = &left;
+			break;
+		case RIGHT:
+			current_animation = &right;
+			break;
+		default:
+			break;
+		}
+	}
+
+
+	//
+
 	player_coll->UpdatePosition(&position);
 	App->render->Blit(graphics, position.x, position.y, &frame.rect);
+
+	colliding_x = NONE_X;
+	colliding_y = NONE_Y;
 
 	return UPDATE_CONTINUE;
 

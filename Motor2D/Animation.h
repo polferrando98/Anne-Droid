@@ -16,9 +16,9 @@ public:
 	bool loop = true;
 	float speed = 1.0f;
 	AnimationFrame frames[MAX_FRAMES];
+	float current_frame = 0.0f;
 
 private:
-	float current_frame = 0.0f;
 	int last_frame = 0;
 	int loops = 0;
 
