@@ -130,8 +130,6 @@ bool j1Player::Start()
 	current_animation = &idle;
 
 
-	direction = 0;
-
 	LOG("Loading player textures");
 	graphics = App->tex->Load("textures/player_sprites.png");
 
@@ -166,7 +164,7 @@ bool j1Player::Update(float dt)
 			velocity.y = -jump_speed;
 			acceleration.y = gravity;
 			acceleration.x = 0;
-			App->player->current_animation = &jump_left;
+			App->player->current_animation = &jump_left;                  
 
 		}
 		
@@ -195,17 +193,7 @@ bool j1Player::Update(float dt)
 		}
 	}
 
-	
-	
-	
-
-	
-	if (App->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN)
-		LOG("BREAK!");
-
 	ApplyMaxVelocity();
-
-
 
 	player_coll->UpdatePosition(&position);
 	App->render->Blit(graphics, position.x, position.y, &frame.rect);

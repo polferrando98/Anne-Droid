@@ -37,9 +37,8 @@ public:
 	fPoint maxVelocity;
 	float friction_x = 0.5;
 	float acceleration_x = 0.3;
-	float acceleration_y = 0.5;
-	float gravity = 0.3;
-	float jump_speed = 15;
+	float gravity = 0.5;
+	float jump_speed = 12;
 
 private:
 	SDL_Texture* graphics = nullptr;
@@ -51,9 +50,6 @@ private:
 	Animation right;
 
 	/////////HARDCODE
-	int speed = 5;
-	int player_min_y;
-	int direction;
 
 	SDL_Rect collider_rect;
 };

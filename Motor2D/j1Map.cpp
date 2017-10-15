@@ -66,9 +66,11 @@ void j1Map::PlaceColliders()
 {
 	SDL_Rect col_rect;
 
+	ObjectGroup start = *data.objectGroups.start->data;
+
 	p2List_item<Object*>* object_iterator;
 
-	for (object_iterator = data.objectGroup.objects.start; object_iterator; object_iterator = object_iterator->next) {
+	for (object_iterator = start.objects.start; object_iterator; object_iterator = object_iterator->next) {
 
 		col_rect.x = object_iterator->data->x;
 		col_rect.y = object_iterator->data->y;
@@ -191,10 +193,18 @@ MapData* j1Map::Load(const char* file_name)
 	}
 
 	pugi::xml_node object_group_node;
-	object_group_node = map_file.child("map").child("objectgroup");
+	for (object_group_node = map_file.child("map").child("objectgroup"); object_group_node && ret; object_group_node = object_group_node.next_sibling()) {
+		ObjectGroup* objectGroup = new ObjectGroup();
 
-	if (ret == true)
-		ret = LoadObjectGroup(object_group_node, &data.objectGroup);
+		if (ret == true) 
+		{
+			ret = LoadObjectGroup(object_group_node, objectGroup); //HARDCODE
+		}
+		data.objectGroups.add(objectGroup);
+	}
+	
+
+
 
 
 

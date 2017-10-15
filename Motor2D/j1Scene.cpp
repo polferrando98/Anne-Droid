@@ -118,7 +118,7 @@ bool j1Scene::CleanUp()
 
 void j1Scene::PlaceColliders()
 {
-	ObjectGroup object_group = current_map->objectGroup;
+	ObjectGroup object_group = *current_map->objectGroups.start->data;
 	p2List_item<Object*>* collider_object;
 	p2List_item<SDL_Rect>* rect_item;
 	SDL_Rect Rect;

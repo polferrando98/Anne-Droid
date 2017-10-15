@@ -75,15 +75,15 @@ enum MapTypes
 // ----------------------------------------------------
 struct MapData
 {
-	int					width;
-	int					height;
-	int					tile_width;
-	int					tile_height;
-	SDL_Color			background_color;
-	MapTypes			type;
-	p2List<TileSet*>	tilesets;
-	p2List<Layer*>		layers;
-	ObjectGroup			objectGroup;
+	int						width;
+	int						height;
+	int						tile_width;
+	int						tile_height;
+	SDL_Color				background_color;
+	MapTypes				type;
+	p2List<TileSet*>		tilesets;
+	p2List<Layer*>			layers;
+	p2List<ObjectGroup*>	objectGroups;
 	// TODO 2: Add a list/array of layers to the map!
 	
 };
