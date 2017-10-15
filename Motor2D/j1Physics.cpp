@@ -48,12 +48,29 @@ void j1Physics::Debug_draw() const
 
 	Collider* pCollider = nullptr;
 
+
+
 	for (collider_iterator = collider_list.start; collider_iterator != NULL; collider_iterator = collider_iterator->next)
 	{
 		pCollider = collider_iterator->data;
 
+		
 		if (pCollider->visble) {
-			App->render->DrawQuad(pCollider->rect, 0, 255, 0, alpha, true, true);
+			switch (pCollider->type)
+			{
+			case PLAYER:
+				App->render->DrawQuad(pCollider->rect, 0, 255, 0, alpha, true, true); //Green
+				break;
+			case WALL:
+				App->render->DrawQuad(pCollider->rect, 0, 0, 255, alpha, true, true); //Blue
+				break;
+			case DEATH:
+				App->render->DrawQuad(pCollider->rect, 255, 0, 0, alpha, true, true); //Red
+				break;
+			case DOOR:
+				App->render->DrawQuad(pCollider->rect, 102, 51, 0, alpha, true, true); //Brown
+				break;
+			}
 		}
 	}
 }

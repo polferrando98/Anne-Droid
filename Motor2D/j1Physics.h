@@ -8,7 +8,7 @@
 #include "p2Point.h"
 #include "j1Module.h"
 
-enum COLLIDER_TYPE {PLAYER, WALL};
+enum COLLIDER_TYPE {PLAYER, WALL, DEATH, DOOR};
 
 struct Collider{
 	Collider(SDL_Rect *rectangle, COLLIDER_TYPE type);
