@@ -77,7 +77,13 @@ void j1Physics::Debug_draw() const
 
 void j1Physics::UpdatePlayerPhysics(fPoint * position, fPoint * velocity, fPoint * acceleration, Collider* collider)  //If it was another game, this could be adapted for any moving object
 {
-	Collider newCollider = *collider;
+	checkWallCollisions(position, velocity, acceleration, collider);
+	checkDeathCollisions(position, velocity, acceleration, collider);
+}
+
+void j1Physics::checkWallCollisions(fPoint * position, fPoint * velocity, fPoint * acceleration, Collider* collider)
+{
+		Collider newCollider = *collider;
 	bool colliding_x = false;
 	bool colliding_y = false;
 
@@ -91,7 +97,7 @@ void j1Physics::UpdatePlayerPhysics(fPoint * position, fPoint * velocity, fPoint
 	pos_differential.x = newPosition.x - position->x;
 	
 	if (pos_differential.x != 0) {
-		if (checkCollisions(&newCollider))
+		if (checkColliders(&newCollider,WALL))
 			colliding_x = true;
 	}
 
@@ -103,10 +109,10 @@ void j1Physics::UpdatePlayerPhysics(fPoint * position, fPoint * velocity, fPoint
 	pos_differential.y = newPosition.y - position->y;
 
 	if (pos_differential.y != 0) {
-		if (checkCollisions(&newCollider))
+		if (checkColliders(&newCollider,WALL))
 			colliding_y = true;
 	}
-
+	
 	if (!colliding_y) {
 		velocity->y += acceleration->y;
 		position->y += velocity->y;
@@ -124,6 +130,29 @@ void j1Physics::UpdatePlayerPhysics(fPoint * position, fPoint * velocity, fPoint
 	}
 }
 
+void j1Physics::checkDeathCollisions(fPoint * position, fPoint * velocity, fPoint * acceleration, Collider * collider)
+{
+	Collider newCollider = *collider;
+	bool colliding_x = false;
+
+
+	fPoint newVelocity;
+	fPoint newPosition;
+
+	newVelocity.x = velocity->x + acceleration->x;
+	newPosition.x = position->x + newVelocity.x;
+	newCollider.rect.x = newPosition.x;
+
+
+	newVelocity.y = velocity->y + acceleration->y;
+	newPosition.y = position->y + newVelocity.y;
+	newCollider.rect.y = newPosition.y;
+
+
+	if (checkColliders(&newCollider,DEATH))
+			colliding_x = true;
+}
+
 Collider* j1Physics::AddCollider(SDL_Rect *rect, const COLLIDER_TYPE type)
 {
 	Collider *pCollider = nullptr;
@@ -134,7 +163,7 @@ Collider* j1Physics::AddCollider(SDL_Rect *rect, const COLLIDER_TYPE type)
 	return pCollider;
 }
 
-bool j1Physics::checkCollisions(Collider* object_col)
+bool j1Physics::checkColliders(Collider* object_col, COLLIDER_TYPE type_to_collide)
 {
 	p2List_item<Collider*>* collider_iterator_b;
 
@@ -148,7 +177,7 @@ bool j1Physics::checkCollisions(Collider* object_col)
 
 	for (collider_iterator_b = collider_list.start; collider_iterator_b != NULL; collider_iterator_b = collider_iterator_b->next)
 	{
-		if (collider_iterator_b->data->type == !PLAYER) {  //HARDCODE
+		if (collider_iterator_b->data->type != object_col->type && collider_iterator_b->data->type == type_to_collide) {  //HARDCODE
 			rect_b = collider_iterator_b->data->rect;
 
 			if (!rectsAreEqual(rect_a, rect_b)) {
@@ -174,6 +203,12 @@ bool j1Physics::rectsAreEqual(SDL_Rect rect_a, SDL_Rect rect_b)
 	if (rect_a.h != rect_b.h)
 		ret = false;
 	return ret;
+}
+
+DIRECTION j1Physics::getDirectionFromIntersection(Collider* source)
+{
+	
+	return DIRECTION();
 }
 
 

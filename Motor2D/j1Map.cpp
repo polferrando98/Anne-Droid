@@ -50,7 +50,7 @@ void j1Map::Draw()
 				Get_pixels_from_tiles(row, col, &real_row, &real_col);
 
 				//provisional parallax
-				if (layer_iterator->data->name == "Capa de Patrones 1") {
+				if (layer_iterator->data->name == "background") {
 					float camera_increment = layer2_parallax * (App->render->camera.x);
 					real_col += (int)camera_increment;
 				}

@@ -9,6 +9,7 @@
 #include "j1Module.h"
 
 enum COLLIDER_TYPE {PLAYER, WALL, DEATH, DOOR};
+enum DIRECTION {LEFT, RIGHT, UP, DOWN};
 
 struct Collider{
 	Collider(SDL_Rect *rectangle, COLLIDER_TYPE type);
@@ -41,13 +42,17 @@ public:
 
 	void UpdatePlayerPhysics(fPoint *position, fPoint *velocity, fPoint *acceleration, Collider* collider);
 
+	void  checkWallCollisions(fPoint *position, fPoint *velocity, fPoint *acceleration, Collider* collider);
+
+	void  checkDeathCollisions(fPoint *position, fPoint *velocity, fPoint *acceleration, Collider* collider);
+
 	Collider* AddCollider(SDL_Rect *rect, const COLLIDER_TYPE type);
 
-	bool checkCollisions(Collider* object_col);
+	bool checkColliders(Collider* object_col, COLLIDER_TYPE type_to_ignore);
 
 	bool rectsAreEqual(SDL_Rect rect_a, SDL_Rect rect_b);
 
-
+	DIRECTION getDirectionFromIntersection(Collider* source);
 
 private:
 
