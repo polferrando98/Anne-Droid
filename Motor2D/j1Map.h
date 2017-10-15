@@ -11,7 +11,8 @@ enum ObjectTypes {
 	OBJECT_TYPE_GROUND,
 	OBJECT_TYPE_DEATH,
 	OBJECT_TYPE_DOOR,
-	OBJECT_TYPE_PLAYER
+	OBJECT_TYPE_PLAYER,
+	OBJECT_TYPE_ICE
 };
 
 struct Object {
@@ -21,6 +22,7 @@ struct Object {
 	int y;
 	int w;
 	int h;
+	float friction = 0;
 };
 
 struct Layer {

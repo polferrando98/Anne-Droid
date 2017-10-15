@@ -48,8 +48,11 @@ bool j1Physics::CleanUp()
 
 bool j1Physics::Update(float dt)
 {
-	if((App->input->GetKey(SDL_SCANCODE_9) == KEY_REPEAT))
-	Debug_draw();
+	if ((App->input->GetKey(SDL_SCANCODE_9) == KEY_DOWN))
+		debug_mode = !debug_mode;
+	if (debug_mode)
+		Debug_draw();
+
 	return UPDATE_CONTINUE;
 }
 
@@ -142,7 +145,10 @@ void j1Physics::checkWallCollisions(fPoint *position, fPoint *velocity, fPoint *
 
 	if (*colliding_y == UP || *colliding_y == DOWN) {
 		velocity->y = 0;
+		//friction = collided->friction;
 	}
+	else
+		friction = 0.5;
 
 	if (*colliding_y != UP && *colliding_y != DOWN) {
 		velocity->y += acceleration->y;
@@ -156,7 +162,6 @@ void j1Physics::checkDeathCollisions(fPoint * position, fPoint * velocity, fPoin
 {
 	Collider newCollider = *collider;
 	bool colliding_x = false;
-
 
 	fPoint newVelocity;
 	fPoint newPosition;
@@ -182,7 +187,6 @@ void j1Physics::CheckDoorEntry(fPoint * position, fPoint * velocity, fPoint * ac
 	Collider newCollider = *collider;
 	bool colliding_x = false;
 
-
 	fPoint newVelocity;
 	fPoint newPosition;
 
@@ -201,14 +205,38 @@ void j1Physics::CheckDoorEntry(fPoint * position, fPoint * velocity, fPoint * ac
 	}
 }
 
-Collider* j1Physics::AddCollider(SDL_Rect *rect, const COLLIDER_TYPE type)
+Collider* j1Physics::AddCollider(SDL_Rect *rect, const COLLIDER_TYPE type, float friction)
 {
 	Collider *pCollider = nullptr;
 
-	pCollider = new Collider(rect, type);
+	pCollider = new Collider(rect, type,friction);
 	collider_list.add(pCollider);
 
 	return pCollider;
+}
+
+void j1Physics::ApplyFriction(fPoint* velocity, fPoint* acceleration)
+{
+	if (abs(velocity->x) != 0) {
+		if (velocity->x > 0)
+			acceleration->x = -friction;
+		else if (velocity->x < 0)
+			acceleration->x = +friction;
+
+		if (abs(velocity->x) <= friction) {
+			if (velocity->x > 0)
+				acceleration->x = -0.1;
+			else if (velocity->x < 0)
+				acceleration->x = +0.1;
+
+			if (abs(velocity->x) < 0.01) {
+				if (velocity->x > 0)
+					acceleration->x = -0.001;
+				else if (velocity->x < 0)
+					acceleration->x = +0.001;
+			}
+		}
+	}
 }
 
 bool j1Physics::checkColliders(Collider* object_col, COLLIDER_TYPE type_to_collide)
@@ -225,15 +253,18 @@ bool j1Physics::checkColliders(Collider* object_col, COLLIDER_TYPE type_to_colli
 
 	for (collider_iterator_b = collider_list.start; collider_iterator_b != NULL; collider_iterator_b = collider_iterator_b->next)
 	{
-		if (collider_iterator_b->data->type != object_col->type && collider_iterator_b->data->type == type_to_collide) {  //HARDCODE
+		if (collider_iterator_b->data->type != object_col->type && collider_iterator_b->data->type == type_to_collide) {  
 			rect_b = collider_iterator_b->data->rect;
 
 			if (!rectsAreEqual(rect_a, rect_b)) {
 				bool intersect = SDL_IntersectRect(&rect_a, &rect_b, &intersection);
-				if (intersect)
+				if (intersect) {
 					return true;
+					collided = collider_iterator_b->data;
+				}
 			}
 		}
+		
 	}
 
 	return false;
@@ -253,11 +284,12 @@ bool j1Physics::rectsAreEqual(SDL_Rect rect_a, SDL_Rect rect_b)
 	return ret;
 }
 
-Collider::Collider(SDL_Rect *rectangle, COLLIDER_TYPE type)
+Collider::Collider(SDL_Rect *rectangle, COLLIDER_TYPE type, float friction)
 {
 	this->rect = *rectangle;
 	visble = true;
 	this->type = type;
+	this->friction = friction;
 }
 
 void Collider::UpdatePosition(fPoint *newPos)

@@ -132,13 +132,10 @@ j1Player::j1Player()
 	death.speed = animation_speed;
 
 	////////////////HARDCODE
-
+	maxVelocity.x = 20;
 
 	////GRAVITY
 	acceleration.y = gravity;
-
-
-	maxVelocity.x = 30;
 }
 
 j1Player::~j1Player()
@@ -202,10 +199,10 @@ bool j1Player::Update(float dt)
 	}
 	else if (grounded) {
 		current_direction_x = NONE_X;
-		ApplyFriction();
+		App->physics->ApplyFriction(&velocity, &acceleration);
 	}
 	else {
-		ApplyFriction();
+		App->physics->ApplyFriction(&velocity, &acceleration); //Friction in the air is not realistic, but makes the game feel better
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
@@ -274,29 +271,6 @@ bool j1Player::Update(float dt)
 
 }
 
-void j1Player::ApplyFriction() {
-	if (abs(velocity.x) != 0) {
-		if (velocity.x > 0)
-			acceleration.x = -friction_x;
-		else if (velocity.x < 0)
-			acceleration.x = +friction_x;
-
-		if (abs(velocity.x) <= friction_x) {
-			if (velocity.x > 0)
-				acceleration.x = -0.1;
-			else if (velocity.x < 0)
-				acceleration.x = +0.1;
-
-			if (abs(velocity.x) < 0.01) {
-				if (velocity.x > 0)
-					acceleration.x = -0.001;
-				else if (velocity.x < 0)
-					acceleration.x = +0.001;
-			}
-		}
-	}
-}
-
 void j1Player::ApplyMaxVelocity()
 {
 	if (velocity.x != 0) {
@@ -309,7 +283,7 @@ void j1Player::ApplyMaxVelocity()
 
 void j1Player::createCol(SDL_Rect* Rect)
 {
-	player_coll = App->physics->AddCollider(Rect, COLLIDER_TYPE::PLAYER);
+	player_coll = App->physics->AddCollider(Rect, COLLIDER_TYPE::PLAYER, 0);
 }
 
 bool j1Player::load(pugi::xml_node &save)

@@ -82,17 +82,21 @@ void j1Map::PlaceColliders()
 			col_rect.w = object_iterator->data->w;
 			col_rect.h = object_iterator->data->h;
 
+			float friction = object_iterator->data->friction;
 
 			switch (object_iterator->data->type)
 			{
 			case OBJECT_TYPE_GROUND:
-				App->physics->AddCollider(&col_rect, WALL);
+				App->physics->AddCollider(&col_rect, WALL, friction);
+				break;
+			case OBJECT_TYPE_ICE:
+				App->physics->AddCollider(&col_rect, WALL, friction);
 				break;
 			case OBJECT_TYPE_DEATH:
-				App->physics->AddCollider(&col_rect, DEATH);
+				App->physics->AddCollider(&col_rect, DEATH, friction);
 				break;
 			case OBJECT_TYPE_DOOR:
-				App->physics->AddCollider(&col_rect, DOOR);
+				App->physics->AddCollider(&col_rect, DOOR, friction);
 				break;
 			case OBJECT_TYPE_PLAYER:
 				data.player_start_position.x = col_rect.x;
@@ -222,9 +226,7 @@ MapData* j1Map::Load(const char* file_name)
 	// TODO 4: Iterate all layers and load each of them
 	// Load layer info ----------------------------------------------
 	pugi::xml_node layer_node;
-	if (data.layers.start) {
-		LOG("FUCK");
-	}
+
 	for (layer_node = map_file.child("map").child("layer"); layer_node && ret; layer_node = layer_node.next_sibling("layer"))
 	{
 		Layer* layer = new Layer();
@@ -445,6 +447,12 @@ bool j1Map::LoadObject(pugi::xml_node &object_node, Object *object)
 	if (object_type == "ground")
 	{
 		object->type = OBJECT_TYPE_GROUND;
+		object->friction = object_node.child("properties").child("property").attribute("value").as_float();
+	}
+	else if (object_type == "ice")
+	{
+		object->type = OBJECT_TYPE_ICE;
+		object->friction = object_node.child("properties").child("property").attribute("value").as_float();
 	}
 	else if (object_type == "death")
 	{

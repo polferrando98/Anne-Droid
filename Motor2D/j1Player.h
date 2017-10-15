@@ -42,8 +42,7 @@ public:
 	
 	//HARDCODE
 	fPoint maxVelocity;
-	float friction_x = 1.0f;
-	float acceleration_x = 0.3;
+	float acceleration_x = 0.3f;
 	float gravity = 0.5;
 	float jump_speed = 15;
 
