@@ -45,6 +45,7 @@ private:
 	SDL_Texture* graphics = nullptr;
 	Animation* current_animation = nullptr;
 	Animation idle;
+	Animation idle_left;
 	Animation jump;
 	Animation jump_left;
 	Animation left;
@@ -54,7 +55,6 @@ private:
 	int speed = 5;
 	int player_min_y;
 	int direction;
-
 	SDL_Rect collider_rect;
 };
 
