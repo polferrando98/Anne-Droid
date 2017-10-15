@@ -182,10 +182,6 @@ bool j1Player::Update(float dt)
 		grounded = true;
 	}
 
-	//death animatiton test
-	/*if (App->input->GetKey(SDL_SCANCODE_T) == KEY_DOWN)
-
-		App->player->current_animation = &death;*/
 
 	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
 		acceleration.x = -acceleration_x;
@@ -207,7 +203,9 @@ bool j1Player::Update(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
 	{
+		App->audio->PlayFx(1);
 		if (!grounded && double_jump_avaliable) {
+			
 			jump.current_frame = 0.0f;
 			jump_left.current_frame = 0.0f;
 			velocity.y = -jump_speed;
