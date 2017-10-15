@@ -147,7 +147,8 @@ bool j1Player::Start()
 	current_animation = &idle;
 
 
-	direction = 1;
+	/*direction = 1;*/
+
 
 	LOG("Loading player textures");
 	graphics = App->tex->Load("textures/player_sprites.png");
@@ -170,17 +171,25 @@ bool j1Player::Update(float dt)
 	
 	// Draw everything --------------------------------------
 	AnimationFrame frame = current_animation->GetCurrentFrame();
-	if (direction == 1)
-		current_animation = &idle;
-	else
-		current_animation = &idle_left;
-	App->physics->UpdatePhysics(&position, &velocity, &acceleration, player_coll);
+
+	//if (direction == 1)
+	//	current_animation = &idle;
+	//else
+	//	current_animation = &idle_left;
+	//App->physics->UpdatePhysics(&position, &velocity, &acceleration, player_coll);
 	
 
+
+
+	App->physics->UpdatePlayerPhysics(&position, &velocity, &acceleration, player_coll);
+	current_animation = &idle;
+
+
 	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
-		direction = -1;
+		/*direction = -1;*/
 		App->player->current_animation = &left;
 		acceleration.x = -acceleration_x;
+
 
 		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
 		{
@@ -191,46 +200,57 @@ bool j1Player::Update(float dt)
 
 		}
 	
+
 	}
+
 	else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
-		direction = 1;
+		/*direction = 1;*/
 		App->player->current_animation = &right;
 		acceleration.x = acceleration_x;
-		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
-		{
-			velocity.y = -jump_speed;
-			acceleration.y = gravity;
-			acceleration.x = 0;
-			App->player->current_animation = &jump;
-		}
+	//	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
+	//	{
+	//		velocity.y = -jump_speed;
+	//		acceleration.y = gravity;
+	//		acceleration.x = 0;
+	//		App->player->current_animation = &jump;
+	//	}
+	//}
+	//
+	//else if (current_animation == &idle || current_animation == &idle_left ) {
+	//	ApplyFriction();
+	//	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
+	//	{
+	//		velocity.y = -jump_speed;
+	//		acceleration.y = gravity;
+	//		acceleration.x = 0;
+	//		if(current_animation == &idle)
+	//			App->player->current_animation = &jump;
+	//		else
+	//			App->player->current_animation = &jump_left;
+	//	}
+	//}
+
+
+	
+	
+	
 	}
 	
-	else if (current_animation == &idle || current_animation == &idle_left ) {
+	else {
 		ApplyFriction();
-		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
-		{
-			velocity.y = -jump_speed;
-			acceleration.y = gravity;
-			acceleration.x = 0;
-			if(current_animation == &idle)
-				App->player->current_animation = &jump;
-			else
-				App->player->current_animation = &jump_left;
-		}
+
 	}
 
 
-	
-	
-	
-
-	
-	if (App->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN)
-		LOG("BREAK!");
+	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
+	{
+		velocity.y = -jump_speed;
+		acceleration.y = gravity;
+		acceleration.x = 0;
+		App->player->current_animation = &jump_left;
+	}
 
 	ApplyMaxVelocity();
-
-
 
 	player_coll->UpdatePosition(&position);
 	App->render->Blit(graphics, position.x, position.y, &frame.rect);
@@ -248,9 +268,9 @@ void j1Player::ApplyFriction() {
 
 		if (abs(velocity.x) <= friction_x) {
 			if (velocity.x > 0)
-				acceleration.x = -0.01;
+				acceleration.x = -0.1;
 			else if (velocity.x < 0)
-				acceleration.x = +0.01;
+				acceleration.x = +0.1;
 
 			if (abs(velocity.x) < 0.01) {
 				if (velocity.x > 0)

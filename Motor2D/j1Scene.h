@@ -33,8 +33,6 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
-	void PlaceColliders();
-
 	MapData* current_map;
 
 	//HARDCODE

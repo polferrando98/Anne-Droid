@@ -8,7 +8,7 @@
 #include "p2Point.h"
 #include "j1Module.h"
 
-enum COLLIDER_TYPE {PLAYER, WALL};
+enum COLLIDER_TYPE {PLAYER, WALL, DEATH, DOOR};
 
 struct Collider{
 	Collider(SDL_Rect *rectangle, COLLIDER_TYPE type);
@@ -39,7 +39,7 @@ public:
 
 	void Debug_draw() const;
 
-	void UpdatePhysics(fPoint *position, fPoint *velocity, fPoint *acceleration, Collider* collider);
+	void UpdatePlayerPhysics(fPoint *position, fPoint *velocity, fPoint *acceleration, Collider* collider);
 
 	Collider* AddCollider(SDL_Rect *rect, const COLLIDER_TYPE type);
 
