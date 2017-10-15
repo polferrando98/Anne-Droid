@@ -68,17 +68,35 @@ void j1Map::PlaceColliders()
 
 	ObjectGroup start = *data.objectGroups.start->data;
 
+	p2List_item<ObjectGroup*>* object_group_iterator = nullptr;
+
 	p2List_item<Object*>* object_iterator;
 
-	for (object_iterator = start.objects.start; object_iterator; object_iterator = object_iterator->next) {
+	for (object_group_iterator = data.objectGroups.start; object_group_iterator; object_group_iterator = object_group_iterator->next) {
 
-		col_rect.x = object_iterator->data->x;
-		col_rect.y = object_iterator->data->y;
-		col_rect.w = object_iterator->data->w;
-		col_rect.h = object_iterator->data->h;
+		for (object_iterator = object_group_iterator->data->objects.start; object_iterator; object_iterator = object_iterator->next) {
+
+			col_rect.x = object_iterator->data->x;
+			col_rect.y = object_iterator->data->y;
+			col_rect.w = object_iterator->data->w;
+			col_rect.h = object_iterator->data->h;
 
 
-		App->physics->AddCollider(&col_rect, WALL);
+			switch (object_iterator->data->type)
+			{
+			case OBJECT_TYPE_GROUND:
+				App->physics->AddCollider(&col_rect, WALL);
+				break;
+			case OBJECT_TYPE_DEATH:
+				App->physics->AddCollider(&col_rect, DEATH);
+				break;
+			case OBJECT_TYPE_DOOR:
+				App->physics->AddCollider(&col_rect, DOOR);
+				break;
+			default:
+				break;
+			}
+		}
 	}
 }
 
@@ -401,9 +419,18 @@ bool j1Map::LoadObject(pugi::xml_node &object_node, Object *object)
 	{
 		object->type = OBJECT_TYPE_GROUND;
 	}
+	else if (object_type == "death")
+	{
+		object->type = OBJECT_TYPE_DEATH;
+	}
+	else if (object_type == "door")
+	{
+		object->type = OBJECT_TYPE_DOOR;
+	}
 	else
 	{
 		object->type = OBJECT_TYPE_UNKNOWN;
+		ret = false;
 	}
 
 	object->x = object_node.attribute("x").as_int();
@@ -411,7 +438,7 @@ bool j1Map::LoadObject(pugi::xml_node &object_node, Object *object)
 	object->w = object_node.attribute("width").as_int();
 	object->h = object_node.attribute("height").as_int();
 
-	return true;
+	return ret;
 }
 
 // TODO 3: Create the definition for a function that loads a single layer

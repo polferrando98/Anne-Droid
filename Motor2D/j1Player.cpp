@@ -152,45 +152,32 @@ bool j1Player::Update(float dt)
 	AnimationFrame frame = current_animation->GetCurrentFrame();
 
 
-	App->physics->UpdatePhysics(&position, &velocity, &acceleration, player_coll);
+	App->physics->UpdatePlayerPhysics(&position, &velocity, &acceleration, player_coll);
 	current_animation = &idle;
 
 	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
 		App->player->current_animation = &left;
 		acceleration.x = -acceleration_x;
 
-		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
-		{
-			velocity.y = -jump_speed;
-			acceleration.y = gravity;
-			acceleration.x = 0;
-			App->player->current_animation = &jump_left;                  
 
-		}
-		
 	}
+
 	else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
 		App->player->current_animation = &right;
 		acceleration.x = acceleration_x;
-		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
-		{
-			velocity.y = -jump_speed;
-			acceleration.y = gravity;
-			acceleration.x = 0;
-			App->player->current_animation = &jump;
-			
-		}
 	}
 	
-	else if (current_animation = &idle) {
+	else {
 		ApplyFriction();
-		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
-		{
-			velocity.y = -jump_speed;
-			acceleration.y = gravity;
-			acceleration.x = 0;
-			App->player->current_animation = &jump;
-		}
+
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
+	{
+		velocity.y = -jump_speed;
+		acceleration.y = gravity;
+		acceleration.x = 0;
+		App->player->current_animation = &jump_left;
 	}
 
 	ApplyMaxVelocity();
@@ -211,9 +198,9 @@ void j1Player::ApplyFriction() {
 
 		if (abs(velocity.x) <= friction_x) {
 			if (velocity.x > 0)
-				acceleration.x = -0.01;
+				acceleration.x = -0.1;
 			else if (velocity.x < 0)
-				acceleration.x = +0.01;
+				acceleration.x = +0.1;
 
 			if (abs(velocity.x) < 0.01) {
 				if (velocity.x > 0)

@@ -39,7 +39,7 @@ public:
 
 	void Debug_draw() const;
 
-	void UpdatePhysics(fPoint *position, fPoint *velocity, fPoint *acceleration, Collider* collider);
+	void UpdatePlayerPhysics(fPoint *position, fPoint *velocity, fPoint *acceleration, Collider* collider);
 
 	Collider* AddCollider(SDL_Rect *rect, const COLLIDER_TYPE type);
 

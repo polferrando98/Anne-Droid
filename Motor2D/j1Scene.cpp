@@ -116,22 +116,3 @@ bool j1Scene::CleanUp()
 	return true;
 }
 
-void j1Scene::PlaceColliders()
-{
-	ObjectGroup object_group = *current_map->objectGroups.start->data;
-	p2List_item<Object*>* collider_object;
-	p2List_item<SDL_Rect>* rect_item;
-	SDL_Rect Rect;
-	
-	for (collider_object = object_group.objects.start; collider_object; collider_object = collider_object->next) {
-		Rect.x = collider_object->data->x;
-		Rect.y = collider_object->data->y;
-		Rect.w = collider_object->data->x;
-		Rect.h = collider_object->data->x;
-		
-		col_rects->add(Rect);
-
-		App->physics->AddCollider(&col_rects->end->data, WALL);
-	}
-
-}

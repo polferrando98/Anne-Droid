@@ -75,7 +75,7 @@ void j1Physics::Debug_draw() const
 	}
 }
 
-void j1Physics::UpdatePhysics(fPoint * position, fPoint * velocity, fPoint * acceleration, Collider* collider)
+void j1Physics::UpdatePlayerPhysics(fPoint * position, fPoint * velocity, fPoint * acceleration, Collider* collider)  //If it was another game, this could be adapted for any moving object
 {
 	Collider newCollider = *collider;
 	bool colliding_x = false;
