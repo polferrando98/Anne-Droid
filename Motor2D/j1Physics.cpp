@@ -149,8 +149,10 @@ void j1Physics::checkDeathCollisions(fPoint * position, fPoint * velocity, fPoin
 	newCollider.rect.y = newPosition.y;
 
 
-	if (checkColliders(&newCollider,DEATH))
-			colliding_x = true;
+	if (checkColliders(&newCollider, DEATH)) {
+		position->x = App->map->data.player_start_position.x;
+		position->y = App->map->data.player_start_position.y;
+	}
 }
 
 Collider* j1Physics::AddCollider(SDL_Rect *rect, const COLLIDER_TYPE type)

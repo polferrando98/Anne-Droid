@@ -93,6 +93,10 @@ void j1Map::PlaceColliders()
 			case OBJECT_TYPE_DOOR:
 				App->physics->AddCollider(&col_rect, DOOR);
 				break;
+			case OBJECT_TYPE_PLAYER:
+				data.player_start_position.x = col_rect.x;
+				data.player_start_position.y = col_rect.y;
+				break;
 			default:
 				break;
 			}
@@ -426,6 +430,10 @@ bool j1Map::LoadObject(pugi::xml_node &object_node, Object *object)
 	else if (object_type == "door")
 	{
 		object->type = OBJECT_TYPE_DOOR;
+	}
+	else if (object_type == "player")
+	{
+		object->type = OBJECT_TYPE_PLAYER;
 	}
 	else
 	{
