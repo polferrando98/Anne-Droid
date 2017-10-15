@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="130" height="30" tilewidth="128" tileheight="128" nextobjectid="85">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="130" height="30" tilewidth="128" tileheight="128" nextobjectid="86">
  <tileset firstgid="1" name="MAP" tilewidth="128" tileheight="128" tilecount="66" columns="11">
   <image source="tiles.png" width="1420" height="768"/>
   <terraintypes>
@@ -7903,5 +7903,8 @@
  </objectgroup>
  <objectgroup color="#ffff00" name="door">
   <object id="76" type="door" x="16433.3" y="2969.7" width="39.3939" height="224.242"/>
+ </objectgroup>
+ <objectgroup name="player">
+  <object id="85" type="player" x="136" y="3120" width="110" height="193"/>
  </objectgroup>
 </map>
