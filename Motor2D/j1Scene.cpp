@@ -31,11 +31,8 @@ bool j1Scene::Awake()
 // Called before the first frame
 bool j1Scene::Start()
 {
-
 	App->map->Load("level_1.tmx");
 	App->audio->PlayMusic("audio/music/anne-droid-music.ogg");
-
-	current_map = App->map->Load("level_1.tmx");
 
 	App->map->PlaceColliders();
 	
@@ -104,5 +101,14 @@ bool j1Scene::CleanUp()
 	LOG("Freeing scene");
 
 	return true;
+}
+
+void j1Scene::ChangeMap()
+{
+	App->physics->CleanUp();
+	App->map->Load("level_2.tmx");
+	App->map->PlaceColliders();
+	App->player->position.x = App->map->data.player_start_position.x;
+	App->player->position.y = App->map->data.player_start_position.y;
 }
 

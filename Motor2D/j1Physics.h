@@ -46,6 +46,8 @@ public:
 
 	void  checkDeathCollisions(fPoint *position, fPoint *velocity, fPoint *acceleration, Collider* collider);
 
+	void CheckDoorEntry(fPoint *position, fPoint *velocity, fPoint *acceleration, Collider* collider);
+
 	Collider* AddCollider(SDL_Rect *rect, const COLLIDER_TYPE type);
 
 	bool checkColliders(Collider* object_col, COLLIDER_TYPE type_to_ignore);

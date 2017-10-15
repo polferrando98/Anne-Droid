@@ -33,7 +33,7 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
-	MapData* current_map;
+	void ChangeMap();
 
 	//HARDCODE
 
