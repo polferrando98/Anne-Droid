@@ -49,6 +49,9 @@ public:
 	DIRECTION_X last_direction_x = NONE_X;
 	DIRECTION_Y last_direction_y = NONE_Y;
 
+	DIRECTION_X current_direction_x = NONE_X;
+	DIRECTION_Y current_direction_y = NONE_Y;
+
 
 private:
 	SDL_Texture* graphics = nullptr;
