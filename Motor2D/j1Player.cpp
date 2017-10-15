@@ -154,7 +154,7 @@ bool j1Player::Start()
 	position.y = App->map->data.player_start_position.y;
 
 	/*direction = 1;*/
-
+	acceleration.y = gravity;
 
 	LOG("Loading player textures");
 	graphics = App->tex->Load("textures/player_sprites.png");
@@ -209,11 +209,17 @@ bool j1Player::Update(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
 	{
+		if (!grounded && double_jump_avaliable) {
+			jump.current_frame = 0.0f;
+			jump_left.current_frame = 0.0f;
+			velocity.y = -jump_speed;
+			double_jump_avaliable = false;
+
+		}
 		if (grounded) {
 			jump.current_frame = 0.0f;
 			jump_left.current_frame = 0.0f;
 			velocity.y = -jump_speed;
-			acceleration.y = gravity;
 			grounded = false;
 		}
 	}
@@ -268,6 +274,7 @@ bool j1Player::Update(float dt)
 		default:
 			break;
 		}
+		double_jump_avaliable = true;
 	}
 
 

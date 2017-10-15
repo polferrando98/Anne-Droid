@@ -35,6 +35,7 @@ public:
 	fPoint acceleration;
 	Collider *player_coll;
 	bool grounded = false;
+	bool double_jump_avaliable = true;
 	
 	//HARDCODE
 	fPoint maxVelocity;
