@@ -53,10 +53,10 @@ bool j1Scene::Update(float dt)
 {
 
 	if(App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
-		App->LoadGame();
+		App->load();
 
 	if(App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
-		App->SaveGame();
+		App->save();
 
 	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
 		App->render->camera.y += App->render->camera_speed;

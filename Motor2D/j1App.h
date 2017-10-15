@@ -52,8 +52,8 @@ public:
 	const char* GetTitle() const;
 	const char* GetOrganization() const;
 
-	void LoadGame();
-	void SaveGame() const;
+	void save();
+	void load();
 	void GetSaveGames(p2List<p2SString>& list_to_fill) const;
 
 private:
@@ -77,8 +77,12 @@ private:
 	bool PostUpdate();
 
 	// Load / Save
-	bool LoadGameNow();
-	bool SavegameNow() const;
+	bool LoadSaveFile();
+
+	bool real_save();
+	bool real_load();
+
+	
 
 public:
 
@@ -107,8 +111,14 @@ private:
 	p2SString			title;
 	p2SString			organization;
 
-	mutable bool		want_to_save;
-	bool				want_to_load;
+	bool save_requested;
+	bool load_requested;
+	pugi::xml_document	config_file;
+	pugi::xml_document	save_game_file;
+	pugi::xml_node		config;
+	pugi::xml_node		app_config;
+	pugi::xml_node		save_node;
+
 	p2SString			load_game;
 	mutable p2SString	save_game;
 };

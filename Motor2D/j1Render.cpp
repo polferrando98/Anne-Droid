@@ -88,24 +88,36 @@ bool j1Render::CleanUp()
 }
 
 // Load Game State
-bool j1Render::Load(pugi::xml_node& data)
+bool j1Render::load(pugi::xml_node &save)
 {
-	camera.x = data.child("camera").attribute("x").as_int();
-	camera.y = data.child("camera").attribute("y").as_int();
+	camera.x = save.child("camera").attribute("x").as_int();
+	camera.y = save.child("camera").attribute("y").as_int();
 
 	return true;
 }
 
-// Save Game State
-bool j1Render::Save(pugi::xml_node& data) const
+bool j1Render::save(pugi::xml_node &save) const
 {
-	pugi::xml_node cam = data.append_child("camera");
+	if (save.child("camera") == NULL) {
+		save.append_child("camera");
+	}
 
-	cam.append_attribute("x") = camera.x;
-	cam.append_attribute("y") = camera.y;
+	if (save.child("camera").attribute("x") == NULL) {
+		save.child("camera").append_attribute("x") = camera.x;
+	}
+	else {
+		save.child("camera").attribute("x").set_value(camera.x);
+	}
+
+	if (save.child("camera").attribute("y") == NULL) {
+		save.child("camera").append_attribute("y") = camera.x;
+	}
+	else {
+		save.child("camera").attribute("y").set_value(camera.x);
+	}
 
 	return true;
-}
+};
 
 void j1Render::SetBackgroundColor(SDL_Color color)
 {
