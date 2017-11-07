@@ -8,7 +8,7 @@
   <tile id="0">
    <properties>
     <property name="friction" value="0.9"/>
-    <property name="wall" value="true"/>
+    <property name="wall" value="false"/>
    </properties>
   </tile>
   <tile id="1">

@@ -148,8 +148,10 @@ bool j1Player::Start()
 {
 	current_animation = &idle;
 
-	position.x = App->map->data.player_start_position.x;
-	position.y = App->map->data.player_start_position.y;
+
+	//Hardcoding
+	position.x = 600;
+	position.y = 0;
 
 	/*direction = 1;*/
 	acceleration.y = gravity;
@@ -157,7 +159,7 @@ bool j1Player::Start()
 	LOG("Loading player textures");
 	graphics = App->tex->Load("textures/player_sprites.png");
 
-	SDL_Rect colrect = { 775,3103,110,193 };
+	SDL_Rect colrect = { 0,0,110,193 };
 	createCol(&colrect);
 
 	return true;
@@ -259,8 +261,7 @@ bool j1Player::Update(float dt)
 	}
 
 
-	//
-
+	
 	player_coll->UpdatePosition(&position);
 	App->render->Blit(graphics, position.x, position.y, &frame.rect);
 

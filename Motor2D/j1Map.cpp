@@ -62,7 +62,13 @@ void j1Map::Draw()
 
 
 				if (set->IsWall(id)) {
-					App->physics->AddCollider(&set->GetTileRect(id), WALL);
+					SDL_Rect col_rect = {
+						real_col,
+						real_row,
+						set->tile_width,
+						set->tile_height
+					};
+					App->physics->AddCollider(&col_rect, WALL);
 				}
 
 				tile_num++;
@@ -154,11 +160,14 @@ SDL_Rect TileSet::GetTileRect(int id) const
 bool TileSet::IsWall(int id) const
 {
 	bool ret = false;
-	if (tiles.At(id-1)->data->id == id) {
-		ret = tiles.At(id)->data->is_ground;
+	p2List_item<Tile*>* tile_iterator;
+
+	for (tile_iterator = tiles.start; tile_iterator; tile_iterator = tile_iterator->next) {
+		if (tile_iterator->data->id == id) {
+			ret = tile_iterator->data->is_ground;
+		}
 	}
-	else
-		LOG("ERROR, ids of tiles do not match");
+
 	return ret;
 }
 

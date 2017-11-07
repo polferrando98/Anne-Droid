@@ -65,7 +65,7 @@ private:
 public:
 
 	p2List<Collider*>	collider_list;
-	bool debug_mode = false;
+	bool debug_mode = true;
 
 	//HARDCODE
 	float gravity = 9.8f;
