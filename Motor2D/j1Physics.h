@@ -44,7 +44,7 @@ public:
 
 	void UpdatePlayerPhysics(fPoint *position, fPoint *velocity, fPoint *acceleration, Collider* collider, DIRECTION_X* colliding_x, DIRECTION_Y* colliding_y);
 
-	void  checkWallCollisions(fPoint *position, fPoint *velocity, fPoint *acceleration, Collider* collider, DIRECTION_X* colliding_x, DIRECTION_Y* colliding_y);
+	void  CheckGroundCollisions(fPoint *position, fPoint *velocity, fPoint *acceleration, Collider* collider, DIRECTION_X* colliding_x, DIRECTION_Y* colliding_y);
 
 	void  checkDeathCollisions(fPoint *position, fPoint *velocity, fPoint *acceleration, Collider* collider);
 
@@ -52,11 +52,9 @@ public:
 
 	Collider* AddCollider(SDL_Rect *rect, const COLLIDER_TYPE type);
 
-	void ApplyFriction(fPoint* velocity, fPoint* acceleration);
+	bool checkColliders(Collider object_col, COLLIDER_TYPE type_to_ignore);
 
-	bool checkColliders(Collider* object_col, COLLIDER_TYPE type_to_ignore);
-
-	bool rectsAreEqual(SDL_Rect rect_a, SDL_Rect rect_b);
+	bool rectsAreEqual(COLLIDER_TYPE type_1, COLLIDER_TYPE type_2);
 
 private:
 

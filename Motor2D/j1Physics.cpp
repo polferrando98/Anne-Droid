@@ -92,12 +92,12 @@ void j1Physics::Debug_draw() const
 //The idea was that it could be used for any moving object, but in the case of this game it is just the player
 void j1Physics::UpdatePlayerPhysics(fPoint *position, fPoint *velocity, fPoint *acceleration, Collider* collider, DIRECTION_X* colliding_x, DIRECTION_Y* colliding_y) 
 {
-	checkWallCollisions(position, velocity, acceleration, collider, colliding_x, colliding_y);
+	CheckGroundCollisions(position, velocity, acceleration, collider, colliding_x, colliding_y);
 	checkDeathCollisions(position, velocity, acceleration, collider);
 	CheckDoorEntry(position, velocity, acceleration, collider);
 }
 
-void j1Physics::checkWallCollisions(fPoint *position, fPoint *velocity, fPoint *acceleration, Collider* collider, DIRECTION_X* colliding_x, DIRECTION_Y* colliding_y)
+void j1Physics::CheckGroundCollisions(fPoint *position, fPoint *velocity, fPoint *acceleration, Collider* collider, DIRECTION_X* colliding_x, DIRECTION_Y* colliding_y)
 {
 	Collider newCollider = *collider;
 	fPoint newVelocity;
@@ -112,7 +112,7 @@ void j1Physics::checkWallCollisions(fPoint *position, fPoint *velocity, fPoint *
 	newCollider.rect.x = newPosition.x;
 	pos_differential.x = newPosition.x - position->x;
 
-	if (checkColliders(&newCollider, WALL)) {
+	if (checkColliders(newCollider, WALL)) {
 		if (pos_differential.x > 0)
 			*colliding_x = RIGHT;
 		if (pos_differential.x < 0)
@@ -133,10 +133,10 @@ void j1Physics::checkWallCollisions(fPoint *position, fPoint *velocity, fPoint *
 	//Y_AXIS
 	newVelocity.y = velocity->y + acceleration->y;
 	newPosition.y = position->y + newVelocity.y;
-	newCollider.rect.y = newPosition.y;
+ 	newCollider.rect.y = newPosition.y;
 	pos_differential.y = newPosition.y - position->y;
 
-	if (checkColliders(&newCollider, WALL)) {
+	if (checkColliders(newCollider, WALL)) {
 		if (pos_differential.y > 0)
 			*colliding_y = DOWN;
 		if (pos_differential.y < 0)
@@ -176,7 +176,7 @@ void j1Physics::checkDeathCollisions(fPoint * position, fPoint * velocity, fPoin
 	newCollider.rect.y = newPosition.y;
 
 
-	if (checkColliders(&newCollider, DEATH)) {
+	if (checkColliders(newCollider, DEATH)) {
 		position->x = App->map->data.player_start_position.x;
 		position->y = App->map->data.player_start_position.y;
 	}
@@ -200,7 +200,7 @@ void j1Physics::CheckDoorEntry(fPoint * position, fPoint * velocity, fPoint * ac
 	newCollider.rect.y = newPosition.y;
 
 
-	if (checkColliders(&newCollider, DOOR)) {
+	if (checkColliders(newCollider, DOOR)) {
 		App->scene->ChangeMap();
 	}
 }
@@ -215,31 +215,7 @@ Collider* j1Physics::AddCollider(SDL_Rect *rect, const COLLIDER_TYPE type)
 	return pCollider;
 }
 
-void j1Physics::ApplyFriction(fPoint* velocity, fPoint* acceleration)
-{
-	if (abs(velocity->x) != 0) {
-		if (velocity->x > 0)
-			acceleration->x = -friction;
-		else if (velocity->x < 0)
-			acceleration->x = +friction;
-
-		if (abs(velocity->x) <= friction) {
-			if (velocity->x > 0)
-				acceleration->x = -0.1;
-			else if (velocity->x < 0)
-				acceleration->x = +0.1;
-
-			if (abs(velocity->x) < 0.01) {
-				if (velocity->x > 0)
-					acceleration->x = -0.001;
-				else if (velocity->x < 0)
-					acceleration->x = +0.001;
-			}
-		}
-	}
-}
-
-bool j1Physics::checkColliders(Collider* object_col, COLLIDER_TYPE type_to_collide)
+bool j1Physics::checkColliders(Collider object_col, COLLIDER_TYPE type_to_collide)
 {
 	p2List_item<Collider*>* collider_iterator_b;
 
@@ -249,14 +225,14 @@ bool j1Physics::checkColliders(Collider* object_col, COLLIDER_TYPE type_to_colli
 	int col_count = collider_list.count();
 
 
-	rect_a = object_col->rect;
+	rect_a = object_col.rect;
 
 	for (collider_iterator_b = collider_list.start; collider_iterator_b != NULL; collider_iterator_b = collider_iterator_b->next)
 	{
-		if (collider_iterator_b->data->type != object_col->type && collider_iterator_b->data->type == type_to_collide) {  
+		if (collider_iterator_b->data->type != object_col.type && collider_iterator_b->data->type == type_to_collide) {  
 			rect_b = collider_iterator_b->data->rect;
 
-			if (!rectsAreEqual(rect_a, rect_b)) {
+			if (!rectsAreEqual(object_col.type, collider_iterator_b->data->type)) {
 				bool intersect = SDL_IntersectRect(&rect_a, &rect_b, &intersection);
 				if (intersect) {
 					return true;
@@ -270,17 +246,17 @@ bool j1Physics::checkColliders(Collider* object_col, COLLIDER_TYPE type_to_colli
 	return false;
 }
 
-bool j1Physics::rectsAreEqual(SDL_Rect rect_a, SDL_Rect rect_b)
+bool j1Physics::rectsAreEqual(COLLIDER_TYPE type_1, COLLIDER_TYPE type_2)
 {
 	bool ret = true;
-	if (rect_a.x != rect_b.x)
+	if (type_1 != type_2)
+	{
 		ret = false;
-	if (rect_a.y != rect_b.y)
-		ret = false;
-	if (rect_a.w != rect_b.w)
-		ret = false;
-	if (rect_a.h != rect_b.h)
-		ret = false;
+	}
+	else
+	{
+		ret = true;
+	}
 	return ret;
 }
 
