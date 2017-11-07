@@ -232,7 +232,7 @@ bool j1Physics::checkColliders(Collider object_col, COLLIDER_TYPE type_to_collid
 		if (collider_iterator_b->data->type != object_col.type && collider_iterator_b->data->type == type_to_collide) {  
 			rect_b = collider_iterator_b->data->rect;
 
-			if (!rectsAreEqual(object_col.type, collider_iterator_b->data->type)) {
+			if (!SameType(object_col.type, collider_iterator_b->data->type)) {
 				bool intersect = SDL_IntersectRect(&rect_a, &rect_b, &intersection);
 				if (intersect) {
 					return true;
@@ -246,7 +246,7 @@ bool j1Physics::checkColliders(Collider object_col, COLLIDER_TYPE type_to_collid
 	return false;
 }
 
-bool j1Physics::rectsAreEqual(COLLIDER_TYPE type_1, COLLIDER_TYPE type_2)
+bool j1Physics::SameType(COLLIDER_TYPE type_1, COLLIDER_TYPE type_2)
 {
 	bool ret = true;
 	if (type_1 != type_2)
