@@ -195,10 +195,9 @@ bool j1Player::Update(float dt)
 	}
 	else if (grounded) {
 		current_direction_x = NONE_X;
-		App->physics->ApplyFriction(&velocity, &acceleration);
 	}
 	else {
-		App->physics->ApplyFriction(&velocity, &acceleration); //Friction in the air is not realistic, but makes the game feel better
+		 //Friction in the air is not realistic, but makes the game feel better
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
