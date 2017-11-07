@@ -54,7 +54,7 @@ public:
 
 	bool checkColliders(Collider object_col, COLLIDER_TYPE type_to_ignore);
 
-	bool rectsAreEqual(COLLIDER_TYPE type_1, COLLIDER_TYPE type_2);
+	bool SameType(COLLIDER_TYPE type_1, COLLIDER_TYPE type_2);
 
 private:
 
