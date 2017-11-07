@@ -205,7 +205,7 @@ void j1Physics::CheckDoorEntry(fPoint * position, fPoint * velocity, fPoint * ac
 	}
 }
 
-Collider* j1Physics::AddCollider(SDL_Rect *rect, const COLLIDER_TYPE type, float friction)
+Collider* j1Physics::AddCollider(SDL_Rect *rect, const COLLIDER_TYPE type)
 {
 	Collider *pCollider = nullptr;
 

@@ -74,6 +74,7 @@ private:
 	int speed = 5;
 	int player_min_y;
 	int direction;
+
 };
 
 

@@ -38,6 +38,14 @@ struct ObjectGroup {
 	p2List<Object*>		objects;
 };
 
+struct Tile
+{
+	int id;
+	bool is_ground;
+	float friction;
+};
+
+
 
 
 	// TODO 6: Short function to get the value of x,y
@@ -54,6 +62,7 @@ struct TileSet
 {
 	// TODO 7: Create a method that receives a tile id and returns it's Rectfind the Rect associated with a specific tile id
 	SDL_Rect GetTileRect(int id) const;
+	bool IsWall(int id) const;
 
 	p2SString			name;
 	int					firstgid;
@@ -68,7 +77,11 @@ struct TileSet
 	int					num_tiles_height;
 	int					offset_x;
 	int					offset_y;
+	p2List<Tile*>		tiles;
+
 };
+
+
 
 enum MapTypes
 {
@@ -110,6 +123,7 @@ public:
 	// Called each loop iteration
 	void Draw();
 	void PlaceColliders();
+	void PlaceTileColliders();
 
 
 	// Called before quitting
@@ -125,10 +139,12 @@ private:
 
 	bool LoadMap();
 	bool LoadTilesetDetails(pugi::xml_node& tileset_node, TileSet* set);
+	bool LoadTile(pugi::xml_node& tile_node, Tile* tile);
 	bool LoadLayer(pugi::xml_node& node, Layer* layer);
 	bool LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set);
 	bool LoadObjectGroup(pugi::xml_node& group_node, ObjectGroup* object_grup);
 	bool LoadObject(pugi::xml_node& object_node, Object* object);
+
 
 	void Get_pixels_from_tiles(int x, int y, int* dest_x, int* dest_y)
 	{

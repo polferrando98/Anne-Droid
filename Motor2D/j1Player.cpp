@@ -157,6 +157,9 @@ bool j1Player::Start()
 	LOG("Loading player textures");
 	graphics = App->tex->Load("textures/player_sprites.png");
 
+	SDL_Rect colrect = { 775,3103,110,193 };
+	createCol(&colrect);
+
 	return true;
 }
 
@@ -281,7 +284,7 @@ void j1Player::ApplyMaxVelocity()
 
 void j1Player::createCol(SDL_Rect* Rect)
 {
-	player_coll = App->physics->AddCollider(Rect, COLLIDER_TYPE::PLAYER, 0);
+	player_coll = App->physics->AddCollider(Rect, COLLIDER_TYPE::PLAYER);
 }
 
 bool j1Player::load(pugi::xml_node &save)

@@ -50,7 +50,7 @@ public:
 
 	void CheckDoorEntry(fPoint *position, fPoint *velocity, fPoint *acceleration, Collider* collider);
 
-	Collider* AddCollider(SDL_Rect *rect, const COLLIDER_TYPE type, float friction);
+	Collider* AddCollider(SDL_Rect *rect, const COLLIDER_TYPE type);
 
 	void ApplyFriction(fPoint* velocity, fPoint* acceleration);
 

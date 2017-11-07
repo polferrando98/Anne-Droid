@@ -34,6 +34,8 @@ void j1Map::Draw()
 	if (map_loaded == false)
 		return;
 
+	TileSet* set = data.tilesets.At(0)->data;
+
 	for (p2List_item<Layer*> *layer_iterator = data.layers.start; layer_iterator; layer_iterator = layer_iterator->next)
 	{
 		int tile_num = 0;
@@ -56,7 +58,13 @@ void j1Map::Draw()
 					real_col += (int)camera_increment;
 				}
 
-				App->render->Blit(data.tilesets.At(0)->data->texture, real_col, real_row, &data.tilesets.At(0)->data->GetTileRect(id));
+				App->render->Blit(data.tilesets.At(0)->data->texture, real_col, real_row, &set->GetTileRect(id));
+
+
+				if (set->IsWall(id)) {
+					App->physics->AddCollider(&set->GetTileRect(id), WALL);
+				}
+
 				tile_num++;
 			}
 		}
@@ -87,16 +95,16 @@ void j1Map::PlaceColliders()
 			switch (object_iterator->data->type)
 			{
 			case OBJECT_TYPE_GROUND:
-				App->physics->AddCollider(&col_rect, WALL, friction);
+				App->physics->AddCollider(&col_rect, WALL);
 				break;
 			case OBJECT_TYPE_ICE:
-				App->physics->AddCollider(&col_rect, WALL, friction);
+				App->physics->AddCollider(&col_rect, WALL);
 				break;
 			case OBJECT_TYPE_DEATH:
-				App->physics->AddCollider(&col_rect, DEATH, friction);
+				App->physics->AddCollider(&col_rect, DEATH);
 				break;
 			case OBJECT_TYPE_DOOR:
-				App->physics->AddCollider(&col_rect, DOOR, friction);
+				App->physics->AddCollider(&col_rect, DOOR);
 				break;
 			case OBJECT_TYPE_PLAYER:
 				data.player_start_position.x = col_rect.x;
@@ -109,6 +117,17 @@ void j1Map::PlaceColliders()
 			}
 		}
 	}
+}
+
+void j1Map::PlaceTileColliders()
+{
+	SDL_Rect col_rect;
+
+	ObjectGroup start = *data.objectGroups.start->data;
+
+	p2List_item<ObjectGroup*>* object_group_iterator = nullptr;
+
+	p2List_item<Object*>* object_iterator;
 }
 
 
@@ -131,6 +150,18 @@ SDL_Rect TileSet::GetTileRect(int id) const
 	rect.y = margin + ((rect.h + spacing) * (relative_id / num_tiles_width));
 	return rect;
 }
+
+bool TileSet::IsWall(int id) const
+{
+	bool ret = false;
+	if (tiles.At(id-1)->data->id == id) {
+		ret = tiles.At(id)->data->is_ground;
+	}
+	else
+		LOG("ERROR, ids of tiles do not match");
+	return ret;
+}
+
 
 // Called before quitting
 bool j1Map::CleanUp()
@@ -271,19 +302,6 @@ MapData* j1Map::Load(const char* file_name)
 			LOG("spacing: %d margin: %d", s->spacing, s->margin);
 			item = item->next;
 		}
-
-		// TODO 4: Add info here about your loaded layers
-		// Adapt this vcode with your own variables
-		
-		//p2List_item<Layer*>* item_layer = data.layers.start;
-		//while(item_layer != NULL)
-		//{
-		//	Layer* l = item_layer->data;
-		//	LOG("Layer ----");
-		//	LOG("name: %s", l->name.GetString());
-		//	LOG("tile width: %d tile height: %d", l->width, l->height);
-		//	item_layer = item_layer->next;
-		//}
 	}
 
 	map_loaded = ret;
@@ -379,7 +397,34 @@ bool j1Map::LoadTilesetDetails(pugi::xml_node& tileset_node, TileSet* set)
 		set->offset_y = 0;
 	}
 
+	pugi::xml_node tile_node;
+	
+
+	
+
+	for (tile_node = tileset_node.child("tile"); tile_node; tile_node = tile_node.next_sibling()) {
+		Tile *tile = new Tile();
+		LoadTile(tile_node, tile);
+		set->tiles.add(tile);
+	}
+
 	return ret;
+}
+
+bool j1Map::LoadTile(pugi::xml_node &tile_node, Tile * tile)
+{
+	tile->id = tile_node.attribute("id").as_int();
+	pugi::xml_node property_node;
+	property_node = tile_node.child("properties");
+	property_node = property_node.child("property");
+
+	//Friction
+	tile->friction = property_node.attribute("value").as_float();
+	property_node = property_node.next_sibling();
+
+	//IsWall
+	tile->is_ground = property_node.attribute("value").as_bool();
+	return true;
 }
 
 bool j1Map::LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set)
