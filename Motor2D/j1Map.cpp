@@ -61,9 +61,9 @@ void j1Map::Draw()
 				App->render->Blit(data.tilesets.At(0)->data->texture, real_col, real_row, &set->GetTileRect(id));
 
 
-				if (set->IsWall(id)) {
+				/*if (set->IsWall(id)) {
 					App->physics->AddCollider(&set->GetTileRect(id), WALL);
-				}
+				}*/
 
 				tile_num++;
 			}

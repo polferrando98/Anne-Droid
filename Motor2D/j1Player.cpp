@@ -179,7 +179,7 @@ bool j1Player::Update(float dt)
 
 
 
-	App->physics->UpdatePlayerPhysics(&position, &velocity, &acceleration, player_coll, &colliding_x, &colliding_y);
+	App->physics->UpdatePlayerPhysics(position, velocity, acceleration, player_coll, colliding_x, colliding_y);
 
 	if (colliding_y == DOWN) {
 		grounded = true;
