@@ -150,7 +150,7 @@ bool j1Player::Start()
 
 
 	//Hardcoding
-	position.x = 600;
+	position.x = 0;
 	position.y = 0;
 
 	/*direction = 1;*/
