@@ -32,7 +32,6 @@ bool j1Physics::Awake(pugi::xml_node& config)
 
 bool j1Physics::CleanUp()
 {
-
 	p2List_item<Collider*>* item_collider;
 	item_collider = collider_list.start;
 
@@ -62,8 +61,6 @@ void j1Physics::DebugDraw() const
 	p2List_item<Collider*>* collider_iterator;
 
 	Collider* pCollider = nullptr;
-
-
 
 	for (collider_iterator = collider_list.start; collider_iterator != NULL; collider_iterator = collider_iterator->next)
 	{
@@ -148,8 +145,6 @@ void j1Physics::CheckGroundCollisions(fPoint *position, fPoint *velocity, fPoint
 		velocity->y = 0;
 		//friction = collided->friction;
 	}
-	else
-		friction = 0.5;
 
 	if (colliding_y != UP && colliding_y != DOWN) {
 		velocity->y += acceleration.y;

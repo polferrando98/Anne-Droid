@@ -83,8 +83,8 @@ j1Player::j1Player()
 	jump_left.PushBack({ 1509,1771,154,189 });
 	jump_left.PushBack({ 1226,1771,142,200 });
 	jump_left.PushBack({ 1020,1772,132,198 });
-	
-	
+
+
 
 	jump_left.loop = false;
 	jump_left.speed = animation_speed;
@@ -150,7 +150,7 @@ bool j1Player::Start()
 
 
 	//Hardcoding
-	position.x = 0;
+	position.x = 200;
 	position.y = 0;
 
 	/*direction = 1;*/
@@ -187,7 +187,7 @@ bool j1Player::Update(float dt)
 		grounded = true;
 	}
 
-
+	velocity.x = 0;
 	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
 		acceleration.x = -acceleration_x;
 		last_direction_x = LEFT;
@@ -202,14 +202,14 @@ bool j1Player::Update(float dt)
 		current_direction_x = NONE_X;
 	}
 	else {
-		 //Friction in the air is not realistic, but makes the game feel better
+		//Friction in the air is not realistic, but makes the game feel better
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
 	{
 		App->audio->PlayFx(1);
 		if (!grounded && double_jump_avaliable) {
-			
+
 			jump.current_frame = 0.0f;
 			jump_left.current_frame = 0.0f;
 			velocity.y = -jump_speed;
@@ -261,7 +261,7 @@ bool j1Player::Update(float dt)
 	}
 
 
-	
+
 	player_coll->UpdatePosition(&position);
 	App->render->Blit(graphics, position.x, position.y, &frame.rect);
 

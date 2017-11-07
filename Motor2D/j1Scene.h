@@ -45,7 +45,10 @@ public:
 	SDL_Rect col_rect;
 	SDL_Rect col_rect2;
 
-	
+	//HARDCODE
+
+	int current_level = 1;
+	int next_level = 2;
 
 	bool loading = false;
 

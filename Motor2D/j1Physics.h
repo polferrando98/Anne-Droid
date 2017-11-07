@@ -71,7 +71,7 @@ public:
 	float gravity = 9.8f;
 	Uint8 alpha = 80;
 
-	float friction = 1.0f;
+	const float friction = 0.1f;
 
 private:
 
