@@ -60,17 +60,6 @@ void j1Map::Draw()
 
 				App->render->Blit(data.tilesets.At(0)->data->texture, real_col, real_row, &set->GetTileRect(id));
 
-
-				if (set->IsWall(id)) {
-					SDL_Rect col_rect = {
-						real_col,
-						real_row,
-						set->tile_width,
-						set->tile_height
-					};
-					App->physics->AddCollider(&col_rect, WALL);
-				}
-
 				tile_num++;
 			}
 		}
@@ -127,13 +116,42 @@ void j1Map::PlaceColliders()
 
 void j1Map::PlaceTileColliders()
 {
-	SDL_Rect col_rect;
+	if (map_loaded == false)
+		return;
 
-	ObjectGroup start = *data.objectGroups.start->data;
+	TileSet* set = data.tilesets.At(0)->data;
 
-	p2List_item<ObjectGroup*>* object_group_iterator = nullptr;
+	for (p2List_item<Layer*> *layer_iterator = data.layers.start; layer_iterator; layer_iterator = layer_iterator->next)
+	{
+		int tile_num = 0;
+		int layer_width = layer_iterator->data->width;
+		int layer_height = layer_iterator->data->height;
+		int layer_dimensions = layer_iterator->data->height*data.layers.At(0)->data->width;
 
-	p2List_item<Object*>* object_iterator;
+		for (int row = 0; row < layer_height; row++) {
+			for (int col = 0; col < layer_width; col++) {
+				int id = layer_iterator->data->data[tile_num];
+
+				int real_row;
+				int real_col;
+
+				Get_pixels_from_tiles(row, col, &real_row, &real_col);
+
+				if (set->IsWall(id - 1)) { //Why?
+					SDL_Rect col_rect = {
+						real_col,
+						real_row,
+						set->tile_width,
+						set->tile_height
+					};
+					App->physics->AddCollider(&col_rect, WALL);
+				}
+
+
+				tile_num++;
+			}
+		}
+	}
 }
 
 

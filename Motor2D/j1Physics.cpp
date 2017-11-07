@@ -50,13 +50,14 @@ bool j1Physics::Update(float dt)
 {
 	if ((App->input->GetKey(SDL_SCANCODE_9) == KEY_DOWN))
 		debug_mode = !debug_mode;
+
 	if (debug_mode)
-		Debug_draw();
+		DebugDraw();
 
 	return UPDATE_CONTINUE;
 }
 
-void j1Physics::Debug_draw() const
+void j1Physics::DebugDraw() const
 {
 	p2List_item<Collider*>* collider_iterator;
 
@@ -90,14 +91,14 @@ void j1Physics::Debug_draw() const
 }
 
 //The idea was that it could be used for any moving object, but in the case of this game it is just the player
-void j1Physics::UpdatePlayerPhysics(fPoint *position, fPoint *velocity, fPoint *acceleration, Collider* collider, DIRECTION_X* colliding_x, DIRECTION_Y* colliding_y) 
+void j1Physics::UpdatePlayerPhysics(fPoint &position, fPoint &velocity, fPoint &acceleration, Collider* collider, DIRECTION_X &colliding_x, DIRECTION_Y &colliding_y) 
 {
-	CheckGroundCollisions(position, velocity, acceleration, collider, colliding_x, colliding_y);
-	checkDeathCollisions(position, velocity, acceleration, collider);
+	CheckGroundCollisions(&position, &velocity, acceleration, collider, colliding_x, colliding_y);
+	checkDeathCollisions(&position, velocity, acceleration, collider);
 	CheckDoorEntry(position, velocity, acceleration, collider);
 }
 
-void j1Physics::CheckGroundCollisions(fPoint *position, fPoint *velocity, fPoint *acceleration, Collider* collider, DIRECTION_X* colliding_x, DIRECTION_Y* colliding_y)
+void j1Physics::CheckGroundCollisions(fPoint *position, fPoint *velocity, fPoint &acceleration, Collider* collider, DIRECTION_X& colliding_x, DIRECTION_Y& colliding_y)
 {
 	Collider newCollider = *collider;
 	fPoint newVelocity;
@@ -107,58 +108,58 @@ void j1Physics::CheckGroundCollisions(fPoint *position, fPoint *velocity, fPoint
 	//The idea is to go one axis at a time
 
 	//X_AXIS
-	newVelocity.x = velocity->x + acceleration->x;
+	newVelocity.x = velocity->x + acceleration.x;
 	newPosition.x = position->x + newVelocity.x;
 	newCollider.rect.x = newPosition.x;
 	pos_differential.x = newPosition.x - position->x;
 
 	if (checkColliders(newCollider, WALL)) {
 		if (pos_differential.x > 0)
-			*colliding_x = RIGHT;
+			colliding_x = RIGHT;
 		if (pos_differential.x < 0)
-			*colliding_x = LEFT;
+			colliding_x = LEFT;
 	}
 
-	if (*colliding_x == RIGHT || *colliding_x == LEFT) {
+	if (colliding_x == RIGHT || colliding_x == LEFT) {
 		velocity->x = 0;
 	}
 
 	newCollider.rect.x = position->x;
 
-	if (*colliding_x != RIGHT && *colliding_x != LEFT) {
-		velocity->x += acceleration->x;
+	if (colliding_x != RIGHT && colliding_x != LEFT) {
+		velocity->x += acceleration.x;
 		position->x += velocity->x;
 	}
 
 	//Y_AXIS
-	newVelocity.y = velocity->y + acceleration->y;
+	newVelocity.y = velocity->y + acceleration.y;
 	newPosition.y = position->y + newVelocity.y;
  	newCollider.rect.y = newPosition.y;
 	pos_differential.y = newPosition.y - position->y;
 
 	if (checkColliders(newCollider, WALL)) {
 		if (pos_differential.y > 0)
-			*colliding_y = DOWN;
+			colliding_y = DOWN;
 		if (pos_differential.y < 0)
-			*colliding_y = UP;
+			colliding_y = UP;
 	}
 
-	if (*colliding_y == UP || *colliding_y == DOWN) {
+	if (colliding_y == UP || colliding_y == DOWN) {
 		velocity->y = 0;
 		//friction = collided->friction;
 	}
 	else
 		friction = 0.5;
 
-	if (*colliding_y != UP && *colliding_y != DOWN) {
-		velocity->y += acceleration->y;
+	if (colliding_y != UP && colliding_y != DOWN) {
+		velocity->y += acceleration.y;
 		position->y += velocity->y;
 	}
 	
 
 }
 
-void j1Physics::checkDeathCollisions(fPoint * position, fPoint * velocity, fPoint * acceleration, Collider * collider)
+void j1Physics::checkDeathCollisions(fPoint * position, fPoint & velocity, fPoint & acceleration, Collider * collider)
 {
 	Collider newCollider = *collider;
 	bool colliding_x = false;
@@ -166,12 +167,12 @@ void j1Physics::checkDeathCollisions(fPoint * position, fPoint * velocity, fPoin
 	fPoint newVelocity;
 	fPoint newPosition;
 
-	newVelocity.x = velocity->x + acceleration->x;
+	newVelocity.x = velocity.x + acceleration.x;
 	newPosition.x = position->x + newVelocity.x;
 	newCollider.rect.x = newPosition.x;
 
 
-	newVelocity.y = velocity->y + acceleration->y;
+	newVelocity.y = velocity.y + acceleration.y;
 	newPosition.y = position->y + newVelocity.y;
 	newCollider.rect.y = newPosition.y;
 
@@ -182,7 +183,7 @@ void j1Physics::checkDeathCollisions(fPoint * position, fPoint * velocity, fPoin
 	}
 }
 
-void j1Physics::CheckDoorEntry(fPoint * position, fPoint * velocity, fPoint * acceleration, Collider * collider)
+void j1Physics::CheckDoorEntry(fPoint & position, fPoint & velocity, fPoint & acceleration, Collider * collider)
 {
 	Collider newCollider = *collider;
 	bool colliding_x = false;
@@ -190,13 +191,13 @@ void j1Physics::CheckDoorEntry(fPoint * position, fPoint * velocity, fPoint * ac
 	fPoint newVelocity;
 	fPoint newPosition;
 
-	newVelocity.x = velocity->x + acceleration->x;
-	newPosition.x = position->x + newVelocity.x;
+	newVelocity.x = velocity.x + acceleration.x;
+	newPosition.x = position.x + newVelocity.x;
 	newCollider.rect.x = newPosition.x;
 
 
-	newVelocity.y = velocity->y + acceleration->y;
-	newPosition.y = position->y + newVelocity.y;
+	newVelocity.y = velocity.y + acceleration.y;
+	newPosition.y = position.y + newVelocity.y;
 	newCollider.rect.y = newPosition.y;
 
 

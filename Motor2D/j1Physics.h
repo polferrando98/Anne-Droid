@@ -40,15 +40,15 @@ public:
 
 	bool Update(float dt);
 
-	void Debug_draw() const;
+	void DebugDraw() const;
 
-	void UpdatePlayerPhysics(fPoint *position, fPoint *velocity, fPoint *acceleration, Collider* collider, DIRECTION_X* colliding_x, DIRECTION_Y* colliding_y);
+	void UpdatePlayerPhysics(fPoint &position, fPoint &velocity, fPoint &acceleration, Collider* collider, DIRECTION_X &colliding_x, DIRECTION_Y &colliding_y);
 
-	void  CheckGroundCollisions(fPoint *position, fPoint *velocity, fPoint *acceleration, Collider* collider, DIRECTION_X* colliding_x, DIRECTION_Y* colliding_y);
+	void  CheckGroundCollisions(fPoint *position, fPoint *velocity, fPoint &acceleration, Collider* collider, DIRECTION_X& colliding_x, DIRECTION_Y&colliding_y);
 
-	void  checkDeathCollisions(fPoint *position, fPoint *velocity, fPoint *acceleration, Collider* collider);
+	void  checkDeathCollisions(fPoint * position, fPoint & velocity, fPoint & acceleration, Collider * collider);
 
-	void CheckDoorEntry(fPoint *position, fPoint *velocity, fPoint *acceleration, Collider* collider);
+	void CheckDoorEntry(fPoint & position, fPoint & velocity, fPoint & acceleration, Collider * collider);
 
 	Collider* AddCollider(SDL_Rect *rect, const COLLIDER_TYPE type);
 

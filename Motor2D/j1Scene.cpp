@@ -36,7 +36,7 @@ bool j1Scene::Start()
 
 	App->map->Load("new_lvl1.tmx");
 
-
+	App->map->PlaceTileColliders();
 	//App->map->PlaceColliders();
 
 	return true;
