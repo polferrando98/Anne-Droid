@@ -25,7 +25,6 @@ public:
 	bool CleanUp();
 	bool Update(float dt);
 
-	void ApplyFriction();
 	void ApplyMaxVelocity();
 
 	void createCol(SDL_Rect* rect);

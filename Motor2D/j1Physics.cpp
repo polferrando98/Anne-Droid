@@ -307,6 +307,9 @@ void Collider::UpdatePosition(fPoint *newPos)
 
 void j1Physics::ApplyFriction(fPoint* velocity, fPoint* acceleration)
 {
+	TileSet* set = App->map->data.tilesets.At(0)->data;
+	Tile* tile = set->tiles.At(0)->data;
+	friction = tile->friction;
 	if (abs(velocity->x) != 0) {
 		if (velocity->x > 0)
 			acceleration->x = -friction;
