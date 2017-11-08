@@ -4,8 +4,13 @@
 #include "j1Module.h"
 #include "j1Physics.h"
 #include "j1Map.h"
+#include "p2PQueue.h"
 
 struct SDL_Texture;
+
+struct Level {
+	int index;
+};
 
 class j1Scene : public j1Module
 {
@@ -35,6 +40,8 @@ public:
 
 	void ChangeMap();
 
+
+	p2PQueue<Level>* levels;
 
 	//HARDCODE
 

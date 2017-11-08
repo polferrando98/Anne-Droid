@@ -149,9 +149,9 @@ bool j1Player::Start()
 	current_animation = &idle;
 
 
-	//Hardcoding
+	//HARDCODE //Start position
 	position.x = 200;
-	position.y = 0;
+	position.y = 3000; 
 
 	/*direction = 1;*/
 	acceleration.y = gravity;
@@ -159,7 +159,7 @@ bool j1Player::Start()
 	LOG("Loading player textures");
 	graphics = App->tex->Load("textures/player_sprites.png");
 
-	SDL_Rect colrect = { 0,0,110,193 };
+	SDL_Rect colrect = { 0,0,110,193 }; 
 	createCol(&colrect);
 
 	return true;
