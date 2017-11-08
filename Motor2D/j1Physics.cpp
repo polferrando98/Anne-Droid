@@ -88,14 +88,14 @@ void j1Physics::DebugDraw() const
 }
 
 //The idea was that it could be used for any moving object, but in the case of this game it is just the player
-void j1Physics::UpdatePlayerPhysics(fPoint &position, fPoint &velocity, fPoint &acceleration, Collider* collider, DIRECTION_X & colliding_x, DIRECTION_Y & colliding_y) 
+void j1Physics::UpdatePlayerPhysics(fPoint &position, fPoint &velocity, fPoint &acceleration, Collider* collider, DIRECTION_X &colliding_x, DIRECTION_Y & colliding_y) 
 {
-	CheckGroundCollisions(&position, &velocity, acceleration, collider, colliding_x, colliding_y);
+	ManageGroundCollisions(&position, &velocity, acceleration, collider, colliding_x, colliding_y);
 	checkDeathCollisions(&position, velocity, acceleration, collider);
 	CheckDoorEntry(position, velocity, acceleration, collider);
 }
 
-void j1Physics::CheckGroundCollisions(fPoint *position, fPoint *velocity, fPoint &acceleration, Collider* collider, DIRECTION_X& colliding_x, DIRECTION_Y& colliding_y)
+void j1Physics::ManageGroundCollisions(fPoint *position, fPoint *velocity, fPoint acceleration, Collider* collider, DIRECTION_X& colliding_x, DIRECTION_Y& colliding_y)
 {
 	Collider newCollider = *collider;
 	fPoint newPosition;
@@ -162,6 +162,8 @@ DIRECTION_Y j1Physics::checkGroundYCollisions(Collider new_collider, fPoint pos_
 	}
 	return colliding_y;
 }
+
+
 
 fPoint j1Physics::calculateNewPosition(fPoint position, fPoint velocity, fPoint acceleration, AXIS axis = BOTH_AXIS) const
 {
@@ -300,4 +302,29 @@ void Collider::UpdatePosition(fPoint *newPos)
 {
 	rect.x = (int)newPos->x;
 	rect.y = (int)newPos->y;
+}
+
+
+void j1Physics::ApplyFriction(fPoint* velocity, fPoint* acceleration)
+{
+	if (abs(velocity->x) != 0) {
+		if (velocity->x > 0)
+			acceleration->x = -friction;
+		else if (velocity->x < 0)
+			acceleration->x = +friction;
+
+		if (abs(velocity->x) <= friction) {
+			if (velocity->x > 0)
+				acceleration->x = -0.1;
+			else if (velocity->x < 0)
+				acceleration->x = +0.1;
+
+			if (abs(velocity->x) < 0.01) {
+				if (velocity->x > 0)
+					acceleration->x = -0.001;
+				else if (velocity->x < 0)
+					acceleration->x = +0.001;
+			}
+		}
+	}
 }

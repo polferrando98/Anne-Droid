@@ -45,7 +45,7 @@ public:
 
 	void UpdatePlayerPhysics(fPoint &position, fPoint &velocity, fPoint &acceleration, Collider* collider, DIRECTION_X & colliding_x, DIRECTION_Y & colliding_y);
 
-	void  CheckGroundCollisions(fPoint *position, fPoint *velocity, fPoint &acceleration, Collider* collider, DIRECTION_X& colliding_x, DIRECTION_Y&colliding_y);
+	void  ManageGroundCollisions(fPoint *position, fPoint *velocity, fPoint acceleration, Collider* collider, DIRECTION_X& colliding_x, DIRECTION_Y&colliding_y);
 
 	DIRECTION_X checkGroundXCollisions(Collider new_collider, fPoint pos_differential) const;
 
@@ -62,6 +62,8 @@ public:
 	bool checkColliders(Collider object_col, COLLIDER_TYPE type_to_ignore) const;
 
 	inline bool SameType(COLLIDER_TYPE type_1, COLLIDER_TYPE type_2) const;
+
+	void ApplyFriction(fPoint* velocity, fPoint* acceleration);
 
 private:
 
