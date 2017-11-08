@@ -2,6 +2,7 @@
 #define __j1APP_H__
 
 #include "p2List.h"
+#include "p2PQueue.h"
 #include "j1Module.h"
 #include "PugiXml\src\pugixml.hpp"
 
