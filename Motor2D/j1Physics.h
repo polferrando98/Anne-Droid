@@ -11,6 +11,7 @@
 enum COLLIDER_TYPE {PLAYER, WALL, DEATH, DOOR, ICE};
 enum DIRECTION_X { NONE_X, LEFT, RIGHT};
 enum DIRECTION_Y { NONE_Y, UP, DOWN };
+enum AXIS {BOTH_AXIS, X, Y};
 
 struct Collider{
 	Collider(SDL_Rect *rectangle, COLLIDER_TYPE type, float friction);
@@ -46,19 +47,25 @@ public:
 
 	void  CheckGroundCollisions(fPoint *position, fPoint *velocity, fPoint &acceleration, Collider* collider, DIRECTION_X& colliding_x, DIRECTION_Y&colliding_y);
 
+	DIRECTION_X checkGroundXCollisions(Collider new_collider, fPoint pos_differential) const;
+
+	DIRECTION_Y checkGroundYCollisions(Collider new_collider, fPoint pos_differential) const;
+
+	fPoint calculateNewPosition(fPoint position, fPoint velocity, fPoint acceleration, AXIS axis) const;
+
 	void  checkDeathCollisions(fPoint * position, fPoint & velocity, fPoint & acceleration, Collider * collider);
 
 	void CheckDoorEntry(fPoint & position, fPoint & velocity, fPoint & acceleration, Collider * collider);
 
 	Collider* AddCollider(SDL_Rect *rect, const COLLIDER_TYPE type);
 
-	bool checkColliders(Collider object_col, COLLIDER_TYPE type_to_ignore);
+	bool checkColliders(Collider object_col, COLLIDER_TYPE type_to_ignore) const;
 
-	bool SameType(COLLIDER_TYPE type_1, COLLIDER_TYPE type_2);
+	inline bool SameType(COLLIDER_TYPE type_1, COLLIDER_TYPE type_2) const;
 
 private:
 
-	SDL_Rect intersection = { 0,0,0,0 };
+
 	SDL_Rect empty_rect = { 0,0,0,0 };
 	Collider* collided = nullptr;
 
