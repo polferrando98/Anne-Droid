@@ -42,7 +42,7 @@ public:
 
 	void DebugDraw() const;
 
-	void UpdatePlayerPhysics(fPoint &position, fPoint &velocity, fPoint &acceleration, Collider* collider, DIRECTION_X &colliding_x, DIRECTION_Y &colliding_y);
+	void UpdatePlayerPhysics(fPoint &position, fPoint &velocity, fPoint &acceleration, Collider* collider, DIRECTION_X & colliding_x, DIRECTION_Y & colliding_y);
 
 	void  CheckGroundCollisions(fPoint *position, fPoint *velocity, fPoint &acceleration, Collider* collider, DIRECTION_X& colliding_x, DIRECTION_Y&colliding_y);
 

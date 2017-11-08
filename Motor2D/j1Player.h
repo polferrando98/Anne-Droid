@@ -33,6 +33,8 @@ public:
 	bool load(pugi::xml_node&save);
 	bool save(pugi::xml_node&save) const;
 
+	void DoJump();
+
 	fPoint position;
 	fPoint velocity;
 	fPoint acceleration;

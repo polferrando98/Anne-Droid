@@ -187,12 +187,12 @@ bool j1Player::Update(float dt)
 		grounded = true;
 	}
 
-	velocity.x = 0;
 	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
 		acceleration.x = -acceleration_x;
 		last_direction_x = LEFT;
 		current_direction_x = LEFT;
 	}
+
 	else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
 		acceleration.x = acceleration_x;
 		last_direction_x = RIGHT;
@@ -205,23 +205,10 @@ bool j1Player::Update(float dt)
 		//Friction in the air is not realistic, but makes the game feel better
 	}
 
+
 	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
 	{
-		App->audio->PlayFx(1);
-		if (!grounded && double_jump_avaliable) {
-
-			jump.current_frame = 0.0f;
-			jump_left.current_frame = 0.0f;
-			velocity.y = -jump_speed;
-			double_jump_avaliable = false;
-
-		}
-		if (grounded) {
-			jump.current_frame = 0.0f;
-			jump_left.current_frame = 0.0f;
-			velocity.y = -jump_speed;
-			grounded = false;
-		}
+		DoJump();
 	}
 
 
@@ -316,4 +303,23 @@ bool j1Player::save(pugi::xml_node &save) const
 	}
 
 	return true;
+}
+
+void j1Player::DoJump()
+{
+	App->audio->PlayFx(1);
+	if (!grounded && double_jump_avaliable) {
+
+		jump.current_frame = 0.0f;
+		jump_left.current_frame = 0.0f;
+		velocity.y = -jump_speed;
+		double_jump_avaliable = false;
+
+	}
+	if (grounded) {
+		jump.current_frame = 0.0f;
+		jump_left.current_frame = 0.0f;
+		velocity.y = -jump_speed;
+		grounded = false;
+	}
 }

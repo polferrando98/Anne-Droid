@@ -88,7 +88,7 @@ void j1Physics::DebugDraw() const
 }
 
 //The idea was that it could be used for any moving object, but in the case of this game it is just the player
-void j1Physics::UpdatePlayerPhysics(fPoint &position, fPoint &velocity, fPoint &acceleration, Collider* collider, DIRECTION_X &colliding_x, DIRECTION_Y &colliding_y) 
+void j1Physics::UpdatePlayerPhysics(fPoint &position, fPoint &velocity, fPoint &acceleration, Collider* collider, DIRECTION_X & colliding_x, DIRECTION_Y & colliding_y) 
 {
 	CheckGroundCollisions(&position, &velocity, acceleration, collider, colliding_x, colliding_y);
 	checkDeathCollisions(&position, velocity, acceleration, collider);
@@ -120,13 +120,12 @@ void j1Physics::CheckGroundCollisions(fPoint *position, fPoint *velocity, fPoint
 	if (colliding_x == RIGHT || colliding_x == LEFT) {
 		velocity->x = 0;
 	}
-
-	newCollider.rect.x = position->x;
-
-	if (colliding_x != RIGHT && colliding_x != LEFT) {
+	else {
 		velocity->x += acceleration.x;
 		position->x += velocity->x;
 	}
+
+	newCollider.rect.x = position->x;
 
 	//Y_AXIS
 	newVelocity.y = velocity->y + acceleration.y;
@@ -145,8 +144,7 @@ void j1Physics::CheckGroundCollisions(fPoint *position, fPoint *velocity, fPoint
 		velocity->y = 0;
 		//friction = collided->friction;
 	}
-
-	if (colliding_y != UP && colliding_y != DOWN) {
+	else {
 		velocity->y += acceleration.y;
 		position->y += velocity->y;
 	}
