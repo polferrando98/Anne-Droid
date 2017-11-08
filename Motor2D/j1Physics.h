@@ -80,9 +80,9 @@ public:
 	float gravity = 9.8f;
 	Uint8 alpha = 80;
 
-	float friction;
+	/*float friction;
 	const float extra_friction = 0.2f;
-	const float extra_friction_2 = 0.002f;
+	const float extra_friction_2 = 0.002f;*/
 
 
 private:

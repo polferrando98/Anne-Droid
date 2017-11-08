@@ -63,6 +63,7 @@ struct TileSet
 	// TODO 7: Create a method that receives a tile id and returns it's Rectfind the Rect associated with a specific tile id
 	SDL_Rect GetTileRect(int id) const;
 	bool IsWall(int id) const;
+	Tile* FindTileWithid(int id) const;
 
 	p2SString			name;
 	int					firstgid;
@@ -132,8 +133,10 @@ public:
 	// Load new map
 	MapData* Load(const char* path);
 
-	// TODO 8: Create a method that translates x,y coordinates from map positions to world positions
+	
 	iPoint MapToWorld(int x, int y) const;
+
+	
 
 private:
 
@@ -153,7 +156,7 @@ private:
 		*dest_y = y * data.tilesets.At(0)->data->tile_width;
 	}
 
-	// TODO 3: Create a method that loads a single laye
+
 	// bool LoadLayer(pugi::xml_node& node, MapLayer* layer);
 
 public:

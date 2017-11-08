@@ -137,7 +137,7 @@ void j1Map::PlaceTileColliders()
 
 				Get_pixels_from_tiles(row, col, &real_row, &real_col);
 
-				if (set->IsWall(id - 1)) { //Why?
+				if (set->IsWall(id-1)) { //Why?
 					SDL_Rect col_rect = {
 						real_col,
 						real_row,
@@ -177,18 +177,24 @@ SDL_Rect TileSet::GetTileRect(int id) const
 
 bool TileSet::IsWall(int id) const
 {
+	
+	Tile* tile = FindTileWithid(id);
 	bool ret = false;
+	ret = tile->is_ground;
+	return ret;
+}
+
+Tile* TileSet:: FindTileWithid(int id) const
+{
 	p2List_item<Tile*>* tile_iterator;
 
 	for (tile_iterator = tiles.start; tile_iterator; tile_iterator = tile_iterator->next) {
 		if (tile_iterator->data->id == id) {
-			ret = tile_iterator->data->is_ground;
+			return tile_iterator->data;
 		}
 	}
 
-	return ret;
 }
-
 
 // Called before quitting
 bool j1Map::CleanUp()
