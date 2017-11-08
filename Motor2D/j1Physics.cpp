@@ -141,7 +141,7 @@ void j1Physics::ManageGroundCollisions(fPoint *position, fPoint *velocity, fPoin
 
 DIRECTION_X j1Physics::checkGroundXCollisions(Collider new_collider, fPoint pos_differential) const
 {
-	DIRECTION_X colliding_x;
+	DIRECTION_X colliding_x = NONE_X;
 	if (checkColliders(new_collider, WALL)) {
 		if (pos_differential.x > 0)
 			colliding_x = RIGHT;
@@ -153,7 +153,7 @@ DIRECTION_X j1Physics::checkGroundXCollisions(Collider new_collider, fPoint pos_
 
 DIRECTION_Y j1Physics::checkGroundYCollisions(Collider new_collider, fPoint pos_differential) const
 {
-	DIRECTION_Y colliding_y;
+	DIRECTION_Y colliding_y = NONE_Y;
 	if (checkColliders(new_collider, WALL)) {
 		if (pos_differential.y > 0)
 			colliding_y = DOWN;
@@ -227,11 +227,9 @@ void j1Physics::CheckDoorEntry(fPoint & position, fPoint & velocity, fPoint & ac
 	newPosition.x = position.x + newVelocity.x;
 	newCollider.rect.x = newPosition.x;
 
-
 	newVelocity.y = velocity.y + acceleration.y;
 	newPosition.y = position.y + newVelocity.y;
 	newCollider.rect.y = newPosition.y;
-
 
 	if (checkColliders(newCollider, DOOR)) {
 		App->scene->ChangeMap();
@@ -307,5 +305,27 @@ void Collider::UpdatePosition(fPoint *newPos)
 
 void j1Physics::ApplyFriction(fPoint* velocity, fPoint* acceleration)
 {
-	
+	//TileSet* set = App->map->data.tilesets.At(0)->data;
+	//Tile* tile = set->tiles.At(0)->data;
+	//friction = tile->friction;
+	//if (abs(velocity.x) != 0) {
+	//	if (velocity.x > 0)
+	//		acceleration.x = -friction;
+	//	else if (velocity.x < 0)
+	//		acceleration.x = +friction;
+
+	//	if (abs(velocity.x) <= friction) {
+	//		if (velocity.x > 0)
+	//			acceleration.x = -extra_friction;
+	//		else if (velocity.x < 0)
+	//			acceleration.x = +extra_friction;
+
+	//		if (abs(velocity.x) < extra_friction) {
+	//			if (velocity.x > 0)
+	//				acceleration.x = -extra_friction_2;
+	//			else if (velocity.x < 0)
+	//				acceleration.x = +extra_friction_2;
+	//		}
+	//	}
+	//}
 }

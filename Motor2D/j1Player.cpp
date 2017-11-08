@@ -201,30 +201,9 @@ bool j1Player::Update(float dt)
 	else if (grounded) {
 		current_direction_x = NONE_X;
 
-		TileSet* set = App->map->data.tilesets.At(0)->data;
-		Tile* tile = set->tiles.At(0)->data;
-		friction = tile->friction;
-		if (abs(velocity.x) != 0) {
-			if (velocity.x > 0)
-				acceleration.x = -friction;
-			else if (velocity.x < 0)
-				acceleration.x = +friction;
+		//friction
 
-			if (abs(velocity.x) <= friction) {
-				if (velocity.x > 0)
-					acceleration.x = -extra_friction;
-				else if (velocity.x < 0)
-					acceleration.x = +extra_friction;
-
-				if (abs(velocity.x) < extra_friction) {
-					if (velocity.x > 0)
-						acceleration.x = -extra_friction_2;
-					else if (velocity.x < 0)
-						acceleration.x = +extra_friction_2;
-				}
-			}
-		}
-		/*App->physics->ApplyFriction(&velocity, &acceleration);*/
+		App->physics->ApplyFriction(&velocity, &acceleration);
 	}
 	else {
 		//Friction in the air is not realistic, but makes the game feel better

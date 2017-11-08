@@ -448,15 +448,31 @@ bool j1Map::LoadTile(pugi::xml_node &tile_node, Tile * tile)
 {
 	tile->id = tile_node.attribute("id").as_int();
 	pugi::xml_node property_node;
-	property_node = tile_node.child("properties");
-	property_node = property_node.child("property");
+	pugi::xml_node properties_node;
+	properties_node = tile_node.first_child();
 
-	//Friction
-	tile->friction = property_node.attribute("value").as_float();
-	property_node = property_node.next_sibling();
+	for (property_node = properties_node.first_child(); property_node != NULL; property_node = property_node.next_sibling()) { //This should be a function
+		p2SString attribute_namme = property_node.attribute("name").as_string();
+		if (attribute_namme == "wall")
+			tile->is_ground = property_node.attribute("value").as_bool();
+	}
 
-	//IsWall
-	tile->is_ground = property_node.attribute("value").as_bool();
+
+	for (property_node = properties_node.first_child(); property_node != NULL; property_node = property_node.next_sibling()) {
+		p2SString attribute_namme = property_node.attribute("name").as_string();
+		if (attribute_namme == "friction")
+			tile->is_ground = property_node.attribute("value").as_float();
+	}
+
+
+	////Friction
+	//if (property_node.attribute("name").as_string() == "friction") {
+	//	tile->friction = property_node.attribute("value").as_float();
+	//	property_node = property_node.next_sibling();
+	//}
+
+	////IsWall
+	//tile->is_ground = property_node.attribute("value").as_bool();
 	return true;
 }
 
