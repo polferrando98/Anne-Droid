@@ -315,15 +315,15 @@ void j1Physics::ApplyFriction(fPoint* velocity, fPoint* acceleration)
 
 		if (abs(velocity->x) <= friction) {
 			if (velocity->x > 0)
-				acceleration->x = -0.1;
+				acceleration->x = -extra_friction;
 			else if (velocity->x < 0)
-				acceleration->x = +0.1;
+				acceleration->x = +extra_friction;
 
-			if (abs(velocity->x) < 0.01) {
+			if (abs(velocity->x) < extra_friction) {
 				if (velocity->x > 0)
-					acceleration->x = -0.001;
+					acceleration->x = -extra_friction_2;
 				else if (velocity->x < 0)
-					acceleration->x = +0.001;
+					acceleration->x = +extra_friction_2;
 			}
 		}
 	}
