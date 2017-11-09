@@ -461,7 +461,7 @@ bool j1Map::LoadTile(pugi::xml_node &tile_node, Tile * tile)
 	for (property_node = properties_node.first_child(); property_node != NULL; property_node = property_node.next_sibling()) {
 		p2SString attribute_namme = property_node.attribute("name").as_string();
 		if (attribute_namme == "friction")
-			tile->is_ground = property_node.attribute("value").as_float();
+			tile->friction = property_node.attribute("value").as_float();
 	}
 
 

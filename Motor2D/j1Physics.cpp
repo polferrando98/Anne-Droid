@@ -305,27 +305,28 @@ void Collider::UpdatePosition(fPoint *newPos)
 
 void j1Physics::ApplyFriction(fPoint* velocity, fPoint* acceleration)
 {
-	//TileSet* set = App->map->data.tilesets.At(0)->data;
-	//Tile* tile = set->tiles.At(0)->data;
-	//friction = tile->friction;
-	//if (abs(velocity.x) != 0) {
-	//	if (velocity.x > 0)
-	//		acceleration.x = -friction;
-	//	else if (velocity.x < 0)
-	//		acceleration.x = +friction;
+	TileSet* set = App->map->data.tilesets.At(0)->data;
+	Tile* tile = set->tiles.At(0)->data;
+	friction = tile->friction;
 
-	//	if (abs(velocity.x) <= friction) {
-	//		if (velocity.x > 0)
-	//			acceleration.x = -extra_friction;
-	//		else if (velocity.x < 0)
-	//			acceleration.x = +extra_friction;
+	if (abs(velocity->x) != 0) {
+		if (velocity->x > 0)
+			acceleration->x = -friction;
+		else if (velocity->x < 0)
+			acceleration->x = +friction;
 
-	//		if (abs(velocity.x) < extra_friction) {
-	//			if (velocity.x > 0)
-	//				acceleration.x = -extra_friction_2;
-	//			else if (velocity.x < 0)
-	//				acceleration.x = +extra_friction_2;
-	//		}
-	//	}
-	//}
+		if (abs(velocity->x) <= friction) {
+			if (velocity->x > 0)
+				acceleration->x = -extra_friction;
+			else if (velocity->x < 0)
+				acceleration->x = +extra_friction;
+
+			if (abs(velocity->x) < extra_friction) {
+				if (velocity->x > 0)
+					acceleration->x = -extra_friction_2;
+				else if (velocity->x < 0)
+					acceleration->x = +extra_friction_2;
+			}
+		}
+	}
 }
