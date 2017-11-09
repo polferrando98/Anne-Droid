@@ -88,14 +88,14 @@ void j1Physics::DebugDraw() const
 }
 
 //The idea was that it could be used for any moving object, but in the case of this game it is just the player
-void j1Physics::UpdatePlayerPhysics(fPoint &position, fPoint &velocity, fPoint &acceleration, Collider* collider, DIRECTION_X &colliding_x, DIRECTION_Y & colliding_y) 
+void j1Physics::UpdatePlayerPhysics(fPoint &position, fPoint &velocity, fPoint &acceleration, Collider* collider, Direction_x &colliding_x, Direction_y & colliding_y) 
 {
 	ManageGroundCollisions(&position, &velocity, acceleration, collider, colliding_x, colliding_y);
 	checkDeathCollisions(&position, velocity, acceleration, collider);
 	CheckDoorEntry(position, velocity, acceleration, collider);
 }
 
-void j1Physics::ManageGroundCollisions(fPoint *position, fPoint *velocity, fPoint acceleration, Collider* collider, DIRECTION_X& colliding_x, DIRECTION_Y& colliding_y)
+void j1Physics::ManageGroundCollisions(fPoint *position, fPoint *velocity, fPoint acceleration, Collider* collider, Direction_x& colliding_x, Direction_y& colliding_y)
 {
 	Collider newCollider = *collider;
 	fPoint newPosition;
@@ -104,7 +104,7 @@ void j1Physics::ManageGroundCollisions(fPoint *position, fPoint *velocity, fPoin
 	//The idea is to go one axis at a time
 
 	//X_AXIS
-	newPosition = calculateNewPosition(*position, *velocity, acceleration, X);
+	newPosition = calculateNewPosition(*position, *velocity, acceleration, X_axis);
 
 	newCollider.rect.x = newPosition.x;
 	pos_differential.x = newPosition.x - position->x;
@@ -122,7 +122,7 @@ void j1Physics::ManageGroundCollisions(fPoint *position, fPoint *velocity, fPoin
 	newCollider.rect.x = position->x; //if this is commented player gets stuck to walls
 
 	//Y_AXIS
-	newPosition = calculateNewPosition(*position, *velocity, acceleration, Y);
+	newPosition = calculateNewPosition(*position, *velocity, acceleration, Y_axis);
 
  	newCollider.rect.y = newPosition.y;
 	pos_differential.y = newPosition.y - position->y;
@@ -139,9 +139,9 @@ void j1Physics::ManageGroundCollisions(fPoint *position, fPoint *velocity, fPoin
 	}
 }
 
-DIRECTION_X j1Physics::checkGroundXCollisions(Collider new_collider, fPoint pos_differential) const
+Direction_x j1Physics::checkGroundXCollisions(Collider new_collider, fPoint pos_differential) const
 {
-	DIRECTION_X colliding_x = NONE_X;
+	Direction_x colliding_x = NONE_X;
 	if (checkColliders(new_collider, WALL)) {
 		if (pos_differential.x > 0)
 			colliding_x = RIGHT;
@@ -151,9 +151,9 @@ DIRECTION_X j1Physics::checkGroundXCollisions(Collider new_collider, fPoint pos_
 	return colliding_x;
 }
 
-DIRECTION_Y j1Physics::checkGroundYCollisions(Collider new_collider, fPoint pos_differential) const
+Direction_y j1Physics::checkGroundYCollisions(Collider new_collider, fPoint pos_differential) const
 {
-	DIRECTION_Y colliding_y = NONE_Y;
+	Direction_y colliding_y = NONE_Y;
 	if (checkColliders(new_collider, WALL)) {
 		if (pos_differential.y > 0)
 			colliding_y = DOWN;
@@ -165,7 +165,7 @@ DIRECTION_Y j1Physics::checkGroundYCollisions(Collider new_collider, fPoint pos_
 
 
 
-fPoint j1Physics::calculateNewPosition(fPoint position, fPoint velocity, fPoint acceleration, AXIS axis = BOTH_AXIS) const
+fPoint j1Physics::calculateNewPosition(fPoint position, fPoint velocity, fPoint acceleration, Axis axis = BOTH_AXIS) const
 {
 	fPoint newVelocity;
 	fPoint newPosition;
@@ -178,11 +178,11 @@ fPoint j1Physics::calculateNewPosition(fPoint position, fPoint velocity, fPoint 
 		newVelocity.y = velocity.y + acceleration.y;
 		newPosition.y = position.y + newVelocity.y;
 		break;
-	case X:
+	case X_axis:
 		newVelocity.x = velocity.x + acceleration.x;
 		newPosition.x = position.x + newVelocity.x;
 		break;
-	case Y:
+	case Y_axis:
 		newVelocity.y = velocity.y + acceleration.y;
 		newPosition.y = position.y + newVelocity.y;
 		break;
@@ -236,7 +236,7 @@ void j1Physics::CheckDoorEntry(fPoint & position, fPoint & velocity, fPoint & ac
 	}
 }
 
-Collider* j1Physics::AddCollider(SDL_Rect *rect, const COLLIDER_TYPE type)
+Collider* j1Physics::AddCollider(SDL_Rect *rect, const Collider_Type type)
 {
 	Collider *pCollider = nullptr;
 
@@ -246,7 +246,7 @@ Collider* j1Physics::AddCollider(SDL_Rect *rect, const COLLIDER_TYPE type)
 	return pCollider;
 }
 
-bool j1Physics::checkColliders(Collider object_col, COLLIDER_TYPE type_to_collide) const
+bool j1Physics::checkColliders(Collider object_col, Collider_Type type_to_collide) const
 {
 	p2List_item<Collider*>* collider_iterator_b;
 
@@ -280,7 +280,7 @@ bool j1Physics::checkColliders(Collider object_col, COLLIDER_TYPE type_to_collid
 	return false;
 }
 
-inline bool j1Physics::SameType(COLLIDER_TYPE type_1, COLLIDER_TYPE type_2) const
+inline bool j1Physics::SameType(Collider_Type type_1, Collider_Type type_2) const
 {
 	bool ret = true;
 	if (type_1 != type_2)
@@ -288,7 +288,7 @@ inline bool j1Physics::SameType(COLLIDER_TYPE type_1, COLLIDER_TYPE type_2) cons
 	return ret;
 }
 
-Collider::Collider(SDL_Rect *rectangle, COLLIDER_TYPE type, float friction)
+Collider::Collider(SDL_Rect *rectangle, Collider_Type type, float friction)
 {
 	this->rect = *rectangle;
 	visble = true;

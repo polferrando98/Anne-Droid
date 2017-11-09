@@ -47,16 +47,16 @@ extern "C" {
  */
 #define SDL_MIXER_VERSION(X)                        \
 {                                                   \
-    (X)->major = SDL_MIXER_MAJOR_VERSION;           \
-    (X)->minor = SDL_MIXER_MINOR_VERSION;           \
-    (X)->patch = SDL_MIXER_PATCHLEVEL;              \
+    (X_axis)->major = SDL_MIXER_MAJOR_VERSION;           \
+    (X_axis)->minor = SDL_MIXER_MINOR_VERSION;           \
+    (X_axis)->patch = SDL_MIXER_PATCHLEVEL;              \
 }
 
 /* Backwards compatibility */
 #define MIX_MAJOR_VERSION   SDL_MIXER_MAJOR_VERSION
 #define MIX_MINOR_VERSION   SDL_MIXER_MINOR_VERSION
 #define MIX_PATCHLEVEL      SDL_MIXER_PATCHLEVEL
-#define MIX_VERSION(X)      SDL_MIXER_VERSION(X)
+#define MIX_VERSION(X)      SDL_MIXER_VERSION(X_axis)
 
 /* This function gets the version of the dynamically linked SDL_mixer library.
    it should NOT be used to fill a version structure, instead you should

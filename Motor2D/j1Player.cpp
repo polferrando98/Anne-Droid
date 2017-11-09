@@ -275,7 +275,7 @@ void j1Player::ApplyMaxVelocity()
 
 void j1Player::createCol(SDL_Rect* Rect)
 {
-	player_coll = App->physics->AddCollider(Rect, COLLIDER_TYPE::PLAYER);
+	player_coll = App->physics->AddCollider(Rect, Collider_Type::PLAYER);
 }
 
 bool j1Player::load(pugi::xml_node &save)

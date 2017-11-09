@@ -50,14 +50,14 @@ public:
 	float gravity = 0.5;
 	float jump_speed = 15;
 
-	DIRECTION_X colliding_x = NONE_X;
-	DIRECTION_Y colliding_y = NONE_Y;
+	Direction_x colliding_x = NONE_X;
+	Direction_y colliding_y = NONE_Y;
 
-	DIRECTION_X last_direction_x = NONE_X;
-	DIRECTION_Y last_direction_y = NONE_Y;
+	Direction_x last_direction_x = NONE_X;
+	Direction_y last_direction_y = NONE_Y;
 
-	DIRECTION_X current_direction_x = NONE_X;
-	DIRECTION_Y current_direction_y = NONE_Y;
+	Direction_x current_direction_x = NONE_X;
+	Direction_y current_direction_y = NONE_Y;
 
 
 private:

@@ -8,16 +8,16 @@
 #include "p2Point.h"
 #include "j1Module.h"
 
-enum COLLIDER_TYPE {PLAYER, WALL, DEATH, DOOR, ICE};
-enum DIRECTION_X { NONE_X, LEFT, RIGHT};
-enum DIRECTION_Y { NONE_Y, UP, DOWN };
-enum AXIS {BOTH_AXIS, X, Y};
+enum Collider_Type {PLAYER, WALL, DEATH, DOOR, ICE};
+enum Direction_x { NONE_X, LEFT, RIGHT};
+enum Direction_y { NONE_Y, UP, DOWN };
+enum Axis {BOTH_AXIS, X_axis, Y_axis};
 
 struct Collider{
-	Collider(SDL_Rect *rectangle, COLLIDER_TYPE type, float friction);
+	Collider(SDL_Rect *rectangle, Collider_Type type, float friction);
 	void UpdatePosition(fPoint* newPos);
 	SDL_Rect rect;
-	COLLIDER_TYPE type;
+	Collider_Type type;
 	bool visble;
 	float friction = 0;
 };
@@ -43,25 +43,25 @@ public:
 
 	void DebugDraw() const;
 
-	void UpdatePlayerPhysics(fPoint &position, fPoint &velocity, fPoint &acceleration, Collider* collider, DIRECTION_X & colliding_x, DIRECTION_Y & colliding_y);
+	void UpdatePlayerPhysics(fPoint &position, fPoint &velocity, fPoint &acceleration, Collider* collider, Direction_x & colliding_x, Direction_y & colliding_y);
 
-	void  ManageGroundCollisions(fPoint *position, fPoint *velocity, fPoint acceleration, Collider* collider, DIRECTION_X& colliding_x, DIRECTION_Y&colliding_y);
+	void  ManageGroundCollisions(fPoint *position, fPoint *velocity, fPoint acceleration, Collider* collider, Direction_x& colliding_x, Direction_y&colliding_y);
 
-	DIRECTION_X checkGroundXCollisions(Collider new_collider, fPoint pos_differential) const;
+	Direction_x checkGroundXCollisions(Collider new_collider, fPoint pos_differential) const;
 
-	DIRECTION_Y checkGroundYCollisions(Collider new_collider, fPoint pos_differential) const;
+	Direction_y checkGroundYCollisions(Collider new_collider, fPoint pos_differential) const;
 
-	fPoint calculateNewPosition(fPoint position, fPoint velocity, fPoint acceleration, AXIS axis) const;
+	fPoint calculateNewPosition(fPoint position, fPoint velocity, fPoint acceleration, Axis axis) const;
 
 	void  checkDeathCollisions(fPoint * position, fPoint & velocity, fPoint & acceleration, Collider * collider);
 
 	void CheckDoorEntry(fPoint & position, fPoint & velocity, fPoint & acceleration, Collider * collider);
 
-	Collider* AddCollider(SDL_Rect *rect, const COLLIDER_TYPE type);
+	Collider* AddCollider(SDL_Rect *rect, const Collider_Type type);
 
-	bool checkColliders(Collider object_col, COLLIDER_TYPE type_to_ignore) const;
+	bool checkColliders(Collider object_col, Collider_Type type_to_ignore) const;
 
-	inline bool SameType(COLLIDER_TYPE type_1, COLLIDER_TYPE type_2) const;
+	inline bool SameType(Collider_Type type_1, Collider_Type type_2) const;
 
 	void ApplyFriction(fPoint* velocity, fPoint* acceleration);
 

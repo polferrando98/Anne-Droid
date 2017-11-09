@@ -119,16 +119,16 @@ enum
     ((1 << 28) | ((type) << 24) | ((order) << 20) | ((layout) << 16) | \
      ((bits) << 8) | ((bytes) << 0))
 
-#define SDL_PIXELFLAG(X)    (((X) >> 28) & 0x0F)
-#define SDL_PIXELTYPE(X)    (((X) >> 24) & 0x0F)
-#define SDL_PIXELORDER(X)   (((X) >> 20) & 0x0F)
-#define SDL_PIXELLAYOUT(X)  (((X) >> 16) & 0x0F)
-#define SDL_BITSPERPIXEL(X) (((X) >> 8) & 0xFF)
+#define SDL_PIXELFLAG(X)    (((X_axis) >> 28) & 0x0F)
+#define SDL_PIXELTYPE(X)    (((X_axis) >> 24) & 0x0F)
+#define SDL_PIXELORDER(X)   (((X_axis) >> 20) & 0x0F)
+#define SDL_PIXELLAYOUT(X)  (((X_axis) >> 16) & 0x0F)
+#define SDL_BITSPERPIXEL(X) (((X_axis) >> 8) & 0xFF)
 #define SDL_BYTESPERPIXEL(X) \
-    (SDL_ISPIXELFORMAT_FOURCC(X) ? \
-        ((((X) == SDL_PIXELFORMAT_YUY2) || \
-          ((X) == SDL_PIXELFORMAT_UYVY) || \
-          ((X) == SDL_PIXELFORMAT_YVYU)) ? 2 : 1) : (((X) >> 0) & 0xFF))
+    (SDL_ISPIXELFORMAT_FOURCC(X_axis) ? \
+        ((((X_axis) == SDL_PIXELFORMAT_YUY2) || \
+          ((X_axis) == SDL_PIXELFORMAT_UYVY) || \
+          ((X_axis) == SDL_PIXELFORMAT_YVYU)) ? 2 : 1) : (((X_axis) >> 0) & 0xFF))
 
 #define SDL_ISPIXELFORMAT_INDEXED(format)   \
     (!SDL_ISPIXELFORMAT_FOURCC(format) && \
