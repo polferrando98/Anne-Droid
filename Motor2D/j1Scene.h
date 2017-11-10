@@ -40,6 +40,12 @@ public:
 
 	void ChangeMap();
 
+private:
+
+	void CameraFollowPlayer();
+
+public:
+
 
 	p2PQueue<Level>* levels;
 

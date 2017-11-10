@@ -18,7 +18,7 @@ private:
 
 public:
 
-	j1Module() : active(false)
+	j1Module() : active(false) //I guess this is in case it does not init
 	{}
 
 	void Init()

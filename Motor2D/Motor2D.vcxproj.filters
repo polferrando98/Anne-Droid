@@ -7,14 +7,8 @@
     <ClCompile Include="j1Audio.cpp">
       <Filter>Desenvolupament  ========\Modules</Filter>
     </ClCompile>
-    <ClCompile Include="j1App.cpp">
-      <Filter>Desenvolupament  ========</Filter>
-    </ClCompile>
     <ClCompile Include="j1Input.cpp">
       <Filter>Desenvolupament  ========\Modules</Filter>
-    </ClCompile>
-    <ClCompile Include="j1Main.cpp">
-      <Filter>Desenvolupament  ========</Filter>
     </ClCompile>
     <ClCompile Include="j1Render.cpp">
       <Filter>Desenvolupament  ========\Modules</Filter>
@@ -43,11 +37,28 @@
     <ClCompile Include="j1Physics.cpp">
       <Filter>Desenvolupament  ========\Modules</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="j1Timer.cpp">
       <Filter>Desenvolupament  ========\Modules</Filter>
     </ClCompile>
     <ClCompile Include="j1PerfTimer.cpp">
       <Filter>Desenvolupament  ========\Modules</Filter>
+=======
+    <ClCompile Include="j1App.cpp">
+      <Filter>Desenvolupament  ========\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Main.cpp">
+      <Filter>Desenvolupament  ========\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="j1EntityManager.cpp">
+      <Filter>Desenvolupament  ========\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Walker.cpp">
+      <Filter>Desenvolupament  ========\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Entity.cpp">
+      <Filter>Desenvolupament  ========\Entities</Filter>
+>>>>>>> c789acee01419622e377525831ec3d9b1fa36b7b
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -57,14 +68,8 @@
     <ClInclude Include="j1Audio.h">
       <Filter>Desenvolupament  ========\Modules</Filter>
     </ClInclude>
-    <ClInclude Include="j1App.h">
-      <Filter>Desenvolupament  ========</Filter>
-    </ClInclude>
     <ClInclude Include="j1Input.h">
       <Filter>Desenvolupament  ========\Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="j1Module.h">
-      <Filter>Desenvolupament  ========</Filter>
     </ClInclude>
     <ClInclude Include="j1Render.h">
       <Filter>Desenvolupament  ========\Modules</Filter>
@@ -123,11 +128,28 @@
     <ClInclude Include="p2Queue.h">
       <Filter>Programacio 2 ===========</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="j1Timer.h">
       <Filter>Desenvolupament  ========\Modules</Filter>
     </ClInclude>
     <ClInclude Include="j1PerfTimer.h">
       <Filter>Desenvolupament  ========\Modules</Filter>
+=======
+    <ClInclude Include="j1Entity.h">
+      <Filter>Desenvolupament  ========\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="j1App.h">
+      <Filter>Desenvolupament  ========\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Module.h">
+      <Filter>Desenvolupament  ========\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="j1EntityManager.h">
+      <Filter>Desenvolupament  ========\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Walker.h">
+      <Filter>Desenvolupament  ========\Entities</Filter>
+>>>>>>> c789acee01419622e377525831ec3d9b1fa36b7b
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -151,6 +173,12 @@
     </Filter>
     <Filter Include="Desenvolupament  ========\Data">
       <UniqueIdentifier>{09c42b9d-cdc4-4a7d-a5c1-f3df50ad86e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Desenvolupament  ========\Entities">
+      <UniqueIdentifier>{3f0beafc-6881-48a7-8bd6-cf04a474eb1c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Desenvolupament  ========\Core">
+      <UniqueIdentifier>{5802f071-7556-44ae-abde-9271b3ea6737}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

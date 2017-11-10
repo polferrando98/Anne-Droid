@@ -80,6 +80,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="j1Entity.cpp" />
+    <ClCompile Include="j1EntityManager.cpp" />
     <ClCompile Include="j1Main.cpp" />
     <ClCompile Include="j1App.cpp" />
     <ClCompile Include="j1Audio.cpp" />
@@ -95,13 +97,22 @@
     <ClCompile Include="PugiXml\src\pugixml.cpp" />
     <ClCompile Include="j1Player.cpp" />
     <ClCompile Include="j1FadeToBlack.cpp" />
+<<<<<<< HEAD
     <ClCompile Include="j1Timer.cpp" />
+=======
+    <ClCompile Include="Walker.cpp" />
+>>>>>>> c789acee01419622e377525831ec3d9b1fa36b7b
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
     <ClInclude Include="Globals.h" />
+<<<<<<< HEAD
     <ClInclude Include="j1PerfTimer.h" />
     <ClInclude Include="j1Timer.h" />
+=======
+    <ClInclude Include="j1Entity.h" />
+    <ClInclude Include="j1EntityManager.h" />
+>>>>>>> c789acee01419622e377525831ec3d9b1fa36b7b
     <ClInclude Include="j1FadeToBlack.h" />
     <ClInclude Include="j1Physics.h" />
     <ClInclude Include="j1Player.h" />
@@ -124,6 +135,7 @@
     <ClInclude Include="p2SString.h" />
     <ClInclude Include="PugiXml\src\pugiconfig.hpp" />
     <ClInclude Include="PugiXml\src\pugixml.hpp" />
+    <ClInclude Include="Walker.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Game\maps\level_1.tmx" />

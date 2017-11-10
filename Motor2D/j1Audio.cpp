@@ -5,6 +5,10 @@
 
 #include "SDL/include/SDL.h"
 #include "SDL_mixer\include\SDL_mixer.h"
+
+#include "j1App.h"
+#include "j1Input.h"
+
 #pragma comment( lib, "SDL_mixer/libx86/SDL2_mixer.lib" )
 
 j1Audio::j1Audio() : j1Module()
@@ -54,6 +58,7 @@ bool j1Audio::Awake(pugi::xml_node& config)
 	LoadFx("audio/fx/jump_fxt.wav");
 	PlayMusic("audio/music/anne-droid-music.ogg");
 
+	Mix_VolumeMusic(0);
 
 	return ret;
 }
@@ -175,4 +180,56 @@ bool j1Audio::PlayFx(unsigned int id, int repeat)
 	}
 
 	return ret;
+}
+
+bool j1Audio::Update(float dt)
+{
+	if (volume > maxVolume)
+		volume = maxVolume;
+	if (volume < 0)
+		volume = 0;
+	Mix_VolumeMusic(int(volume));
+
+	if (App->input->GetKey(SDL_SCANCODE_O) == KEY_DOWN) {
+		volumeUp();
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN) {
+		volumeDown();
+	}
+	return true;
+}
+
+void j1Audio::volumeDown()
+{
+	volume -= (maxVolume / 10);
+}
+
+bool j1Audio::load(pugi::xml_node & save)
+{
+	volume = save.child("volume").attribute("value").as_int();
+
+
+	return true;
+}
+
+bool j1Audio::save(pugi::xml_node & save) const
+{
+	if (save.child("volume") == NULL) {
+		save.append_child("volume");
+	}
+
+	if (save.child("volume").attribute("value") == NULL) {
+		save.child("volume").append_attribute("value") = volume;
+	}
+	else {
+		save.child("volume").attribute("value").set_value(volume);
+	}
+
+	return true;
+}
+
+void j1Audio::volumeUp()
+{
+	volume += (maxVolume / 10);
 }
