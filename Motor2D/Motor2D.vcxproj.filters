@@ -37,6 +37,13 @@
     <ClCompile Include="j1Physics.cpp">
       <Filter>Desenvolupament  ========\Modules</Filter>
     </ClCompile>
+
+    <ClCompile Include="j1Timer.cpp">
+      <Filter>Desenvolupament  ========\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="j1PerfTimer.cpp">
+      <Filter>Desenvolupament  ========\Modules</Filter>
+
     <ClCompile Include="j1App.cpp">
       <Filter>Desenvolupament  ========\Core</Filter>
     </ClCompile>
@@ -51,6 +58,7 @@
     </ClCompile>
     <ClCompile Include="j1Entity.cpp">
       <Filter>Desenvolupament  ========\Entities</Filter>
+
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -120,6 +128,13 @@
     <ClInclude Include="p2Queue.h">
       <Filter>Programacio 2 ===========</Filter>
     </ClInclude>
+
+    <ClInclude Include="j1Timer.h">
+      <Filter>Desenvolupament  ========\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="j1PerfTimer.h">
+      <Filter>Desenvolupament  ========\Modules</Filter>
+
     <ClInclude Include="j1Entity.h">
       <Filter>Desenvolupament  ========\Entities</Filter>
     </ClInclude>
@@ -134,6 +149,7 @@
     </ClInclude>
     <ClInclude Include="Walker.h">
       <Filter>Desenvolupament  ========\Entities</Filter>
+
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
