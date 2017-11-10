@@ -80,6 +80,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="j1Entity.cpp" />
     <ClCompile Include="j1EntityManager.cpp" />
     <ClCompile Include="j1Main.cpp" />
     <ClCompile Include="j1App.cpp" />
@@ -95,6 +96,7 @@
     <ClCompile Include="PugiXml\src\pugixml.cpp" />
     <ClCompile Include="j1Player.cpp" />
     <ClCompile Include="j1FadeToBlack.cpp" />
+    <ClCompile Include="Walker.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
@@ -123,6 +125,7 @@
     <ClInclude Include="p2SString.h" />
     <ClInclude Include="PugiXml\src\pugiconfig.hpp" />
     <ClInclude Include="PugiXml\src\pugixml.hpp" />
+    <ClInclude Include="Walker.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Game\maps\level_1.tmx" />

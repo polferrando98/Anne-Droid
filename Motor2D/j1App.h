@@ -97,7 +97,7 @@ public:
 	j1Map*				map;
 	j1Player*			player;
 	j1Physics*			physics;
-	j1EntityManager*	entities;
+	j1EntityManager*	entity_manager;
 
 private:
 

@@ -36,7 +36,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	map = new j1Map();
 	player = new j1Player();
 	physics = new j1Physics();
-	entities = new j1EntityManager();
+	entity_manager = new j1EntityManager();
 
 
 	// Ordered for awake / Start / Update
@@ -50,7 +50,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(scene);
 	AddModule(fade);
 	
-	AddModule(entities);
+	AddModule(entity_manager);
 	AddModule(player);
 	AddModule(physics);
 

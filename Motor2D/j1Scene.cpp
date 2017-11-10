@@ -10,6 +10,9 @@
 #include "j1Scene.h"
 #include "j1Player.h"
 
+#include "j1EntityManager.h"
+#include "Walker.h"
+
 j1Scene::j1Scene() : j1Module()
 {
 	name.create("scene");
@@ -38,6 +41,8 @@ bool j1Scene::Start()
 
 	App->map->PlaceTileColliders();
 	//App->map->PlaceColliders();
+
+
 
 	return true;
 }

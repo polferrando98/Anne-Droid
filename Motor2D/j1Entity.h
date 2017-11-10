@@ -10,18 +10,20 @@
 class j1App;
 
 enum LifeState { ALIVE, WAITING_FOR_CLEANUP};
+enum EntityType {ENTITY_PLAYER, ENTITY_WALKER};
 
-class j1Entity 
+class Entity 
 {
 private:
 	bool enabled = true;
 
 public:
 
-	j1Entity(iPoint position)
+	Entity(fPoint position, EntityType type)
 	{
 		this->position = position;
-		this->life_state = ALIVE;
+		this->type = type;
+		life_state = ALIVE;
 	}
 
 	void Init()
@@ -36,10 +38,7 @@ public:
 	}
 
 	// Called before the first frame
-	virtual bool Start()
-	{
-		return true;
-	}
+	virtual bool Start();
 
 	// Called each loop iteration
 	virtual bool PreUpdate()
@@ -48,10 +47,7 @@ public:
 	}
 
 	// Called each loop iteration
-	virtual bool Update(float dt)
-	{
-		return true;
-	}
+	virtual bool Update(float dt);
 
 	// Called each loop iteration
 	virtual bool PostUpdate()
@@ -76,21 +72,23 @@ public:
 	}
 
 public:
-	p2SString	name;
-	LifeState	life_state;
-	iPoint		position;
-	Collider*	collider = nullptr;
+	p2SString		name;
+	LifeState		life_state;
+	fPoint			position;
+	Collider*		collider = nullptr;
+	EntityType		type;
 
-private:
-	SDL_Texture* graphics = nullptr;
-	Animation* current_animation = nullptr;
-	Animation idle_right;
-	Animation idle_left;
-	Animation left;
-	Animation right;
-	Animation death;
+protected:
+	SDL_Texture*	texture = nullptr;
+	Animation		idle_right;
+	Animation		idle_left;
+	Animation		left;
+	Animation		right;
+	Animation		death;
+	Animation*		current_animation = nullptr;
 
 	float animation_speed = 0.19f;
+
 
 };
 

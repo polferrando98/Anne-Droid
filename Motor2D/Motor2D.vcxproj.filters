@@ -46,6 +46,12 @@
     <ClCompile Include="j1EntityManager.cpp">
       <Filter>Desenvolupament  ========\Entities</Filter>
     </ClCompile>
+    <ClCompile Include="Walker.cpp">
+      <Filter>Desenvolupament  ========\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Entity.cpp">
+      <Filter>Desenvolupament  ========\Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1Window.h">
@@ -124,6 +130,9 @@
       <Filter>Desenvolupament  ========\Core</Filter>
     </ClInclude>
     <ClInclude Include="j1EntityManager.h">
+      <Filter>Desenvolupament  ========\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Walker.h">
       <Filter>Desenvolupament  ========\Entities</Filter>
     </ClInclude>
   </ItemGroup>
