@@ -18,9 +18,11 @@ struct Collider;
 class j1Player : public j1Module
 {
 public:
-	float friction;
+	//HARDCODE 
+	float friction; 
 	const float extra_friction = 0.2f;
 	const float extra_friction_2 = 0.002f;
+	
 	j1Player();
 	virtual ~j1Player();
 

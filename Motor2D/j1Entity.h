@@ -1,29 +1,32 @@
-// ----------------------------------------------------
-// j1Module.h
-// Interface for all engine modules
-// ----------------------------------------------------
+#ifndef __j1ENTITY_H__
+#define __j1ENTITY_H__
 
-#ifndef __j1MODULE_H__
-#define __j1MODULE_H__
-
+#include "p2Point.h"
 #include "p2SString.h"
+#include "Animation.h"
+#include "j1Physics.h"
 #include "PugiXml\src\pugixml.hpp"
 
 class j1App;
 
-class j1Module
+enum LifeState { ALIVE, WAITING_FOR_CLEANUP};
+
+class j1Entity
 {
 private:
 	bool enabled = true;
 
 public:
 
-	j1Module() : active(false) //I guess this is in case it does not init
-	{}
+	j1Entity(iPoint position)
+	{
+		this->position = position;
+		this->life_state = ALIVE;
+	}
 
 	void Init()
 	{
-		active = true;
+
 	}
 
 	// Called before render is available
@@ -72,31 +75,23 @@ public:
 		return true;
 	}
 
-	bool IsEnabled() const { return enabled; }
-
-	void Enable()
-	{
-		if (enabled == false)
-		{
-			enabled = true;
-			Start();
-		}
-	}
-
-	void Disable()
-	{
-		if (enabled == true)
-		{
-			enabled = false;
-			CleanUp();
-		}
-	}
-	virtual void onFadeInEnd() {}
 public:
-
 	p2SString	name;
-	bool		active;
+	LifeState	life_state;
+	iPoint		position;
+	Collider*	collider = nullptr;
+
+private:
+	SDL_Texture* graphics = nullptr;
+	Animation* current_animation = nullptr;
+	Animation idle_right;
+	Animation idle_left;
+	Animation left;
+	Animation right;
+	Animation death;
+
+	float animation_speed = 0.19f;
 
 };
 
-#endif // __j1MODULE_H__
+#endif // __j1ENTITY_H__

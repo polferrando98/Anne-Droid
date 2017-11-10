@@ -117,6 +117,9 @@
     <ClInclude Include="p2Queue.h">
       <Filter>Programacio 2 ===========</Filter>
     </ClInclude>
+    <ClInclude Include="j1Entity.h">
+      <Filter>Desenvolupament  ========\Entities</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Programacio 2 ===========">
@@ -139,6 +142,9 @@
     </Filter>
     <Filter Include="Desenvolupament  ========\Data">
       <UniqueIdentifier>{09c42b9d-cdc4-4a7d-a5c1-f3df50ad86e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Desenvolupament  ========\Entities">
+      <UniqueIdentifier>{3f0beafc-6881-48a7-8bd6-cf04a474eb1c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
