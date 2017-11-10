@@ -11,7 +11,7 @@ class j1App;
 
 enum LifeState { ALIVE, WAITING_FOR_CLEANUP};
 
-class j1Entity
+class j1Entity 
 {
 private:
 	bool enabled = true;

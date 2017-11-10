@@ -16,6 +16,7 @@ class j1Audio;
 class j1Scene;
 class j1FadeToBlack;
 class j1Map;
+class j1EntityManager;
 class j1Player;
 class j1Physics;
 
@@ -96,6 +97,7 @@ public:
 	j1Map*				map;
 	j1Player*			player;
 	j1Physics*			physics;
+	j1EntityManager*	entities;
 
 private:
 

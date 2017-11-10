@@ -11,6 +11,7 @@
 #include "j1Scene.h"
 #include "j1Map.h"
 #include "j1App.h"
+#include "j1EntityManager.h"
 #include "j1Player.h"
 #include "j1Physics.h"
 #include "j1Scene_2.h"
@@ -35,6 +36,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	map = new j1Map();
 	player = new j1Player();
 	physics = new j1Physics();
+	entities = new j1EntityManager();
 
 
 	// Ordered for awake / Start / Update
@@ -48,6 +50,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(scene);
 	AddModule(fade);
 	
+	AddModule(entities);
 	AddModule(player);
 	AddModule(physics);
 

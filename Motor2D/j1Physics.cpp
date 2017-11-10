@@ -25,8 +25,6 @@ j1Physics::~j1Physics()
 // Called before render is available
 bool j1Physics::Awake(pugi::xml_node& config)
 {
-
-
 	return true;
 }
 

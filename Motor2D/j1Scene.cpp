@@ -76,12 +76,8 @@ bool j1Scene::Update(float dt)
 		App->save();
 
 
+	CameraFollowPlayer();
 
-	uint w, h;
-	App->win->GetWindowSize(w, h);
-
-	App->render->camera.x = -App->player->position.x + w / 3;
-	App->render->camera.y = -App->player->position.y + h / 2;
 
 	App->map->Draw();
 
@@ -123,5 +119,14 @@ void j1Scene::ChangeMap()
 	App->map->PlaceColliders();
 	App->player->position.x = App->map->data.player_start_position.x;
 	App->player->position.y = App->map->data.player_start_position.y;
+}
+
+void j1Scene::CameraFollowPlayer()
+{
+	uint w, h;
+	App->win->GetWindowSize(w, h);
+
+	App->render->camera.x = -App->player->position.x + w / 3;
+	App->render->camera.y = -App->player->position.y + h / 2;
 }
 
