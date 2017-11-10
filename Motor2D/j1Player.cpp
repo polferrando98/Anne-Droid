@@ -132,10 +132,9 @@ j1Player::j1Player()
 	death.speed = animation_speed;
 
 	////////////////HARDCODE
-	maxVelocity.x = 20;
+	maxVelocity.x = 455;
 
-	////GRAVITY
-	acceleration.y = gravity;
+	
 }
 
 j1Player::~j1Player()
@@ -153,8 +152,8 @@ bool j1Player::Start()
 	position.x = 200;
 	position.y = 3000; 
 
-	/*direction = 1;*/
-	acceleration.y = gravity;
+
+	acceleration.y = 25.0f;
 
 	LOG("Loading player textures");
 	graphics = App->tex->Load("textures/player_sprites.png");
@@ -178,15 +177,13 @@ bool j1Player::Update(float dt)
 
 	// Draw everything --------------------------------------
 	AnimationFrame frame = current_animation->GetCurrentFrame();
-
-
-
 	App->physics->UpdatePlayerPhysics(position, velocity, acceleration, player_coll, colliding_x, colliding_y);
 
 	if (colliding_y == DOWN) {
 		grounded = true;
 	}
-
+	velocity.x = velocity.x *dt;
+	velocity.y = velocity.y * dt;
 	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
 		acceleration.x = -acceleration_x;
 		last_direction_x = LEFT;

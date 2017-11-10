@@ -77,7 +77,6 @@ public:
 	bool debug_mode = true;
 
 	//HARDCODE
-	float gravity = 9.8f;
 	Uint8 alpha = 80;
 
 	float friction;
