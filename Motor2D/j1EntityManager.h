@@ -12,10 +12,10 @@ public:
 	bool CleanUp();
 	bool Update(float dt);
 
-	Entity* AddEnemy(fPoint position,EntityType type);
+	Entity* CreateEntity(fPoint position,EntityType type);
 
 
 private:
-	p2List<Entity*>	modules;
+	p2List<Entity*>	entites;
 };
 

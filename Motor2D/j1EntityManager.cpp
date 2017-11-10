@@ -25,20 +25,38 @@ bool j1EntityManager::CleanUp()
 
 bool j1EntityManager::Update(float dt)
 {
-	return true;
+	bool ret = true;
+	p2List_item<Entity*>* entities_iterator;
+	entities_iterator = entites.start;
+	Entity* entity = nullptr;
+
+	for (entities_iterator = entites.start; entities_iterator != NULL && ret == true; entities_iterator = entities_iterator->next)
+	{
+		entity = entities_iterator->data;
+
+		ret = entities_iterator->data->Update(dt);
+	}
+
+	return ret;
 }
 
-Entity * j1EntityManager::AddEnemy(fPoint position, EntityType type)
+Entity * j1EntityManager::CreateEntity(fPoint position, EntityType type)
 {
+
+	Entity* new_entity = nullptr;
 
 	switch (type)
 	{
 	case ENTITY_PLAYER:
 		break;
 	case ENTITY_WALKER:
+		new_entity = new Walker(position);
 		break;
 	default:
 		break;
 	}
-	return nullptr;
+
+	entites.add(new_entity);
+	
+	return new_entity;
 }
