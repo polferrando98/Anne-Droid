@@ -11,6 +11,6 @@ bool Entity::Start()
 bool Entity::Update(float dt)
 {
 	AnimationFrame frame = current_animation->GetCurrentFrame();
-	App->render->Blit(texture, position.x, position.y, &frame.rect);
+	//App->render->Blit(texture, position.x, position.y, &frame.rect);
 	return true;
 }
