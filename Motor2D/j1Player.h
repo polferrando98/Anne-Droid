@@ -72,8 +72,6 @@ private:
 	Animation right;
 	Animation death;
 
-	float animation_speed = 0.19f;
-
 	/////////HARDCODE
 
 	int speed = 5;
