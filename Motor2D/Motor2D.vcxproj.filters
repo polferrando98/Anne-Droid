@@ -1,12 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="j1Entity.cpp" />
     <ClCompile Include="j1Main.cpp" />
     <ClCompile Include="j1App.cpp" />
-    <ClCompile Include="j1Map.cpp" />
-    <ClCompile Include="j1Scene.cpp" />
-    <ClCompile Include="Walker.cpp" />
     <ClCompile Include="j1Audio.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
@@ -46,15 +42,26 @@
     <ClCompile Include="p2Log.cpp">
       <Filter>Tools</Filter>
     </ClCompile>
+    <ClCompile Include="j1Entity.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Walker.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Scene.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Map.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Globals.h" />
-    <ClInclude Include="j1Entity.h" />
-    <ClInclude Include="j1Map.h" />
-    <ClInclude Include="j1Scene.h" />
     <ClInclude Include="j1App.h" />
     <ClInclude Include="j1Module.h" />
-    <ClInclude Include="Walker.h" />
     <ClInclude Include="j1Audio.h">
       <Filter>Modules</Filter>
     </ClInclude>
@@ -121,6 +128,21 @@
     <ClInclude Include="p2Log.h">
       <Filter>Tools</Filter>
     </ClInclude>
+    <ClInclude Include="j1Entity.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Walker.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Scene.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Map.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Game\maps\level_1.tmx">
@@ -139,6 +161,9 @@
     </Filter>
     <Filter Include="Tools">
       <UniqueIdentifier>{8d6bbc52-099c-4359-8c01-f9aa0a71b150}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entities">
+      <UniqueIdentifier>{38199ae6-59bd-4894-b5b3-0cf9df09030d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

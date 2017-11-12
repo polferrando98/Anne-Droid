@@ -43,7 +43,9 @@ bool j1Scene::Start()
 	//App->map->PlaceColliders();
 
 	fPoint debugPosition = { 600,3000 };
+	fPoint debugPlayerPosition = { 900,3000 };
 	App->entity_manager->CreateEntity(debugPosition,ENTITY_WALKER);
+	App->entity_manager->CreateEntity(debugPlayerPosition, ENTITY_PLAYER);
 
 	return true;
 }
