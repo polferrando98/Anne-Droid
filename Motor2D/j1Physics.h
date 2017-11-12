@@ -61,6 +61,8 @@ public:
 
 	void ApplyFriction(fPoint* velocity, fPoint* acceleration);
 
+	void LoadPhysicsValues();
+
 private:
 
 
@@ -72,16 +74,16 @@ public:
 	p2List<Collider*>	collider_list;
 	bool debug_mode = true;
 
-	//HARDCODE
+	
 	Uint8 alpha = 80;
 
 	float friction;
-	const float extra_friction = 0.2f;
-	const float extra_friction_2 = 0.002f;
+	float extra_friction;
+	float extra_friction_2;
 
 
 private:
-
+	pugi::xml_document	physics_file;
 };
 
 

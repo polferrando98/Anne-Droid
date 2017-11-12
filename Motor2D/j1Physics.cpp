@@ -12,6 +12,7 @@
 #include "j1FadeToBlack.h"
 #include "Animation.h"
 #include "p2Log.h"
+#include "PugiXml\src\pugixml.hpp"
 
 j1Physics::j1Physics() : j1Module()
 {
@@ -248,7 +249,7 @@ Collider* j1Physics::AddCollider(SDL_Rect *rect, const Collider_Type type)
 {
 	Collider *pCollider = nullptr;
 
-	pCollider = new Collider(rect, type,100.0f);
+	pCollider = new Collider(rect, type,friction);
 	collider_list.add(pCollider);
 
 	return pCollider;
@@ -336,5 +337,24 @@ void j1Physics::ApplyFriction(fPoint* velocity, fPoint* acceleration)
 					acceleration->x = +extra_friction_2;
 			}
 		}
+	}
+}
+
+void j1Physics::LoadPhysicsValues() {
+
+	pugi::xml_parse_result result = physics_file.load_file("physicsvalues.xml");
+	if (result != NULL)
+	{
+		pugi::xml_node physics = physics_file.child("physics_values").child("physics");
+		extra_friction = physics.child("extra_friction").attribute("value").as_float();
+		extra_friction_2 = physics.child("extra_friction_2").attribute("value").as_float();
+
+		pugi::xml_node phy_player = physics_file.child("physics_values").child("player");
+		App->player->position.x = phy_player.child("position_x").attribute("value").as_int();
+		App->player->position.y = phy_player.child("position_y").attribute("value").as_int();
+		App->player->acceleration_x = phy_player.child("acceleration_x").attribute("value").as_float();
+		App->player->acceleration.y = phy_player.child("acceleration_y").attribute("value").as_float();
+		App->player->jump_speed = phy_player.child("jump_speed").attribute("value").as_float();
+		App->player->maxVelocity.x = phy_player.child("max_velocity").attribute("value").as_int();
 	}
 }

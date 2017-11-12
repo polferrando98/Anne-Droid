@@ -25,9 +25,4 @@
   <map>
     <folder>maps/</folder>
   </map>
-
-  <physics>
-    <extra_friction value="0.2f"/>
-    <extra_friction_2 value="0.002f"/>
-  </physics>
 </config>

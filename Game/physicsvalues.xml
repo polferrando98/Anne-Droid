@@ -1,0 +1,16 @@
+<physics_values>
+  
+  <physics>
+    <extra_friction value="0.2f"/>
+    <extra_friction_2 value="0.002f"/>
+  </physics>
+
+  <player>
+    <position_x value="200"/>
+    <position_y value="3000"/>
+    <acceleration_y value="25.0f"/>
+    <acceleration_x value="10.0f"/>
+    <jump_speed value="200.0f"/>
+    <max_velocity value="455"/>
+  </player>
+</physics_values>
