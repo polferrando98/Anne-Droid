@@ -5,6 +5,7 @@
 #include "j1Input.h"
 #include "j1Render.h"
 #include "j1Player.h"
+#include "j1Physics.h"
 #include "j1Scene.h"
 #include  "Animation.h"
 #include <math.h>
@@ -28,10 +29,6 @@ j1Player::j1Player()
 	right.LoadSprites("right");
 	left.LoadSprites("left");
 
-	////////////////HARDCODE
-	maxVelocity.x = 455;
-
-	
 }
 
 j1Player::~j1Player()
@@ -42,16 +39,8 @@ j1Player::~j1Player()
 // Load assets
 bool j1Player::Start()
 {
+	App->physics->LoadPhysicsValues();
 	current_animation = &idle;
-
-
-	//HARDCODE //Start position
-	position.x = 200;
-	position.y = 3000; 
-
-
-	acceleration.y = 25.0f;
-
 	LOG("Loading player textures");
 	graphics = App->tex->Load("textures/player_sprites.png");
 

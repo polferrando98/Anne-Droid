@@ -18,10 +18,6 @@ struct Collider;
 class j1Player : public j1Module
 {
 public:
-	//HARDCODE 
-	float friction; 
-	const float extra_friction = 0.2f;
-	const float extra_friction_2 = 0.002f;
 	
 	j1Player();
 	virtual ~j1Player();
@@ -45,11 +41,10 @@ public:
 	Collider *player_coll;
 	bool grounded = false;
 	bool double_jump_avaliable = true;
-	
-	//HARDCODE
+
 	fPoint maxVelocity;
-	float acceleration_x = 10.0f;
-	float jump_speed = 200.0f;
+	float acceleration_x;
+	float jump_speed;
 
 	Direction_x colliding_x = NONE_X;
 	Direction_y colliding_y = NONE_Y;
@@ -72,11 +67,6 @@ private:
 	Animation right;
 	Animation death;
 
-	/////////HARDCODE
-
-	int speed = 5;
-	int player_min_y;
-	int direction;
 
 };
 

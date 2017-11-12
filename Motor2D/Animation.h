@@ -92,6 +92,23 @@ public:
 		}
 	}
 
+	void Animation::LoadEnemySprites(p2SString type) {
+
+		pugi::xml_parse_result result = sprites_file.load_file("annedroid_sprites.xml");
+		if (result != NULL)
+		{
+			pugi::xml_node enemy = sprites_file.child("sprites").child("enemy");
+			speed = enemy.attribute("anim_speed").as_float();
+
+			pugi::xml_node type_ = enemy.child(type.GetString());
+			loop = type_.attribute("loop").as_bool();
+
+			for (pugi::xml_node sprite = type_.child("sprite"); sprite; sprite = sprite.next_sibling("sprite"))
+			{
+				PushBack({sprite.attribute("x").as_int(), sprite.attribute("y").as_int(), sprite.attribute("w").as_int(), sprite.attribute("h").as_int()});
+			}
+		}
+	}
 };
 
 #endif
