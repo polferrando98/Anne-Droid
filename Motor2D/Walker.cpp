@@ -3,6 +3,11 @@
 #include "j1Textures.h"
 
 
+
+
+#include "j1Input.h"
+
+
 Walker::Walker(fPoint position) : Entity(position, ENTITY_WALKER)
 {
 	idle_left.PushBack({ 1052,2272,110,187 });

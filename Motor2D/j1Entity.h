@@ -70,6 +70,8 @@ public:
 	p2SString		name;
 	LifeState		life_state;
 	fPoint			position;
+	fPoint			velocity;
+	fPoint			acceleration;
 	Collider*		collider = nullptr;
 	EntityType		type;
 	Direction_x		x_axis_collision = NONE_X;

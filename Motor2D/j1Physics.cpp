@@ -5,6 +5,7 @@
 #include "j1Render.h"
 #include "j1Player.h"
 #include "j1Scene.h"
+#include "j1Entity.h"
 
 #include <math.h>
 #include "j1Audio.h"
@@ -94,6 +95,44 @@ void j1Physics::DebugDraw() const
 
 void j1Physics::UpdateEntityPhysics(Entity & entity)
 {
+	Collider newCollider = *(entity.collider);
+	fPoint newPosition;
+	fPoint pos_differential;
+	entity.acceleration.y = 10.0f;
+	//Y_AXIS
+	newPosition = calculateNewPosition(entity.position, entity.velocity, entity.acceleration, Y_axis);
+
+	newCollider.rect.y = newPosition.y;
+	pos_differential.y = newPosition.y - entity.position.y;
+
+	entity.y_axis_collision = checkGroundYCollisions(newCollider, pos_differential);
+
+	if (entity.y_axis_collision == UP || entity.y_axis_collision == DOWN) {
+		entity.velocity.y = 0;
+		//friction = collided->friction;
+	}
+	else {
+		entity.velocity.y += entity.acceleration.y;
+		entity.position.y += entity.velocity.y;
+	}
+
+	newCollider.rect.y = entity.position.x; //if this is commented player gets stuck to walls
+
+											//X_AXIS
+	newPosition = calculateNewPosition(entity.position, entity.velocity, entity.acceleration, X_axis);
+
+	newCollider.rect.x = newPosition.x;
+	pos_differential.x = newPosition.x - entity.position.x;
+
+	entity.x_axis_collision = checkGroundXCollisions(newCollider, pos_differential);
+
+	if (entity.x_axis_collision == RIGHT || entity.x_axis_collision == LEFT) {
+		entity.velocity.x = 0;
+	}
+	else {
+		entity.velocity.x += entity.acceleration.x;
+		entity.position.x += entity.velocity.x;
+	}
 }
 
 //The idea was that it could be used for any moving object, but in the case of this game it is just the player
