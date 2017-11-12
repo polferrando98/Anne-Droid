@@ -19,12 +19,7 @@ private:
 
 public:
 
-	Entity(fPoint position, EntityType type)
-	{
-		this->position = position;
-		this->type = type;
-		life_state = ALIVE;
-	}
+	Entity(fPoint position, EntityType type);
 
 	void Init()
 	{
@@ -77,6 +72,9 @@ public:
 	fPoint			position;
 	Collider*		collider = nullptr;
 	EntityType		type;
+	Direction_x		x_axis_collision = NONE_X;
+	Direction_y		y_axis_collision = NONE_Y;
+
 
 protected:
 	SDL_Texture*	texture = nullptr;

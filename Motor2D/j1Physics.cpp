@@ -77,12 +77,22 @@ void j1Physics::DebugDraw() const
 			case DEATH:
 				App->render->DrawQuad(pCollider->rect, 255, 0, 0, alpha, true, true); //Red
 				break;
+			case COL_WALKER:
+				App->render->DrawQuad(pCollider->rect, 255, 0, 0, alpha, true, true); //Red
+				break;
 			case DOOR:
 				App->render->DrawQuad(pCollider->rect, 102, 51, 0, alpha, true, true); //Brown
+				break;
+			default:
+				App->render->DrawQuad(pCollider->rect, 102, 102, 102, alpha, true, true); //Grey
 				break;
 			}
 		}
 	}
+}
+
+void j1Physics::UpdateEntityPhysics(Entity & entity)
+{
 }
 
 //The idea was that it could be used for any moving object, but in the case of this game it is just the player
@@ -238,7 +248,7 @@ Collider* j1Physics::AddCollider(SDL_Rect *rect, const Collider_Type type)
 {
 	Collider *pCollider = nullptr;
 
-	pCollider = new Collider(rect, type,App->player->friction);
+	pCollider = new Collider(rect, type,100.0f);
 	collider_list.add(pCollider);
 
 	return pCollider;
@@ -294,10 +304,10 @@ Collider::Collider(SDL_Rect *rectangle, Collider_Type type, float friction)
 	this->friction = friction;
 }
 
-void Collider::UpdatePosition(fPoint *newPos)
+void Collider::UpdatePosition(fPoint newPos)
 {
-	rect.x = (int)newPos->x;
-	rect.y = (int)newPos->y;
+	rect.x = (int)newPos.x;
+	rect.y = (int)newPos.y;
 }
 
 

@@ -3,9 +3,15 @@
 #include "j1Render.h"
 #include "j1Textures.h"
 
+Entity::Entity(fPoint position, EntityType type)
+{
+	this->position = position;
+	this->type = type;
+	life_state = ALIVE;
+}
 bool Entity::Start()
 {
-	return false;
+	return true;
 }
 
 bool Entity::Update(float dt)
