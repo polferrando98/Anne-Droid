@@ -15,7 +15,19 @@ j1EntityManager::~j1EntityManager()
 
 bool j1EntityManager::Start()
 {
-	return true;
+	bool ret = true;
+	p2List_item<Entity*>* entities_iterator;
+	entities_iterator = entites.start;
+	Entity* entity = nullptr;
+
+	for (entities_iterator = entites.start; entities_iterator != NULL && ret == true; entities_iterator = entities_iterator->next)
+	{
+		entity = entities_iterator->data;
+
+		ret = entity->Start();
+	}
+
+	return ret;
 }
 
 bool j1EntityManager::CleanUp()
@@ -34,7 +46,7 @@ bool j1EntityManager::Update(float dt)
 	{
 		entity = entities_iterator->data;
 
-		ret = entities_iterator->data->Update(dt);
+		ret = entity->Update(dt);
 	}
 
 	return ret;
