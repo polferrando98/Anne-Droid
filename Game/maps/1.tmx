@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="20" height="50" tilewidth="128" tileheight="128" nextobjectid="1">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="20" height="50" tilewidth="128" tileheight="128" nextobjectid="1">
  <tileset firstgid="1" name="MAP" tilewidth="128" tileheight="128" tilecount="66" columns="11">
   <image source="tiles.png" width="1420" height="768"/>
   <terraintypes>
@@ -43,7 +43,7 @@
   </tile>
   <tile id="14">
    <properties>
-    <property name="wall" type="bool" value="true"/>
+    <property name="wall" type="bool" value="false"/>
    </properties>
   </tile>
   <tile id="15" terrain="0,0,0,"/>

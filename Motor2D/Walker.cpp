@@ -3,7 +3,7 @@
 #include "j1Textures.h"
 
 
-Walker::Walker(fPoint position) : Entity(position,ENTITY_WALKER)
+Walker::Walker(fPoint position) : Entity(position, ENTITY_WALKER)
 {
 	idle_left.PushBack({ 1052,2272,110,187 });
 	idle_left.PushBack({ 811,2272,110,187 });
