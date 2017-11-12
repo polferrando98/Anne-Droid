@@ -136,7 +136,7 @@ bool j1Player::Update(float dt)
 
 
 
-	player_coll->UpdatePosition(&position);
+	player_coll->UpdatePosition(position);
 	App->render->Blit(graphics, position.x, position.y, &frame.rect);
 
 	colliding_x = NONE_X;

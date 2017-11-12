@@ -48,10 +48,12 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	
 	AddModule(scene);
 	AddModule(fade);
-	
 	AddModule(entity_manager);
+
 	AddModule(player);
 	AddModule(physics);
+
+
 
 	// render last to swap buffer
 	AddModule(render);

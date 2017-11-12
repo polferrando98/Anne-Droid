@@ -1,14 +1,13 @@
-
+#pragma once
 #include "j1Entity.h"
-class Walker :
+class Player :
 	public Entity
 {
 public:
-	Walker(fPoint position);
-	~Walker();
+	Player(fPoint position);
+	~Player();
 
 	bool Start();
 	bool Update(float dt);
-
-
 };
+
