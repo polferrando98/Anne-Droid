@@ -99,11 +99,13 @@
     <ClCompile Include="j1Player.cpp" />
     <ClCompile Include="j1FadeToBlack.cpp" />
     <ClCompile Include="j1Timer.cpp" />
+    <ClCompile Include="j1Pathfinding.cpp" />
     <ClCompile Include="Walker.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
     <ClInclude Include="Globals.h" />
+    <ClInclude Include="j1Pathfinding.h" />
     <ClInclude Include="j1PerfTimer.h" />
     <ClInclude Include="j1Timer.h" />
     <ClInclude Include="j1Entity.h" />
