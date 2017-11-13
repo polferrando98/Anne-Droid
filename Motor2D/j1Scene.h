@@ -67,6 +67,8 @@ public:
 
 	bool loading = false;
 
+	iPoint p_clicked;
+
 };
 
 #endif // __j1SCENE_H__

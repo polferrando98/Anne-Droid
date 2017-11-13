@@ -48,6 +48,8 @@ bool j1Scene::Start()
 	App->entity_manager->CreateEntity(debugPosition,ENTITY_WALKER);
 	player_entity = App->entity_manager->CreateEntity(debugPlayerPosition, ENTITY_PLAYER);
 
+	p_clicked.SetToZero();
+
 	return true;
 }
 
@@ -60,6 +62,11 @@ bool j1Scene::PreUpdate()
 // Called each loop iteration
 bool j1Scene::Update(float dt)
 {
+	//pathfinding debug
+
+
+
+
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
 	{
 		if (App->map->data.is_level_1 == false)
@@ -89,6 +96,24 @@ bool j1Scene::Update(float dt)
 
 
 	App->map->Draw();
+
+	int x, y;
+	App->input->GetMousePosition(x, y);
+
+
+	Uint8 alpha = 80;
+
+	int width_tile = App->map->data.tile_width;
+	int height_tile = App->map->data.tile_height;
+
+	if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
+	{
+		p_clicked = App->render->ScreenToWorld(x, y);
+		p_clicked = App->map->WorldToMap(p_clicked.x, p_clicked.y);
+		p_clicked = App->map->MapToWorld(p_clicked.x, p_clicked.y);
+	}
+	SDL_Rect prova = { p_clicked.x,p_clicked.y,width_tile,height_tile };
+	App->render->DrawQuad(prova, 204,0, 153, alpha, true, true); //Fuchsia
 
 
 
