@@ -11,6 +11,7 @@ Entity::Entity(fPoint position, EntityType type)
 }
 bool Entity::Start()
 {
+	movement_acceleration.y = 10.0f;
 	return true;
 }
 

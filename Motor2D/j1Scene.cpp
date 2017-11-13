@@ -11,6 +11,7 @@
 #include "j1Player.h"
 
 #include "j1EntityManager.h"
+
 #include "Walker.h"
 
 j1Scene::j1Scene() : j1Module()
@@ -45,7 +46,7 @@ bool j1Scene::Start()
 	fPoint debugPosition = { 600,3000 };
 	fPoint debugPlayerPosition = { 900,3000 };
 	App->entity_manager->CreateEntity(debugPosition,ENTITY_WALKER);
-	App->entity_manager->CreateEntity(debugPlayerPosition, ENTITY_PLAYER);
+	player_entity = App->entity_manager->CreateEntity(debugPlayerPosition, ENTITY_PLAYER);
 
 	return true;
 }
@@ -134,7 +135,7 @@ void j1Scene::CameraFollowPlayer()
 	uint w, h;
 	App->win->GetWindowSize(w, h);
 
-	App->render->camera.x = -App->player->position.x + w / 3;
-	App->render->camera.y = -App->player->position.y + h / 2;
+	App->render->camera.x = -player_entity->position.x + w / 3;
+	App->render->camera.y = -player_entity->position.y + h / 2;
 }
 

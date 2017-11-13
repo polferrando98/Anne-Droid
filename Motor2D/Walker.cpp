@@ -26,6 +26,7 @@ Walker::Walker(fPoint position) : Entity(position, ENTITY_WALKER)
 
 bool Walker::Start()
 {
+	Entity::Start();
 	SDL_Rect colrect = { 0,0,110,193 };
 	//HARDCODE
 	colrect.x = position.x;
@@ -38,7 +39,7 @@ bool Walker::Start()
 
 bool Walker::Update(float dt)
 {
-	App->physics->UpdateEntityPhysics(*this);
+	App->physics->UpdateEntityPhysics(*this, dt);
 	collider->UpdatePosition(position);
 	Entity::Update(dt);
 	return true;

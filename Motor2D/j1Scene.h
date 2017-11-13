@@ -8,6 +8,8 @@
 
 struct SDL_Texture;
 
+class Entity;
+
 struct Level {
 	int index;
 };
@@ -45,7 +47,7 @@ private:
 	void CameraFollowPlayer();
 
 public:
-
+	Entity* player_entity = nullptr;
 
 	p2PQueue<Level>* levels;
 
