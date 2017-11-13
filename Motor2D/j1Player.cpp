@@ -28,7 +28,7 @@ j1Player::j1Player()
 	jump_left.LoadSprites("jump_left");
 	right.LoadSprites("right");
 	left.LoadSprites("left");
-
+	death.LoadSprites("death");
 }
 
 j1Player::~j1Player()
@@ -64,7 +64,6 @@ bool j1Player::CleanUp() {
 
 bool j1Player::Update(float dt)
 {
-
 	//// Draw everything --------------------------------------
 	//AnimationFrame frame = current_animation->GetCurrentFrame();
 	//App->physics->UpdatePlayerPhysics(position, velocity, acceleration, player_coll, colliding_x, y_axis_collision);
@@ -145,6 +144,7 @@ bool j1Player::Update(float dt)
 
 	//colliding_x = NONE_X;
 	//y_axis_collision = NONE_Y;
+
 
 	return UPDATE_CONTINUE;
 
