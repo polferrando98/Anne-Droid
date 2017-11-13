@@ -1,6 +1,6 @@
 ﻿<sprites>
 
-<player anim_speed = "0.2f">
+<player anim_speed = "0.5f">
 
 <idle loop = "true">
 
@@ -88,5 +88,20 @@
 <sprite x="1052" y= "2267" w= "110" h="192"/>
 
 </idle_left>
+
+<death>
+
+<sprite x="98" y="2502" w="110" h="189"/>
+<sprite x="234" y="2483" w="110" h="209"/>
+<sprite x="359" y="2475" w="110" h="186"/>
+<sprite x="483" y="2474" w="130" h="210"/>
+<sprite x="624" y="2491" w="131" h="215"/>
+<sprite x="765" y="2545" w="109" h="114"/>
+<sprite x="883" y="2549" w="100" h="100"/>
+<sprite x="1013" y="2551" w="90" h="88"/>
+<sprite x="1151" y="2572" w="48" h="51"/>
+<sprite x="1281" y="2574" w="43" h="49"/>
+<sprite x="459" y="2676" w="12" h="6"/>
+</death>
 </player>
 </sprites>

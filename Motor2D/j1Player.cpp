@@ -28,7 +28,7 @@ j1Player::j1Player()
 	jump_left.LoadSprites("jump_left");
 	right.LoadSprites("right");
 	left.LoadSprites("left");
-
+	death.LoadSprites("death");
 }
 
 j1Player::~j1Player()
@@ -70,6 +70,10 @@ bool j1Player::Update(float dt)
 	}
 	velocity.x = velocity.x *dt;
 	velocity.y = velocity.y * dt;
+
+	if (App->input->GetKey(SDL_SCANCODE_5) == KEY_REPEAT) {
+		current_animation = &death;
+	}
 	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
 		acceleration.x = -acceleration_x;
 		last_direction_x = LEFT;
