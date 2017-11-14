@@ -101,6 +101,10 @@ public:
 	j1EntityManager*	entity_manager;
 	j1PathFinding*		pathfinding;
 
+
+
+
+	float				dt;
 private:
 
 	p2List<j1Module*>	modules;
@@ -122,7 +126,7 @@ private:
 	mutable p2SString	save_game;
 
 
-	float				dt;
+	
 	int					fps_cap;
 	j1PerfTimer			delay_time;
 

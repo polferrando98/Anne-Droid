@@ -56,13 +56,13 @@ bool Player::Update(float dt)
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
-		acceleration.x = -movement_acceleration.x;
+		velocity.x = -20.0f;
 		//last_direction_x = LEFT;
 		//current_direction_x = LEFT;
 	}
 
 	else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
-		acceleration.x = movement_acceleration.x;
+		velocity.x = 20.0f;
 		//last_direction_x = RIGHT;
 		//current_direction_x = RIGHT;
 	}
@@ -71,16 +71,16 @@ bool Player::Update(float dt)
 
 		//friction
 
-		App->physics->ApplyFriction(&velocity, &acceleration);
+		/*App->physics->ApplyFriction(&velocity, &acceleration);*/
 	}
 	else {
 		//Friction in the air is not realistic, but makes the game feel better
 	}
 
 
-	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
 	{
-		//DoJump();
+		velocity.y += 5.0f;
 	}
 
 
