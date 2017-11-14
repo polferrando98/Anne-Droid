@@ -47,7 +47,7 @@ public:
 	float jump_speed;
 
 	Direction_x colliding_x = NONE_X;
-	Direction_y colliding_y = NONE_Y;
+	Direction_y y_axis_collision = NONE_Y;
 
 	Direction_x last_direction_x = NONE_X;
 	Direction_y last_direction_y = NONE_Y;

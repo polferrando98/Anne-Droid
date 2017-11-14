@@ -28,7 +28,7 @@ j1Player::j1Player()
 	jump_left.LoadSprites("jump_left");
 	right.LoadSprites("right");
 	left.LoadSprites("left");
-
+	death.LoadSprites("death");
 }
 
 j1Player::~j1Player()
@@ -47,6 +47,10 @@ bool j1Player::Start()
 	SDL_Rect colrect = { 0,0,110,193 }; 
 	createCol(&colrect);
 
+	//HARDCODE
+
+	
+
 	return true;
 }
 
@@ -60,87 +64,87 @@ bool j1Player::CleanUp() {
 
 bool j1Player::Update(float dt)
 {
+	//// Draw everything --------------------------------------
+	//AnimationFrame frame = current_animation->GetCurrentFrame();
+	//App->physics->UpdatePlayerPhysics(position, velocity, acceleration, player_coll, colliding_x, y_axis_collision);
 
-	// Draw everything --------------------------------------
-	AnimationFrame frame = current_animation->GetCurrentFrame();
-	App->physics->UpdatePlayerPhysics(position, velocity, acceleration, player_coll, colliding_x, colliding_y);
+	//if (y_axis_collision == DOWN) {
+	//	grounded = true;
+	//}
+	//velocity.x = velocity.x *dt;
+	//velocity.y = velocity.y * dt;
+	//if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
+	//	acceleration.x = -acceleration_x;
+	//	last_direction_x = LEFT;
+	//	current_direction_x = LEFT;
+	//}
 
-	if (colliding_y == DOWN) {
-		grounded = true;
-	}
-	velocity.x = velocity.x *dt;
-	velocity.y = velocity.y * dt;
-	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
-		acceleration.x = -acceleration_x;
-		last_direction_x = LEFT;
-		current_direction_x = LEFT;
-	}
+	//else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
+	//	acceleration.x = acceleration_x;
+	//	last_direction_x = RIGHT;
+	//	current_direction_x = RIGHT;
+	//}
+	//else if (grounded) {
+	//	current_direction_x = NONE_X;
 
-	else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
-		acceleration.x = acceleration_x;
-		last_direction_x = RIGHT;
-		current_direction_x = RIGHT;
-	}
-	else if (grounded) {
-		current_direction_x = NONE_X;
+	//	//friction
 
-		//friction
-
-		App->physics->ApplyFriction(&velocity, &acceleration);
-	}
-	else {
-		//Friction in the air is not realistic, but makes the game feel better
-	}
-
-
-	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
-	{
-		DoJump();
-	}
+	//	App->physics->ApplyFriction(&velocity, &acceleration);
+	//}
+	//else {
+	//	//Friction in the air is not realistic, but makes the game feel better
+	//}
 
 
-
-	ApplyMaxVelocity();
-
-	// Direction
-
-
-	switch (last_direction_x)
-	{
-	case LEFT:
-		current_animation = &idle_left;
-		if (!grounded)
-			current_animation = &jump_left;
-		break;
-	case RIGHT:
-		current_animation = &idle;
-		if (!grounded)
-			current_animation = &jump;
-		break;
-	}
-
-	if (grounded) {
-		switch (current_direction_x)
-		{
-		case LEFT:
-			current_animation = &left;
-			break;
-		case RIGHT:
-			current_animation = &right;
-			break;
-		default:
-			break;
-		}
-		double_jump_avaliable = true;
-	}
+	//if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
+	//{
+	//	DoJump();
+	//}
 
 
 
-	player_coll->UpdatePosition(position);
-	App->render->Blit(graphics, position.x, position.y, &frame.rect);
+	//ApplyMaxVelocity();
 
-	colliding_x = NONE_X;
-	colliding_y = NONE_Y;
+	//// Direction
+
+
+	//switch (last_direction_x)
+	//{
+	//case LEFT:
+	//	current_animation = &idle_left;
+	//	if (!grounded)
+	//		current_animation = &jump_left;
+	//	break;
+	//case RIGHT:
+	//	current_animation = &idle;
+	//	if (!grounded)
+	//		current_animation = &jump;
+	//	break;
+	//}
+
+	//if (grounded) {
+	//	switch (current_direction_x)
+	//	{
+	//	case LEFT:
+	//		current_animation = &left;
+	//		break;
+	//	case RIGHT:
+	//		current_animation = &right;
+	//		break;
+	//	default:
+	//		break;
+	//	}
+	//	double_jump_avaliable = true;
+	//}
+
+
+
+	//player_coll->UpdatePosition(position);
+	//App->render->Blit(graphics, position.x, position.y, &frame.rect);
+
+	//colliding_x = NONE_X;
+	//y_axis_collision = NONE_Y;
+
 
 	return UPDATE_CONTINUE;
 

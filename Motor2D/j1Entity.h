@@ -69,13 +69,19 @@ public:
 public:
 	p2SString		name;
 	LifeState		life_state;
+
 	fPoint			position;
 	fPoint			velocity;
 	fPoint			acceleration;
+	fPoint			movement_acceleration;
+
 	Collider*		collider = nullptr;
 	EntityType		type;
+
 	Direction_x		x_axis_collision = NONE_X;
 	Direction_y		y_axis_collision = NONE_Y;
+
+	bool			grounded = false;
 
 
 protected:

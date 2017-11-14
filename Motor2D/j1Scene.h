@@ -8,6 +8,8 @@
 
 struct SDL_Texture;
 
+class Entity;
+
 struct Level {
 	int index;
 };
@@ -43,9 +45,10 @@ public:
 private:
 
 	void CameraFollowPlayer();
+	SDL_Texture* debug_tex;
 
 public:
-
+	Entity* player_entity = nullptr;
 
 	p2PQueue<Level>* levels;
 
@@ -64,6 +67,8 @@ public:
 	int next_level = 2;
 
 	bool loading = false;
+
+	iPoint p_clicked;
 
 };
 

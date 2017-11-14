@@ -93,12 +93,18 @@ void j1Physics::DebugDraw() const
 	}
 }
 
-void j1Physics::UpdateEntityPhysics(Entity & entity)
+void j1Physics::UpdateEntityPhysics(Entity & entity, float dt)
 {
 	Collider newCollider = *(entity.collider);
 	fPoint newPosition;
 	fPoint pos_differential;
-	entity.acceleration.y = 10.0f;
+	entity.acceleration.y = entity.movement_acceleration.y;
+
+	//entity.velocity.x = entity.velocity.x *dt;
+	dt *= 10;
+	entity.acceleration.y += dt;
+
+
 	//Y_AXIS
 	newPosition = calculateNewPosition(entity.position, entity.velocity, entity.acceleration, Y_axis);
 
@@ -118,21 +124,21 @@ void j1Physics::UpdateEntityPhysics(Entity & entity)
 
 	newCollider.rect.y = entity.position.x; //if this is commented player gets stuck to walls
 
-											//X_AXIS
-	newPosition = calculateNewPosition(entity.position, entity.velocity, entity.acceleration, X_axis);
+	//X_AXIS
+	//newPosition = calculateNewPosition(entity.position, entity.velocity, entity.acceleration, X_axis);
 
-	newCollider.rect.x = newPosition.x;
-	pos_differential.x = newPosition.x - entity.position.x;
+	//newCollider.rect.x = newPosition.x;
+	//pos_differential.x = newPosition.x - entity.position.x;
 
-	entity.x_axis_collision = checkGroundXCollisions(newCollider, pos_differential);
+	//entity.x_axis_collision = checkGroundXCollisions(newCollider, pos_differential);
 
-	if (entity.x_axis_collision == RIGHT || entity.x_axis_collision == LEFT) {
-		entity.velocity.x = 0;
-	}
-	else {
-		entity.velocity.x += entity.acceleration.x;
-		entity.position.x += entity.velocity.x;
-	}
+	//if (entity.x_axis_collision == RIGHT || entity.x_axis_collision == LEFT) {
+	//	entity.velocity.x = 0;
+	//}
+	//else {
+	//	entity.velocity.x += entity.acceleration.x;
+	//	entity.position.x += entity.velocity.x;
+	//}
 }
 
 //The idea was that it could be used for any moving object, but in the case of this game it is just the player

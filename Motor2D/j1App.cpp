@@ -14,8 +14,8 @@
 #include "j1EntityManager.h"
 #include "j1Player.h"
 #include "j1Physics.h"
-#include "j1Scene_2.h"
 #include "j1FadeToBlack.h"
+#include "j1Pathfinding.h"
 
 #include "Brofiler\Brofiler.h"
 
@@ -36,7 +36,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	player = new j1Player();
 	physics = new j1Physics();
 	entity_manager = new j1EntityManager();
-
+	pathfinding = new j1PathFinding();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -52,7 +52,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 
 	AddModule(player);
 	AddModule(physics);
-
+	AddModule(pathfinding);
 
 
 	// render last to swap buffer

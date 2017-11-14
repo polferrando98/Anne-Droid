@@ -24,13 +24,52 @@ struct Object {
 	int h;
 	float friction = 0;
 };
+struct Properties
+{
+	struct Property
+	{
+		p2SString name;
+		int value;
+	};
+
+	~Properties()
+	{
+		p2List_item<Property*>* item;
+		item = list.start;
+
+		while (item != NULL)
+		{
+			RELEASE(item->data);
+			item = item->next;
+		}
+
+		list.clear();
+	}
+
+	int Get(const char* name, int default_value = 0) const;
+
+	p2List<Property*>	list;
+};
 
 struct Layer {
 	p2SString			name;
 	uint				width;
 	uint				height;
 	uint*				data = nullptr;
-	~Layer() { RELEASE(data) };
+	Properties			properties;
+	
+	Layer() : data(NULL)
+	{}
+
+	~Layer()
+	{
+		RELEASE(data);
+	}
+
+	inline uint Get(int x, int y) const
+	{
+		return data[(y*width) + x];
+	}
 };
 
 struct ObjectGroup {
@@ -81,7 +120,6 @@ struct TileSet
 	p2List<Tile*>		tiles;
 
 };
-
 
 
 enum MapTypes
@@ -136,14 +174,16 @@ public:
 	
 	iPoint MapToWorld(int x, int y) const;
 
-	
-
+	iPoint WorldToMap(int x, int y) const;
+	TileSet * GetTilesetFromTileId(int id) const;
+	bool CreateWalkabilityMap(int & width, int & height, uchar ** buffer) const;
 private:
 
 	bool LoadMap();
 	bool LoadTilesetDetails(pugi::xml_node& tileset_node, TileSet* set);
 	bool LoadTile(pugi::xml_node& tile_node, Tile* tile);
 	bool LoadLayer(pugi::xml_node& node, Layer* layer);
+	
 	bool LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set);
 	bool LoadObjectGroup(pugi::xml_node& group_node, ObjectGroup* object_grup);
 	bool LoadObject(pugi::xml_node& object_node, Object* object);

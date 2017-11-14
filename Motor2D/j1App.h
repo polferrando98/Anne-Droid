@@ -14,14 +14,13 @@ class j1Input;
 class j1Render;
 class j1Textures;
 class j1Audio;
-//class j1Scene_W;
 class j1Scene;
 class j1FadeToBlack;
 class j1Map;
 class j1EntityManager;
 class j1Player;
 class j1Physics;
-
+class j1PathFinding;
 
 
 class j1App
@@ -100,6 +99,7 @@ public:
 	j1Player*			player;
 	j1Physics*			physics;
 	j1EntityManager*	entity_manager;
+	j1PathFinding*		pathfinding;
 
 private:
 
