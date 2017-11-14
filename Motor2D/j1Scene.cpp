@@ -38,6 +38,12 @@ bool j1Scene::Start()
 	debug_tex = App->tex->Load("maps/tile.png");
 	App->map->data.is_level_1 = true;
 
+	uchar* data = NULL;
+	if (App->map->CreateWalkabilityMap(App->map->data.width, App->map->data.height, &data))
+		App->pathfinding->SetMap(App->map->data.width, App->map->data.height, data);
+
+	RELEASE_ARRAY(data);
+	
 	App->map->Load("1.tmx");
 
 	App->map->PlaceTileColliders();
@@ -64,7 +70,7 @@ bool j1Scene::PreUpdate()
 	App->input->GetMousePosition(x, y);
 	iPoint p = App->render->ScreenToWorld(x, y);
 	p = App->map->WorldToMap(p.x, p.y);
-	p = App->map->MapToWorld(p.x, p.y);
+	//p = App->map->MapToWorld(p.x, p.y);
 
 	if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
 	{
@@ -137,7 +143,7 @@ bool j1Scene::Update(float dt)
 	App->input->GetMousePosition(x, y);
 	iPoint p = App->render->ScreenToWorld(x, y);
 	p = App->map->WorldToMap(p.x, p.y);
-	p = App->map->MapToWorld(p.x, p.y);
+	//p = App->map->MapToWorld(p.x, p.y);
 
 	App->render->Blit(debug_tex, p.x, p.y);
 
