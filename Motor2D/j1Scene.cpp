@@ -37,12 +37,16 @@ bool j1Scene::Start()
 {
 	debug_tex = App->tex->Load("maps/tile.png");
 	App->map->data.is_level_1 = true;
+	if (App->map->Load("1.tmx") != nullptr)
+	{
+		int w, h;
+		uchar* data = NULL;
+		if (App->map->CreateWalkabilityMap(w, h, &data))
+			App->pathfinding->SetMap(w, h, data);
 
-	uchar* data = NULL;
-	if (App->map->CreateWalkabilityMap(App->map->data.width, App->map->data.height, &data))
-		App->pathfinding->SetMap(App->map->data.width, App->map->data.height, data);
+		RELEASE_ARRAY(data);
+	}
 
-	RELEASE_ARRAY(data);
 	
 	App->map->Load("1.tmx");
 
@@ -76,7 +80,7 @@ bool j1Scene::PreUpdate()
 	{
 		if (origin_selected == true)
 		{
-			App->pathfinding->CreatePath(origin, p);
+			int path_steps = App->pathfinding->CreatePath(origin, p);
 			origin_selected = false;
 		}
 		else
