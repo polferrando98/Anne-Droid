@@ -45,6 +45,7 @@ public:
 private:
 
 	void CameraFollowPlayer();
+	SDL_Texture* debug_tex;
 
 public:
 	Entity* player_entity = nullptr;

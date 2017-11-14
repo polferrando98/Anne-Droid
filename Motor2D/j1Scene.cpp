@@ -9,7 +9,7 @@
 #include "j1Map.h"
 #include "j1Scene.h"
 #include "j1Player.h"
-
+#include "j1Pathfinding.h"
 #include "j1EntityManager.h"
 
 #include "Walker.h"
@@ -35,7 +35,7 @@ bool j1Scene::Awake()
 // Called before the first frame
 bool j1Scene::Start()
 {
-
+	debug_tex = App->tex->Load("maps/tile.png");
 	App->map->data.is_level_1 = true;
 
 	App->map->Load("1.tmx");
@@ -56,17 +56,36 @@ bool j1Scene::Start()
 // Called each loop iteration
 bool j1Scene::PreUpdate()
 {
+	// debug pathfing ------------------
+	static iPoint origin;
+	static bool origin_selected = false;
+
+	int x, y;
+	App->input->GetMousePosition(x, y);
+	iPoint p = App->render->ScreenToWorld(x, y);
+	p = App->map->WorldToMap(p.x, p.y);
+	p = App->map->MapToWorld(p.x, p.y);
+
+	if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
+	{
+		if (origin_selected == true)
+		{
+			App->pathfinding->CreatePath(origin, p);
+			origin_selected = false;
+		}
+		else
+		{
+			origin = p;
+			origin_selected = true;
+		}
+	}
+
 	return true;
 }
 
 // Called each loop iteration
 bool j1Scene::Update(float dt)
 {
-	//pathfinding debug
-
-
-
-
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
 	{
 		if (App->map->data.is_level_1 == false)
@@ -97,25 +116,38 @@ bool j1Scene::Update(float dt)
 
 	App->map->Draw();
 
+	/*int x, y;
+	App->input->GetMousePosition(x, y);
+	Uint8 alpha = 80;
+	int width_tile = App->map->data.tile_width;*/
+	//int height_tile = App->map->data.tile_height;
+
+	//if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
+	//{
+	//	p_clicked = App->render->ScreenToWorld(x, y);
+	//	p_clicked = App->map->WorldToMap(p_clicked.x, p_clicked.y);
+	//	p_clicked = App->map->MapToWorld(p_clicked.x, p_clicked.y);
+	//}
+	//SDL_Rect prova = { p_clicked.x,p_clicked.y,width_tile,height_tile };
+	//App->render->DrawQuad(prova, 204,0, 153, alpha, true, true); //Fuchsia
+
+
+	// Debug pathfinding ------------------------------
 	int x, y;
 	App->input->GetMousePosition(x, y);
+	iPoint p = App->render->ScreenToWorld(x, y);
+	p = App->map->WorldToMap(p.x, p.y);
+	p = App->map->MapToWorld(p.x, p.y);
 
+	App->render->Blit(debug_tex, p.x, p.y);
 
-	Uint8 alpha = 80;
+	const p2DynArray<iPoint>* path = App->pathfinding->GetLastPath();
 
-	int width_tile = App->map->data.tile_width;
-	int height_tile = App->map->data.tile_height;
-
-	if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
+	for (uint i = 0; i < path->Count(); ++i)
 	{
-		p_clicked = App->render->ScreenToWorld(x, y);
-		p_clicked = App->map->WorldToMap(p_clicked.x, p_clicked.y);
-		p_clicked = App->map->MapToWorld(p_clicked.x, p_clicked.y);
+		iPoint pos = App->map->MapToWorld(path->At(i)->x, path->At(i)->y);
+		App->render->Blit(debug_tex, pos.x, pos.y);
 	}
-	SDL_Rect prova = { p_clicked.x,p_clicked.y,width_tile,height_tile };
-	App->render->DrawQuad(prova, 204,0, 153, alpha, true, true); //Fuchsia
-
-
 
 	p2SString title("Map:%dx%d Tiles:%dx%d Tilesets:%d",
 		App->map->data.width, App->map->data.height,
