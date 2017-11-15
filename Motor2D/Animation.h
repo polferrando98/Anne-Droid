@@ -16,7 +16,7 @@ class Animation
 {
 public:
 	bool loop = true;
-	float speed = 1.0f;
+	float speed = 0.2f;
 	AnimationFrame frames[MAX_FRAMES];
 	float current_frame = 0.0f;
 

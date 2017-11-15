@@ -8,38 +8,31 @@
 
 Player::Player(fPoint position) : Entity(position, ENTITY_PLAYER)
 {
-	idle_left.PushBack({ 1052,2272,110,187 });
-	idle_left.PushBack({ 811,2272,110,187 });
-	idle_left.PushBack({ 570,2272,110,188 });
-	idle_left.PushBack({ 328,2271,111,188 });
-	idle_left.PushBack({ 87,2271,110,188 });
-	idle_left.PushBack({ 1052,2029,110,189 });
-	idle_left.PushBack({ 811,2029,110,189 });
-	idle_left.PushBack({ 570,2030,110,188 });
-	idle_left.PushBack({ 328,2031,111,187 });
-	idle_left.PushBack({ 87,2031,110,187 });
+	texture = NULL;
+	current_animation = NULL;
 
-	idle_left.loop = true;
-	idle_left.speed = animation_speed;
+	idle_left.LoadSprites("idle_left");
+	idle_right.LoadSprites("idle");
+	jump.LoadSprites("jump");
+	jump_left.LoadSprites("jump_left");
+	right.LoadSprites("right");
+	left.LoadSprites("left");
+	death.LoadSprites("death");
 
-	current_animation = &idle_left;
 }
 
 bool Player::Start()
 {
+	
+	current_animation = &idle_right;
 	Entity::Start();
 	SDL_Rect colrect = { 0,0,110,193 };
 
 	colrect.x = position.x;
 	colrect.y = position.y;
 
-	//HARDCODE
-
-
 	collider = App->physics->AddCollider(&colrect, PLAYER);
 	texture = App->tex->Load("textures/player_sprites.png");
-
-	movement_acceleration.x = 10.0f;
 
 	return true;
 }
@@ -50,73 +43,64 @@ bool Player::Update(float dt)
 	collider->UpdatePosition(position);
 	Entity::Update(dt);
 
+	Move();
+
 
 	if (y_axis_collision == DOWN) {
 		grounded = true;
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
-		velocity.x = -20.0f;
-		//last_direction_x = LEFT;
-		//current_direction_x = LEFT;
-	}
-
-	else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
-		velocity.x = 20.0f;
-		//last_direction_x = RIGHT;
-		//current_direction_x = RIGHT;
-	}
-	else if (grounded) {
-		//current_direction_x = NONE_X;
-
-		//friction
-
-		/*App->physics->ApplyFriction(&velocity, &acceleration);*/
-	}
-	else {
-		//Friction in the air is not realistic, but makes the game feel better
-	}
-
-
-	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
-	{
-		velocity.y += 5.0f;
-	}
-
-
-
-	//ApplyMaxVelocity();
-
+	
 	// Direction
 
 
-	//switch (last_direction_x)
-	//{
-	//case LEFT:
-	//	current_animation = &idle_left;
-	//	if (!grounded)
-	//		current_animation = &jump_left;
-	//	break;
-	//case RIGHT:
-	//	current_animation = &idle;
-	//	if (!grounded)
-	//		current_animation = &jump;
-	//	break;
-	//}
+	/*switch (last_direction_x)
+	{
+	case LEFT:
+		current_animation = &idle_left;
+		if (!grounded)
+			current_animation = &jump_left;
+		break;
+	case RIGHT:
+		current_animation = &idle_right;
+		if (!grounded)
+			current_animation = &jump;
+		break;
+	}
 
-	//if (grounded) {
-	//	switch (current_direction_x)
-	//	{
-	//	case LEFT:
-	//		current_animation = &left;
-	//		break;
-	//	case RIGHT:
-	//		current_animation = &right;
-	//		break;
-	//	default:
-	//		break;
-	//	}
-	//	double_jump_avaliable = true;
-	//}
+	if (grounded) {
+		switch (current_direction_x)
+		{
+		case LEFT:
+			current_animation = &left;
+			break;
+		case RIGHT:
+			current_animation = &right;
+			break;
+		default:
+			break;
+		}
+		double_jump_avaliable = true;
+	}
+	*/
 	return true;
 }
+
+void Player::Move()
+{
+	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+	{
+		current_animation = &right;
+		position.x += velocity.x;
+		velocity.x += 200.0f;
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+	{ 
+		current_animation = &left;
+		position.x += velocity.x;
+		velocity.x -= 200.0f;
+	}
+}
+
+ 

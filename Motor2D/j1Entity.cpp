@@ -2,7 +2,7 @@
 #include "j1App.h"
 #include "j1Render.h"
 #include "j1Textures.h"
-
+#include "j1Physics.h"
 Entity::Entity(fPoint position, EntityType type)
 {
 	this->position = position;
@@ -11,7 +11,9 @@ Entity::Entity(fPoint position, EntityType type)
 }
 bool Entity::Start()
 {
-	movement_acceleration.y = 10.0f;
+	App->physics->LoadPhysicsValues();
+
+	//movement_acceleration.y = 10.0f;
 	return true;
 }
 
@@ -21,3 +23,4 @@ bool Entity::Update(float dt)
 	App->render->Blit(texture, position.x, position.y, &frame.rect);
 	return true;
 }
+

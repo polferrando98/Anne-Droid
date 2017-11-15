@@ -101,9 +101,6 @@ public:
 	j1EntityManager*	entity_manager;
 	j1PathFinding*		pathfinding;
 
-
-
-
 	float				dt;
 private:
 

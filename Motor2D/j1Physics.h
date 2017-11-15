@@ -59,7 +59,7 @@ public:
 
 	inline bool SameType(Collider_Type type_1, Collider_Type type_2) const;
 
-	void ApplyFriction(fPoint* velocity, fPoint* acceleration);
+	/*void ApplyFriction(fPoint* velocity, fPoint* acceleration);*/
 
 	void LoadPhysicsValues();
 

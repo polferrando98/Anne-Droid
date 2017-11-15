@@ -101,8 +101,6 @@ void j1Physics::UpdateEntityPhysics(Entity & entity, float dt)
 
 	entity.velocity.x = entity.velocity.x *dt;
 	
-
-
 	//Y_AXIS
 	newPosition = calculateNewPosition(entity.position, entity.velocity, Y_axis);
 

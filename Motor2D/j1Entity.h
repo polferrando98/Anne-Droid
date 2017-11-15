@@ -92,9 +92,7 @@ protected:
 	Animation		right;
 	Animation		death;
 	Animation*		current_animation = nullptr;
-
-	float animation_speed = 0.19f;
-
+	float animation_speed;
 
 };
 

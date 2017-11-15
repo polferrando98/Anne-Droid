@@ -9,5 +9,11 @@ public:
 
 	bool Start();
 	bool Update(float dt);
+
+	void Move();
+
+protected:
+	Animation jump;
+	Animation jump_left;
 };
 
