@@ -5,6 +5,7 @@
 #include "p2Point.h"
 #include "p2DynArray.h"
 
+
 #define DEFAULT_PATH_LENGTH 50
 #define INVALID_WALK_CODE 255
 
@@ -70,6 +71,7 @@ struct PathNode
 
 	// Fills a list (PathList) of all valid adjacent pathnodes
 	uint FindWalkableAdjacents(PathList& list_to_fill) const;
+	void CreateWalkableAdjacentsList(PathList & list_to_fill) const;
 	// Calculates this tile score
 	int Score() const;
 	// Calculate the F for a specific destination tile

@@ -1,7 +1,19 @@
 #include "p2Defs.h"
+#include "p2Defs.h"
+#include "p2Log.h"
+#include "j1App.h"
+#include "j1Input.h"
+#include "j1Textures.h"
+#include "j1Audio.h"
+#include "j1Render.h"
+#include "j1Window.h"
+#include "j1Map.h"
+#include "j1Scene.h"
+#include "j1Player.h"
 #include "p2Log.h"
 #include "j1App.h"
 #include "j1Pathfinding.h"
+#include "j1Map.h"
 
 j1PathFinding::j1PathFinding() : j1Module(), map(NULL), last_path(DEFAULT_PATH_LENGTH), width(0), height(0)
 {
@@ -144,6 +156,43 @@ uint PathNode::FindWalkableAdjacents(PathList& list_to_fill) const
 	return list_to_fill.list.count();
 }
 
+void PathNode::CreateWalkableAdjacentsList(PathList & list_to_fill) const
+{
+	TileSet* tileset = App->map->data.tilesets.start->data; 
+	int id = tileset->GetIdFromPos(pos);
+	Tile* tile = tileset->FindTileWithid(id);
+	iPoint cell;
+
+	// north
+	cell.create(pos.x, pos.y + 1);
+	id = tileset->GetIdFromPos({ pos.x, pos.y + 1 });
+	tile = tileset->FindTileWithid(id);
+	if (!tile->is_ground)
+		list_to_fill.list.add(PathNode(-1, -1, cell, this));
+
+	// south
+	cell.create(pos.x, pos.y - 1);
+	id = tileset->GetIdFromPos({ pos.x, pos.y - 1 });
+	tile = tileset->FindTileWithid(id);
+	if (!tile->is_ground)
+		list_to_fill.list.add(PathNode(-1, -1, cell, this));
+
+	// east
+	cell.create(pos.x + 1, pos.y);
+	id = tileset->GetIdFromPos({ pos.x + 1, pos.y });
+	tile = tileset->FindTileWithid(id);
+	if (!tile->is_ground)
+		list_to_fill.list.add(PathNode(-1, -1, cell, this));
+
+	// west
+	cell.create(pos.x - 1, pos.y);
+	id = tileset->GetIdFromPos({ pos.x - 1, pos.y });
+	tile = tileset->FindTileWithid(id);
+	if (!tile->is_ground)
+		list_to_fill.list.add(PathNode(-1, -1, cell, this));
+} 
+
+
 // PathNode -------------------------------------------------------------------------
 // Calculates this tile score
 // ----------------------------------------------------------------------------------
@@ -213,7 +262,7 @@ int j1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 
 			// TODO 5: Fill a list of all adjancent nodes
 			PathList neighbours;
-			lowest_cost_node->data.FindWalkableAdjacents(neighbours);
+			lowest_cost_node->data.CreateWalkableAdjacentsList(neighbours);
 
 			// TODO 6: Iterate adjancent nodes:
 			// ignore nodes in the closed list

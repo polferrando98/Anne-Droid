@@ -5,6 +5,7 @@
 #include "p2List.h"
 #include "p2Point.h"
 #include "j1Module.h"
+#include "j1Pathfinding.h"
 
 enum ObjectTypes {
 	OBJECT_TYPE_UNKNOWN = 0,
@@ -103,6 +104,7 @@ struct TileSet
 	SDL_Rect GetTileRect(int id) const;
 	bool IsWall(int id) const;
 	Tile* FindTileWithid(int id) const;
+	int GetIdFromPos(iPoint pos) const;
 
 	p2SString			name;
 	int					firstgid;
