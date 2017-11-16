@@ -10,7 +10,7 @@
 class j1App;
 
 enum LifeState { ALIVE, WAITING_FOR_CLEANUP};
-enum EntityType {ENTITY_PLAYER, ENTITY_WALKER};
+enum EntityType { ENTITY_PLAYER, ENTITY_WALKER, ENTITY_BIRD};
 
 class Entity 
 {
