@@ -26,7 +26,7 @@ bool Player::Start()
 	
 	current_animation = &idle_right;
 	Entity::Start();
-	SDL_Rect colrect = { 0,0,110,193 };
+	SDL_Rect colrect = { 0,0,76,123 };
 
 	colrect.x = position.x;
 	colrect.y = position.y;
