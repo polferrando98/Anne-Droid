@@ -37,25 +37,21 @@ bool j1Scene::Start()
 {
 	debug_tex = App->tex->Load("maps/tile.png");
 	App->map->data.is_level_1 = true;
-	if (App->map->Load("420.tmx") != nullptr)
-	{
-		int w, h;
-		uchar* data = NULL;
-		if (App->map->CreateWalkabilityMap(w, h, &data))
-			App->pathfinding->SetMap(w, h, data);
+	App->map->Load("420.tmx");
 
-		RELEASE_ARRAY(data);
-	}
 
 	
-	App->map->Load("1.tmx");
+
 
 	App->map->PlaceTileColliders();
 	//App->map->PlaceColliders();
 
 	fPoint debugPosition = { 600,3000 };
+
 	fPoint debugBirdPosition = { 600, 2600 };
 	fPoint debugPlayerPosition = { 700,2000 };
+
+
 	App->entity_manager->CreateEntity(debugPosition,ENTITY_WALKER);
 	player_entity = App->entity_manager->CreateEntity(debugPlayerPosition, ENTITY_PLAYER);
 	
@@ -129,20 +125,6 @@ bool j1Scene::Update(float dt)
 
 	App->map->Draw();
 
-	/*int x, y;
-	App->input->GetMousePosition(x, y);
-	Uint8 alpha = 80;
-	int width_tile = App->map->data.tile_width;*/
-	//int height_tile = App->map->data.tile_height;
-
-	//if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
-	//{
-	//	p_clicked = App->render->ScreenToWorld(x, y);
-	//	p_clicked = App->map->WorldToMap(p_clicked.x, p_clicked.y);
-	//	p_clicked = App->map->MapToWorld(p_clicked.x, p_clicked.y);
-	//}
-	//SDL_Rect prova = { p_clicked.x,p_clicked.y,width_tile,height_tile };
-	//App->render->DrawQuad(prova, 204,0, 153, alpha, true, true); //Fuchsia
 
 
 	// Debug pathfinding ------------------------------
@@ -150,9 +132,6 @@ bool j1Scene::Update(float dt)
 	App->input->GetMousePosition(x, y);
 	iPoint p = App->render->ScreenToWorld(x, y);
 	p = App->map->WorldToMap(p.x, p.y);
-	//p = App->map->MapToWorld(p.x, p.y);
-
-	App->render->Blit(debug_tex, p.x, p.y);
 
 	const p2DynArray<iPoint>* path = App->pathfinding->GetLastPath();
 
