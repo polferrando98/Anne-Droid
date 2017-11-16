@@ -37,18 +37,11 @@ bool j1Scene::Start()
 {
 	debug_tex = App->tex->Load("maps/tile.png");
 	App->map->data.is_level_1 = true;
-	if (App->map->Load("420.tmx") != nullptr)
-	{
-		int w, h;
-		uchar* data = NULL;
-		if (App->map->CreateWalkabilityMap(w, h, &data))
-			App->pathfinding->SetMap(w, h, data);
+	App->map->Load("420.tmx");
 
-		RELEASE_ARRAY(data);
-	}
 
 	
-	App->map->Load("1.tmx");
+
 
 	App->map->PlaceTileColliders();
 	//App->map->PlaceColliders();
