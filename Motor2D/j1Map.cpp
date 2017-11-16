@@ -721,3 +721,14 @@ bool j1Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer) const
 
 	return ret;
 }
+
+bool j1Map::isWalkableFromPos(iPoint pos)
+{
+	TileSet* tileset = App->map->data.tilesets.start->data;
+	int id = tileset->GetIdFromPos(pos);
+	Tile* tile = tileset->FindTileWithid(id);
+
+	if (!tile->is_ground)
+		return true;
+	return false;
+}

@@ -2,6 +2,7 @@
 #include "j1Entity.h"
 #include "Walker.h"
 #include "Player.h"
+#include "Bird.h"
 
 
 j1EntityManager::j1EntityManager()
@@ -65,6 +66,9 @@ Entity * j1EntityManager::CreateEntity(fPoint position, EntityType type)
 		break;
 	case ENTITY_WALKER:
 		new_entity = new Walker(position);
+		break;
+	case ENTITY_BIRD:
+		new_entity = new Bird(position);
 		break;
 	default:
 		break;

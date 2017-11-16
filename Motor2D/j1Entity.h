@@ -10,7 +10,7 @@
 class j1App;
 
 enum LifeState { ALIVE, WAITING_FOR_CLEANUP};
-enum EntityType {ENTITY_PLAYER, ENTITY_WALKER};
+enum EntityType { ENTITY_PLAYER, ENTITY_WALKER, ENTITY_BIRD};
 
 class Entity 
 {
@@ -21,50 +21,15 @@ public:
 
 	Entity(fPoint position, EntityType type);
 
-	void Init()
-	{
-
-	}
-
-	// Called before render is available
-	virtual bool Awake(pugi::xml_node&)
-	{
-		return true;
-	}
-
 	// Called before the first frame
 	virtual bool Start();
 
 	// Called each loop iteration
-	virtual bool PreUpdate()
-	{
-		return true;
-	}
-
-	// Called each loop iteration
 	virtual bool Update(float dt);
 
-	// Called each loop iteration
-	virtual bool PostUpdate()
-	{
-		return true;
-	}
+	void UpdateCurrentTile();
 
-	// Called before quitting
-	virtual bool CleanUp()
-	{
-		return true;
-	}
 
-	virtual bool load(pugi::xml_node&)
-	{
-		return true;
-	}
-
-	virtual bool save(pugi::xml_node&) const
-	{
-		return true;
-	}
 
 public:
 	p2SString		name;
@@ -74,6 +39,8 @@ public:
 	fPoint			velocity;
 	fPoint			acceleration;
 	fPoint			movement_acceleration;
+
+	iPoint			currentTile;
 
 	Collider*		collider = nullptr;
 	EntityType		type;
