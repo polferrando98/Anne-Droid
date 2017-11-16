@@ -6,8 +6,8 @@
   </physics>
 
   <player>
-    <position_x value="200"/>
-    <position_y value="3000"/>
+    <position_x value="500"/>
+    <position_y value="2700"/>
     <acceleration_y value="25.0f"/>
     <acceleration_x value="10.0f"/>
     <jump_speed value="200.0f"/>

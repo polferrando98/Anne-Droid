@@ -49,7 +49,7 @@ public:
 	void  ManageGroundCollisions(fPoint *position, fPoint *velocity, Collider* collider, Direction_x& colliding_x, Direction_y&colliding_y);
 	Direction_x checkGroundXCollisions(Collider new_collider, fPoint pos_differential) const;
 	Direction_y checkGroundYCollisions(Collider new_collider, fPoint pos_differential) const;
-	fPoint calculateNewPosition(fPoint position, fPoint velocity, Axis axis) const;
+	fPoint calculateNewPosition(fPoint position, fPoint velocity, fPoint acceleration, Axis axis) const;
 	void  checkDeathCollisions(fPoint * position, fPoint & velocity, Collider * collider);
 	void CheckDoorEntry(fPoint & position, fPoint & velocity, Collider * collider);
 

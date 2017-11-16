@@ -91,16 +91,15 @@ void Player::Move()
 	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 	{
 		current_animation = &right;
-		position.x += velocity.x;
-		velocity.x += 200.0f;
+		acceleration.x = movement_acceleration.x;
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 	{ 
 		current_animation = &left;
-		position.x += velocity.x;
-		velocity.x -= 200.0f;
+		acceleration.x = -movement_acceleration.x;
 	}
+	
 }
 
  
