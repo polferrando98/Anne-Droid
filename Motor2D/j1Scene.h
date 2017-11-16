@@ -10,6 +10,7 @@ struct SDL_Texture;
 
 class Entity;
 
+
 struct Level {
 	int index;
 };
@@ -49,6 +50,7 @@ private:
 
 public:
 	Entity* player_entity = nullptr;
+	Entity* bird = nullptr;
 
 	p2PQueue<Level>* levels;
 

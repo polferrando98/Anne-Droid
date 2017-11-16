@@ -3,6 +3,7 @@
 #include "j1Render.h"
 #include "j1Textures.h"
 #include "j1Physics.h"
+#include "j1Map.h"
 Entity::Entity(fPoint position, EntityType type)
 {
 	this->position = position;
@@ -20,7 +21,13 @@ bool Entity::Start()
 bool Entity::Update(float dt)
 {
 	AnimationFrame frame = current_animation->GetCurrentFrame();
+	UpdateCurrentTile();
 	App->render->Blit(texture, position.x, position.y, &frame.rect);
 	return true;
+}
+
+void Entity::UpdateCurrentTile()
+{
+	currentTile = App->map->WorldToMap(position.x, position.y);
 }
 
