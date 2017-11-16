@@ -179,6 +179,8 @@ public:
 	iPoint WorldToMap(int x, int y) const;
 	TileSet * GetTilesetFromTileId(int id) const;
 	bool CreateWalkabilityMap(int & width, int & height, uchar ** buffer) const;
+
+	bool isWalkableFromPos(iPoint pos);
 private:
 
 	bool LoadMap();

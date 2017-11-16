@@ -165,30 +165,22 @@ void PathNode::CreateWalkableAdjacentsList(PathList & list_to_fill) const
 
 	// north
 	cell.create(pos.x, pos.y + 1);
-	id = tileset->GetIdFromPos({ pos.x, pos.y + 1 });
-	tile = tileset->FindTileWithid(id);
-	if (!tile->is_ground)
+	if (App->map->isWalkableFromPos({ pos.x, pos.y + 1 }))
 		list_to_fill.list.add(PathNode(-1, -1, cell, this));
 
 	// south
 	cell.create(pos.x, pos.y - 1);
-	id = tileset->GetIdFromPos({ pos.x, pos.y - 1 });
-	tile = tileset->FindTileWithid(id);
-	if (!tile->is_ground)
+	if (App->map->isWalkableFromPos({ pos.x, pos.y - 1 }))
 		list_to_fill.list.add(PathNode(-1, -1, cell, this));
 
 	// east
 	cell.create(pos.x + 1, pos.y);
-	id = tileset->GetIdFromPos({ pos.x + 1, pos.y });
-	tile = tileset->FindTileWithid(id);
-	if (!tile->is_ground)
+	if (App->map->isWalkableFromPos({ pos.x + 1, pos.y }))
 		list_to_fill.list.add(PathNode(-1, -1, cell, this));
 
 	// west
 	cell.create(pos.x - 1, pos.y);
-	id = tileset->GetIdFromPos({ pos.x - 1, pos.y });
-	tile = tileset->FindTileWithid(id);
-	if (!tile->is_ground)
+	if (App->map->isWalkableFromPos({ pos.x - 1, pos.y }))
 		list_to_fill.list.add(PathNode(-1, -1, cell, this));
 } 
 
@@ -220,7 +212,7 @@ int j1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 	bool debug_draw = true;
 	{
 		// TODO 1: if origin or destination are not walkable, return -1
-		if (!(IsWalkable(origin) || !IsWalkable(destination)))
+		if (!(App->map->isWalkableFromPos(origin) || !App->map->isWalkableFromPos(destination)))
 			return -1;
 
 		// TODO 2: Create two lists: open, closed
@@ -234,26 +226,29 @@ int j1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 		origin_node.pos = origin;
 		open.list.add(origin_node);
 
+
 		while (open.list.count() > 0)
 		{
 			// TODO 3: Move the lowest score cell from open list to the closed list
 			p2List_item<PathNode>* current_item = open.GetNodeLowestScore();
 
-			p2List_item<PathNode>* lowest_cost_node = closed.list.add(current_item->data);
+			p2List_item<PathNode>* lowest_cost_node = closed.list.add(open.GetNodeLowestScore()->data);
+			p2List_item<PathNode> lowest_cost_node_new = *closed.list.add(open.GetNodeLowestScore()->data);
+			open.list.del(current_item);
 
 			// TODO 4: If we just added the destination, we are done!
 			// Backtrack to create the final path
 			// Use the Pathnode::parent and Flip() the path when you are finish
-			if (lowest_cost_node->data.pos == destination)
+			if (lowest_cost_node_new.data.pos == destination)
 			{
 				int steps = 0;
-				while (lowest_cost_node->data.parent != nullptr) {
-					last_path.PushBack(lowest_cost_node->data.pos);
+				while (lowest_cost_node_new.data.parent != nullptr) {
+					last_path.PushBack(lowest_cost_node_new.data.pos);
 					steps++;
-					lowest_cost_node = closed.Find(lowest_cost_node->data.parent->pos);
+					lowest_cost_node_new = *closed.Find(lowest_cost_node_new.data.parent->pos);
 				}
 
-				last_path.PushBack(lowest_cost_node->data.pos);
+				last_path.PushBack(lowest_cost_node_new.data.pos);
 				steps++;
 
 				last_path.Flip();
@@ -290,8 +285,8 @@ int j1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 					}
 				}
 			}
-			open.list.del(current_item);
 		}
 		return -1;
 	}
+
 }
