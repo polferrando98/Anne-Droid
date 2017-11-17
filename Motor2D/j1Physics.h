@@ -40,6 +40,7 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+	bool PreUpdate(float dt);
 	bool Update(float dt);
 
 	void DebugDraw() const;
@@ -74,7 +75,7 @@ public:
 	p2List<Collider*>	collider_list;
 	bool debug_mode = true;
 
-	
+	float normalize;
 	Uint8 alpha = 80;
 
 	float friction;

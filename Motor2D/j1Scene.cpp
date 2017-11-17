@@ -59,7 +59,7 @@ bool j1Scene::Start()
 }
 
 // Called each loop iteration
-bool j1Scene::PreUpdate()
+bool j1Scene::PreUpdate(float dt)
 {
 	// debug pathfing ------------------
 	static iPoint origin;

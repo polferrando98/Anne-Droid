@@ -105,6 +105,7 @@ bool j1App::Awake()
 		organization.create(app_config.child("organization").child_value());
 
 		fps_cap = app_config.attribute("framerate_cap").as_uint(30);
+		max_fps = app_config.attribute("max_framerate").as_uint(60);
 	}
 
 	if (ret)
@@ -264,7 +265,7 @@ bool j1App::PreUpdate()
 		if (!item->data->IsEnabled())
 			continue;
 
-		ret = item->data->PreUpdate();
+		ret = item->data->PreUpdate(dt);
 	}
 
 	return ret;

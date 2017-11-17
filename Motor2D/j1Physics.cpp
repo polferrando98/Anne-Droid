@@ -45,6 +45,15 @@ bool j1Physics::CleanUp()
 	return true;
 }
 
+bool j1Physics::PreUpdate(float dt)
+{
+	
+	normalize = App->max_fps / (1000 / dt);
+
+	if (normalize < 1) { normalize = 1; }
+
+	return true;
+}
 bool j1Physics::Update(float dt)
 {
 	if ((App->input->GetKey(SDL_SCANCODE_9) == KEY_DOWN))
@@ -169,8 +178,8 @@ void j1Physics::UpdateEntityPhysics(Entity & entity, float dt)
 		//friction = collided->friction;
 	}
 	else {
-		entity.velocity.y += entity.acceleration.y;
-		entity.position.y += entity.velocity.y;
+		entity.velocity.y += entity.acceleration.y * normalize;
+		entity.position.y += entity.velocity.y * normalize;
 	}
 
 	newCollider.rect.y = entity.position.y; //if this is commented player gets stuck to walls
@@ -187,8 +196,8 @@ void j1Physics::UpdateEntityPhysics(Entity & entity, float dt)
 		entity.velocity.x = 0;
 	}
 	else {
-		entity.velocity.x += entity.acceleration.x;
-		entity.position.x += entity.velocity.x;
+		entity.velocity.x += entity.acceleration.x * normalize;
+		entity.position.x += entity.velocity.x *normalize;
 	}
 }
 
@@ -294,17 +303,17 @@ Direction_y j1Physics::checkGroundYCollisions(Collider new_collider, fPoint pos_
 		switch (axis)
 		{
 		case BOTH_AXIS:
-			newVelocity.x = velocity.x + acceleration.x;
+			newVelocity.x = velocity.x* normalize + acceleration.x * normalize;
 			newPosition.x = position.x + newVelocity.x;
-			newVelocity.y = velocity.y + acceleration.y;
+			newVelocity.y = velocity.y* normalize + acceleration.y * normalize;
 			newPosition.y = position.y + newVelocity.y;
 			break;
 		case X_axis:
-			newVelocity.x = velocity.x + acceleration.x;
+			newVelocity.x = velocity.x *normalize + acceleration.x *normalize;
 			newPosition.x = position.x + newVelocity.x;
 			break;
 		case Y_axis:
-			newVelocity.y = velocity.y + acceleration.y;
+			newVelocity.y = velocity.y *normalize + acceleration.y *normalize;
 			newPosition.y = position.y + newVelocity.y;
 			break;
 		}

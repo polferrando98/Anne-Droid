@@ -102,6 +102,7 @@ public:
 	j1PathFinding*		pathfinding;
 
 	float				dt;
+	int					max_fps;
 private:
 
 	p2List<j1Module*>	modules;
@@ -125,6 +126,7 @@ private:
 
 	
 	int					fps_cap;
+	
 	j1PerfTimer			delay_time;
 
 	j1PerfTimer			ptimer;
