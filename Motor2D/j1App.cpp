@@ -104,6 +104,7 @@ bool j1App::Awake()
 		title.create(app_config.child("title").child_value());
 		organization.create(app_config.child("organization").child_value());
 
+		
 		fps_cap = app_config.attribute("framerate_cap").as_uint(30);
 		max_fps = app_config.attribute("max_framerate").as_uint(60);
 	}
