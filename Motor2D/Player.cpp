@@ -1,6 +1,7 @@
 #include "Player.h"
 #include "j1App.h"
 #include "j1Textures.h"
+#include "j1Audio.h"
 
 #include "j1Input.h"
 
@@ -52,13 +53,8 @@ bool Player::Update(float dt)
 		grounded = true;
 	}
 
-
-
-
+	ManageAnimation();
 	// Direction
-
-
-
 
 	return true;
 }
@@ -69,48 +65,79 @@ void Player::Move()
 		acceleration.x = -movement_acceleration.x;
 		last_direction_x = LEFT;
 		current_direction_x = LEFT;
+		action = MOVING;
 	}
 
 	else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
 		acceleration.x = movement_acceleration.x;
 		last_direction_x = RIGHT;
 		current_direction_x = RIGHT;
+		action = MOVING;
 	}
 	else if (grounded) {
 		current_direction_x = NONE_X;
+		App->physics->ApplyFriction(velocity,acceleration);
+		action = STATIC;
+	}
 
+	double_jump_avaliable = true;
+	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
+	{
+		DoJump();
 	}
 
 }
 
 void Player::ManageAnimation()
 {
-	switch (last_direction_x)
-	{
-	case LEFT:
-		current_animation = &idle_left;
-		if (!grounded)
-			current_animation = &jump_left;
-		break;
-	case RIGHT:
-		current_animation = &idle_right;
-		if (!grounded)
-			current_animation = &jump;
-		break;
-	}
-
-	if (grounded) {
-		switch (current_direction_x)
+	if (action == STATIC) {
+		switch (last_direction_x)
 		{
 		case LEFT:
-			current_animation = &left;
+			current_animation = &idle_left;
+			if (!grounded)
+				current_animation = &jump_left;
 			break;
 		case RIGHT:
-			current_animation = &right;
-			break;
-		default:
+			current_animation = &idle_right;
+			if (!grounded)
+				current_animation = &jump;
 			break;
 		}
+
+	}
+		if (grounded) {
+			switch (current_direction_x)
+			{
+			case LEFT:
+				current_animation = &left;
+				break;
+			case RIGHT:
+				current_animation = &right;
+				break;
+			default:
+				break;
+			}
+		}
 		//double_jump_avaliable = true;
+}
+
+void Player::DoJump()
+{
+	App->audio->PlayFx(1);
+	if (!grounded && double_jump_avaliable) {
+
+		jump.current_frame = 0.0f;
+		jump_left.current_frame = 0.0f;
+		velocity.y = -JUMP_SPEED;
+		double_jump_avaliable = false;
+
+	}
+	if (grounded) {
+		jump.current_frame = 0.0f;
+		jump_left.current_frame = 0.0f;
+		velocity.y = -JUMP_SPEED;
+		grounded = false;
 	}
 }
+
