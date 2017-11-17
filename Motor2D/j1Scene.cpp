@@ -39,10 +39,6 @@ bool j1Scene::Start()
 	App->map->data.is_level_1 = true;
 	App->map->Load("420.tmx");
 
-
-	
-
-
 	App->map->PlaceTileColliders();
 	//App->map->PlaceColliders();
 
@@ -119,9 +115,20 @@ bool j1Scene::Update(float dt)
 	if(App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
 		App->save();
 
-
+	if(camera_change == true)
 	CameraFollowPlayer();
+	
+	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN)
+		DebugCamera(RIGHT, NONE_Y);
 
+	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN)
+		DebugCamera(LEFT, NONE_Y);
+
+	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN)
+		DebugCamera(NONE_X, UP);
+
+	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN)
+		DebugCamera(NONE_X, DOWN);
 
 	App->map->Draw();
 
@@ -146,6 +153,7 @@ bool j1Scene::Update(float dt)
 		App->map->data.tile_width, App->map->data.tile_height,
 		App->map->data.tilesets.count());
 
+	
 	/*App->win->SetTitle(title.GetString());*/
 	return true;
 }
@@ -188,3 +196,28 @@ void j1Scene::CameraFollowPlayer()
 	App->render->camera.y = -player_entity->position.y + h / 2;
 }
 
+void j1Scene::DebugCamera(Direction_x type, Direction_y type2)
+{
+	camera_change = false;
+	if (App->physics->debug_mode)
+	{
+		App->render->camera_speed += 5;
+		if(type == RIGHT && type2 == NONE_Y)
+		{
+			App->render->camera.x-= 200;
+		}
+		if (type == LEFT && type2 == NONE_Y)
+		{
+			App->render->camera.x+= 200;
+		}
+		if (type == NONE_X && type2 == UP)
+		{
+			App->render->camera.y+= 200;
+		}
+		if (type == NONE_X && type2 == DOWN)
+		{
+			App->render->camera.y-= 200;
+		}
+
+	}
+}

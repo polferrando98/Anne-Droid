@@ -46,12 +46,13 @@ public:
 private:
 
 	void CameraFollowPlayer();
+
 	SDL_Texture* debug_tex;
 
 public:
 	Entity* player_entity = nullptr;
 	Entity* bird = nullptr;
-
+	void DebugCamera(Direction_x type, Direction_y type2);
 	p2PQueue<Level>* levels;
 
 	//HARDCODE
@@ -72,6 +73,7 @@ public:
 
 	iPoint p_clicked;
 
+	bool camera_change = true;
 };
 
 #endif // __j1SCENE_H__

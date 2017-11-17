@@ -49,9 +49,16 @@ bool j1Physics::Update(float dt)
 {
 	if ((App->input->GetKey(SDL_SCANCODE_9) == KEY_DOWN))
 		debug_mode = !debug_mode;
+		
 
 	if (debug_mode)
+	{
 		DebugDraw();
+	
+	}
+	else {
+		App->scene->camera_change = true;
+	}
 
 	return UPDATE_CONTINUE;
 }
