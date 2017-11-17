@@ -26,7 +26,7 @@ Bird::Bird(fPoint position) : Entity(position, ENTITY_BIRD)
 bool Bird::Start()
 {
 	Entity::Start();
-	SDL_Rect colrect = { 0,0,100,100 };
+	SDL_Rect colrect = { 0,0,60,60 };
 	//HARDCODE
 	colrect.x = position.x;
 	colrect.y = position.y;
@@ -38,7 +38,7 @@ bool Bird::Start()
 
 bool Bird::Update(float dt)
 {
-	App->physics->UpdateEntityPhysics(*this, dt);
+	//App->physics->UpdateEntityPhysics(*this, dt);
 	collider->UpdatePosition(position);
 	Entity::Update(dt);
 	return true;

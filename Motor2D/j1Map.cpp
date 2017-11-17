@@ -234,6 +234,7 @@ int TileSet::GetIdFromPos(iPoint pos) const
 		for (int col = 0; col < layer_width; col++) {
 			if (col == pos.x && row == pos.y) {
 				id = layer->data[tile_num];
+				id--;
 				break;
 			}
 			tile_num++;
@@ -680,7 +681,7 @@ bool j1Map::isWalkableFromPos(iPoint pos)
 {
 	TileSet* tileset = App->map->data.tilesets.start->data;
 	int id = tileset->GetIdFromPos(pos);
-	id--;
+	
 	Tile* tile = tileset->FindTileWithid(id);
 
 	if (!tile->is_ground)

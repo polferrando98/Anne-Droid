@@ -104,7 +104,7 @@ bool j1App::Awake()
 		title.create(app_config.child("title").child_value());
 		organization.create(app_config.child("organization").child_value());
 
-		fps_cap = app_config.attribute("framerate_cap").as_int();
+		fps_cap = app_config.attribute("framerate_cap").as_uint(30);
 	}
 
 	if (ret)
@@ -194,10 +194,12 @@ void j1App::PrepareUpdate()
 {
 	frame_count++;
 	last_sec_frame_count++;
-
-	
-	dt = frame_time.ReadSec();
-
+	int frame_time_read = frame_time.Read();
+	dt = frame_time_read;
+	if (dt > 1000 / App->fps_cap)
+	{
+		dt = 1000 / App->fps_cap;
+	}
 	frame_time.Start();
 }
 
@@ -232,13 +234,14 @@ void j1App::FinishUpdate()
 		avg_fps, last_frame_ms, frames_on_last_update, seconds_since_startup, frame_count);
 	App->win->SetTitle(title);
 
-	double wanted_time_between_fotograms = 1000 / fps_cap;
-	double time_to_wait = wanted_time_between_fotograms - (last_frame_ms/1000);
+	int fps_diferential_ms = 1000 / fps_cap - last_frame_ms;
 
-	delay_time.Start();
-	SDL_Delay(time_to_wait);
+	if (fps_diferential_ms > 0)
+	{
+		SDL_Delay(fps_diferential_ms);
+	}
+	
 
-	LOG("We waited for %f and got back in %f", time_to_wait, delay_time.ReadMs());
 }
 
 // Call modules before each loop iteration

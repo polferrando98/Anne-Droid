@@ -44,7 +44,7 @@ bool j1Scene::Start()
 
 	fPoint debugPosition = { 600,3000 };
 
-	fPoint debugBirdPosition = { 600, 2600 };
+	fPoint debugBirdPosition = { 600, 2300 };
 	fPoint debugPlayerPosition = { 700,2000 };
 
 
