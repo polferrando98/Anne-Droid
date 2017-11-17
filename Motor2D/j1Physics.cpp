@@ -150,8 +150,10 @@ void j1Physics::UpdateEntityPhysics(Entity & entity, float dt)
 	fPoint pos_differential;
 
 	//entity.velocity.x = entity.velocity.x *dt;
-	dt *= 10;
-	entity.acceleration.y += dt;
+	//dt *= 10;
+
+	
+	entity.acceleration.y = 10.0f;
 
 
 	//Y_AXIS

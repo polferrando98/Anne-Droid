@@ -23,7 +23,7 @@ Player::Player(fPoint position) : Entity(position, ENTITY_PLAYER)
 
 bool Player::Start()
 {
-	
+
 	current_animation = &idle_right;
 	Entity::Start();
 	SDL_Rect colrect = { 0,0,76,123 };
@@ -33,6 +33,8 @@ bool Player::Start()
 
 	collider = App->physics->AddCollider(&colrect, PLAYER);
 	texture = App->tex->Load("textures/player_sprites.png");
+
+	grounded = true;
 
 	return true;
 }
@@ -50,11 +52,40 @@ bool Player::Update(float dt)
 		grounded = true;
 	}
 
-	
+
+
+
 	// Direction
 
 
-	/*switch (last_direction_x)
+
+
+	return true;
+}
+
+void Player::Move()
+{
+	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
+		acceleration.x = -movement_acceleration.x;
+		last_direction_x = LEFT;
+		current_direction_x = LEFT;
+	}
+
+	else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
+		acceleration.x = movement_acceleration.x;
+		last_direction_x = RIGHT;
+		current_direction_x = RIGHT;
+	}
+	else if (grounded) {
+		current_direction_x = NONE_X;
+
+	}
+
+}
+
+void Player::ManageAnimation()
+{
+	switch (last_direction_x)
 	{
 	case LEFT:
 		current_animation = &idle_left;
@@ -80,26 +111,6 @@ bool Player::Update(float dt)
 		default:
 			break;
 		}
-		double_jump_avaliable = true;
+		//double_jump_avaliable = true;
 	}
-	*/
-	return true;
 }
-
-void Player::Move()
-{
-	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
-	{
-		current_animation = &right;
-		acceleration.x = movement_acceleration.x;
-	}
-
-	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
-	{ 
-		current_animation = &left;
-		acceleration.x = -movement_acceleration.x;
-	}
-	
-}
-
- 
