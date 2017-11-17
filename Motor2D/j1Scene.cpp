@@ -48,7 +48,7 @@ bool j1Scene::Start()
 	fPoint debugPlayerPosition = { 700,2000 };
 
 
-	App->entity_manager->CreateEntity(debugPosition,ENTITY_WALKER);
+	//App->entity_manager->CreateEntity(debugPosition,ENTITY_WALKER);
 	player_entity = App->entity_manager->CreateEntity(debugPlayerPosition, ENTITY_PLAYER);
 	
 	bird = App->entity_manager->CreateEntity(debugBirdPosition, ENTITY_BIRD);

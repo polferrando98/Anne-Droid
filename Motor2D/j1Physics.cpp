@@ -153,7 +153,7 @@ void j1Physics::UpdateEntityPhysics(Entity & entity, float dt)
 	//dt *= 10;
 
 	
-	entity.acceleration.y = 10.0f;
+	entity.acceleration.y = 3.1f;
 
 
 	//Y_AXIS
@@ -173,7 +173,7 @@ void j1Physics::UpdateEntityPhysics(Entity & entity, float dt)
 		entity.position.y += entity.velocity.y;
 	}
 
-	newCollider.rect.y = entity.position.x; //if this is commented player gets stuck to walls
+	newCollider.rect.y = entity.position.y; //if this is commented player gets stuck to walls
 
 	/*X_AXIS*/
 	newPosition = calculateNewPosition(entity.position, entity.velocity, entity.acceleration, X_axis);
@@ -312,50 +312,50 @@ Direction_y j1Physics::checkGroundYCollisions(Collider new_collider, fPoint pos_
 		return newPosition;
 	}
 
-	void j1Physics::checkDeathCollisions(fPoint * position, fPoint & velocity, Collider * collider)
-	{
-		Collider newCollider = *collider;
-		bool colliding_x = false;
+	//void j1Physics::checkDeathCollisions(fPoint * position, fPoint & velocity, Collider * collider)
+	//{
+	//	Collider newCollider = *collider;
+	//	bool colliding_x = false;
 
-		
-		fPoint newPosition;
+	//	
+	//	fPoint newPosition;
 
-	
-		newCollider.rect.x = newPosition.x;
-		newPosition.x = position->x + velocity.x * App->dt;
-		newPosition.y = position->y + velocity.y * App->dt;
+	//
+	//	newCollider.rect.x = newPosition.x;
+	//	newPosition.x = position->x + velocity.x * App->dt;
+	//	newPosition.y = position->y + velocity.y * App->dt;
 
-		
-		newCollider.rect.y = newPosition.y;
-
-
-		if (checkColliders(newCollider, DEATH)) {
-			position->x = App->map->data.player_start_position.x;
-			position->y = App->map->data.player_start_position.y;
-		}
-	}
+	//	
+	//	newCollider.rect.y = newPosition.y;
 
 
-	void j1Physics::CheckDoorEntry(fPoint & position, fPoint & velocity, Collider * collider)
-	{
-		Collider newCollider = *collider;
-		bool colliding_x = false;
-
-	
-		fPoint newPosition;
-
-		newPosition.x = position.x + velocity.x * App->dt;
-		newPosition.y = position.y + velocity.y * App->dt;
-
-		newCollider.rect.x = newPosition.x;
+	//	if (checkColliders(newCollider, DEATH)) {
+	//		position->x = App->map->data.player_start_position.x;
+	//		position->y = App->map->data.player_start_position.y;
+	//	}
+	//}
 
 
-		newCollider.rect.y = newPosition.y;
+	//void j1Physics::CheckDoorEntry(fPoint & position, fPoint & velocity, Collider * collider)
+	//{
+	//	Collider newCollider = *collider;
+	//	bool colliding_x = false;
 
-		if (checkColliders(newCollider, DOOR)) {
-			App->scene->ChangeMap();
-		}
-	}
+	//
+	//	fPoint newPosition;
+
+	//	newPosition.x = position.x + velocity.x * App->dt;
+	//	newPosition.y = position.y + velocity.y * App->dt;
+
+	//	newCollider.rect.x = newPosition.x;
+
+
+	//	newCollider.rect.y = newPosition.y;
+
+	//	if (checkColliders(newCollider, DOOR)) {
+	//		App->scene->ChangeMap();
+	//	}
+	//}
 
 	Collider* j1Physics::AddCollider(SDL_Rect *rect, const Collider_Type type)
 	{
@@ -424,33 +424,33 @@ void Collider::UpdatePosition(fPoint newPos)
 }
 
 
-//void j1Physics::ApplyFriction(fPoint* velocity, fPoint* acceleration)
-//{
-//	TileSet* set = App->map->data.tilesets.At(0)->data;
-//	Tile* tile = set->tiles.At(0)->data;
-//	friction = tile->friction;
-//
-//	if (abs(velocity->x) != 0) {
-//		if (velocity->x > 0)
-//			acceleration->x = -friction;
-//		else if (velocity->x < 0)
-//			acceleration->x = +friction;
-//
-//		if (abs(velocity->x) <= friction) {
-//			if (velocity->x > 0)
-//				acceleration->x = -extra_friction;
-//			else if (velocity->x < 0)
-//				acceleration->x = +extra_friction;
-//
-//			if (abs(velocity->x) < extra_friction) {
-//				if (velocity->x > 0)
-//					acceleration->x = -extra_friction_2;
-//				else if (velocity->x < 0)
-//					acceleration->x = +extra_friction_2;
-//			}
-//		}
-//	}
-//}
+void j1Physics::ApplyFriction(fPoint & velocity, fPoint & acceleration)
+{
+	TileSet* set = App->map->data.tilesets.At(0)->data;
+	Tile* tile = set->tiles.At(0)->data;
+	friction = tile->friction;
+
+	if (abs(velocity.x) != 0) {
+		if (velocity.x > 0)
+			acceleration.x = -friction;
+		else if (velocity.x < 0)
+			acceleration.x = +friction;
+
+		if (abs(velocity.x) <= friction) {
+			if (velocity.x > 0)
+				acceleration.x = -extra_friction;
+			else if (velocity.x < 0)
+				acceleration.x = +extra_friction;
+
+			if (abs(velocity.x) < extra_friction) {
+				if (velocity.x > 0)
+					acceleration.x = -extra_friction_2;
+				else if (velocity.x < 0)
+					acceleration.x = +extra_friction_2;
+			}
+		}
+	}
+}
 
 void j1Physics::LoadPhysicsValues() {
 

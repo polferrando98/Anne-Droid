@@ -38,7 +38,9 @@ bool Bird::Start()
 
 bool Bird::Update(float dt)
 {
+
 	//App->physics->UpdateEntityPhysics(*this, dt);
+
 	collider->UpdatePosition(position);
 	Entity::Update(dt);
 	return true;

@@ -1,5 +1,6 @@
 #pragma once
 #include "j1Entity.h"
+enum PlayerAction {MOVING, STATIC};
 class Player :
 	public Entity
 {
@@ -14,6 +15,10 @@ public:
 
 	void ManageAnimation();
 
+	void DoJump();
+
+public:
+	PlayerAction action = STATIC;
 protected:
 	Animation jump;
 	Animation jump_left;
@@ -24,5 +29,12 @@ private:
 
 	Direction_x current_direction_x = NONE_X;
 	Direction_y current_direction_y = NONE_Y;
+
+	bool double_jump_avaliable = false;
+
+	//HARDCODING
+
+#define JUMP_SPEED 30;
+
 };
 
