@@ -18,7 +18,7 @@ bool Bird::Start()
 {
 	current_animation = &idle_right;
 	Entity::Start();
-	SDL_Rect colrect = { 0,0,60,60 };
+	SDL_Rect colrect = { 0,0,53,50 };
 	//HARDCODE
 	colrect.x = position.x;
 	colrect.y = position.y;
@@ -26,8 +26,8 @@ bool Bird::Start()
 	collider = App->physics->AddCollider(&colrect, COL_WALKER);
 
 
-	movement_acceleration.x = 1.0f;
-	movement_acceleration.y = 1.0f;
+	movement_acceleration.x = 1.85f;
+	movement_acceleration.y = 1.15f;
 
 	texture = App->tex->Load("textures/ovni.png");
 

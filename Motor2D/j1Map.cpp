@@ -512,15 +512,13 @@ bool j1Map::LoadTile(pugi::xml_node &tile_node, Tile * tile)
 			tile->friction = property_node.attribute("value").as_float();
 	}
 
+	for (property_node = properties_node.first_child(); property_node != NULL; property_node = property_node.next_sibling()) {
+		p2SString attribute_namme = property_node.attribute("name").as_string();
+		if (attribute_namme == "death")
+			tile->death = property_node.attribute("value").as_bool();
+	}
 
-	////Friction
-	//if (property_node.attribute("name").as_string() == "friction") {
-	//	tile->friction = property_node.attribute("value").as_float();
-	//	property_node = property_node.next_sibling();
-	//}
-
-	////IsWall
-	//tile->is_ground = property_node.attribute("value").as_bool();
+	
 	return true;
 }
 
@@ -691,7 +689,7 @@ bool j1Map::isWalkableFromPos(iPoint pos)
 {
 	Layer* layer;
 
-	layer = FindLayerWithName("plataformes");
+	layer = FindLayerWithName("plattforms");
 
 	TileSet* tileset = App->map->data.tilesets.start->data;
 	int id = tileset->GetIdFromPos(pos, layer);

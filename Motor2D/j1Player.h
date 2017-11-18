@@ -26,7 +26,7 @@ public:
 	bool CleanUp();
 	bool Update(float dt);
 
-	void ApplyMaxVelocity();
+	
 
 	void createCol(SDL_Rect* rect);
 
@@ -42,7 +42,7 @@ public:
 	bool grounded = false;
 	bool double_jump_avaliable = true;
 
-	fPoint maxVelocity;
+	//fPoint maxVelocity;
 	float acceleration_x;
 	float jump_speed;
 

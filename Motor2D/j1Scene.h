@@ -46,7 +46,7 @@ public:
 private:
 
 	void CameraFollowPlayer();
-
+	void CheckDoorEntrance();
 	SDL_Texture* debug_tex;
 
 public:

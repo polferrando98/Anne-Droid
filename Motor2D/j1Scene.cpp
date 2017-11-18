@@ -37,15 +37,15 @@ bool j1Scene::Start()
 {
 	debug_tex = App->tex->Load("maps/tile.png");
 	App->map->data.is_level_1 = true;
-	App->map->Load("420.tmx");
+	App->map->Load("1.tmx");
 
 	App->map->PlaceTileColliders();
 	//App->map->PlaceColliders();
 
-	fPoint debugPosition = { 600,3000 };
+	//fPoint debugPosition = { 600,3000 };
 
-	fPoint debugBirdPosition = { 600, 2300 };
-	fPoint debugPlayerPosition = { 700,2000 };
+	fPoint debugBirdPosition = { 700, 1000 };
+	fPoint debugPlayerPosition = { 400,1000 };
 
 
 	//App->entity_manager->CreateEntity(debugPosition,ENTITY_WALKER);
@@ -85,7 +85,7 @@ bool j1Scene::Update(float dt)
 		{
 			App->map->data.is_level_1 == true;
 			App->map->CleanUp();
-			App->map->Load("level_1.xml");
+			App->map->Load("1.xml");
 		}
 		App->player->position.x = App->map->data.player_start_position.x;
 		App->player->position.y = App->map->data.player_start_position.y;
@@ -121,7 +121,7 @@ bool j1Scene::Update(float dt)
 	App->map->Draw();
 
 
-
+	/*CheckDoorEntrance();*/
 	// Debug pathfinding ------------------------------
 	int x, y;
 	App->input->GetMousePosition(x, y);
@@ -168,10 +168,10 @@ void j1Scene::ChangeMap()
 {
 	App->map->CleanUp();
 	App->physics->CleanUp();
-	App->map->Load("level_2.tmx");
+	App->map->Load("2.tmx");
 	App->map->PlaceColliders();
-	App->player->position.x = App->map->data.player_start_position.x;
-	App->player->position.y = App->map->data.player_start_position.y;
+	App->entity_manager->player_entity->position.x = App->map->data.player_start_position.x;
+	App->entity_manager->player_entity->position.y = App->map->data.player_start_position.y;
 }
 
 void j1Scene::CameraFollowPlayer()
@@ -210,3 +210,11 @@ void j1Scene::DebugCamera(Direction_x type, Direction_y type2)
 
 	}
 }
+
+//void j1Scene::CheckDoorEntrance()
+//{
+//	if (App->entity_manager->player_entity->position.x >= 3000 && App->entity_manager->player_entity->position.y <= 100)
+//	{
+//		ChangeMap();
+//	}
+//}

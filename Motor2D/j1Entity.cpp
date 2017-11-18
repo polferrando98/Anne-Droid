@@ -14,8 +14,8 @@ bool Entity::Start()
 {
 	App->physics->LoadPhysicsValues();
 
-	movement_acceleration.y = 10.0f;
-	movement_acceleration.x = 0.3f;
+	movement_acceleration.y = 9.8f;
+	movement_acceleration.x = 0.25f;
 	return true;
 }
 

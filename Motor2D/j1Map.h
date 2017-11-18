@@ -82,6 +82,7 @@ struct Tile
 {
 	int id;
 	bool is_ground;
+	bool death;
 	float friction;
 };
 

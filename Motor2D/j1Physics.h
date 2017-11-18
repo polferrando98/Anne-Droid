@@ -53,6 +53,7 @@ public:
 	fPoint calculateNewPosition(fPoint position, fPoint velocity, fPoint acceleration, Axis axis) const;
 	void  checkDeathCollisions(fPoint * position, fPoint & velocity, Collider * collider);
 	void CheckDoorEntry(fPoint & position, fPoint & velocity, Collider * collider);
+	void ApplyMaxVelocity(Entity &entity);
 
 	Collider* AddCollider(SDL_Rect *rect, const Collider_Type type);
 
@@ -77,7 +78,7 @@ public:
 
 	float normalize;
 	Uint8 alpha = 80;
-
+	fPoint maxVelocity;
 	float friction;
 	float extra_friction;
 	float extra_friction_2;

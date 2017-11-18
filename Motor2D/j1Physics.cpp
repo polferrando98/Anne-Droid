@@ -69,6 +69,7 @@ bool j1Physics::Update(float dt)
 		App->scene->camera_change = true;
 	}
 
+	maxVelocity.x = 30;
 	return UPDATE_CONTINUE;
 }
 
@@ -119,7 +120,7 @@ void j1Physics::UpdateEntityPhysics(Entity & entity, float dt)
 
 
 	//HARDCODE
-	entity.acceleration.y = 1.1f;
+	entity.acceleration.y = 1.0f;
 
 
 	//Y_AXIS
@@ -161,6 +162,15 @@ void j1Physics::UpdateEntityPhysics(Entity & entity, float dt)
 	}
 }
 
+void j1Physics::ApplyMaxVelocity(Entity & entity)
+{
+	if (entity.velocity.x * normalize != 0) {
+		if (entity.velocity.x* normalize > maxVelocity.x)
+			entity.velocity.x = maxVelocity.x / normalize;
+		else if (entity.velocity.x * normalize < -maxVelocity.x)
+			entity.velocity.x = -maxVelocity.x / normalize;
+	}
+}
 //The idea was that it could be used for any moving object, but in the case of this game it is just the player
 //void j1Physics::UpdatePlayerPhysics(fPoint &position, fPoint &velocity, Collider* collider, Direction_x &colliding_x, Direction_y & colliding_y) 
 //{
@@ -262,28 +272,28 @@ fPoint j1Physics::calculateNewPosition(fPoint position, fPoint velocity, fPoint 
 	return newPosition;
 }
 
-//void j1Physics::checkDeathCollisions(fPoint * position, fPoint & velocity, Collider * collider)
-//{
-//	Collider newCollider = *collider;
-//	bool colliding_x = false;
+void j1Physics::checkDeathCollisions(fPoint * position, fPoint & velocity, Collider * collider)
+{
+	Collider newCollider = *collider;
+	bool colliding_x = false;
 
-//	
-//	fPoint newPosition;
-
-//
-//	newCollider.rect.x = newPosition.x;
-//	newPosition.x = position->x + velocity.x * App->dt;
-//	newPosition.y = position->y + velocity.y * App->dt;
-
-//	
-//	newCollider.rect.y = newPosition.y;
+	
+	fPoint newPosition;
 
 
-//	if (checkColliders(newCollider, DEATH)) {
-//		position->x = App->map->data.player_start_position.x;
-//		position->y = App->map->data.player_start_position.y;
-//	}
-//}
+	newCollider.rect.x = newPosition.x;
+	newPosition.x = position->x + velocity.x * normalize;
+	newPosition.y = position->y + velocity.y * normalize;
+
+	
+	newCollider.rect.y = newPosition.y;
+
+
+	if (checkColliders(newCollider, DEATH)) {
+		position->x = App->map->data.player_start_position.x;
+		position->y = App->map->data.player_start_position.y;
+	}
+}
 
 
 //void j1Physics::CheckDoorEntry(fPoint & position, fPoint & velocity, Collider * collider)
@@ -416,6 +426,6 @@ void j1Physics::LoadPhysicsValues() {
 		App->player->acceleration_x = phy_player.child("acceleration_x").attribute("value").as_float();
 		App->player->acceleration.y = phy_player.child("acceleration_y").attribute("value").as_float();
 		App->player->jump_speed = phy_player.child("jump_speed").attribute("value").as_float();
-		App->player->maxVelocity.x = phy_player.child("max_velocity").attribute("value").as_int();
+	/*	App->player->maxVelocity.x = phy_player.child("max_velocity").attribute("value").as_int();*/
 	}
 }

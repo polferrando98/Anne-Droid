@@ -149,16 +149,16 @@ bool j1Player::Update(float dt)
 	return UPDATE_CONTINUE;
 
 }
-
-void j1Player::ApplyMaxVelocity()
-{
-	if (velocity.x != 0) {
-		if (velocity.x > maxVelocity.x)
-			velocity.x = maxVelocity.x;
-		else if (velocity.x < -maxVelocity.x)
-			velocity.x = -maxVelocity.x;
-	}
-}
+//
+//void j1Player::ApplyMaxVelocity()
+//{
+//	if (velocity.x != 0) {
+//		if (velocity.x > maxVelocity.x)
+//			velocity.x = maxVelocity.x;
+//		else if (velocity.x < -maxVelocity.x)
+//			velocity.x = -maxVelocity.x;
+//	}
+//}
 
 void j1Player::createCol(SDL_Rect* Rect)
 {

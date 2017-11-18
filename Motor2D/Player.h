@@ -16,7 +16,9 @@ public:
 	void ManageAnimation();
 
 	void DoJump();
+	void ApplyMaxVelocity();
 
+	
 public:
 	PlayerAction action = STATIC;
 protected:
@@ -34,7 +36,7 @@ private:
 
 	//HARDCODING
 
-#define JUMP_SPEED 20;
+#define JUMP_SPEED 18;
 
 };
 
