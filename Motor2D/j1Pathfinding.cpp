@@ -214,6 +214,8 @@ int j1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 		if (!(App->map->isWalkableFromPos(origin) || !App->map->isWalkableFromPos(destination)))
 			return -1;
 
+		last_path.Clear();
+
 		// TODO 2: Create two lists: open, closed
 		// Add the origin tile to open
 		// Iterate while we have tiles in the open list

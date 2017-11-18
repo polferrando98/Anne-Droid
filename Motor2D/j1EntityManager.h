@@ -10,12 +10,16 @@ public:
 
 	bool Start();
 	bool CleanUp();
+
+	bool PreUpdate(float dt);
 	bool Update(float dt);
 
 	Entity* CreateEntity(fPoint position,EntityType type);
 
-
+public:
+	Entity* player_entity = nullptr;
 private:
 	p2List<Entity*>	entites;
+	
 };
 

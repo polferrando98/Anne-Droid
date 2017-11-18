@@ -3,6 +3,8 @@
 #include "j1Textures.h"
 #include "Animation.h"
 #include "p2Log.h"
+#include "j1EntityManager.h"
+#include "j1Pathfinding.h"
 
 
 Bird::Bird(fPoint position) : Entity(position, ENTITY_BIRD)
@@ -32,12 +34,26 @@ bool Bird::Start()
 	return true;
 }
 
+bool Bird::PreUpdate(float dt)
+{
+	int path_steps = App->pathfinding->CreatePath(current_tile, App->entity_manager->player_entity->current_tile);
+
+	return true;
+}
+
 bool Bird::Update(float dt)
 {
 	bool ret = true;
 	//App->physics->UpdateEntityPhysics(*this, dt);
 
 	collider->UpdatePosition(position);
+
+	// Debug follow path ------------------------------
+
+	if (App->pathfinding->GetLastPath()->At(1) != nullptr)
+		destination_tile = *App->pathfinding->GetLastPath()->At(1);
+	else
+		destination_tile = *App->pathfinding->GetLastPath()->At(0);
 
 	ret = GoToDestination();
 
@@ -52,17 +68,17 @@ bool Bird::Update(float dt)
 bool Bird::GoToDestination()
 {
 	iPoint bad_destination = { -1,-1 };
-	iPoint dest;
 
-	if (dest == bad_destination) {
+	if (destination_tile == bad_destination) {
 		LOG("Error, empty destination");
 		return false;
 	}
 
-	if (current_tile != dest) {
+	if (current_tile != destination_tile) {
 		fPoint direction;
-		direction.x = dest.x - position.x;
-		direction.y = dest.y - position.y;
+		direction.x = destination_tile.x - current_tile.x;
+		direction.y = destination_tile.y - current_tile.y;
+
 
 		if (direction.x > 0) {
 			acceleration.x = movement_acceleration.x;

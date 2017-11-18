@@ -27,10 +27,9 @@ public:
 	// Called each loop iteration
 	virtual bool Update(float dt);
 
-	void UpdateCurrentTile();
+	virtual bool PreUpdate(float dt);
 
-	iPoint getDestination();
-	void SetDestination(iPoint dest);
+	void UpdateCurrentTile();
 
 public:
 	p2SString		name;
@@ -51,7 +50,7 @@ public:
 
 	bool			grounded = false;
 
-
+	iPoint destination_tile = { -1,-1 };
 
 
 protected:
@@ -66,9 +65,6 @@ protected:
 	
 	float animation_speed;
 
-
-private:
-	iPoint destination_tile = { -1,-1 };
 };
 
 #endif // __j1ENTITY_H__

@@ -26,17 +26,12 @@ bool Entity::Update(float dt)
 	return true;
 }
 
+bool Entity::PreUpdate(float dt)
+{
+	return true;
+}
+
 void Entity::UpdateCurrentTile()
 {
 	current_tile = App->map->WorldToMap(position.x + (collider->rect.w/2), position.y + (collider->rect.h / 2));
-}
-
-iPoint Entity::getDestination()
-{
-	return destination_tile;
-}
-
-void Entity::SetDestination(iPoint dest)
-{
-	destination_tile = dest;
 }

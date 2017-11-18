@@ -37,6 +37,23 @@ bool j1EntityManager::CleanUp()
 	return true;
 }
 
+bool j1EntityManager::PreUpdate(float dt)
+{
+	bool ret = true;
+	p2List_item<Entity*>* entities_iterator;
+	entities_iterator = entites.start;
+	Entity* entity = nullptr;
+
+	for (entities_iterator = entites.start; entities_iterator != NULL && ret == true; entities_iterator = entities_iterator->next)
+	{
+		entity = entities_iterator->data;
+
+		ret = entity->PreUpdate(dt);
+	}
+
+	return ret;
+}
+
 bool j1EntityManager::Update(float dt)
 {
 	bool ret = true;
@@ -63,6 +80,7 @@ Entity * j1EntityManager::CreateEntity(fPoint position, EntityType type)
 	{
 	case ENTITY_PLAYER:
 		new_entity = new Player(position);
+		player_entity = new_entity;
 		break;
 	case ENTITY_WALKER:
 		new_entity = new Walker(position);

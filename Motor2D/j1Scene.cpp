@@ -71,19 +71,7 @@ bool j1Scene::PreUpdate(float dt)
 	p = App->map->WorldToMap(p.x, p.y);
 	//p = App->map->MapToWorld(p.x, p.y);
 
-	if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
-	{
-		if (origin_selected == true)
-		{
-			int path_steps = App->pathfinding->CreatePath(origin, p);
-			origin_selected = false;
-		}
-		else
-		{
-			origin = bird->current_tile;
-			origin_selected = true;
-		}
-	}
+
 
 	return true;
 }
@@ -153,10 +141,6 @@ bool j1Scene::Update(float dt)
 		App->map->data.tile_width, App->map->data.tile_height,
 		App->map->data.tilesets.count());
 
-
-	// Debug follow path ------------------------------
-
-	bird->SetDestination({ 4,20 });
 
 	return true;
 }

@@ -1,6 +1,8 @@
 #pragma once
 #include "j1Entity.h"
 
+struct PathList;
+
 class Bird :
 	public Entity
 {
@@ -9,11 +11,15 @@ public:
 	~Bird();
 
 	bool Start();
+	bool PreUpdate(float dt);
 	bool Update(float dt);
 
-
+	//PathList path_to_follow;
 
 	bool GoToDestination();
+
+private:
+
 
 };
 
