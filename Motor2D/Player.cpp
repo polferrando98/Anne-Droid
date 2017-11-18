@@ -43,7 +43,9 @@ bool Player::Start()
 bool Player::Update(float dt)
 {
 	App->physics->UpdateEntityPhysics(*this, dt);
+	
 	collider->UpdatePosition(position);
+
 	Entity::Update(dt);
 
 	Move();

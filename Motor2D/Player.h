@@ -34,7 +34,7 @@ private:
 
 	//HARDCODING
 
-#define JUMP_SPEED 30;
+#define JUMP_SPEED 20;
 
 };
 
