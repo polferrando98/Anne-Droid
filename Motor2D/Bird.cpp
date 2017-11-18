@@ -50,12 +50,20 @@ bool Bird::Update(float dt)
 
 	// Debug follow path ------------------------------
 
-	if (App->pathfinding->GetLastPath()->At(1) != nullptr)
-		destination_tile = *App->pathfinding->GetLastPath()->At(1);
-	else
-		destination_tile = *App->pathfinding->GetLastPath()->At(0);
+	//HARDCODE
+	float detection_radius = 300.0f;
+	if (position.DistanceTo(App->entity_manager->player_entity->position) < detection_radius) {
+		//SPAGHETTI
+		if (App->pathfinding->GetLastPath()->At(1) != nullptr)
+			destination_tile = *App->pathfinding->GetLastPath()->At(1);
+		else
+			destination_tile = *App->pathfinding->GetLastPath()->At(0);
 
-	ret = GoToDestination();
+		ret = GoToDestination();
+	}
+	else {
+		acceleration.SetToZero();
+	}
 
 	position = App->physics->calculateNewPosition(position, velocity, acceleration,BOTH_AXIS);
 
