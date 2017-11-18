@@ -96,4 +96,21 @@
 
 </death>
 </player>
+
+<enemy anim_speed ="0.5f">
+<ovni loop = "true">
+<sprite x="2" y="14" w="53" h="30"/>
+<sprite x="60" y="14" w="53" h="30"/>
+<sprite x="118" y="14" w="53" h="30"/>
+<sprite x="176" y="14" w="53" h="30"/>
+<sprite x="0" y="53" w="53" h="31"/>
+<sprite x="59" y="53" w="53" h="31"/>
+<sprite x="117" y="53" w="53" h="31"/>
+<sprite x="175" y="53" w="53" h="31"/>
+<sprite x="3" y="98" w="53" h="31"/>
+<sprite x="61" y="98" w="53" h="31"/>
+<sprite x="119" y="98" w="53" h="31"/>
+<sprite x="177" y="98" w="53" h="31"/>
+</ovni>
+</enemy>
 </sprites>

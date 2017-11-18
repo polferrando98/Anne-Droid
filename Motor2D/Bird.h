@@ -12,7 +12,8 @@ public:
 	bool Update(float dt);
 
 
-	void GoToTile();
+	void GoToTile(iPoint destination);
+
 
 
 };
