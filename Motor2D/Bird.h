@@ -12,7 +12,7 @@ public:
 	bool Update(float dt);
 
 
-	void GoToTile();
+	bool GoToDestination();
 
 
 };

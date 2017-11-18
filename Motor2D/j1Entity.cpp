@@ -29,6 +29,6 @@ bool Entity::Update(float dt)
 
 void Entity::UpdateCurrentTile()
 {
-	currentTile = App->map->WorldToMap(position.x, position.y);
+	currentTile = App->map->WorldToMap(position.x + (collider->rect.w/2), position.y + (collider->rect.h / 2));
 }
 

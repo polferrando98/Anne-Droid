@@ -59,6 +59,8 @@ protected:
 	Animation		right;
 	Animation		death;
 	Animation*		current_animation = nullptr;
+
+	iPoint			destination_tile = { -1,-1 };
 	float animation_speed;
 
 };

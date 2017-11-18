@@ -295,6 +295,7 @@ bool j1App::DoUpdate()
 		ret = item->data->Update(dt);
 	}
 
+
 	return ret;
 }
 

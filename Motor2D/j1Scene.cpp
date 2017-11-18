@@ -50,7 +50,7 @@ bool j1Scene::Start()
 
 	//App->entity_manager->CreateEntity(debugPosition,ENTITY_WALKER);
 	player_entity = App->entity_manager->CreateEntity(debugPlayerPosition, ENTITY_PLAYER);
-	
+
 	bird = App->entity_manager->CreateEntity(debugBirdPosition, ENTITY_BIRD);
 
 	p_clicked.SetToZero();
@@ -109,25 +109,25 @@ bool j1Scene::Update(float dt)
 		App->player->position.y = App->map->data.player_start_position.y;
 	}
 
-	if(App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
 		App->load();
 
-	if(App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
 		App->save();
 
-	if(camera_change == true)
-	CameraFollowPlayer();
-	
-	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN)
+	if (camera_change == true)
+		CameraFollowPlayer();
+
+	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 		DebugCamera(RIGHT, NONE_Y);
 
-	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
 		DebugCamera(LEFT, NONE_Y);
 
-	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
 		DebugCamera(NONE_X, UP);
 
-	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
 		DebugCamera(NONE_X, DOWN);
 
 	App->map->Draw();
@@ -153,7 +153,7 @@ bool j1Scene::Update(float dt)
 		App->map->data.tile_width, App->map->data.tile_height,
 		App->map->data.tilesets.count());
 
-	
+
 	/*App->win->SetTitle(title.GetString());*/
 	return true;
 }
@@ -199,24 +199,24 @@ void j1Scene::CameraFollowPlayer()
 void j1Scene::DebugCamera(Direction_x type, Direction_y type2)
 {
 	camera_change = false;
-	if (App->physics->debug_mode)
-	{
-		App->render->camera_speed += 5;
-		if(type == RIGHT && type2 == NONE_Y)
+	if (App->physics->debug_mode) {
+		float cam_speed = 10;
+
+		if (type == RIGHT && type2 == NONE_Y)
 		{
-			App->render->camera.x-= 200;
+			App->render->camera.x -= cam_speed;
 		}
 		if (type == LEFT && type2 == NONE_Y)
 		{
-			App->render->camera.x+= 200;
+			App->render->camera.x += cam_speed;
 		}
 		if (type == NONE_X && type2 == UP)
 		{
-			App->render->camera.y+= 200;
+			App->render->camera.y += cam_speed;
 		}
 		if (type == NONE_X && type2 == DOWN)
 		{
-			App->render->camera.y-= 200;
+			App->render->camera.y -= cam_speed;
 		}
 
 	}

@@ -182,6 +182,7 @@ public:
 	Layer* FindLayerWithName(p2SString name) const;
 
 	bool isWalkableFromPos(iPoint pos);
+
 private:
 
 	bool LoadMap();
