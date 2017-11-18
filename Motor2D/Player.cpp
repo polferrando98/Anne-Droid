@@ -47,6 +47,8 @@ bool Player::Update(float dt)
 	collider->UpdatePosition(position);
 
 	Entity::Update(dt);
+	
+	UpdateCurrentTile();
 
 	Move();
 

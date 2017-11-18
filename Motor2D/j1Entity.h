@@ -29,7 +29,8 @@ public:
 
 	void UpdateCurrentTile();
 
-
+	iPoint getDestination();
+	void SetDestination(iPoint dest);
 
 public:
 	p2SString		name;
@@ -40,7 +41,7 @@ public:
 	fPoint			acceleration;
 	fPoint			movement_acceleration;
 
-	iPoint			currentTile;
+	iPoint			current_tile;
 
 	Collider*		collider = nullptr;
 	EntityType		type;
@@ -49,6 +50,8 @@ public:
 	Direction_y		y_axis_collision = NONE_Y;
 
 	bool			grounded = false;
+
+
 
 
 protected:
@@ -60,9 +63,12 @@ protected:
 	Animation		death;
 	Animation*		current_animation = nullptr;
 
-	iPoint			destination_tile = { -1,-1 };
+	
 	float animation_speed;
 
+
+private:
+	iPoint destination_tile = { -1,-1 };
 };
 
 #endif // __j1ENTITY_H__

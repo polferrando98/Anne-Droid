@@ -294,7 +294,8 @@ bool j1App::DoUpdate()
 
 		ret = item->data->Update(dt);
 	}
-
+	if (!ret)
+		LOG("Update failed");
 
 	return ret;
 }

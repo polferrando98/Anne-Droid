@@ -80,7 +80,7 @@ bool j1Scene::PreUpdate(float dt)
 		}
 		else
 		{
-			origin = bird->currentTile;
+			origin = bird->current_tile;
 			origin_selected = true;
 		}
 	}
@@ -154,7 +154,10 @@ bool j1Scene::Update(float dt)
 		App->map->data.tilesets.count());
 
 
-	/*App->win->SetTitle(title.GetString());*/
+	// Debug follow path ------------------------------
+
+	bird->SetDestination({ 4,20 });
+
 	return true;
 }
 
@@ -192,8 +195,10 @@ void j1Scene::CameraFollowPlayer()
 	uint w, h;
 	App->win->GetWindowSize(w, h);
 
-	App->render->camera.x = -player_entity->position.x + w / 3;
-	App->render->camera.y = -player_entity->position.y + h / 2;
+	if (player_entity != nullptr) {
+		App->render->camera.x = -player_entity->position.x + w / 3;
+		App->render->camera.y = -player_entity->position.y + h / 2;
+	}
 }
 
 void j1Scene::DebugCamera(Direction_x type, Direction_y type2)

@@ -12,8 +12,8 @@ public:
 	bool Update(float dt);
 
 
-	bool GoToDestination();
 
+	bool GoToDestination();
 
 };
 

@@ -22,13 +22,21 @@ bool Entity::Start()
 bool Entity::Update(float dt)
 {
 	AnimationFrame frame = current_animation->GetCurrentFrame();
-	UpdateCurrentTile();
 	App->render->Blit(texture, position.x, position.y, &frame.rect);
 	return true;
 }
 
 void Entity::UpdateCurrentTile()
 {
-	currentTile = App->map->WorldToMap(position.x + (collider->rect.w/2), position.y + (collider->rect.h / 2));
+	current_tile = App->map->WorldToMap(position.x + (collider->rect.w/2), position.y + (collider->rect.h / 2));
 }
 
+iPoint Entity::getDestination()
+{
+	return destination_tile;
+}
+
+void Entity::SetDestination(iPoint dest)
+{
+	destination_tile = dest;
+}
