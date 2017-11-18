@@ -104,7 +104,7 @@ struct TileSet
 	SDL_Rect GetTileRect(int id) const;
 	bool IsWall(int id) const;
 	Tile* FindTileWithid(int id) const;
-	int GetIdFromPos(iPoint pos) const;
+	int GetIdFromPos(iPoint pos, Layer* layer) const;
 
 	p2SString			name;
 	int					firstgid;
@@ -179,6 +179,7 @@ public:
 	iPoint WorldToMap(int x, int y) const;
 	TileSet * GetTilesetFromTileId(int id) const;
 
+	Layer* FindLayerWithName(p2SString name) const;
 
 	bool isWalkableFromPos(iPoint pos);
 private:

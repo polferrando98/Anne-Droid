@@ -159,7 +159,7 @@ uint PathNode::FindWalkableAdjacents(PathList& list_to_fill) const
 void PathNode::CreateWalkableAdjacentsList(PathList & list_to_fill) const
 {
 	TileSet* tileset = App->map->data.tilesets.start->data; 
-	int id = tileset->GetIdFromPos(pos);
+	int id = -1;
 	iPoint cell;
 
 	// north

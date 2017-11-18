@@ -222,9 +222,8 @@ Tile* TileSet::FindTileWithid(int id) const
 
 }
 
-int TileSet::GetIdFromPos(iPoint pos) const
+int TileSet::GetIdFromPos(iPoint pos, Layer* layer) const
 {
-	Layer* layer = App->map->data.layers.At(0)->data;
 	int tile_num = 0;
 	int layer_width = layer->width;
 	int layer_height = layer->height;
@@ -675,13 +674,28 @@ TileSet* j1Map::GetTilesetFromTileId(int id) const
 	return set;
 }
 
+Layer * j1Map::FindLayerWithName(p2SString name) const
+{
+	for (p2List_item<Layer*> *layer_iterator = data.layers.start; layer_iterator; layer_iterator = layer_iterator->next)
+	{
+		if (layer_iterator->data->name == name) {
+			return layer_iterator->data;
+		}
+	}
+	return nullptr;
+}
+
 
 
 bool j1Map::isWalkableFromPos(iPoint pos)
 {
+	Layer* layer;
+
+	layer = FindLayerWithName("plataformes");
+
 	TileSet* tileset = App->map->data.tilesets.start->data;
-	int id = tileset->GetIdFromPos(pos);
-	
+	int id = tileset->GetIdFromPos(pos, layer);
+
 	Tile* tile = tileset->FindTileWithid(id);
 
 	if (!tile->is_ground)
