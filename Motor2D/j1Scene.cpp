@@ -101,11 +101,14 @@ bool j1Scene::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
 		App->save();
 
+	if ((App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN))
+		App->god_mode = !App->god_mode;
+
 	if (App->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN)
 		App->fps_capped = !App->fps_capped;
 
-	if (camera_change == true)
-		CameraFollowPlayer();
+	if ((App->input->GetKey(SDL_SCANCODE_9) == KEY_DOWN))
+		App->debug_mode = !App->debug_mode;
 
 	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 		DebugCamera(RIGHT, NONE_Y);
@@ -121,22 +124,26 @@ bool j1Scene::Update(float dt)
 
 
 
+	if (camera_change == true)
+		CameraFollowPlayer();
+
 	App->map->Draw();
 
 	//CheckDoorEntrance();
-	
-	// Debug pathfinding ------------------------------
-	int x, y;
-	App->input->GetMousePosition(x, y);
-	iPoint p = App->render->ScreenToWorld(x, y);
-	p = App->map->WorldToMap(p.x, p.y);
 
-	const p2DynArray<iPoint>* path = App->pathfinding->GetLastPath();
+	if (App->debug_mode) {
+		int x, y;
+		App->input->GetMousePosition(x, y);
+		iPoint p = App->render->ScreenToWorld(x, y);
+		p = App->map->WorldToMap(p.x, p.y);
 
-	for (uint i = 0; i < path->Count(); ++i)
-	{
-		iPoint pos = App->map->MapToWorld(path->At(i)->x, path->At(i)->y);
-		App->render->Blit(debug_tex, pos.x, pos.y);
+		const p2DynArray<iPoint>* path = App->pathfinding->GetLastPath();
+
+		for (uint i = 0; i < path->Count(); ++i)
+		{
+			iPoint pos = App->map->MapToWorld(path->At(i)->x, path->At(i)->y);
+			App->render->Blit(debug_tex, pos.x, pos.y);
+		}
 	}
 
 	p2SString title("Map:%dx%d Tiles:%dx%d Tilesets:%d",
@@ -201,7 +208,7 @@ void j1Scene::CameraFollowPlayer()
 void j1Scene::DebugCamera(Direction_x type, Direction_y type2)
 {
 	camera_change = false;
-	if (App->physics->debug_mode) {
+	if (App->debug_mode) {
 		float cam_speed = 10;
 
 		if (type == RIGHT && type2 == NONE_Y)

@@ -64,11 +64,13 @@ bool Player::Update(float dt)
 	// Direction
 	double_jump_avaliable = false;
 
-	if (life_state == DEAD) {
-		Respawn();
-		App->scene->ResetOvnis();
+	if (!App->god_mode)
+	{
+		if (life_state == DEAD) {
+			Respawn();
+			App->scene->ResetOvnis();
+		}
 	}
-
 
 	return true;
 }

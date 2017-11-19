@@ -74,7 +74,6 @@ private:
 public:
 
 	p2List<Collider*>	collider_list;
-	bool debug_mode = true;
 
 	float normalize;
 	Uint8 alpha = 80;
