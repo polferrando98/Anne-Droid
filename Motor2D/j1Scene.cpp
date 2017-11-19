@@ -101,14 +101,15 @@ bool j1Scene::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
 		App->save();
 
+	if ((App->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN))
+		App->debug_mode = !App->debug_mode;
+
 	if ((App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN))
 		App->god_mode = !App->god_mode;
 
 	if (App->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN)
 		App->fps_capped = !App->fps_capped;
 
-	if ((App->input->GetKey(SDL_SCANCODE_9) == KEY_DOWN))
-		App->debug_mode = !App->debug_mode;
 
 	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 		DebugCamera(RIGHT, NONE_Y);
