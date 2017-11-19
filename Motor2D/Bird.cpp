@@ -23,7 +23,7 @@ bool Bird::Start()
 	colrect.x = position.x;
 	colrect.y = position.y;
 
-	collider = App->physics->AddCollider(&colrect, COL_WALKER);
+	collider = App->physics->AddCollider(&colrect, DEATH);
 
 
 	movement_acceleration.x = 1.85f;
