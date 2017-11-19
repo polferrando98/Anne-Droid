@@ -104,6 +104,7 @@ struct TileSet
 	// TODO 7: Create a method that receives a tile id and returns it's Rectfind the Rect associated with a specific tile id
 	SDL_Rect GetTileRect(int id) const;
 	bool IsWall(int id) const;
+	bool IsDeath(int id) const;
 	Tile* FindTileWithid(int id) const;
 	int GetIdFromPos(iPoint pos, Layer* layer) const;
 

@@ -79,6 +79,7 @@ bool j1Scene::PreUpdate(float dt)
 // Called each loop iteration
 bool j1Scene::Update(float dt)
 {
+
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
 	{
 		if (App->map->data.is_level_1 == false)
@@ -120,8 +121,8 @@ bool j1Scene::Update(float dt)
 
 	App->map->Draw();
 
-
 	/*CheckDoorEntrance();*/
+	
 	// Debug pathfinding ------------------------------
 	int x, y;
 	App->input->GetMousePosition(x, y);
@@ -211,10 +212,11 @@ void j1Scene::DebugCamera(Direction_x type, Direction_y type2)
 	}
 }
 
-//void j1Scene::CheckDoorEntrance()
-//{
-//	if (App->entity_manager->player_entity->position.x >= 3000 && App->entity_manager->player_entity->position.y <= 100)
-//	{
-//		ChangeMap();
-//	}
-//}
+void j1Scene::CheckDoorEntrance()
+{
+	LOG("%f, %f", App->entity_manager->player_entity->position.x, App->entity_manager->player_entity->position.y);
+	if (App->entity_manager->player_entity->position.x >= 1000 && App->entity_manager->player_entity->position.y <= 1600)
+	{
+		ChangeMap();
+	}
+}

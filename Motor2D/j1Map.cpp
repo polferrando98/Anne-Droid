@@ -210,6 +210,14 @@ bool TileSet::IsWall(int id) const
 	return ret;
 }
 
+bool TileSet::IsDeath(int id) const
+{
+	Tile* tile = FindTileWithid(id);
+	bool ret = false;
+	ret = tile->death;
+	return ret;
+}
+
 Tile* TileSet::FindTileWithid(int id) const
 {
 	p2List_item<Tile*>* tile_iterator;

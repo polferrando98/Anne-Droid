@@ -103,6 +103,7 @@ public:
 
 	float				dt;
 	int					max_fps;
+	int					fps_cap;
 private:
 
 	p2List<j1Module*>	modules;
@@ -122,10 +123,6 @@ private:
 
 	p2SString			load_game;
 	mutable p2SString	save_game;
-
-
-	
-	int					fps_cap;
 	
 	j1PerfTimer			delay_time;
 

@@ -2,7 +2,7 @@
 #include "j1App.h"
 #include "j1Textures.h"
 #include "j1Audio.h"
-
+#include "j1Map.h"
 #include "j1Input.h"
 
 
@@ -18,7 +18,7 @@ Player::Player(fPoint position) : Entity(position, ENTITY_PLAYER)
 	jump_left.LoadSprites("jump_left");
 	right.LoadSprites("right");
 	left.LoadSprites("left");
-	death.LoadSprites("death");
+	//death.LoadSprites("death");
 
 }
 
@@ -166,5 +166,16 @@ void Player::DoJump()
 			grounded = false;
 		}
 	}
+}
+
+
+bool Player::GetDeathValue()
+{
+	return death;
+}
+
+void Player::SetDeathValue(bool state)
+{
+	death = state;
 }
 

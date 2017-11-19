@@ -18,6 +18,11 @@ public:
 	void DoJump();
 	void ApplyMaxVelocity();
 
+
+	
+
+	bool GetDeathValue();
+	void SetDeathValue(bool state);
 	
 public:
 	PlayerAction action = STATIC;
@@ -34,6 +39,7 @@ private:
 
 	bool double_jump_avaliable = false;
 
+	bool death = false;
 	//HARDCODING
 
 #define JUMP_SPEED 18;
