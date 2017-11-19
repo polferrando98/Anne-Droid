@@ -8,13 +8,15 @@
 		<volume value="0" />
 	</audio>
 	<map />
-	<scene />
+	<scene>
+		<player x="1986.40186" y="1175.75525" />
+	</scene>
 	<player>
 		<player x="1073.77124" y="3138.5" />
 	</player>
 	<physics />
 	<renderer>
-		<camera x="-3035" y="118" />
+		<camera x="-1412" y="-725" />
 	</renderer>
 	<EntityManager />
 	<pathfinding />

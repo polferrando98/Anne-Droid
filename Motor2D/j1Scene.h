@@ -41,9 +41,12 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
-	void ChangeMap();
+	bool ChangeMap();
 
 	void ResetOvnis();
+
+	bool load(pugi::xml_node &save);
+	bool save(pugi::xml_node &save) const;
 
 private:
 

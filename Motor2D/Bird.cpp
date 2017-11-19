@@ -22,8 +22,7 @@ Bird::Bird(fPoint position) : Entity(position, ENTITY_BIRD)
 	current_animation = &idle_right;
 
 
-	movement_acceleration.x = 1.15f;
-	movement_acceleration.y = 1.15f;
+
 
 	texture = App->tex->Load("textures/ovni.png");
 }
@@ -31,6 +30,9 @@ Bird::Bird(fPoint position) : Entity(position, ENTITY_BIRD)
 bool Bird::Start()
 {
 	Entity::Start();
+
+	movement_acceleration.x = 1.15f;
+	movement_acceleration.y = 1.15f;
 	return true;
 }
 
