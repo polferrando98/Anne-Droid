@@ -123,12 +123,14 @@ bool j1Scene::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
 		DebugCamera(NONE_X, DOWN);
 
+	
 
 
 	if (camera_change == true)
 		CameraFollowPlayer();
 
 	App->map->Draw();
+	App->physics->CheckDoorEntry(player_entity->position, player_entity->velocity, player_entity->collider);
 
 	//CheckDoorEntrance();
 
@@ -232,11 +234,11 @@ void j1Scene::DebugCamera(Direction_x type, Direction_y type2)
 	}
 }
 
-void j1Scene::CheckDoorEntrance()
-{
-	LOG("%f, %f", App->entity_manager->player_entity->position.x, App->entity_manager->player_entity->position.y);
-	if (App->entity_manager->player_entity->position.x >= 1000 && App->entity_manager->player_entity->position.y <= 1600)
-	{
-		ChangeMap();
-	}
-}
+//void j1Scene::CheckDoorEntrance()
+//{
+//	LOG("%f, %f", App->entity_manager->player_entity->position.x, App->entity_manager->player_entity->position.y);
+//	if (App->entity_manager->player_entity->position.x >= 1000 && App->entity_manager->player_entity->position.y <= 1600)
+//	{
+//		ChangeMap();
+//	}
+//}

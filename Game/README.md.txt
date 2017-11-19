@@ -27,8 +27,11 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
 Anne Droid is a platformer game where the player has to reach two doors to survive.
-Gihub Link: 
+Enemies use pathfinding(A*) to get to the player.
+
+Gihub Link: https://github.com/polferrando98/Anne-Droid
 
 Controls:
 
@@ -43,8 +46,11 @@ F2 --> Restart from current level
 F5 --> Save
 F6 --> Load
 F9 --> Colliders drawn (debug purposes)
+F10--> God Mode
+F11--> Enable/Disable FPS cap to 30
 
-
+If you are in debug mode you can move
+the camera with up/down/left/right.
 
 
 by Pol Ferrando && Nina Lopez
