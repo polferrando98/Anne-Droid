@@ -13,7 +13,8 @@ enum ObjectTypes {
 	OBJECT_TYPE_DEATH,
 	OBJECT_TYPE_DOOR,
 	OBJECT_TYPE_PLAYER,
-	OBJECT_TYPE_ICE
+	OBJECT_TYPE_ICE,
+	OBJECT_TYPE_OVNI
 };
 
 struct Object {
@@ -146,6 +147,7 @@ struct MapData
 	p2List<Layer*>			layers;
 	p2List<ObjectGroup*>	objectGroups;
 	fPoint					player_start_position;
+	p2List<fPoint>			ovni_start_position;
 	bool					is_level_1;
 	
 };

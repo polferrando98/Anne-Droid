@@ -104,7 +104,8 @@ void j1Map::PlaceColliders()
 			case OBJECT_TYPE_PLAYER:
 				data.player_start_position.x = col_rect.x;
 				data.player_start_position.y = col_rect.y;
-
+			case OBJECT_TYPE_OVNI:
+				data.ovni_start_position.add({ (float)col_rect.x, (float)col_rect.y });
 				break;
 			default:
 				break;
@@ -617,6 +618,10 @@ bool j1Map::LoadObject(pugi::xml_node &object_node, Object *object)
 	else if (object_type == "player")
 	{
 		object->type = OBJECT_TYPE_PLAYER;
+	}
+	else if (object_type == "ovni")
+	{
+		object->type = OBJECT_TYPE_OVNI;
 	}
 	else
 	{
