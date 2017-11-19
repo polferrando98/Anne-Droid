@@ -7855,6 +7855,6 @@
  </layer>
  <objectgroup name="player">
   <object id="1" name="player" type="player" x="288" y="1572" width="70.6667" height="113.333"/>
-  <object id="2" name="door" type="door" x="8024" y="1701.33" width="70.6667" height="114.667"/>
+  <object id="2" name="door" type="door" x="8059.33" y="1701.33" width="35.3334" height="114.667"/>
  </objectgroup>
 </map>
