@@ -255,3 +255,34 @@ void j1Scene::CheckDoorEntrance()
 	}
 }
 
+bool j1Scene::load(pugi::xml_node &save)
+{
+	
+	player_entity->position.x = save.child("player").attribute("x").as_int();
+	player_entity->position.y = save.child("player").attribute("y").as_int();
+
+	return true;
+}
+
+bool j1Scene::save(pugi::xml_node &save) const
+{
+	if (save.child("player") == NULL) {
+		save.append_child("player");
+	}
+
+	if (save.child("player").attribute("x") == NULL) {
+		save.child("player").append_attribute("x") = player_entity->position.x;
+	}
+	else {
+		save.child("player").attribute("x").set_value(player_entity->position.x);
+	}
+
+	if (save.child("player").attribute("y") == NULL) {
+		save.child("player").append_attribute("y") = player_entity->position.y;
+	}
+	else {
+		save.child("player").attribute("y").set_value(player_entity->position.y);
+	}
+
+	return true;
+}

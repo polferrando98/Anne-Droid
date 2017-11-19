@@ -45,6 +45,9 @@ public:
 
 	void ResetOvnis();
 
+	bool load(pugi::xml_node &save);
+	bool save(pugi::xml_node &save) const;
+
 private:
 
 	void CameraFollowPlayer();
