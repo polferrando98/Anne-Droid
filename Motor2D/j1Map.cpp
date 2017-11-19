@@ -257,6 +257,8 @@ bool j1Map::CleanUp()
 {
 	LOG("Unloading map");
 
+	data.ovni_position_list.clear();
+
 	// Remove all tilesets
 	p2List_item<TileSet*>* item;
 	item = data.tilesets.start;

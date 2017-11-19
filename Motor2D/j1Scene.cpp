@@ -132,7 +132,7 @@ bool j1Scene::Update(float dt)
 	App->map->Draw();
 	App->physics->CheckDoorEntry(player_entity->position, player_entity->velocity, player_entity->collider);
 
-	CheckDoorEntrance();
+
 
 	if (App->debug_mode) {
 		int x, y;
@@ -166,6 +166,8 @@ bool j1Scene::PostUpdate()
 	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;
 
+	CheckDoorEntrance();
+
 	return ret;
 }
 
@@ -194,6 +196,12 @@ void j1Scene::ChangeMap()
 	App->map->PlaceTileColliders();
 	App->entity_manager->player_entity->position.x = App->map->data.player_start_position.x;
 	App->entity_manager->player_entity->position.y = App->map->data.player_start_position.y;
+
+	for (p2List_item<fPoint> *ovni_iterator = App->map->data.ovni_position_list.start; ovni_iterator; ovni_iterator = ovni_iterator->next)
+	{
+		ovnis.add(App->entity_manager->CreateEntity(ovni_iterator->data, ENTITY_BIRD));
+	}
+
 }
 
 void j1Scene::ResetOvnis()

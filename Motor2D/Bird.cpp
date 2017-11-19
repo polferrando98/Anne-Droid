@@ -13,26 +13,24 @@ Bird::Bird(fPoint position) : Entity(position, ENTITY_BIRD)
 {
 
 	idle_right.LoadEnemySprites("ovni");
-
-}
-
-bool Bird::Start()
-{
-	current_animation = &idle_right;
-	Entity::Start();
 	defaultRect = { 0,0,53,50 };
 	//HARDCODE
 	defaultRect.x = position.x;
 	defaultRect.y = position.y;
-
 	collider = App->physics->AddCollider(&defaultRect, DEATH);
+
+	current_animation = &idle_right;
 
 
 	movement_acceleration.x = 1.15f;
 	movement_acceleration.y = 1.15f;
 
 	texture = App->tex->Load("textures/ovni.png");
+}
 
+bool Bird::Start()
+{
+	Entity::Start();
 	return true;
 }
 
