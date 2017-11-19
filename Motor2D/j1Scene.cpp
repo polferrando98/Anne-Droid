@@ -188,6 +188,9 @@ void j1Scene::ChangeMap()
 		App->map->Load("1.tmx");
 	else if (current_level == 2)
 		App->map->Load("2.tmx");
+	else {
+		App->map->Load("3.tmx");
+	}
 
 	App->map->ReadPositions();
 	player_entity->collider = App->physics->AddCollider(&player_entity->defaultRect, PLAYER);
