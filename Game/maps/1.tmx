@@ -44,9 +44,29 @@
     <property name="wall" value="false"/>
    </properties>
   </tile>
+  <tile id="29">
+   <properties>
+    <property name="wall" type="bool" value="false"/>
+   </properties>
+  </tile>
+  <tile id="30">
+   <properties>
+    <property name="wall" type="bool" value="false"/>
+   </properties>
+  </tile>
   <tile id="46">
    <properties>
     <property name="wall" value="false"/>
+   </properties>
+  </tile>
+  <tile id="50">
+   <properties>
+    <property name="wall" type="bool" value="false"/>
+   </properties>
+  </tile>
+  <tile id="51">
+   <properties>
+    <property name="wall" type="bool" value="false"/>
    </properties>
   </tile>
   <tile id="85">
@@ -5317,6 +5337,9 @@
   </data>
  </layer>
  <layer name="plattforms" width="175" height="30">
+  <properties>
+   <property name="wall" type="bool" value="false"/>
+  </properties>
   <data>
    <tile gid="0"/>
    <tile gid="0"/>
