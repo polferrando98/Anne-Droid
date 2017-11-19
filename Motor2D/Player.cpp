@@ -66,7 +66,8 @@ bool Player::Update(float dt)
 
 	if (!App->god_mode)
 	{
-		if (life_state == DEAD) {
+		if (life_state == DEAD) 
+		{
 			Respawn();
 			App->scene->ResetOvnis();
 		}
