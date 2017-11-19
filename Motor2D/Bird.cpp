@@ -31,8 +31,7 @@ bool Bird::Start()
 {
 	Entity::Start();
 
-	movement_acceleration.x = 1.15f;
-	movement_acceleration.y = 1.15f;
+
 	return true;
 }
 
@@ -83,6 +82,8 @@ void Bird::Respawn()
 
 bool Bird::GoToDestination()
 {
+	movement_acceleration.x = 1.15f;
+	movement_acceleration.y = 1.15f;
 	iPoint bad_destination = { -1,-1 };
 
 	if (destination_tile != bad_destination) {
