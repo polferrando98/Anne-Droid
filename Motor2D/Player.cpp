@@ -28,12 +28,12 @@ bool Player::Start()
 	current_animation = &idle_right;
 
 	Entity::Start();
-	SDL_Rect colrect = { 0,0,76,123 };
+	defaultRect = { 0,0,76,123 };
 
-	colrect.x = position.x;
-	colrect.y = position.y;
+	defaultRect.x = position.x;
+	defaultRect.y = position.y;
 
-	collider = App->physics->AddCollider(&colrect, PLAYER);
+	collider = App->physics->AddCollider(&defaultRect, PLAYER);
 	texture = App->tex->Load("textures/player_sprites.png");
 
 	grounded = true;

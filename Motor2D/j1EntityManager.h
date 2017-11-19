@@ -15,11 +15,12 @@ public:
 	bool Update(float dt);
 
 	Entity* CreateEntity(fPoint position,EntityType type);
+	void DeleteOvnis();
 
 public:
 	Entity* player_entity = nullptr;
 private:
 	p2List<Entity*>	entites;
-	
+	p2List<Entity*>	ovnies;
 };
 

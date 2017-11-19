@@ -167,7 +167,7 @@ public:
 
 	// Called each loop iteration
 	void Draw();
-	void PlaceColliders();
+	void ReadPositions();
 	void PlaceTileColliders();
 
 

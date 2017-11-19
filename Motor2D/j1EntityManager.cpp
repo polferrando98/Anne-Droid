@@ -64,7 +64,6 @@ bool j1EntityManager::Update(float dt)
 	for (entities_iterator = entites.start; entities_iterator != NULL && ret == true; entities_iterator = entities_iterator->next)
 	{
 		entity = entities_iterator->data;
-
 		ret = entity->Update(dt);
 	}
 
@@ -95,4 +94,16 @@ Entity * j1EntityManager::CreateEntity(fPoint position, EntityType type)
 	entites.add(new_entity);
 	
 	return new_entity;
+}
+
+void j1EntityManager::DeleteOvnis()
+{
+	p2List_item<Entity*>* entities_iterator;
+	for (entities_iterator = entites.start; entities_iterator != NULL; entities_iterator = entities_iterator->next)
+	{
+		if (entities_iterator->data->type == ENTITY_BIRD) {
+			RELEASE(entities_iterator->data)
+			entites.del(entities_iterator);
+		}
+	}
 }

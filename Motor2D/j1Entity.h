@@ -44,6 +44,7 @@ public:
 
 	iPoint			current_tile;
 
+	SDL_Rect		defaultRect;
 	Collider*		collider = nullptr;
 	EntityType		type;
 

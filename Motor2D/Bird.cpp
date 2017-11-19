@@ -20,12 +20,12 @@ bool Bird::Start()
 {
 	current_animation = &idle_right;
 	Entity::Start();
-	SDL_Rect colrect = { 0,0,53,50 };
+	defaultRect = { 0,0,53,50 };
 	//HARDCODE
-	colrect.x = position.x;
-	colrect.y = position.y;
+	defaultRect.x = position.x;
+	defaultRect.y = position.y;
 
-	collider = App->physics->AddCollider(&colrect, DEATH);
+	collider = App->physics->AddCollider(&defaultRect, DEATH);
 
 
 	movement_acceleration.x = 1.15f;

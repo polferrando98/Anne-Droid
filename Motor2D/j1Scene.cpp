@@ -40,7 +40,7 @@ bool j1Scene::Start()
 	App->map->Load("1.tmx");
 
 	App->map->PlaceTileColliders();
-	App->map->PlaceColliders();
+	App->map->ReadPositions();
 
 	//fPoint debugBirdPosition = { 700, 1000 };
 
@@ -53,7 +53,7 @@ bool j1Scene::Start()
 	player_entity = App->entity_manager->CreateEntity(App->map->data.player_start_position, ENTITY_PLAYER);
 
 	p_clicked.SetToZero();
-
+	sceneLoaded = true;
 	return true;
 }
 
@@ -130,7 +130,7 @@ bool j1Scene::Update(float dt)
 
 	App->map->Draw();
 
-	//CheckDoorEntrance();
+	CheckDoorEntrance();
 
 	if (App->debug_mode) {
 		int x, y;
@@ -177,10 +177,19 @@ bool j1Scene::CleanUp()
 
 void j1Scene::ChangeMap()
 {
+	current_level++;
 	App->map->CleanUp();
 	App->physics->CleanUp();
-	App->map->Load("2.tmx");
-	App->map->PlaceColliders();
+	ovnis.clear();
+	App->entity_manager->DeleteOvnis();
+	if (current_level == 1)
+		App->map->Load("1.tmx");
+	else if (current_level == 2)
+		App->map->Load("2.tmx");
+
+	App->map->ReadPositions();
+	player_entity->collider = App->physics->AddCollider(&player_entity->defaultRect, PLAYER);
+	App->map->PlaceTileColliders();
 	App->entity_manager->player_entity->position.x = App->map->data.player_start_position.x;
 	App->entity_manager->player_entity->position.y = App->map->data.player_start_position.y;
 }
@@ -237,6 +246,8 @@ void j1Scene::CheckDoorEntrance()
 	LOG("%f, %f", App->entity_manager->player_entity->position.x, App->entity_manager->player_entity->position.y);
 	if (App->entity_manager->player_entity->position.x >= 1000 && App->entity_manager->player_entity->position.y <= 1600)
 	{
+		if (current_level == 1)
 		ChangeMap();
+
 	}
 }

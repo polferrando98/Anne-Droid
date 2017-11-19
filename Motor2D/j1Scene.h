@@ -56,7 +56,7 @@ public:
 	p2List<Entity*> ovnis;
 	void DebugCamera(Direction_x type, Direction_y type2);
 	p2PQueue<Level>* levels;
-
+	bool sceneLoaded = false;
 
 	//HARDCODE
 
@@ -70,7 +70,6 @@ public:
 	//HARDCODE
 
 	int current_level = 1;
-	int next_level = 2;
 
 	bool loading = false;
 

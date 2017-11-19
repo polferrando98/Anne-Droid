@@ -66,7 +66,7 @@ void j1Map::Draw()
 	}
 }
 
-void j1Map::PlaceColliders()
+void j1Map::ReadPositions()
 {
 	SDL_Rect col_rect;
 
@@ -89,18 +89,6 @@ void j1Map::PlaceColliders()
 
 			switch (object_iterator->data->type)
 			{
-			case OBJECT_TYPE_GROUND:
-				App->physics->AddCollider(&col_rect, WALL);
-				break;
-			case OBJECT_TYPE_ICE:
-				App->physics->AddCollider(&col_rect, WALL);
-				break;
-			case OBJECT_TYPE_DEATH:
-				App->physics->AddCollider(&col_rect, DEATH);
-				break;
-			case OBJECT_TYPE_DOOR:
-				App->physics->AddCollider(&col_rect, DOOR);
-				break;
 			case OBJECT_TYPE_PLAYER:
 				data.player_start_position.x = col_rect.x;
 				data.player_start_position.y = col_rect.y;
