@@ -86,7 +86,7 @@ bool j1Scene::Update(float dt)
 		{
 			App->map->data.is_level_1 == true;
 			App->map->CleanUp();
-			App->map->Load("1.xml");
+			App->map->Load("1.tmx");
 		}
 		player_entity->position = App->map->data.player_start_position;
 	}
@@ -102,6 +102,9 @@ bool j1Scene::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
 		App->save();
 
+	if (App->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN)
+		App->fps_capped = !App->fps_capped;
+
 	if (camera_change == true)
 		CameraFollowPlayer();
 
@@ -116,6 +119,8 @@ bool j1Scene::Update(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
 		DebugCamera(NONE_X, DOWN);
+
+
 
 	App->map->Draw();
 

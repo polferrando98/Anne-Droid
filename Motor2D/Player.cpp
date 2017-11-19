@@ -65,9 +65,7 @@ bool Player::Update(float dt)
 	double_jump_avaliable = false;
 
 	if (life_state == DEAD) {
-		position.x = App->map->data.player_start_position.x;
-		position.y = App->map->data.player_start_position.y;
-		life_state = ALIVE;
+		ReStart();
 	}
 
 
@@ -174,6 +172,15 @@ void Player::DoJump()
 			grounded = false;
 		}
 	}
+}
+
+void Player::ReStart()
+{
+	acceleration.SetToZero();
+	velocity.SetToZero();
+	position.x = App->map->data.player_start_position.x;
+	position.y = App->map->data.player_start_position.y;
+	life_state = ALIVE;
 }
 
 
