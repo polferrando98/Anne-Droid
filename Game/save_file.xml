@@ -4,7 +4,9 @@
 	<input />
 	<window />
 	<textures />
-	<audio />
+	<audio>
+		<volume value="0" />
+	</audio>
 	<map />
 	<scene />
 	<player>
@@ -12,6 +14,8 @@
 	</player>
 	<physics />
 	<renderer>
-		<camera x="-732" y="-2754" />
+		<camera x="-3035" y="118" />
 	</renderer>
+	<EntityManager />
+	<pathfinding />
 </save>
