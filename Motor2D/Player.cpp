@@ -42,6 +42,9 @@ bool Player::Start()
 	//HARDCODE
 	acceleration.y = 1.1f;
 
+	max_velocity.x = 20.0f;
+	max_velocity.y = 20.0f;
+
 	return true;
 }
 
@@ -94,8 +97,11 @@ void Player::Move()
 	}
 	else if (grounded) {
 		current_direction_x = NONE_X;
-		App->physics->ApplyFriction(velocity,acceleration);
 		action = STATIC;
+		App->physics->ApplyFriction(velocity, acceleration);
+	}
+	else {
+		App->physics->ApplyFriction(velocity, acceleration);
 	}
 
 	
@@ -103,6 +109,8 @@ void Player::Move()
 	{
 		DoJump();
 	}
+
+	ApplyMaxVelocity();
 
 }
 
@@ -176,6 +184,18 @@ void Player::DoJump()
 			grounded = false;
 		}
 	}
+}
+
+void Player::ApplyMaxVelocity()
+{
+	
+		if (velocity.x != 0) {
+			if (velocity.x > max_velocity.x)
+				velocity.x = max_velocity.x;
+			else if (velocity.x < -max_velocity.x)
+				velocity.x = -max_velocity.x;
+		}
+
 }
 
 void Player::Respawn()

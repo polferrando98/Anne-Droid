@@ -39,6 +39,8 @@ private:
 
 	//HARDCODING
 
+	fPoint max_velocity;
+
 #define JUMP_SPEED 18;
 
 };

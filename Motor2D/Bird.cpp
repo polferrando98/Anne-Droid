@@ -59,7 +59,7 @@ bool Bird::Update(float dt)
 		
 		if (App->pathfinding->GetLastPath()->At(1) != nullptr)
 			destination_tile = *App->pathfinding->GetLastPath()->At(1);
-		else
+		else if (App->pathfinding->GetLastPath()->At(1))
 			destination_tile = *App->pathfinding->GetLastPath()->At(0);
 
 		ret = GoToDestination();
@@ -85,33 +85,31 @@ bool Bird::GoToDestination()
 {
 	iPoint bad_destination = { -1,-1 };
 
-	if (destination_tile == bad_destination) {
-		LOG("Error, empty destination");
-		return false;
-	}
+	if (destination_tile != bad_destination) {
 
-	if (current_tile != destination_tile) {
-		fPoint direction;
-		direction.x = destination_tile.x - current_tile.x;
-		direction.y = destination_tile.y - current_tile.y;
+		if (current_tile != destination_tile) {
+			fPoint direction;
+			direction.x = destination_tile.x - current_tile.x;
+			direction.y = destination_tile.y - current_tile.y;
 
 
-		if (direction.x > 0) {
-			acceleration.x = movement_acceleration.x;
+			if (direction.x > 0) {
+				acceleration.x = movement_acceleration.x;
+			}
+			if (direction.x < 0) {
+				acceleration.x = -movement_acceleration.x;
+			}
+			if (direction.y > 0) {
+				acceleration.y = movement_acceleration.y;
+			}
+			if (direction.y < 0) {
+				acceleration.y = -movement_acceleration.y;
+			}
 		}
-		if (direction.x < 0) {
-			acceleration.x = -movement_acceleration.x;
+		else {
+			acceleration.y = 0;
+			acceleration.x = 0;
 		}
-		if (direction.y > 0) {
-			acceleration.y = movement_acceleration.y;
-		}
-		if (direction.y < 0) {
-			acceleration.y = -movement_acceleration.y;
-		}
-	}
-	else {
-		acceleration.y = 0;
-		acceleration.x = 0;
 	}
 	return true;
 }

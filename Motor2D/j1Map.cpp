@@ -89,6 +89,12 @@ void j1Map::ReadPositions()
 
 			switch (object_iterator->data->type)
 			{
+			case OBJECT_TYPE_DOOR:
+				data.door_position.x = col_rect.x;
+				data.door_position.y = col_rect.y;
+				App->physics->AddCollider(&col_rect, DOOR);
+				break;
+
 			case OBJECT_TYPE_PLAYER:
 				data.player_start_position.x = col_rect.x;
 				data.player_start_position.y = col_rect.y;
@@ -133,7 +139,7 @@ void j1Map::PlaceTileColliders()
 					set->tile_height
 				};
 
-				if (set->IsWall(id - 1)) { //Why?
+				if (set->IsWall(id - 1) && id != 0) { //Why?
 					App->physics->AddCollider(&col_rect, WALL);
 				}
 
@@ -197,7 +203,6 @@ SDL_Rect TileSet::GetTileRect(int id) const
 
 bool TileSet::IsWall(int id) const
 {
-
 	Tile* tile = FindTileWithid(id);
 	bool ret = false;
 	ret = tile->is_ground;
@@ -221,6 +226,7 @@ Tile* TileSet::FindTileWithid(int id) const
 			return tile_iterator->data;
 		}
 	}
+	
 
 }
 

@@ -163,6 +163,9 @@
     <None Include="..\Game\maps\level_2.tmx">
       <Filter>Data</Filter>
     </None>
+    <None Include="..\Game\maps\1.tmx">
+      <Filter>Data</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Modules">

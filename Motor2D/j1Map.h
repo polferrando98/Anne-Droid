@@ -148,6 +148,7 @@ struct MapData
 	p2List<ObjectGroup*>	objectGroups;
 	fPoint					player_start_position;
 	p2List<fPoint>			ovni_position_list;
+	fPoint					door_position;
 	bool					is_level_1;
 	
 };

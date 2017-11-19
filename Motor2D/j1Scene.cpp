@@ -247,7 +247,7 @@ void j1Scene::DebugCamera(Direction_x type, Direction_y type2)
 void j1Scene::CheckDoorEntrance()
 {
 	LOG("%f, %f", App->entity_manager->player_entity->position.x, App->entity_manager->player_entity->position.y);
-	if (App->entity_manager->player_entity->position.x >= 1000 && App->entity_manager->player_entity->position.y <= 1600)
+	if (App->entity_manager->player_entity->position.x >= App->map->data.door_position.x && App->entity_manager->player_entity->position.y <= App->map->data.door_position.y)
 	{
 		if (current_level == 1)
 		ChangeMap();
