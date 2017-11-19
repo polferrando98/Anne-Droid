@@ -6,6 +6,7 @@
 #include "j1Map.h"
 Entity::Entity(fPoint position, EntityType type)
 {
+	start_position = position;
 	this->position = position;
 	this->type = type;
 	life_state = ALIVE;

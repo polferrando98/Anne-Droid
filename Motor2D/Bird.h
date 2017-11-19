@@ -16,6 +16,8 @@ public:
 
 	//PathList path_to_follow;
 
+	void Respawn();
+	
 	bool GoToDestination();
 
 private:

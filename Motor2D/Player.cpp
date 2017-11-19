@@ -4,7 +4,7 @@
 #include "j1Audio.h"
 #include "j1Map.h"
 #include "j1Input.h"
-
+#include "j1Scene.h"
 
 
 Player::Player(fPoint position) : Entity(position, ENTITY_PLAYER)
@@ -65,7 +65,8 @@ bool Player::Update(float dt)
 	double_jump_avaliable = false;
 
 	if (life_state == DEAD) {
-		ReStart();
+		Respawn();
+		App->scene->ResetOvnis();
 	}
 
 
@@ -174,7 +175,7 @@ void Player::DoJump()
 	}
 }
 
-void Player::ReStart()
+void Player::Respawn()
 {
 	acceleration.SetToZero();
 	velocity.SetToZero();

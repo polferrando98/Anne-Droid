@@ -5,6 +5,8 @@
 #include "p2Log.h"
 #include "j1EntityManager.h"
 #include "j1Pathfinding.h"
+#include "j1Map.h"
+
 
 
 Bird::Bird(fPoint position) : Entity(position, ENTITY_BIRD)
@@ -54,7 +56,7 @@ bool Bird::Update(float dt)
 	float detection_radius = 300.0f;
 	if (position.DistanceTo(App->entity_manager->player_entity->position) < detection_radius) {
 		int path_steps = App->pathfinding->CreatePath(current_tile, App->entity_manager->player_entity->current_tile);
-		//SPAGHETTI
+		
 		if (App->pathfinding->GetLastPath()->At(1) != nullptr)
 			destination_tile = *App->pathfinding->GetLastPath()->At(1);
 		else
@@ -72,6 +74,11 @@ bool Bird::Update(float dt)
 
 	UpdateCurrentTile();
 	return ret;
+}
+
+void Bird::Respawn()
+{
+	position = start_position;
 }
 
 bool Bird::GoToDestination()

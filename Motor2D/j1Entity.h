@@ -30,11 +30,13 @@ public:
 	virtual bool PreUpdate(float dt);
 
 	void UpdateCurrentTile();
+	virtual void Respawn() {};
 
 public:
 	p2SString		name;
 	LifeState		life_state;
 
+	fPoint			start_position;
 	fPoint			position;
 	fPoint			velocity;
 	fPoint			acceleration;

@@ -42,16 +42,15 @@ bool j1Scene::Start()
 	App->map->PlaceTileColliders();
 	App->map->PlaceColliders();
 
-	//fPoint debugPosition = { 600,3000 };
+	//fPoint debugBirdPosition = { 700, 1000 };
 
-	fPoint debugBirdPosition = { 700, 1000 };
+	for (p2List_item<fPoint> *ovni_iterator = App->map->data.ovni_position_list.start; ovni_iterator; ovni_iterator = ovni_iterator->next)
+	{
+		ovnis.add(App->entity_manager->CreateEntity(ovni_iterator->data, ENTITY_BIRD));
+	}
+	
 
-
-
-	//App->entity_manager->CreateEntity(debugPosition,ENTITY_WALKER);
 	player_entity = App->entity_manager->CreateEntity(App->map->data.player_start_position, ENTITY_PLAYER);
-
-	bird = App->entity_manager->CreateEntity(debugBirdPosition, ENTITY_BIRD);
 
 	p_clicked.SetToZero();
 
@@ -176,6 +175,16 @@ void j1Scene::ChangeMap()
 	App->map->PlaceColliders();
 	App->entity_manager->player_entity->position.x = App->map->data.player_start_position.x;
 	App->entity_manager->player_entity->position.y = App->map->data.player_start_position.y;
+}
+
+void j1Scene::ResetOvnis()
+{
+
+	for (p2List_item<Entity*> *ovni_iterator = ovnis.start; ovni_iterator; ovni_iterator = ovni_iterator->next)
+	{
+		ovni_iterator->data->Respawn();
+	}
+	
 }
 
 void j1Scene::CameraFollowPlayer()

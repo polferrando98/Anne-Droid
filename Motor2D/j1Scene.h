@@ -43,6 +43,8 @@ public:
 
 	void ChangeMap();
 
+	void ResetOvnis();
+
 private:
 
 	void CameraFollowPlayer();
@@ -51,9 +53,10 @@ private:
 
 public:
 	Entity* player_entity = nullptr;
-	Entity* bird = nullptr;
+	p2List<Entity*> ovnis;
 	void DebugCamera(Direction_x type, Direction_y type2);
 	p2PQueue<Level>* levels;
+
 
 	//HARDCODE
 

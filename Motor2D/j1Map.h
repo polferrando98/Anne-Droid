@@ -147,7 +147,7 @@ struct MapData
 	p2List<Layer*>			layers;
 	p2List<ObjectGroup*>	objectGroups;
 	fPoint					player_start_position;
-	p2List<fPoint>			ovni_start_position;
+	p2List<fPoint>			ovni_position_list;
 	bool					is_level_1;
 	
 };
