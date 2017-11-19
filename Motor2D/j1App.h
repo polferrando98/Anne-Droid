@@ -104,6 +104,7 @@ public:
 	float				dt;
 	int					max_fps;
 	int					fps_cap;
+	bool				fps_capped = true;
 private:
 
 	p2List<j1Module*>	modules;

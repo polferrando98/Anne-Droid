@@ -240,7 +240,8 @@ void j1App::FinishUpdate()
 
 	if (fps_diferential_ms > 0)
 	{
-		SDL_Delay(fps_diferential_ms);
+		if (fps_capped)
+			SDL_Delay(fps_diferential_ms);
 	}
 	
 

@@ -18,6 +18,8 @@ public:
 	void DoJump();
 	void ApplyMaxVelocity();
 
+	void ReStart();
+
 
 	
 public:
