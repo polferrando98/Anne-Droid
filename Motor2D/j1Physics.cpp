@@ -119,8 +119,10 @@ void j1Physics::UpdateEntityPhysics(Entity & entity, float dt)
 	fPoint pos_differential;
 
 
+
 	//HARDCODE
 	entity.acceleration.y = 1.0f;
+
 
 
 	//Y_AXIS

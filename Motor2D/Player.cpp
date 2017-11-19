@@ -38,6 +38,10 @@ bool Player::Start()
 
 	grounded = true;
 
+
+	//HARDCODE
+	acceleration.y = 1.1f;
+
 	return true;
 }
 
