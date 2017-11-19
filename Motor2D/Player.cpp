@@ -42,8 +42,8 @@ bool Player::Start()
 	//HARDCODE
 	acceleration.y = 1.1f;
 
-	max_velocity.x = 20.0f;
-	max_velocity.y = 20.0f;
+	max_velocity.x = 10.0f;
+	max_velocity.y = 10.0f;
 
 	return true;
 }
