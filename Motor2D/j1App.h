@@ -105,6 +105,9 @@ public:
 	int					max_fps;
 	int					fps_cap;
 	bool				fps_capped = true;
+
+	bool				debug_mode = false;
+	bool				god_mode = false;
 private:
 
 	p2List<j1Module*>	modules;

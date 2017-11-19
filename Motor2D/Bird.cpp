@@ -26,7 +26,7 @@ bool Bird::Start()
 	collider = App->physics->AddCollider(&colrect, DEATH);
 
 
-	movement_acceleration.x = 1.85f;
+	movement_acceleration.x = 1.15f;
 	movement_acceleration.y = 1.15f;
 
 	texture = App->tex->Load("textures/ovni.png");

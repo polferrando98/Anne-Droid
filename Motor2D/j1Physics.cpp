@@ -56,14 +56,11 @@ bool j1Physics::PreUpdate(float dt)
 }
 bool j1Physics::Update(float dt)
 {
-	if ((App->input->GetKey(SDL_SCANCODE_9) == KEY_DOWN))
-		debug_mode = !debug_mode;
 
 
-	if (debug_mode)
+	if (App->debug_mode)
 	{
 		DebugDraw();
-
 	}
 	else {
 		App->scene->camera_change = true;
@@ -88,7 +85,10 @@ void j1Physics::DebugDraw() const
 			switch (pCollider->type)
 			{
 			case PLAYER:
-				App->render->DrawQuad(pCollider->rect, 0, 255, 0, alpha, true, true); //Green
+				if (App->god_mode)
+					App->render->DrawQuad(pCollider->rect, 244, 235, 66, alpha, true, true); //Yellow
+				else
+					App->render->DrawQuad(pCollider->rect, 0, 255, 0, alpha, true, true); //Green
 				break;
 			case WALL:
 				App->render->DrawQuad(pCollider->rect, 0, 0, 255, alpha, true, true); //Blue

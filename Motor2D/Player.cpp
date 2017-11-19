@@ -64,8 +64,10 @@ bool Player::Update(float dt)
 	// Direction
 	double_jump_avaliable = false;
 
-	if (life_state == DEAD) {
-		ReStart();
+	if (App->god_mode) {
+		if (life_state == DEAD) {
+			ReStart();
+		}
 	}
 
 
