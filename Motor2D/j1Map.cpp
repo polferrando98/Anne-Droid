@@ -104,7 +104,6 @@ void j1Map::PlaceColliders()
 			case OBJECT_TYPE_PLAYER:
 				data.player_start_position.x = col_rect.x;
 				data.player_start_position.y = col_rect.y;
-				App->player->createCol(&col_rect);
 
 				break;
 			default:
@@ -137,14 +136,19 @@ void j1Map::PlaceTileColliders()
 
 				Get_pixels_from_tiles(row, col, &real_row, &real_col);
 
+				SDL_Rect col_rect = {
+					real_col,
+					real_row,
+					set->tile_width,
+					set->tile_height
+				};
+
 				if (set->IsWall(id - 1)) { //Why?
-					SDL_Rect col_rect = {
-						real_col,
-						real_row,
-						set->tile_width,
-						set->tile_height
-					};
 					App->physics->AddCollider(&col_rect, WALL);
+				}
+
+				if (set->IsDeath(id - 1)) { //Why?
+					App->physics->AddCollider(&col_rect, DEATH);
 				}
 
 

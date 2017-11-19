@@ -70,7 +70,7 @@ bool j1Physics::Update(float dt)
 	}
 
 	maxVelocity.x = 30;
-	return UPDATE_CONTINUE;
+	return true;
 }
 
 void j1Physics::DebugDraw() const
@@ -118,23 +118,16 @@ void j1Physics::UpdateEntityPhysics(Entity & entity, float dt)
 	fPoint newVelocity;
 	fPoint pos_differential;
 
-
-
 	//HARDCODE
 	entity.acceleration.y = 1.0f;
-
-
 
 	//Y_AXIS
 	newPosition = calculateNewPosition(entity.position, entity.velocity, entity.acceleration, Y_axis);
 
-	//newVelocity.y = entity.velocity.y + entity.acceleration.y * normalize;
-	//newPosition.y = entity.position.y + newVelocity.y * normalize;
-
 	newCollider.rect.y = newPosition.y;
 	pos_differential.y = newPosition.y - entity.position.y;
 
-	entity.y_axis_collision = checkGroundYCollisions(newCollider, pos_differential);
+	entity.y_axis_collision = checkGroundYCollisions(newCollider, pos_differential, entity);
 
 	if (entity.y_axis_collision == UP || entity.y_axis_collision == DOWN) {
 		entity.velocity.y = 0;
@@ -153,7 +146,7 @@ void j1Physics::UpdateEntityPhysics(Entity & entity, float dt)
 	newCollider.rect.x = newPosition.x;
 	pos_differential.x = newPosition.x - entity.position.x;
 
-	entity.x_axis_collision = checkGroundXCollisions(newCollider, pos_differential);
+	entity.x_axis_collision = checkGroundXCollisions(newCollider, pos_differential, entity);
 
 	if (entity.x_axis_collision == RIGHT || entity.x_axis_collision == LEFT) {
 		entity.velocity.x = 0;
@@ -223,7 +216,7 @@ void j1Physics::ApplyMaxVelocity(Entity & entity)
 //	}
 //}
 
-Direction_x j1Physics::checkGroundXCollisions(Collider new_collider, fPoint pos_differential) const
+Direction_x j1Physics::checkGroundXCollisions(Collider new_collider, fPoint pos_differential, Entity & entity) const
 {
 	Direction_x colliding_x = NONE_X;
 	if (checkColliders(new_collider, WALL)) {
@@ -232,10 +225,14 @@ Direction_x j1Physics::checkGroundXCollisions(Collider new_collider, fPoint pos_
 		if (pos_differential.x < 0)
 			colliding_x = LEFT;
 	}
+
+	if (checkColliders(new_collider, DEATH)) {
+		entity.life_state = DEAD;
+	}
 	return colliding_x;
 }
 
-Direction_y j1Physics::checkGroundYCollisions(Collider new_collider, fPoint pos_differential) const
+Direction_y j1Physics::checkGroundYCollisions(Collider new_collider, fPoint pos_differential, Entity & entity) const
 {
 	Direction_y colliding_y = NONE_Y;
 	if (checkColliders(new_collider, WALL)) {
@@ -243,6 +240,9 @@ Direction_y j1Physics::checkGroundYCollisions(Collider new_collider, fPoint pos_
 			colliding_y = DOWN;
 		if (pos_differential.y < 0)
 			colliding_y = UP;
+	}
+	if (checkColliders(new_collider, DEATH)) {
+		entity.life_state = DEAD;
 	}
 	return colliding_y;
 }
@@ -423,11 +423,11 @@ void j1Physics::LoadPhysicsValues() {
 		extra_friction_2 = physics.child("extra_friction_2").attribute("value").as_float();
 
 		pugi::xml_node phy_player = physics_file.child("physics_values").child("player");
-		App->player->position.x = phy_player.child("position_x").attribute("value").as_int();
-		App->player->position.y = phy_player.child("position_y").attribute("value").as_int();
-		App->player->acceleration_x = phy_player.child("acceleration_x").attribute("value").as_float();
-		App->player->acceleration.y = phy_player.child("acceleration_y").attribute("value").as_float();
-		App->player->jump_speed = phy_player.child("jump_speed").attribute("value").as_float();
+		//App->player->position.x = phy_player.child("position_x").attribute("value").as_int();
+		//App->player->position.y = phy_player.child("position_y").attribute("value").as_int();
+		//App->player->acceleration_x = phy_player.child("acceleration_x").attribute("value").as_float();
+		//App->player->acceleration.y = phy_player.child("acceleration_y").attribute("value").as_float();
+		//App->player->jump_speed = phy_player.child("jump_speed").attribute("value").as_float();
 	/*	App->player->maxVelocity.x = phy_player.child("max_velocity").attribute("value").as_int();*/
 	}
 }

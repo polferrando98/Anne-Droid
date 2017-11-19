@@ -20,10 +20,6 @@ public:
 
 
 	
-
-	bool GetDeathValue();
-	void SetDeathValue(bool state);
-	
 public:
 	PlayerAction action = STATIC;
 protected:
@@ -39,7 +35,6 @@ private:
 
 	bool double_jump_avaliable = false;
 
-	bool death = false;
 	//HARDCODING
 
 #define JUMP_SPEED 18;

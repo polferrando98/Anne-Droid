@@ -63,6 +63,14 @@ bool Player::Update(float dt)
 	}
 	// Direction
 	double_jump_avaliable = false;
+
+	if (life_state == DEAD) {
+		position.x = App->map->data.player_start_position.x;
+		position.y = App->map->data.player_start_position.y;
+		life_state = ALIVE;
+	}
+
+
 	return true;
 }
 
@@ -169,13 +177,4 @@ void Player::DoJump()
 }
 
 
-bool Player::GetDeathValue()
-{
-	return death;
-}
-
-void Player::SetDeathValue(bool state)
-{
-	death = state;
-}
 

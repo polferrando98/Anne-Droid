@@ -36,7 +36,7 @@ bool Bird::Start()
 
 bool Bird::PreUpdate(float dt)
 {
-	int path_steps = App->pathfinding->CreatePath(current_tile, App->entity_manager->player_entity->current_tile);
+
 
 	return true;
 }
@@ -53,6 +53,7 @@ bool Bird::Update(float dt)
 	//HARDCODE
 	float detection_radius = 300.0f;
 	if (position.DistanceTo(App->entity_manager->player_entity->position) < detection_radius) {
+		int path_steps = App->pathfinding->CreatePath(current_tile, App->entity_manager->player_entity->current_tile);
 		//SPAGHETTI
 		if (App->pathfinding->GetLastPath()->At(1) != nullptr)
 			destination_tile = *App->pathfinding->GetLastPath()->At(1);

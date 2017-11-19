@@ -40,16 +40,16 @@ bool j1Scene::Start()
 	App->map->Load("1.tmx");
 
 	App->map->PlaceTileColliders();
-	//App->map->PlaceColliders();
+	App->map->PlaceColliders();
 
 	//fPoint debugPosition = { 600,3000 };
 
 	fPoint debugBirdPosition = { 700, 1000 };
-	fPoint debugPlayerPosition = { 400,1000 };
+
 
 
 	//App->entity_manager->CreateEntity(debugPosition,ENTITY_WALKER);
-	player_entity = App->entity_manager->CreateEntity(debugPlayerPosition, ENTITY_PLAYER);
+	player_entity = App->entity_manager->CreateEntity(App->map->data.player_start_position, ENTITY_PLAYER);
 
 	bird = App->entity_manager->CreateEntity(debugBirdPosition, ENTITY_BIRD);
 
@@ -88,14 +88,12 @@ bool j1Scene::Update(float dt)
 			App->map->CleanUp();
 			App->map->Load("1.xml");
 		}
-		App->player->position.x = App->map->data.player_start_position.x;
-		App->player->position.y = App->map->data.player_start_position.y;
+		player_entity->position = App->map->data.player_start_position;
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
 	{
-		App->player->position.x = App->map->data.player_start_position.x;
-		App->player->position.y = App->map->data.player_start_position.y;
+		player_entity->position = App->map->data.player_start_position;
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
@@ -121,7 +119,7 @@ bool j1Scene::Update(float dt)
 
 	App->map->Draw();
 
-	/*CheckDoorEntrance();*/
+	//CheckDoorEntrance();
 	
 	// Debug pathfinding ------------------------------
 	int x, y;

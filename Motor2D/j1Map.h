@@ -145,7 +145,7 @@ struct MapData
 	p2List<TileSet*>		tilesets;
 	p2List<Layer*>			layers;
 	p2List<ObjectGroup*>	objectGroups;
-	iPoint					player_start_position;
+	fPoint					player_start_position;
 	bool					is_level_1;
 	
 };

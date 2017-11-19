@@ -33,7 +33,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	scene = new j1Scene();
 	fade = new j1FadeToBlack();
 	map = new j1Map();
-	player = new j1Player();
+	//player = new j1Player();
 	physics = new j1Physics();
 	entity_manager = new j1EntityManager();
 	pathfinding = new j1PathFinding();
@@ -50,7 +50,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(fade);
 	AddModule(entity_manager);
 
-	AddModule(player);
+	//AddModule(player);
 	AddModule(physics);
 	AddModule(pathfinding);
 
