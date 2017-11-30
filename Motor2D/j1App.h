@@ -21,7 +21,8 @@ class j1EntityManager;
 class j1Player;
 class j1Physics;
 class j1PathFinding;
-
+class j1Fonts;
+class j1Gui;
 
 class j1App
 {
@@ -100,6 +101,9 @@ public:
 	j1Physics*			physics;
 	j1EntityManager*	entity_manager;
 	j1PathFinding*		pathfinding;
+	j1Fonts*			font;
+	j1Gui*				gui;
+
 
 	float				dt;
 	int					max_fps;

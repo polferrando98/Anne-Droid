@@ -11,7 +11,8 @@
 #include "j1Player.h"
 #include "j1Pathfinding.h"
 #include "j1EntityManager.h"
-
+#include "j1Gui.h"
+#include "Button.h"
 #include "Walker.h"
 
 j1Scene::j1Scene() : j1Module()
@@ -53,6 +54,16 @@ bool j1Scene::Start()
 	player_entity = App->entity_manager->CreateEntity(App->map->data.player_start_position, ENTITY_PLAYER);
 
 	p_clicked.SetToZero();
+	//App->gui->AddUIElement({ 0,0 }, PICTURE);
+
+	//Button* terms_of_use_but = App->gui->AddUIButton({ 1500,900 }, "Terms of use", "gui/button-atlas.png", { 0,0,127,23 }, { 0,50,127,23 }, { 169,0,127,23 }); //LoginButton
+
+	//terms_of_use_but->listener = App->scene;
+	//terms_of_use_but->MoveInPercentage({ 60,50 });
+
+	//terms_of_use_but->parent = (UIElement*)
+	App->gui->AddUIWindow({ 700,300 }, { 30,538,420,477 });
+
 	sceneLoaded = true;
 	return true;
 }

@@ -10,6 +10,8 @@
 #include "PugiXml\src\pugixml.hpp"
 
 class j1App;
+class UIElement;
+enum Mouse_UI_Event;
 
 class j1Module
 {
@@ -92,6 +94,11 @@ public:
 		}
 	}
 	virtual void onFadeInEnd() {}
+
+
+	virtual void OnButtonClick(UIElement* trigger, Mouse_UI_Event mouse_event) {}
+
+	virtual void OnButtonHover(UIElement* trigger, Mouse_UI_Event mouse_event) {}
 public:
 
 	p2SString	name;

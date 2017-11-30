@@ -81,8 +81,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Bird.cpp" />
+    <ClCompile Include="Button.cpp" />
+    <ClCompile Include="InteractiveUIElement.cpp" />
     <ClCompile Include="j1Entity.cpp" />
     <ClCompile Include="j1EntityManager.cpp" />
+    <ClCompile Include="j1Fonts.cpp" />
+    <ClCompile Include="j1Gui.cpp" />
     <ClCompile Include="j1Main.cpp" />
     <ClCompile Include="j1App.cpp" />
     <ClCompile Include="j1Audio.cpp" />
@@ -91,22 +95,30 @@
     <ClCompile Include="j1PerfTimer.cpp" />
     <ClCompile Include="j1Physics.cpp" />
     <ClCompile Include="j1Scene.cpp" />
+    <ClCompile Include="Label.cpp" />
     <ClCompile Include="p2Log.cpp" />
     <ClCompile Include="j1Render.cpp" />
     <ClCompile Include="j1Textures.cpp" />
     <ClCompile Include="j1Window.cpp" />
+    <ClCompile Include="Picture.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PugiXml\src\pugixml.cpp" />
     <ClCompile Include="j1Player.cpp" />
     <ClCompile Include="j1FadeToBlack.cpp" />
     <ClCompile Include="j1Timer.cpp" />
     <ClCompile Include="j1Pathfinding.cpp" />
+    <ClCompile Include="UIElement.cpp" />
     <ClCompile Include="Walker.cpp" />
+    <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
     <ClInclude Include="Bird.h" />
+    <ClInclude Include="Button.h" />
     <ClInclude Include="Globals.h" />
+    <ClInclude Include="InteractiveUIElement.h" />
+    <ClInclude Include="j1Fonts.h" />
+    <ClInclude Include="j1Gui.h" />
     <ClInclude Include="j1Pathfinding.h" />
     <ClInclude Include="j1PerfTimer.h" />
     <ClInclude Include="j1Timer.h" />
@@ -117,6 +129,7 @@
     <ClInclude Include="j1Player.h" />
     <ClInclude Include="j1Map.h" />
     <ClInclude Include="j1Scene.h" />
+    <ClInclude Include="Label.h" />
     <ClInclude Include="p2DynArray.h" />
     <ClInclude Include="j1Audio.h" />
     <ClInclude Include="j1Input.h" />
@@ -132,10 +145,13 @@
     <ClInclude Include="p2PQueue.h" />
     <ClInclude Include="p2Queue.h" />
     <ClInclude Include="p2SString.h" />
+    <ClInclude Include="Picture.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PugiXml\src\pugiconfig.hpp" />
     <ClInclude Include="PugiXml\src\pugixml.hpp" />
+    <ClInclude Include="UIElement.h" />
     <ClInclude Include="Walker.h" />
+    <ClInclude Include="Window.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Game\maps\1.tmx" />

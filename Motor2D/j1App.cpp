@@ -16,6 +16,8 @@
 #include "j1Physics.h"
 #include "j1FadeToBlack.h"
 #include "j1Pathfinding.h"
+#include "j1Fonts.h"
+#include "j1Gui.h"
 
 #include "Brofiler\Brofiler.h"
 
@@ -37,6 +39,8 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	physics = new j1Physics();
 	entity_manager = new j1EntityManager();
 	pathfinding = new j1PathFinding();
+	font = new j1Fonts();
+	gui = new j1Gui();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -45,15 +49,20 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(tex);
 	AddModule(audio);
 	AddModule(map);
-	
-	AddModule(scene);
-	AddModule(fade);
-	AddModule(entity_manager);
 
+
+
+	
+
+	AddModule(fade);
 	//AddModule(player);
 	AddModule(physics);
 	AddModule(pathfinding);
 
+	AddModule(font);
+	AddModule(gui);
+	AddModule(scene);
+	AddModule(entity_manager);
 
 	// render last to swap buffer
 	AddModule(render);
