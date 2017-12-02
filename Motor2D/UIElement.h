@@ -3,6 +3,7 @@
 #include "p2SString.h"
 #include "PugiXml\src\pugixml.hpp"
 #include "p2Point.h"
+#include "p2List.h"
 #include "SDL\include\SDL_rect.h"
 
 struct SDL_Texture;
@@ -10,6 +11,7 @@ enum UIType { LABEL, PICTURE, BUTTON, WINDOW };
 enum ElementState { ELEMENT_UP, ELEMENT_HOVER, ELEMENT_DOWN };
 
 class j1Module;
+
 
 class UIElement
 {
@@ -67,28 +69,32 @@ public:
 
 	bool PositionChanged();
 
+	void SetParent(UIElement* parent);
+
 public:
 
-	iPoint			position = { 0, 0 };
-	iPoint			draw_positon = { 0,0 };
-	iPoint			old_position = position;
-	fPoint			pivot = { 0.5,0.5 };
+	iPoint				position = { 0, 0 };
+	iPoint				draw_positon = { 0,0 };
+	iPoint				old_position = position;
+	fPoint				pivot = { 0.5,0.5 };
+	int					z = 0;
+		
+	SDL_Texture*		texture = nullptr;
 
-	SDL_Texture*	texture = nullptr;
+	UIType				type;
 
-	UIType			type;
+	SDL_Rect			section = { 0,0,0,0 };
 
-	SDL_Rect		section = { 0,0,0,0 };
+	bool				move_with_camera = true;
+	bool				focus = true;
 
-	bool			move_with_camera = true;
-	bool			focus = true;
+	uint				id =0; 
 
-	uint			id =0;
+	j1Module*			listener = nullptr;
+	UIElement*			parent = nullptr;
+	p2List<UIElement*>	sons;
 
-	j1Module*		listener = nullptr;
-	UIElement*		parent = nullptr;
-
-	ElementState	state = ELEMENT_UP;
+	ElementState		state = ELEMENT_UP;
 };
 
 #endif

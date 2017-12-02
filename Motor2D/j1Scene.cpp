@@ -65,7 +65,7 @@ bool j1Scene::Start()
 	terms_of_use_but->listener = App->scene;
 	terms_of_use_but->MoveInPercentage({ 60,50 });
 
-	terms_of_use_but->parent = (UIElement*)test_win;
+	terms_of_use_but->SetParent((UIElement*)test_win);
 
 
 	sceneLoaded = true;

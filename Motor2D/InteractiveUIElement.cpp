@@ -105,9 +105,12 @@ bool InteractiveUIElement::ManageDrag()
 	}
 
 	if (state == ELEMENT_DOWN) {
-		if (parent)
-			if (parent->state == ELEMENT_DOWN)
-				return true;
+		if (sons.start) {
+			for (p2List_item<UIElement*>* sons_iterator = sons.start; sons_iterator; sons_iterator = sons_iterator->next) {
+				if (sons_iterator->data->state == ELEMENT_DOWN)
+					return true;
+			}
+		}
 
 		iPoint curr_mouse_pos;
 		App->input->GetMousePosition(curr_mouse_pos.x, curr_mouse_pos.y);

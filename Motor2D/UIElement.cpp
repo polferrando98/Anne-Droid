@@ -90,4 +90,10 @@ bool UIElement::PositionChanged()
 	return (old_position != draw_positon) ? true : false;
 }
 
+void UIElement::SetParent(UIElement * parent)
+{
+	this->parent = parent;
+	parent->sons.add(this);
+}
+
 
