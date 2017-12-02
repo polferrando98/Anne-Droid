@@ -40,7 +40,9 @@ bool Button::Update(float dt)
 	CenterLabel();
 
 	element_last_event = element_event;
-	label->Update(dt);
+
+	//Draw label
+	App->render->Blit(label->texture, label->position.x, label->position.y);
 	return ret;
 }
 
