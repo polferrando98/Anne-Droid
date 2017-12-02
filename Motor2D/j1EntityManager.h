@@ -16,6 +16,7 @@ public:
 
 	Entity* CreateEntity(fPoint position,EntityType type);
 	void DeleteOvnis();
+	void DeletePlayer();
 
 public:
 	Entity* player_entity = nullptr;

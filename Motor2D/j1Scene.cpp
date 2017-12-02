@@ -43,8 +43,6 @@ bool j1Scene::Start()
 	App->map->PlaceTileColliders();
 	App->map->ReadPositions();
 
-	//fPoint debugBirdPosition = { 700, 1000 };
-
 	for (p2List_item<fPoint> *ovni_iterator = App->map->data.ovni_position_list.start; ovni_iterator; ovni_iterator = ovni_iterator->next)
 	{
 		ovnis.add(App->entity_manager->CreateEntity(ovni_iterator->data, ENTITY_BIRD));
@@ -53,9 +51,7 @@ bool j1Scene::Start()
 
 	player_entity = App->entity_manager->CreateEntity(App->map->data.player_start_position, ENTITY_PLAYER);
 
-	p_clicked.SetToZero();
-
-	///// ///// ///// ///// /////         UI      ///// ///// ///// ///// ///// ///// 
+	///// ///// ///// ///// /////         UI		  ///// ///// ///// ///// ///// ///// 
 
 	Window* test_win = App->gui->AddUIWindow({ 700,300 }, { 30,538,420,477 });
 
@@ -68,7 +64,6 @@ bool j1Scene::Start()
 	terms_of_use_but->SetParent((UIElement*)test_win);
 
 
-	sceneLoaded = true;
 	return true;
 }
 
@@ -124,29 +119,26 @@ bool j1Scene::CleanUp()
 bool j1Scene::ChangeMap()
 {
 	current_level++;
-	App->map->CleanUp();
-	App->physics->CleanUp();
-	ovnis.clear();
-	App->entity_manager->DeleteOvnis();
-	if (current_level == 1)
-		App->map->Load("1.tmx");
-	else if (current_level == 2)
-		App->map->Load("2.tmx");
-	else {
-		App->map->Load("3.tmx");
-		return true;
-	}
+
+	SetCurrentLevel();
+
+	CleanLevel();
+
+	LoadCurrentLevel();
 
 	App->map->ReadPositions();
+
 	player_entity->collider = App->physics->AddCollider(&player_entity->defaultRect, PLAYER);
+
 	App->map->PlaceTileColliders();
-	App->entity_manager->player_entity->position.x = App->map->data.player_start_position.x;
-	App->entity_manager->player_entity->position.y = App->map->data.player_start_position.y;
+
+	player_entity = App->entity_manager->CreateEntity(App->map->data.player_start_position, ENTITY_PLAYER);
 
 	for (p2List_item<fPoint> *ovni_iterator = App->map->data.ovni_position_list.start; ovni_iterator; ovni_iterator = ovni_iterator->next)
 	{
 		ovnis.add(App->entity_manager->CreateEntity(ovni_iterator->data, ENTITY_BIRD));
 	}
+
 	return true;
 }
 
@@ -265,6 +257,55 @@ void j1Scene::DrawDebugPathfinding()
 		iPoint pos = App->map->MapToWorld(path->At(i)->x, path->At(i)->y);
 		App->render->Blit(debug_tex, pos.x, pos.y);
 	}
+}
+
+void j1Scene::SetCurrentLevel()
+{
+	switch (current_level_enum)
+	{
+	case START_MENU:
+		break;
+	case LEVEL_1:
+		current_level_enum = LEVEL_2;
+		break;
+	case LEVEL_2:
+		break;
+	case END:
+		break;
+	default:
+		break;
+	}
+}
+
+void j1Scene::LoadCurrentLevel()
+{
+	switch (current_level_enum)  //WIP
+	{
+	case START_MENU:
+		break;
+	case LEVEL_1:
+		App->map->Load("1.tmx");
+		break;
+	case LEVEL_2:
+		App->map->Load("2.tmx");
+		break;
+	case END:
+		App->map->Load("3.tmx");
+		break;
+	default:
+		break;
+	}
+}
+
+void j1Scene::CleanLevel()
+{
+	App->map->CleanUp();
+	App->physics->CleanUp();
+
+	ovnis.clear();
+
+	App->entity_manager->DeleteOvnis();
+
 }
 
 bool j1Scene::load(pugi::xml_node &save)

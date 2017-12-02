@@ -107,3 +107,15 @@ void j1EntityManager::DeleteOvnis()
 		}
 	}
 }
+
+void j1EntityManager::DeletePlayer()
+{
+	p2List_item<Entity*>* entities_iterator;
+	for (entities_iterator = entites.start; entities_iterator != NULL; entities_iterator = entities_iterator->next)
+	{
+		if (entities_iterator->data->type == ENTITY_PLAYER) {
+			RELEASE(entities_iterator->data)
+				entites.del(entities_iterator);
+		}
+	}
+}

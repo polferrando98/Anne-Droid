@@ -9,15 +9,17 @@
 	</audio>
 	<map />
 	<scene>
-		<player x="1986.40186" y="1175.75525" />
+		<player x="3875.94946" y="1242" />
 	</scene>
 	<player>
 		<player x="1073.77124" y="3138.5" />
 	</player>
 	<physics />
 	<renderer>
-		<camera x="-1412" y="-725" />
+		<camera x="-3301" y="-792" />
 	</renderer>
 	<EntityManager />
 	<pathfinding />
+	<gui />
+	<fonts />
 </save>

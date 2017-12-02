@@ -111,8 +111,12 @@ void j1Physics::DebugDraw() const
 }
 
 
-void j1Physics::UpdateEntityPhysics(Entity & entity, float dt)
+bool j1Physics::UpdateEntityPhysics(Entity & entity, float dt)
 {
+	if (entity.type == ENTITY_PLAYER)
+		if (entity.life_state != ALIVE)
+			return true;
+
 	Collider newCollider = *(entity.collider);
 	fPoint newPosition;
 	fPoint newVelocity;
@@ -155,6 +159,7 @@ void j1Physics::UpdateEntityPhysics(Entity & entity, float dt)
 		entity.velocity.x += entity.acceleration.x * normalize;
 		entity.position.x += entity.velocity.x *normalize;
 	}
+	return true;
 }
 
 void j1Physics::ApplyMaxVelocity(Entity & entity)

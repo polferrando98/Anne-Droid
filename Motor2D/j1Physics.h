@@ -45,7 +45,7 @@ public:
 
 	void DebugDraw() const;
 
-	void UpdateEntityPhysics(Entity &entity, float dt);
+	bool UpdateEntityPhysics(Entity &entity, float dt);
 	void UpdatePlayerPhysics(fPoint &position, fPoint &velocity, Collider* collider, Direction_x & colliding_x, Direction_y & colliding_y);
 	void  ManageGroundCollisions(fPoint *position, fPoint *velocity, Collider* collider, Direction_x& colliding_x, Direction_y&colliding_y);
 	Direction_x checkGroundXCollisions(Collider new_collider, fPoint pos_differential, Entity & entity) const;

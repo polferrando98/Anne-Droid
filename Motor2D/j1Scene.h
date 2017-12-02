@@ -10,6 +10,7 @@ struct SDL_Texture;
 
 class Entity;
 
+enum Levels {START_MENU, LEVEL_1, LEVEL_2, END};
 
 struct Level {
 	int index;
@@ -45,6 +46,8 @@ public:
 
 	void ResetOvnis();
 
+	void DebugCamera(Direction_x type, Direction_y type2);
+
 	bool load(pugi::xml_node &save);
 	bool save(pugi::xml_node &save) const;
 
@@ -54,14 +57,19 @@ private:
 	void CheckDoorEntrance();
 	void ManageInput();
 	void DrawDebugPathfinding();
+	void SetCurrentLevel();
+	void LoadCurrentLevel();
+	void CleanLevel();
+
 	SDL_Texture* debug_tex;
 
 public:
 	Entity* player_entity = nullptr;
 	p2List<Entity*> ovnis;
-	void DebugCamera(Direction_x type, Direction_y type2);
 	p2PQueue<Level>* levels;
-	bool sceneLoaded = false;
+
+	Levels current_level_enum = LEVEL_1;
+	Levels next_level;
 
 	//HARDCODE
 
@@ -74,11 +82,9 @@ public:
 
 	//HARDCODE
 
-	int current_level = 1;
+	int current_level = 1;  //Should be deleted
 
 	bool loading = false;
-
-	iPoint p_clicked;
 
 	bool camera_change = true;
 };
