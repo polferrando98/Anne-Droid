@@ -1,7 +1,7 @@
 <!-- Config file for the game -->
 
 <config>
-  <app framerate_cap = "30" max_framerate ="60">
+  <app framerate_cap = "60" max_framerate ="60">
     <title>Game Development Testbed</title>
     <organization>UPC</organization>
   </app>

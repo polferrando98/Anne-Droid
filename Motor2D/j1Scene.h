@@ -52,6 +52,8 @@ private:
 
 	void CameraFollowPlayer();
 	void CheckDoorEntrance();
+	void ManageInput();
+	void DrawDebugPathfinding();
 	SDL_Texture* debug_tex;
 
 public:
