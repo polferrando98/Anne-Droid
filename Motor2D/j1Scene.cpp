@@ -57,16 +57,16 @@ bool j1Scene::Start()
 
 	///// ///// ///// ///// /////         UI      ///// ///// ///// ///// ///// ///// 
 
-	//App->gui->AddUIText({ 100,100 }, "HELLO");
+	Window* test_win = App->gui->AddUIWindow({ 700,300 }, { 30,538,420,477 });
 
-	Button* terms_of_use_but = App->gui->AddUIButton({ 100,200 }, "", "gui/button-atlas.png", { 0,0,127,23 }, { 0,50,127,23 }, { 169,0,127,23 }); //LoginButton
+	Button* terms_of_use_but = App->gui->AddUIButton({ -10,200 }, "", "gui/button-atlas.png", { 0,0,127,23 }, { 0,50,127,23 }, { 169,0,127,23 }); //LoginButton
 	
 
-	//terms_of_use_but->listener = App->scene;
-	//terms_of_use_but->MoveInPercentage({ 60,50 });
+	terms_of_use_but->listener = App->scene;
+	terms_of_use_but->MoveInPercentage({ 60,50 });
 
-	//terms_of_use_but->parent = (UIElement*)
-	App->gui->AddUIWindow({ 700,300 }, { 30,538,420,477 });
+	terms_of_use_but->parent = (UIElement*)test_win;
+
 
 	sceneLoaded = true;
 	return true;

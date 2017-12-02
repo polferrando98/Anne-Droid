@@ -2,7 +2,7 @@
 
 #include "UIElement.h"
 
-enum ElementState { ELEMENT_UP, ELEMENT_HOVER, ELEMENT_DOWN };
+
 enum Mouse_UI_Event { MOUSE_ENTER, MOUSE_LEAVE, CLICK_DOWN, CLICK_UP };
 
 enum j1KeyState;
@@ -32,6 +32,6 @@ protected:
 
 	iPoint			begin_drag_point;
 
-	ElementState	state = ELEMENT_UP;
+
 };
 

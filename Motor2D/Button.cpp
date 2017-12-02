@@ -19,11 +19,11 @@ bool Button::Update(float dt)
 {
 	bool ret;
 	ret = CheckPositionRect(type);
-
+	SetPositionRect();
 
 	if (PositionChanged()) {
 		AdjustToPivot();
-		SetPositionRect();
+
 	}
 
 

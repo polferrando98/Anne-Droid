@@ -7,6 +7,7 @@
 
 struct SDL_Texture;
 enum UIType { LABEL, PICTURE, BUTTON, WINDOW };
+enum ElementState { ELEMENT_UP, ELEMENT_HOVER, ELEMENT_DOWN };
 
 class j1Module;
 
@@ -86,6 +87,8 @@ public:
 
 	j1Module*		listener = nullptr;
 	UIElement*		parent = nullptr;
+
+	ElementState	state = ELEMENT_UP;
 };
 
 #endif

@@ -35,6 +35,10 @@ void InteractiveUIElement::ManageEvents()
 {
 	SDL_Point pos;
 	App->input->GetMousePosition(pos.x, pos.y);
+	if (move_with_camera) {
+		pos.x -= App->render->camera.x;
+		pos.y -= App->render->camera.y;
+	}
 
 	switch (state)
 	{
@@ -101,6 +105,10 @@ bool InteractiveUIElement::ManageDrag()
 	}
 
 	if (state == ELEMENT_DOWN) {
+		if (parent)
+			if (parent->state == ELEMENT_DOWN)
+				return true;
+
 		iPoint curr_mouse_pos;
 		App->input->GetMousePosition(curr_mouse_pos.x, curr_mouse_pos.y);
 
