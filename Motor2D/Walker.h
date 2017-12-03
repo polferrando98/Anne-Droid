@@ -7,7 +7,6 @@ public:
 	Walker(fPoint position);
 	~Walker();
 
-	bool Start();
 	bool Update(float dt);
 
 

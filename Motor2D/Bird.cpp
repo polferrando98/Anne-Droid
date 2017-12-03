@@ -27,13 +27,6 @@ Bird::Bird(fPoint position) : Entity(position, ENTITY_BIRD)
 	texture = App->tex->Load("textures/ovni.png");
 }
 
-bool Bird::Start()
-{
-	Entity::Start();
-
-
-	return true;
-}
 
 bool Bird::PreUpdate(float dt)
 {

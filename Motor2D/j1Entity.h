@@ -21,8 +21,7 @@ public:
 
 	Entity(fPoint position, EntityType type);
 
-	// Called before the first frame
-	virtual bool Start();
+
 
 	// Called each loop iteration
 	virtual bool Update(float dt);

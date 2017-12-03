@@ -8,7 +8,6 @@ public:
 	j1EntityManager();
 	~j1EntityManager();
 
-	bool Start();
 	bool CleanUp();
 
 	bool PreUpdate(float dt);

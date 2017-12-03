@@ -13,6 +13,7 @@
 #include "j1EntityManager.h"
 #include "j1Gui.h"
 #include "Button.h"
+#include "Window.h"
 #include "Walker.h"
 
 j1Scene::j1Scene() : j1Module()
@@ -53,7 +54,8 @@ bool j1Scene::Start()
 
 	///// ///// ///// ///// /////         UI		  ///// ///// ///// ///// ///// ///// 
 
-	Window* test_win = App->gui->AddUIWindow({ 700,300 }, { 30,538,420,477 });
+	Window* test_win = App->gui->AddUIWindow({ 0,0 }, { 30,538,420,477 });
+	test_win->MoveInPercentage({ 0,0 });
 
 	Button* terms_of_use_but = App->gui->AddUIButton({ -10,200 }, "", "gui/button-atlas.png", { 0,0,127,23 }, { 0,50,127,23 }, { 169,0,127,23 }); //LoginButton
 	

@@ -10,15 +10,12 @@ Entity::Entity(fPoint position, EntityType type)
 	this->position = position;
 	this->type = type;
 	life_state = ALIVE;
-}
-bool Entity::Start()
-{
 	App->physics->LoadPhysicsValues();
 
 	movement_acceleration.y = 9.8f;
 	movement_acceleration.x = 0.25f;
-	return true;
 }
+
 
 bool Entity::Update(float dt)
 {

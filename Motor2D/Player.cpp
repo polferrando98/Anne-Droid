@@ -19,15 +19,8 @@ Player::Player(fPoint position) : Entity(position, ENTITY_PLAYER)
 	right.LoadSprites("right");
 	left.LoadSprites("left");
 	//death.LoadSprites("death");
-
-}
-
-bool Player::Start()
-{
-
 	current_animation = &idle_right;
 
-	Entity::Start();
 	defaultRect = { 0,0,76,123 };
 
 	defaultRect.x = position.x;
@@ -44,9 +37,8 @@ bool Player::Start()
 
 	max_velocity.x = 10.0f;
 	max_velocity.y = 10.0f;
-
-	return true;
 }
+
 
 bool Player::Update(float dt)
 {

@@ -10,7 +10,7 @@ public:
 	Bird(fPoint position);
 	~Bird();
 
-	bool Start();
+
 	bool PreUpdate(float dt);
 	bool Update(float dt);
 

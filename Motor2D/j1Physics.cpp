@@ -113,9 +113,6 @@ void j1Physics::DebugDraw() const
 
 bool j1Physics::UpdateEntityPhysics(Entity & entity, float dt)
 {
-	if (entity.type == ENTITY_PLAYER)
-		if (entity.life_state != ALIVE)
-			return true;
 
 	Collider newCollider = *(entity.collider);
 	fPoint newPosition;

@@ -35,7 +35,6 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	scene = new j1Scene();
 	fade = new j1FadeToBlack();
 	map = new j1Map();
-	//player = new j1Player();
 	physics = new j1Physics();
 	entity_manager = new j1EntityManager();
 	pathfinding = new j1PathFinding();
@@ -44,28 +43,25 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
+
+
 	AddModule(input);
 	AddModule(win);
 	AddModule(tex);
 	AddModule(audio);
 	AddModule(map);
-
-
-
-	
-
 	AddModule(fade);
-	//AddModule(player);
 	AddModule(physics);
 	AddModule(pathfinding);
 
 
+
 	AddModule(gui);
 	AddModule(font);
+
+
 	AddModule(scene);
 	AddModule(entity_manager);
-
-
 
 	// render last to swap buffer
 	AddModule(render);

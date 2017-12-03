@@ -22,11 +22,6 @@ Walker::Walker(fPoint position) : Entity(position, ENTITY_WALKER)
 	idle_left.speed = animation_speed;
 
 	current_animation = &idle_left;
-}
-
-bool Walker::Start()
-{
-	Entity::Start();
 	SDL_Rect colrect = { 0,0,110,193 };
 	//HARDCODE
 	colrect.x = position.x;
@@ -34,7 +29,6 @@ bool Walker::Start()
 
 	collider = App->physics->AddCollider(&colrect, COL_WALKER);
 	texture = App->tex->Load("textures/player_sprites.png");
-	return true;
 }
 
 bool Walker::Update(float dt)

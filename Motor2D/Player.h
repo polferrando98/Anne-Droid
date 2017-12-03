@@ -8,7 +8,7 @@ public:
 	Player(fPoint position);
 	~Player();
 
-	bool Start();
+
 	bool Update(float dt);
 
 	void Move();
