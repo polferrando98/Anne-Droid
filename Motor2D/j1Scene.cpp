@@ -37,20 +37,7 @@ bool j1Scene::Awake()
 // Called before the first frame
 bool j1Scene::Start()
 {
-	debug_tex = App->tex->Load("maps/tile.png");
-	App->map->data.is_level_1 = true;
-	App->map->Load("1.tmx");
-
-	App->map->PlaceTileColliders();
-	App->map->ReadPositions();
-
-	for (p2List_item<fPoint> *ovni_iterator = App->map->data.ovni_position_list.start; ovni_iterator; ovni_iterator = ovni_iterator->next)
-	{
-		ovnis.add(App->entity_manager->CreateEntity(ovni_iterator->data, ENTITY_BIRD));
-	}
-	
-
-	player_entity = App->entity_manager->CreateEntity(App->map->data.player_start_position, ENTITY_PLAYER);
+	SetUpLevel(START_MENU);
 
 	///// ///// ///// ///// /////         UI		  ///// ///// ///// ///// ///// ///// 
 
@@ -86,8 +73,6 @@ bool j1Scene::Update(float dt)
 
 	App->map->Draw();
 
-	App->physics->CheckDoorEntry(player_entity->position, player_entity->velocity, player_entity->collider);
-
 
 
 	if (App->debug_mode) {
@@ -118,28 +103,12 @@ bool j1Scene::CleanUp()
 	return true;
 }
 
-bool j1Scene::ChangeMap()
+bool j1Scene::ChangeMap(Levels next_level)
 {
-	current_level++;
-
-	SetCurrentLevel();
 
 	CleanLevel();
 
-	LoadCurrentLevel();
-
-	App->map->ReadPositions();
-
-	player_entity->collider = App->physics->AddCollider(&player_entity->defaultRect, PLAYER);
-
-	App->map->PlaceTileColliders();
-
-	player_entity = App->entity_manager->CreateEntity(App->map->data.player_start_position, ENTITY_PLAYER);
-
-	for (p2List_item<fPoint> *ovni_iterator = App->map->data.ovni_position_list.start; ovni_iterator; ovni_iterator = ovni_iterator->next)
-	{
-		ovnis.add(App->entity_manager->CreateEntity(ovni_iterator->data, ENTITY_BIRD));
-	}
+	SetUpLevel(next_level);
 
 	return true;
 }
@@ -194,26 +163,37 @@ void j1Scene::DebugCamera(Direction_x type, Direction_y type2)
 
 void j1Scene::CheckDoorEntrance()
 {
-	LOG("%f, %f", App->entity_manager->player_entity->position.x, App->entity_manager->player_entity->position.y);
-	if (App->entity_manager->player_entity->position.x >= App->map->data.door_position.x && App->entity_manager->player_entity->position.y <= App->map->data.door_position.y)
-	{
-		if (current_level == 1)
-		ChangeMap();
+	if (player_entity) {
+		LOG("%f, %f", App->entity_manager->player_entity->position.x, App->entity_manager->player_entity->position.y);
+		if (App->entity_manager->player_entity->position.x >= App->map->data.door_position.x && App->entity_manager->player_entity->position.y <= App->map->data.door_position.y)
+		{
+			if (current_level_enum == LEVEL_1)
+				ChangeMap(LEVEL_2);
 
+		}
 	}
 }
 
 void j1Scene::ManageInput()
 {
+	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
+	{
+		ChangeMap(LEVEL_1);
+	}
+	if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)
+	{
+		ChangeMap(LEVEL_2);
+	}
+
+
+	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
+	{
+		player_entity->position = App->map->data.player_start_position;
+	}
+
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
 	{
-		if (App->map->data.is_level_1 == false)
-		{
-			App->map->data.is_level_1 == true;
-			App->map->CleanUp();
-			App->map->Load("1.tmx");
-		}
-		player_entity->position = App->map->data.player_start_position;
+		//To do
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
@@ -279,9 +259,9 @@ void j1Scene::SetCurrentLevel()
 	}
 }
 
-void j1Scene::LoadCurrentLevel()
+void j1Scene::LoadCurrentLevel(Levels next_level)
 {
-	switch (current_level_enum)  //WIP
+	switch (next_level)  //WIP
 	{
 	case START_MENU:
 		break;
@@ -302,12 +282,30 @@ void j1Scene::LoadCurrentLevel()
 void j1Scene::CleanLevel()
 {
 	App->map->CleanUp();
+
 	App->physics->CleanUp();
 
 	ovnis.clear();
 
 	App->entity_manager->DeleteOvnis();
+	App->entity_manager->DeletePlayer();
 
+}
+
+void j1Scene::SetUpLevel(Levels next_level)
+{
+	LoadCurrentLevel(next_level);
+
+	App->map->PlaceTileColliders();
+
+	if (App->map->ReadPositions()) {
+		player_entity = App->entity_manager->CreateEntity(App->map->data.player_start_position, ENTITY_PLAYER);
+
+		for (p2List_item<fPoint> *ovni_iterator = App->map->data.ovni_position_list.start; ovni_iterator; ovni_iterator = ovni_iterator->next)
+		{
+			ovnis.add(App->entity_manager->CreateEntity(ovni_iterator->data, ENTITY_BIRD));
+		}
+	}
 }
 
 bool j1Scene::load(pugi::xml_node &save)

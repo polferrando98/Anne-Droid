@@ -14,6 +14,8 @@ Entity::Entity(fPoint position, EntityType type)
 
 	movement_acceleration.y = 9.8f;
 	movement_acceleration.x = 0.25f;
+
+	App->physics->AddCollider(&defaultRect, PLAYER);
 }
 
 

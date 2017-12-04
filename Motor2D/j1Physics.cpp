@@ -299,28 +299,6 @@ void j1Physics::checkDeathCollisions(fPoint * position, fPoint & velocity, Colli
 	}
 }
 
-
-void j1Physics::CheckDoorEntry(fPoint & position, fPoint & velocity, Collider * collider)
-{
-	Collider newCollider = *collider;
-	bool colliding_x = false;
-
-
-	fPoint newPosition;
-
-	newPosition.x = position.x + velocity.x * normalize;
-	newPosition.y = position.y + velocity.y * normalize;
-
-	newCollider.rect.x = newPosition.x;
-
-
-	newCollider.rect.y = newPosition.y;
-
-	if (checkColliders(newCollider, DOOR)) {
-		App->scene->ChangeMap();
-	}
-}
-
 Collider* j1Physics::AddCollider(SDL_Rect *rect, const Collider_Type type)
 {
 	Collider *pCollider = nullptr;

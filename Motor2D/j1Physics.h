@@ -52,7 +52,6 @@ public:
 	Direction_y checkGroundYCollisions(Collider new_collider, fPoint pos_differential, Entity & entity) const;
 	fPoint calculateNewPosition(fPoint position, fPoint velocity, fPoint acceleration, Axis axis) const;
 	void  checkDeathCollisions(fPoint * position, fPoint & velocity, Collider * collider);
-	void CheckDoorEntry(fPoint & position, fPoint & velocity, Collider * collider);
 	void ApplyMaxVelocity(Entity &entity);
 
 	Collider* AddCollider(SDL_Rect *rect, const Collider_Type type);

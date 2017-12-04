@@ -42,7 +42,7 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
-	bool ChangeMap();
+	bool ChangeMap(Levels next_level);
 
 	void ResetOvnis();
 
@@ -58,8 +58,9 @@ private:
 	void ManageInput();
 	void DrawDebugPathfinding();
 	void SetCurrentLevel();
-	void LoadCurrentLevel();
+	void LoadCurrentLevel(Levels next_level);
 	void CleanLevel();
+	void SetUpLevel(Levels next_level);
 
 	SDL_Texture* debug_tex;
 
@@ -81,8 +82,6 @@ public:
 	SDL_Rect col_rect2;
 
 	//HARDCODE
-
-	int current_level = 1;  //Should be deleted
 
 	bool loading = false;
 

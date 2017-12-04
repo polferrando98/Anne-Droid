@@ -66,8 +66,11 @@ void j1Map::Draw()
 	}
 }
 
-void j1Map::ReadPositions()
+bool j1Map::ReadPositions()
 {
+	if (!data.objectGroups.start)
+		return false;
+
 	SDL_Rect col_rect;
 
 	ObjectGroup start = *data.objectGroups.start->data;
@@ -107,6 +110,8 @@ void j1Map::ReadPositions()
 			}
 		}
 	}
+
+	return true;
 }
 
 void j1Map::PlaceTileColliders()
@@ -284,21 +289,24 @@ bool j1Map::CleanUp()
 	data.layers.clear();
 
 	// Clean up Objects
-	p2List_item<Object*>* item_object;
-	p2List_item<ObjectGroup*>* item_objectGroup = data.objectGroups.start;
-	item_object = data.objectGroups.start->data->objects.start;
+	if (data.objectGroups.start) {
+		p2List_item<Object*>* item_object;
+		p2List_item<ObjectGroup*>* item_objectGroup = data.objectGroups.start;
+		item_object = data.objectGroups.start->data->objects.start;
 
-	while (item_object != NULL)
-	{
-		if (item_object->data != NULL)
-			RELEASE(item_object->data);
-		if (item_object->next != NULL)
-			item_object = item_object->next;
-		else
-			break;
+
+		while (item_object != NULL)
+		{
+			if (item_object->data != NULL)
+				RELEASE(item_object->data);
+			if (item_object->next != NULL)
+				item_object = item_object->next;
+			else
+				break;
+		}
+
+		data.objectGroups.clear();
 	}
-
-	data.objectGroups.clear();
 
 	// Clean up the pugui tree
 	map_file.reset();

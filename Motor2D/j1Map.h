@@ -149,7 +149,6 @@ struct MapData
 	fPoint					player_start_position;
 	p2List<fPoint>			ovni_position_list;
 	fPoint					door_position;
-	bool					is_level_1;
 	
 };
 
@@ -168,7 +167,7 @@ public:
 
 	// Called each loop iteration
 	void Draw();
-	void ReadPositions();
+	bool ReadPositions();
 	void PlaceTileColliders();
 
 
