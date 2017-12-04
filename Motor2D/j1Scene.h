@@ -65,34 +65,24 @@ private:
 
 	void SetUpUI(Levels next_level);
 
-	SDL_Texture* debug_tex;
-
 public:
+
 	Entity* player_entity = nullptr;
 	p2List<Entity*> ovnis;
-	p2PQueue<Level>* levels;
 
 	Levels current_level_enum = LEVEL_1;
-	Levels next_level;
+
+	bool camera_change = true;
+
+private:
+
+	SDL_Texture* debug_tex;
 
 	//HARDCODE
-
-	Collider* col1;
-
-	p2List<SDL_Rect>* col_rects;
-
-	SDL_Rect col_rect;
-	SDL_Rect col_rect2;
 
 	SDL_Rect button_up_rect_section = { 0,0,127,23 };
 	SDL_Rect button_hover_rect_section = { 0,50,127,23 };
 	SDL_Rect button_down_rect_section = { 169,0,127,23 };
-
-	//HARDCODE
-
-	bool loading = false;
-
-	bool camera_change = true;
 };
 
 #endif // __j1SCENE_H__

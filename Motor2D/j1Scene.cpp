@@ -303,10 +303,8 @@ void j1Scene::SetUpUI(Levels next_level)
 	{
 	case START_MENU:
 	{
-		///// ///// ///// ///// /////         UI		  ///// ///// ///// ///// ///// ///// 
 		Button* terms_of_use_but = App->gui->AddUIButton({ 50,10 }, "Start", this, button_up_rect_section, button_hover_rect_section, button_down_rect_section); //LoginButton
 	}
-
 	break;
 	case LEVEL_1:
 
