@@ -4,6 +4,7 @@
 #include "j1Textures.h"
 #include "j1Physics.h"
 #include "j1Map.h"
+
 Entity::Entity(fPoint position, EntityType type)
 {
 	start_position = position;

@@ -177,7 +177,7 @@ Picture* j1Gui::AddUIPicture(iPoint position, p2SString texture_name, SDL_Rect s
 	return new_picture;
 }
 
-Button * j1Gui::AddUIButton(iPoint position, p2SString label_text, p2SString texture_name, SDL_Rect up, SDL_Rect hover, SDL_Rect down)
+Button * j1Gui::AddUIButton(iPoint position, p2SString label_text, j1Module* lisener, SDL_Rect up, SDL_Rect hover, SDL_Rect down)
 {
 	UIElement* elem;
 
@@ -190,12 +190,7 @@ Button * j1Gui::AddUIButton(iPoint position, p2SString label_text, p2SString tex
 		new_Button->label->SetText(label_text);
 	}
 
-	if (texture_name != "") {
-		SDL_Texture* newTexture = nullptr;
-		newTexture = App->tex->Load(texture_name.GetString());
-		elem->texture = newTexture;
-	}
-	else
+
 		elem->texture = atlas;
 
 	if (!SDL_RectEmpty(&up)) {
@@ -211,6 +206,8 @@ Button * j1Gui::AddUIButton(iPoint position, p2SString label_text, p2SString tex
 	if (!SDL_RectEmpty(&down)) {
 		new_Button->down = down;
 	}
+
+	new_Button->MoveInPercentage({(float)position.x,(float)position.y});
 
 	elements.add(elem);
 

@@ -60,7 +60,10 @@ private:
 	void SetCurrentLevel();
 	void LoadCurrentLevel(Levels next_level);
 	void CleanLevel();
+
 	void SetUpLevel(Levels next_level);
+
+	void SetUpUI(Levels next_level);
 
 	SDL_Texture* debug_tex;
 
@@ -80,6 +83,10 @@ public:
 
 	SDL_Rect col_rect;
 	SDL_Rect col_rect2;
+
+	SDL_Rect button_up_rect_section = { 0,0,127,23 };
+	SDL_Rect button_hover_rect_section = { 0,50,127,23 };
+	SDL_Rect button_down_rect_section = { 169,0,127,23 };
 
 	//HARDCODE
 

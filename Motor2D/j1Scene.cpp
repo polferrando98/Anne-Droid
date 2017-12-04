@@ -39,20 +39,6 @@ bool j1Scene::Start()
 {
 	SetUpLevel(START_MENU);
 
-	///// ///// ///// ///// /////         UI		  ///// ///// ///// ///// ///// ///// 
-
-	Window* test_win = App->gui->AddUIWindow({ 0,0 }, { 30,538,420,477 });
-	test_win->MoveInPercentage({ 0,0 });
-
-	Button* terms_of_use_but = App->gui->AddUIButton({ -10,200 }, "", "gui/button-atlas.png", { 0,0,127,23 }, { 0,50,127,23 }, { 169,0,127,23 }); //LoginButton
-	
-
-	terms_of_use_but->listener = App->scene;
-	terms_of_use_but->MoveInPercentage({ 60,50 });
-
-	terms_of_use_but->SetParent((UIElement*)test_win);
-
-
 	return true;
 }
 
@@ -120,7 +106,7 @@ void j1Scene::ResetOvnis()
 	{
 		ovni_iterator->data->Respawn();
 	}
-	
+
 }
 
 void j1Scene::CameraFollowPlayer()
@@ -264,6 +250,7 @@ void j1Scene::LoadCurrentLevel(Levels next_level)
 	switch (next_level)  //WIP
 	{
 	case START_MENU:
+		App->map->Load("menu.tmx");
 		break;
 	case LEVEL_1:
 		App->map->Load("1.tmx");
@@ -296,6 +283,8 @@ void j1Scene::SetUpLevel(Levels next_level)
 {
 	LoadCurrentLevel(next_level);
 
+	SetUpUI(next_level);
+
 	App->map->PlaceTileColliders();
 
 	if (App->map->ReadPositions()) {
@@ -308,9 +297,34 @@ void j1Scene::SetUpLevel(Levels next_level)
 	}
 }
 
+void j1Scene::SetUpUI(Levels next_level)
+{
+	switch (next_level)  //WIP
+	{
+	case START_MENU:
+	{
+		///// ///// ///// ///// /////         UI		  ///// ///// ///// ///// ///// ///// 
+		Button* terms_of_use_but = App->gui->AddUIButton({ 50,10 }, "Start", this, button_up_rect_section, button_hover_rect_section, button_down_rect_section); //LoginButton
+	}
+
+	break;
+	case LEVEL_1:
+
+		break;
+	case LEVEL_2:
+
+		break;
+	case END:
+
+		break;
+	default:
+		break;
+	}
+}
+
 bool j1Scene::load(pugi::xml_node &save)
 {
-	
+
 	player_entity->position.x = save.child("player").attribute("x").as_int();
 	player_entity->position.y = save.child("player").attribute("y").as_int();
 
