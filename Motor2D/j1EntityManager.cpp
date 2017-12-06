@@ -18,6 +18,8 @@ j1EntityManager::~j1EntityManager()
 
 bool j1EntityManager::CleanUp()
 {
+	DeleteOvnis();
+	DeletePlayer();
 	return true;
 }
 
@@ -76,30 +78,34 @@ Entity * j1EntityManager::CreateEntity(fPoint position, EntityType type)
 	}
 
 	entites.add(new_entity);
-	
+
 	return new_entity;
 }
 
 void j1EntityManager::DeleteOvnis()
 {
-	p2List_item<Entity*>* entities_iterator;
-	for (entities_iterator = entites.start; entities_iterator != NULL; entities_iterator = entities_iterator->next)
-	{
-		if (entities_iterator->data->type == ENTITY_BIRD) {
-			RELEASE(entities_iterator->data)
-			entites.del(entities_iterator);
+	if (entites.start) {
+		p2List_item<Entity*>* entities_iterator;
+		for (entities_iterator = entites.start; entities_iterator != NULL; entities_iterator = entities_iterator->next)
+		{
+			if (entities_iterator->data->type == ENTITY_BIRD) {
+				RELEASE(entities_iterator->data)
+					entites.del(entities_iterator);
+			}
 		}
 	}
 }
 
 void j1EntityManager::DeletePlayer()
 {
-	p2List_item<Entity*>* entities_iterator;
-	for (entities_iterator = entites.start; entities_iterator != NULL; entities_iterator = entities_iterator->next)
-	{
-		if (entities_iterator->data->type == ENTITY_PLAYER) {
-			RELEASE(entities_iterator->data)
-				entites.del(entities_iterator);
+	if (entites.start) {
+		p2List_item<Entity*>* entities_iterator;
+		for (entities_iterator = entites.start; entities_iterator != NULL; entities_iterator = entities_iterator->next)
+		{
+			if (entities_iterator->data->type == ENTITY_PLAYER) {
+				RELEASE(entities_iterator->data)
+					entites.del(entities_iterator);
+			}
 		}
 	}
 }

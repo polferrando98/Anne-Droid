@@ -15,6 +15,7 @@
 #include "Button.h"
 #include "Window.h"
 #include "Walker.h"
+#include "Brofiler\Brofiler.h"
 
 j1Scene::j1Scene() : j1Module()
 {
@@ -52,6 +53,8 @@ bool j1Scene::PreUpdate(float dt)
 // Called each loop iteration
 bool j1Scene::Update(float dt)
 {
+	BROFILER_CATEGORY("Scene Update", Profiler::Color::Cyan)
+
 	ManageInput();
 
 	if (camera_change == true)
@@ -162,6 +165,7 @@ void j1Scene::CheckDoorEntrance()
 
 void j1Scene::ManageInput()
 {
+	BROFILER_CATEGORY("Scene Manage Input", Profiler::Color::Cyan)
 	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
 	{
 		ChangeMap(LEVEL_1);
@@ -311,7 +315,7 @@ void j1Scene::SetUpUI(Levels next_level)
 	}
 	break;
 	case LEVEL_1:
-
+		App->gui->CleanAllUI();
 		break;
 	case LEVEL_2:
 

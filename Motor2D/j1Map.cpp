@@ -6,6 +6,7 @@
 #include "j1Map.h"
 #include "j1Physics.h"
 #include "j1Player.h"
+#include "Brofiler\Brofiler.h"
 #include <math.h>
 
 
@@ -31,6 +32,7 @@ bool j1Map::Awake(pugi::xml_node& config)
 
 void j1Map::Draw()
 {
+	BROFILER_CATEGORY("Map Draw", Profiler::Color::Cyan)
 	if (map_loaded == false)
 		return;
 
@@ -58,7 +60,12 @@ void j1Map::Draw()
 					real_col += (int)camera_increment;
 				}
 
-				App->render->Blit(data.tilesets.At(0)->data->texture, real_col, real_row, &set->GetTileRect(id));
+				SDL_Point p = { real_row,real_col };
+				SDL_Rect drawRect = {- App->render->camera.x,-App->render->camera.y,2000,2000 };
+
+				if (SDL_PointInRect(&p, &drawRect))
+					App->render->Blit(data.tilesets.At(0)->data->texture, real_col, real_row, &set->GetTileRect(id));
+
 
 				tile_num++;
 			}

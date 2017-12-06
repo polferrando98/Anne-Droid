@@ -42,6 +42,8 @@ public:
 
 	void ManageFocus();
 
+	void CleanAllUI();
+
 	// Gui creation functions
 	UIElement* AddUIElement(iPoint position, UIType type);
 

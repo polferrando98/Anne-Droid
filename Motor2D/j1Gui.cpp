@@ -14,7 +14,7 @@
 j1Gui::j1Gui() : j1Module()
 {
 	name.create("gui");
-	curr_element = nullptr; 
+	curr_element = nullptr;
 }
 
 // Destructor
@@ -43,17 +43,19 @@ bool j1Gui::Start()
 
 // Update all guis
 bool j1Gui::PreUpdate()
-{	
+{
 	bool ret = true;
 
 	if (App->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN)
 	{
 		debug_draw = !debug_draw;
-		
+
 	}
 
 	ManageFocus();
 
+	if (!elements.start)
+		return ret;
 	for (p2List_item<UIElement*>* element_iterator = elements.start; element_iterator != nullptr; element_iterator = element_iterator->next) {
 		ret = element_iterator->data->PreUpdate();
 	}
@@ -65,6 +67,9 @@ bool j1Gui::PreUpdate()
 bool j1Gui::PostUpdate()
 {
 	bool ret = true;
+	if (!elements.start)
+		return ret;
+
 	for (p2List_item<UIElement*>* element_iterator = elements.start; element_iterator != nullptr; element_iterator = element_iterator->next) {
 		ret = element_iterator->data->Update(App->dt);
 
@@ -72,6 +77,7 @@ bool j1Gui::PostUpdate()
 			element_iterator->data->DebugDraw();
 		element_iterator->data->UpdateOldPos();
 	}
+
 	return ret;
 }
 
@@ -107,6 +113,18 @@ void j1Gui::ManageFocus()
 			break;
 		}
 
+	}
+}
+
+void j1Gui::CleanAllUI()
+{
+	if (elements.start) {
+		p2List_item<UIElement*>* element_iterator;
+		for (element_iterator = elements.start; element_iterator != NULL; element_iterator = element_iterator->next)
+		{
+			RELEASE(element_iterator->data)
+		}
+		elements.clear();
 	}
 }
 
@@ -166,7 +184,7 @@ Picture* j1Gui::AddUIPicture(iPoint position, p2SString texture_name, SDL_Rect s
 		newTexture = App->tex->Load(texture_name.GetString());
 		elem->texture = newTexture;
 	}
-	else 
+	else
 		elem->texture = atlas;
 
 	if (!SDL_RectEmpty(&section))
@@ -191,7 +209,7 @@ Button * j1Gui::AddUIButton(iPoint position, p2SString label_text, j1Module* lis
 	}
 
 
-		elem->texture = atlas;
+	elem->texture = atlas;
 
 	if (!SDL_RectEmpty(&up)) {
 		new_Button->up = up;
@@ -207,7 +225,7 @@ Button * j1Gui::AddUIButton(iPoint position, p2SString label_text, j1Module* lis
 		new_Button->down = down;
 	}
 
-	new_Button->MoveInPercentage({(float)position.x,(float)position.y});
+	new_Button->MoveInPercentage({ (float)position.x,(float)position.y });
 
 	elements.add(elem);
 
