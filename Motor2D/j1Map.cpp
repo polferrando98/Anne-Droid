@@ -59,9 +59,14 @@ void j1Map::Draw()
 					float camera_increment = layer2_parallax * (App->render->camera.x);
 					real_col += (int)camera_increment;
 				}
-
-				SDL_Point p = { real_row,real_col };
-				SDL_Rect drawRect = {- App->render->camera.x,-App->render->camera.y,2000,2000 };
+				int margin = 100;
+				SDL_Point p = { real_col,real_row };
+				SDL_Rect drawRect = {
+					-App->render->camera.x - margin,
+					-App->render->camera.y - margin,
+					App->render->camera.w + margin,
+					App->render->camera.h + margin
+				};
 
 				if (SDL_PointInRect(&p, &drawRect))
 					App->render->Blit(data.tilesets.At(0)->data->texture, real_col, real_row, &set->GetTileRect(id));

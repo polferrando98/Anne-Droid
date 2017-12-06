@@ -174,6 +174,10 @@ void j1Scene::ManageInput()
 	{
 		ChangeMap(LEVEL_2);
 	}
+	if (App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
+	{
+		ChangeMap(LEVEL_3);
+	}
 
 
 	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
@@ -262,8 +266,11 @@ void j1Scene::LoadCurrentLevel(Levels next_level)
 	case LEVEL_2:
 		App->map->Load("2.tmx");
 		break;
-	case END:
+	case LEVEL_3:
 		App->map->Load("3.tmx");
+		break;
+	case END:
+		App->map->Load("end.tmx");
 		break;
 	default:
 		break;

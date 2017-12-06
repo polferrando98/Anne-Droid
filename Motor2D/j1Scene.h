@@ -10,7 +10,7 @@ struct SDL_Texture;
 
 class Entity;
 
-enum Levels {START_MENU, LEVEL_1, LEVEL_2, END};
+enum Levels {START_MENU, LEVEL_1, LEVEL_2, LEVEL_3, END};
 
 struct Level {
 	int index;
