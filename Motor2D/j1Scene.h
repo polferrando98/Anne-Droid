@@ -10,7 +10,7 @@ struct SDL_Texture;
 
 class Entity;
 
-enum Levels {START_MENU, LEVEL_1, LEVEL_2, LEVEL_3, END};
+enum Levels {LEVEL_NONE, START_MENU, LEVEL_1, LEVEL_2, LEVEL_3, SETTINGS, END};
 
 struct Level {
 	int index;
@@ -51,6 +51,8 @@ public:
 	bool load(pugi::xml_node &save);
 	bool save(pugi::xml_node &save) const;
 
+	void OnButtonClick(UIElement* trigger, Mouse_UI_Event mouse_event) override;
+
 private:
 
 	void CameraFollowPlayer();
@@ -70,7 +72,8 @@ public:
 	Entity* player_entity = nullptr;
 	p2List<Entity*> ovnis;
 
-	Levels current_level_enum = LEVEL_1;
+	Levels current_level_enum = LEVEL_NONE;
+	Levels level_to_load_on_postUpdate = LEVEL_NONE;
 
 	bool camera_change = true;
 

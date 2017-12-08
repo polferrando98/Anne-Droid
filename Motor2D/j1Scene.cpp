@@ -55,7 +55,7 @@ bool j1Scene::Update(float dt)
 {
 	BROFILER_CATEGORY("Scene Update", Profiler::Color::Cyan)
 
-	ManageInput();
+		ManageInput();
 
 	if (camera_change == true)
 		CameraFollowPlayer();
@@ -80,6 +80,12 @@ bool j1Scene::PostUpdate()
 		ret = false;
 
 	CheckDoorEntrance();
+
+	if (level_to_load_on_postUpdate != LEVEL_NONE)
+	{
+		ChangeMap(level_to_load_on_postUpdate);
+		level_to_load_on_postUpdate = LEVEL_NONE;
+	}
 
 	return ret;
 }
@@ -166,10 +172,10 @@ void j1Scene::CheckDoorEntrance()
 void j1Scene::ManageInput()
 {
 	BROFILER_CATEGORY("Scene Manage Input", Profiler::Color::Cyan)
-	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
-	{
-		ChangeMap(LEVEL_1);
-	}
+		if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
+		{
+			ChangeMap(LEVEL_1);
+		}
 	if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)
 	{
 		ChangeMap(LEVEL_2);
@@ -269,6 +275,9 @@ void j1Scene::LoadCurrentLevel(Levels next_level)
 	case LEVEL_3:
 		App->map->Load("3.tmx");
 		break;
+	case SETTINGS:
+		App->map->Load("menu.tmx");
+		break;
 	case END:
 		App->map->Load("end.tmx");
 		break;
@@ -310,11 +319,12 @@ void j1Scene::SetUpLevel(Levels next_level)
 
 void j1Scene::SetUpUI(Levels next_level)
 {
+	App->gui->CleanAllUI();
 	switch (next_level)  //WIP
 	{
 	case START_MENU:
 	{
-		App->gui->AddUIButton({ 50,10 }, "Play", this, button_up_rect_section, button_hover_rect_section, button_down_rect_section); 
+		App->gui->AddUIButton({ 50,10 }, "Play", this, button_up_rect_section, button_hover_rect_section, button_down_rect_section);
 		App->gui->AddUIButton({ 50,20 }, "Continue", this, button_up_rect_section, button_hover_rect_section, button_down_rect_section);
 		App->gui->AddUIButton({ 50,30 }, "Settings", this, button_up_rect_section, button_hover_rect_section, button_down_rect_section);
 		App->gui->AddUIButton({ 50,40 }, "Credits", this, button_up_rect_section, button_hover_rect_section, button_down_rect_section);
@@ -322,10 +332,12 @@ void j1Scene::SetUpUI(Levels next_level)
 	}
 	break;
 	case LEVEL_1:
-		App->gui->CleanAllUI();
 		break;
 	case LEVEL_2:
 
+		break;
+	case SETTINGS:
+		App->gui->AddUIText({ 50,20 }, "Settings");
 		break;
 	case END:
 
@@ -365,4 +377,13 @@ bool j1Scene::save(pugi::xml_node &save) const
 	}
 
 	return true;
+}
+
+void j1Scene::OnButtonClick(UIElement * trigger, Mouse_UI_Event mouse_event)
+{
+	if (trigger->name.GetString() == "Play")
+		level_to_load_on_postUpdate = LEVEL_1;
+
+	if (strcmp(trigger->name.GetString(), "settings"))
+		level_to_load_on_postUpdate = SETTINGS;
 }

@@ -72,7 +72,7 @@ public:
 	void SetParent(UIElement* parent);
 
 public:
-
+	p2SString			name = "No name";
 	iPoint				position = { 0, 0 };
 	iPoint				draw_positon = { 0,0 };
 	iPoint				old_position = position;

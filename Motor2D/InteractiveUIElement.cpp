@@ -46,15 +46,12 @@ void InteractiveUIElement::ManageEvents()
 		if (SDL_PointInRect(&pos, &position_rect))
 		{
 			element_event = MOUSE_ENTER;
-
-			LOG("MOUSE HAS ENTERED");
 		}
 		break;
 	case ELEMENT_HOVER:
 		if (!SDL_PointInRect(&pos, &position_rect))
 		{
 			element_event = MOUSE_LEAVE;
-			LOG("MOUSE HAS LEFT");
 		}
 		else if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN) {
 			element_event = CLICK_DOWN;

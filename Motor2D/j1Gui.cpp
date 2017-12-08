@@ -165,6 +165,8 @@ Label* j1Gui::AddUIText(iPoint position, p2SString text, _TTF_Font* font)
 		new_label->SetFont(font);
 	}
 
+	elem->MoveInPercentage({ (float)position.x,(float)position.y });
+
 	elements.add(elem);
 
 	return new_label;
@@ -206,8 +208,13 @@ Button * j1Gui::AddUIButton(iPoint position, p2SString label_text, j1Module* lis
 
 	if (label_text != "") {
 		new_Button->label->SetText(label_text);
+		elem->name = label_text;
 	}
 
+
+
+	if (lisener)
+		elem->listener = lisener;
 
 	elem->texture = atlas;
 
