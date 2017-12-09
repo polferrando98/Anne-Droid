@@ -80,6 +80,7 @@ public:
 private:
 
 	SDL_Texture* debug_tex;
+	bool post_update_ret = true;
 
 	//HARDCODE
 

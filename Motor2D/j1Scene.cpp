@@ -74,10 +74,8 @@ bool j1Scene::Update(float dt)
 // Called each loop iteration
 bool j1Scene::PostUpdate()
 {
-	bool ret = true;
-
 	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
-		ret = false;
+		post_update_ret = false;
 
 	CheckDoorEntrance();
 
@@ -87,7 +85,7 @@ bool j1Scene::PostUpdate()
 		level_to_load_on_postUpdate = LEVEL_NONE;
 	}
 
-	return ret;
+	return post_update_ret;
 }
 
 // Called before quitting
@@ -386,4 +384,7 @@ void j1Scene::OnButtonClick(UIElement * trigger, Mouse_UI_Event mouse_event)
 
 	if (trigger->name == "Settings")
 		level_to_load_on_postUpdate = SETTINGS;
+
+	if (trigger->name == "Exit")
+		post_update_ret = false;
 }
