@@ -67,6 +67,8 @@ private:
 
 	void SetUpUI(Levels next_level);
 
+	void SetUpLivesIcons();
+
 public:
 
 	Entity* player_entity = nullptr;
@@ -89,6 +91,8 @@ private:
 	SDL_Rect button_hover_rect_section = { 0,100,button_width,button_height };
 	SDL_Rect button_down_rect_section = { 0,200,button_width,button_height };
 	SDL_Rect button_disabled_rect_section = { 0,300,button_width,button_height };
+
+	int player_lives = 3;
 };
 
 #endif // __j1SCENE_H__

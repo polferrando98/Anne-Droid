@@ -49,7 +49,7 @@ public:
 
 	Label* AddUIText(iPoint position, p2SString text, _TTF_Font* font = NULL);
 
-	Picture* AddUIPicture(iPoint position, p2SString texture_name = "", SDL_Rect section = { 0,0,0,0 });
+	Picture* AddUIPicture(iPoint position, SDL_Rect section = { 0,0,0,0 });
 
 	Button* AddUIButton(iPoint position, p2SString label_text = "", j1Module* lisener = nullptr, SDL_Rect up = { 0,0,0,0 }, SDL_Rect hover = { 0,0,0,0 }, SDL_Rect down = { 0,0,0,0 }, SDL_Rect disabled = { 0,0,0,0 });
 

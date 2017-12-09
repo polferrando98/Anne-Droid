@@ -10,6 +10,7 @@
 #include "Label.h"
 #include "Button.h"
 #include "Window.h"
+#include "Brofiler\Brofiler.h"
 
 j1Gui::j1Gui() : j1Module()
 {
@@ -61,6 +62,7 @@ bool j1Gui::PreUpdate()
 // Called after all Updates
 bool j1Gui::PostUpdate()
 {
+	BROFILER_CATEGORY("Gui Post Update", Profiler::Color::Red);
 	bool ret = true;
 	if (!elements.start)
 		return ret;
@@ -167,7 +169,7 @@ Label* j1Gui::AddUIText(iPoint position, p2SString text, _TTF_Font* font)
 	return new_label;
 }
 
-Picture* j1Gui::AddUIPicture(iPoint position, p2SString texture_name, SDL_Rect section)
+Picture* j1Gui::AddUIPicture(iPoint position,  SDL_Rect section)
 {
 	UIElement* elem;
 
@@ -176,12 +178,7 @@ Picture* j1Gui::AddUIPicture(iPoint position, p2SString texture_name, SDL_Rect s
 
 	elem->id = elements.count();
 
-	if (texture_name != "") {
-		SDL_Texture* newTexture = nullptr;
-		newTexture = App->tex->Load(texture_name.GetString());
-		elem->texture = newTexture;
-	}
-	else
+
 		elem->texture = atlas;
 
 	if (!SDL_RectEmpty(&section))

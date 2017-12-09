@@ -53,7 +53,7 @@ bool j1Scene::PreUpdate(float dt)
 // Called each loop iteration
 bool j1Scene::Update(float dt)
 {
-	BROFILER_CATEGORY("Scene Update", Profiler::Color::Cyan)
+	BROFILER_CATEGORY("Scene Update", Profiler::Color::DodgerBlue)
 
 		ManageInput();
 
@@ -61,8 +61,6 @@ bool j1Scene::Update(float dt)
 		CameraFollowPlayer();
 
 	App->map->Draw();
-
-
 
 	if (App->debug_mode) {
 		DrawDebugPathfinding();
@@ -74,6 +72,8 @@ bool j1Scene::Update(float dt)
 // Called each loop iteration
 bool j1Scene::PostUpdate()
 {
+	BROFILER_CATEGORY("Scene Post Update", Profiler::Color::Cyan)
+
 	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		post_update_ret = false;
 
@@ -169,7 +169,7 @@ void j1Scene::CheckDoorEntrance()
 
 void j1Scene::ManageInput()
 {
-	BROFILER_CATEGORY("Scene Manage Input", Profiler::Color::Cyan);
+	BROFILER_CATEGORY("Scene Manage Input", Profiler::Color::DodgerBlue);
 
 
 	//Shortcuts to navigation
@@ -334,21 +334,28 @@ void j1Scene::SetUpLevel(Levels next_level)
 void j1Scene::SetUpUI(Levels next_level)
 {
 	App->gui->CleanAllUI();
+
+	if (current_level == LEVEL_1 || current_level == LEVEL_2 || current_level == LEVEL_3)
+		SetUpLivesIcons();
+
 	switch (next_level)  //WIP
 	{
 	case START_MENU:
 	{
 		App->gui->AddUIButton({ 50,10 }, "Play", this, button_up_rect_section, button_hover_rect_section, button_down_rect_section, button_disabled_rect_section);
 		Button* continue_button = App->gui->AddUIButton({ 50,20 }, "Continue", this, button_up_rect_section, button_hover_rect_section, button_down_rect_section, button_disabled_rect_section);
-		if (!App->save_file_exists)
-			continue_button->Disable();
 		App->gui->AddUIButton({ 50,30 }, "Settings", this, button_up_rect_section, button_hover_rect_section, button_down_rect_section, button_disabled_rect_section);
 		App->gui->AddUIButton({ 50,40 }, "Credits", this, button_up_rect_section, button_hover_rect_section, button_down_rect_section, button_disabled_rect_section);
 		App->gui->AddUIButton({ 50,50 }, "Exit", this, button_up_rect_section, button_hover_rect_section, button_down_rect_section, button_disabled_rect_section);
+
+		if (!App->save_file_exists)
+			continue_button->Disable();
 	}
 	break;
 	case LEVEL_1:
+	{
 		break;
+	}
 	case LEVEL_2:
 
 		break;
@@ -363,6 +370,14 @@ void j1Scene::SetUpUI(Levels next_level)
 		break;
 	default:
 		break;
+	}
+}
+
+void j1Scene::SetUpLivesIcons()
+{
+	int lives_icon_margin = 100;
+	for (int i = 0; i < player_lives; i++) {
+		App->gui->AddUIPicture({ 100 + lives_icon_margin * i,50 }, { 250,0,100,100 });
 	}
 }
 
