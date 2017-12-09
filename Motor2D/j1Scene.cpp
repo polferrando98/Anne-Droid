@@ -335,7 +335,7 @@ void j1Scene::SetUpUI(Levels next_level)
 {
 	App->gui->CleanAllUI();
 
-	if (current_level == LEVEL_1 || current_level == LEVEL_2 || current_level == LEVEL_3)
+	if (next_level == LEVEL_1 || next_level == LEVEL_2 || next_level == LEVEL_3)
 		SetUpLivesIcons();
 
 	switch (next_level)  //WIP
