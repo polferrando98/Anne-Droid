@@ -381,9 +381,9 @@ bool j1Scene::save(pugi::xml_node &save) const
 
 void j1Scene::OnButtonClick(UIElement * trigger, Mouse_UI_Event mouse_event)
 {
-	if (trigger->name.GetString() == "Play")
+	if (trigger->name == "Play")
 		level_to_load_on_postUpdate = LEVEL_1;
 
-	if (strcmp(trigger->name.GetString(), "settings"))
+	if (trigger->name == "Settings")
 		level_to_load_on_postUpdate = SETTINGS;
 }
