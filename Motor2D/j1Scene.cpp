@@ -338,11 +338,13 @@ void j1Scene::SetUpUI(Levels next_level)
 	{
 	case START_MENU:
 	{
-		App->gui->AddUIButton({ 50,10 }, "Play", this, button_up_rect_section, button_hover_rect_section, button_down_rect_section);
-		App->gui->AddUIButton({ 50,20 }, "Continue", this, button_up_rect_section, button_hover_rect_section, button_down_rect_section);
-		App->gui->AddUIButton({ 50,30 }, "Settings", this, button_up_rect_section, button_hover_rect_section, button_down_rect_section);
-		App->gui->AddUIButton({ 50,40 }, "Credits", this, button_up_rect_section, button_hover_rect_section, button_down_rect_section);
-		App->gui->AddUIButton({ 50,50 }, "Exit", this, button_up_rect_section, button_hover_rect_section, button_down_rect_section);
+		App->gui->AddUIButton({ 50,10 }, "Play", this, button_up_rect_section, button_hover_rect_section, button_down_rect_section, button_disabled_rect_section);
+		Button* continue_button = App->gui->AddUIButton({ 50,20 }, "Continue", this, button_up_rect_section, button_hover_rect_section, button_down_rect_section, button_disabled_rect_section);
+		if (!App->save_file_exists)
+			continue_button->Disable();
+		App->gui->AddUIButton({ 50,30 }, "Settings", this, button_up_rect_section, button_hover_rect_section, button_down_rect_section, button_disabled_rect_section);
+		App->gui->AddUIButton({ 50,40 }, "Credits", this, button_up_rect_section, button_hover_rect_section, button_down_rect_section, button_disabled_rect_section);
+		App->gui->AddUIButton({ 50,50 }, "Exit", this, button_up_rect_section, button_hover_rect_section, button_down_rect_section, button_disabled_rect_section);
 	}
 	break;
 	case LEVEL_1:
@@ -378,31 +380,33 @@ bool j1Scene::load(pugi::xml_node &save)
 
 bool j1Scene::save(pugi::xml_node &save) const
 {
-	if (save.child("player") == NULL) {
-		save.append_child("player");
-		save.child("player").append_attribute("x") = player_entity->position.x;
-		save.child("player").append_attribute("y") = player_entity->position.y;
-		save.child("player").append_attribute("level") = (int)current_level;
-	}
-	else {
-		if (save.child("player").attribute("x") == NULL) {
+	if (player_entity) {
+		if (save.child("player") == NULL) {
+			save.append_child("player");
 			save.child("player").append_attribute("x") = player_entity->position.x;
-		}
-		else {
-			save.child("player").attribute("x").set_value(player_entity->position.x);
-		}
-
-		if (save.child("player").attribute("y") == NULL) {
 			save.child("player").append_attribute("y") = player_entity->position.y;
-		}
-		else {
-			save.child("player").attribute("y").set_value(player_entity->position.y);
-		}
-		if (save.child("player").attribute("level") == NULL) {
 			save.child("player").append_attribute("level") = (int)current_level;
 		}
 		else {
-			save.child("player").attribute("level").set_value((int)current_level);
+			if (save.child("player").attribute("x") == NULL) {
+				save.child("player").append_attribute("x") = player_entity->position.x;
+			}
+			else {
+				save.child("player").attribute("x").set_value(player_entity->position.x);
+			}
+
+			if (save.child("player").attribute("y") == NULL) {
+				save.child("player").append_attribute("y") = player_entity->position.y;
+			}
+			else {
+				save.child("player").attribute("y").set_value(player_entity->position.y);
+			}
+			if (save.child("player").attribute("level") == NULL) {
+				save.child("player").append_attribute("level") = (int)current_level;
+			}
+			else {
+				save.child("player").attribute("level").set_value((int)current_level);
+			}
 		}
 	}
 
@@ -413,6 +417,9 @@ void j1Scene::OnButtonClick(UIElement * trigger, Mouse_UI_Event mouse_event)
 {
 	if (trigger->name == "Play")
 		level_to_load_on_postUpdate = LEVEL_1;
+
+	if (trigger->name == "Continue")
+		App->load();
 
 	if (trigger->name == "Settings")
 		level_to_load_on_postUpdate = SETTINGS;

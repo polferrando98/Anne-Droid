@@ -83,10 +83,12 @@ private:
 	bool post_update_ret = true;
 
 	//HARDCODE
-
-	SDL_Rect button_up_rect_section = { 0,0,127,23 };
-	SDL_Rect button_hover_rect_section = { 0,50,127,23 };
-	SDL_Rect button_down_rect_section = { 169,0,127,23 };
+	int button_width = 214;
+	int button_height = 64;
+	SDL_Rect button_up_rect_section = { 0,0,button_width,button_height };
+	SDL_Rect button_hover_rect_section = { 0,100,button_width,button_height };
+	SDL_Rect button_down_rect_section = { 0,200,button_width,button_height };
+	SDL_Rect button_disabled_rect_section = { 0,300,button_width,button_height };
 };
 
 #endif // __j1SCENE_H__

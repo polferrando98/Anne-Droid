@@ -192,7 +192,7 @@ Picture* j1Gui::AddUIPicture(iPoint position, p2SString texture_name, SDL_Rect s
 	return new_picture;
 }
 
-Button * j1Gui::AddUIButton(iPoint position, p2SString label_text, j1Module* lisener, SDL_Rect up, SDL_Rect hover, SDL_Rect down)
+Button * j1Gui::AddUIButton(iPoint position, p2SString label_text, j1Module* lisener, SDL_Rect up, SDL_Rect hover, SDL_Rect down, SDL_Rect disabled)
 {
 	UIElement* elem;
 
@@ -225,6 +225,10 @@ Button * j1Gui::AddUIButton(iPoint position, p2SString label_text, j1Module* lis
 
 	if (!SDL_RectEmpty(&down)) {
 		new_Button->down = down;
+	}
+
+	if (!SDL_RectEmpty(&disabled)) {
+		new_Button->disabled = disabled;
 	}
 
 	new_Button->MoveInPercentage({ (float)position.x,(float)position.y });

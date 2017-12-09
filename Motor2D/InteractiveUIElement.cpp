@@ -68,6 +68,31 @@ void InteractiveUIElement::ManageEvents()
 	}
 }
 
+void InteractiveUIElement::ManageSection()
+{
+	switch (state)
+	{
+	case ELEMENT_UP:
+		section = up;
+		break;
+	case ELEMENT_HOVER:
+		if (!SDL_RectEmpty(&hover))
+			section = hover;
+		if (listener)
+			listener->OnButtonHover(this, element_event);
+		break;
+	case ELEMENT_DOWN:
+		if (!SDL_RectEmpty(&down))
+			section = down;
+		break;
+	case ELEMENT_DISABLED:
+		if (!SDL_RectEmpty(&disabled))
+			section = disabled;
+		break;
+	default:
+		break;
+	}
+}
 void InteractiveUIElement::ManagePositionChanges()
 {
 	if (PositionChanged()) {
@@ -151,4 +176,10 @@ void InteractiveUIElement::Draw()
 	else {
 		App->render->Blit(texture, draw_positon.x, draw_positon.y, &section);
 	}
+}
+
+void InteractiveUIElement::Disable()
+{
+	state = ELEMENT_DISABLED;
+	ManageSection();
 }

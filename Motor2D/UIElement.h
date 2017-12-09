@@ -8,7 +8,7 @@
 
 struct SDL_Texture;
 enum UIType { LABEL, PICTURE, BUTTON, WINDOW };
-enum ElementState { ELEMENT_UP, ELEMENT_HOVER, ELEMENT_DOWN };
+enum ElementState { ELEMENT_UP, ELEMENT_HOVER, ELEMENT_DOWN, ELEMENT_DISABLED };
 
 class j1Module;
 

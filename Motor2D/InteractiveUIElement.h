@@ -20,8 +20,15 @@ public:
 	void saveMousePos(iPoint& mousePos);
 	bool ManageDrag();
 	void ManageState();
+	void ManageSection();
 	void Draw();
+	void Disable();
 	
+public:
+	SDL_Rect	up = { 0,0,0,0 };
+	SDL_Rect	hover = { 0,0,0,0 };
+	SDL_Rect	down = { 0,0,0,0 };
+	SDL_Rect	disabled = { 0,0,0,0 };
 
 protected:
 	Mouse_UI_Event	element_event = MOUSE_LEAVE;

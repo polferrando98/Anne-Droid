@@ -12,7 +12,7 @@ public:
 	Button(iPoint position);
 	bool Update(float dt);
 	void CenterLabel();
-	void ManageSection();
+
 	void ManageState();
 
 	~Button();
@@ -20,9 +20,7 @@ public:
 public:
 	Label*		label = nullptr;
 	iPoint		label_offset = { 0,0 };
-	SDL_Rect	up = { 0,0,0,0 };
-	SDL_Rect	hover = { 0,0,0,0 };
-	SDL_Rect	down = { 0,0,0,0 };
+
 
 	iPoint begin_drag_point;
 };

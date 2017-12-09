@@ -114,6 +114,7 @@ public:
 
 	bool				debug_mode = false;
 	bool				god_mode = false;
+	bool				save_file_exists = false;
 private:
 
 	p2List<j1Module*>	modules;

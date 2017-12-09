@@ -52,27 +52,7 @@ void Button::CenterLabel()
 	label->position.y = draw_positon.y + (section.h / 2) - (label->size.y / 2);
 }
 
-void Button::ManageSection()
-{
-	switch (state)
-	{
-	case ELEMENT_UP:
-		section = up;
-		break;
-	case ELEMENT_HOVER:
-		if (!SDL_RectEmpty(&hover))
-			section = hover;
-		if (listener)
-			listener->OnButtonHover(this, element_event);
-		break;
-	case ELEMENT_DOWN:
-		if (!SDL_RectEmpty(&down))
-			section = down;
-		break;
-	default:
-		break;
-	}
-}
+
 
 void Button::ManageState()
 {

@@ -117,10 +117,9 @@ bool j1App::Awake()
 		max_fps = app_config.attribute("max_framerate").as_uint(60);
 	}
 
-	if (ret)
-	{
-		ret = LoadSaveFile();
-	}
+
+	ret = LoadSaveFile();
+	
 
 
 
@@ -157,6 +156,8 @@ bool j1App::Start()
 	startup_time.Start();
 
 	PERF_PEEK(ptimer);
+
+
 
 	return ret;
 }
@@ -396,8 +397,9 @@ bool j1App::LoadSaveFile()
 	{
 		pugi::xml_node save_node = save_game_file.append_child("save");
 		save_node.append_child("app");
-
 	}
+	else
+		save_file_exists = true;
 	save_node = save_game_file.child("save");
 
 	return ret;
@@ -427,7 +429,7 @@ bool j1App::real_save()
 		item = item->next;
 	}
 
-
+	save_file_exists = true;
 	save_game_file.save_file("save_file.xml");
 	return false;
 }
