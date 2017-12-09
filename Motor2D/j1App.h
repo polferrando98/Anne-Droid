@@ -1,12 +1,14 @@
 #ifndef __j1APP_H__
 #define __j1APP_H__
 
+#include "p2Point.h"
 #include "p2List.h"
 #include "p2PQueue.h"
 #include "j1Module.h"
 #include "PugiXml\src\pugixml.hpp"
 #include "j1PerfTimer.h"
 #include "j1Timer.h"
+
 
 // Modules
 class j1Window;

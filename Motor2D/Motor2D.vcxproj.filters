@@ -236,5 +236,8 @@
     <Xml Include="..\Game\config.xml">
       <Filter>Data</Filter>
     </Xml>
+    <Xml Include="..\Game\save_file.xml">
+      <Filter>Data</Filter>
+    </Xml>
   </ItemGroup>
 </Project>

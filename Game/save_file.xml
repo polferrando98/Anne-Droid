@@ -8,18 +8,16 @@
 		<volume value="0" />
 	</audio>
 	<map />
-	<scene>
-		<player x="3875.94946" y="1242" />
-	</scene>
-	<player>
-		<player x="1073.77124" y="3138.5" />
-	</player>
+	<player />
 	<physics />
-	<renderer>
-		<camera x="-3301" y="-792" />
-	</renderer>
-	<EntityManager />
 	<pathfinding />
 	<gui />
 	<fonts />
+	<scene>
+		<player x="2445.26855" y="917" level="2" />
+	</scene>
+	<EntityManager />
+	<renderer>
+		<camera x="-1971" y="-517" />
+	</renderer>
 </save>

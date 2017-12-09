@@ -1,4 +1,4 @@
-#include "p2Defs.h"
+﻿#include "p2Defs.h"
 #include "p2Log.h"
 #include "j1App.h"
 #include "j1Input.h"
@@ -160,7 +160,7 @@ void j1Scene::CheckDoorEntrance()
 		LOG("%f, %f", App->entity_manager->player_entity->position.x, App->entity_manager->player_entity->position.y);
 		if (App->entity_manager->player_entity->position.x >= App->map->data.door_position.x && App->entity_manager->player_entity->position.y <= App->map->data.door_position.y)
 		{
-			if (current_level_enum == LEVEL_1)
+			if (current_level == LEVEL_1)
 				ChangeMap(LEVEL_2);
 
 		}
@@ -171,6 +171,8 @@ void j1Scene::ManageInput()
 {
 	BROFILER_CATEGORY("Scene Manage Input", Profiler::Color::Cyan);
 
+
+	//Shortcuts to navigation
 	if (App->input->GetKey(SDL_SCANCODE_0) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN)
 		ChangeMap(START_MENU);
 
@@ -187,37 +189,43 @@ void j1Scene::ManageInput()
 		ChangeMap(LEVEL_3);
 
 
-	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
-	{
-		player_entity->position = App->map->data.player_start_position;
-	}
+	//Required
 
+	/// ​Start from the very first level
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
-	{
-		//To do
-	}
+		ChangeMap(LEVEL_1);
 
+	/// ​Start from the beginning of the current level
 	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
-	{
 		player_entity->position = App->map->data.player_start_position;
-	}
 
+	/// Save the current state
 	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
-		App->load();
-
-	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
 		App->save();
 
+	/// Load the current state
+	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
+		App->load();
+
+	/// ​Start from the very first level
+	if (App->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN)
+		App->gui->debug_draw = !App->gui->debug_draw;
+
+	/// ​Start from the very first level
 	if ((App->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN))
 		App->debug_mode = !App->debug_mode;
 
+	/// ​Start from the very first level
 	if ((App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN))
 		App->god_mode = !App->god_mode;
 
+	/// ​Start from the very first level
 	if (App->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN)
 		App->fps_capped = !App->fps_capped;
 
 
+
+	//Debug camera
 	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 		DebugCamera(RIGHT, NONE_Y);
 
@@ -244,12 +252,12 @@ void j1Scene::DrawDebugPathfinding()
 
 void j1Scene::SetCurrentLevel()
 {
-	switch (current_level_enum)
+	switch (current_level)
 	{
 	case START_MENU:
 		break;
 	case LEVEL_1:
-		current_level_enum = LEVEL_2;
+		current_level = LEVEL_2;
 		break;
 	case LEVEL_2:
 		break;
@@ -319,6 +327,8 @@ void j1Scene::SetUpLevel(Levels next_level)
 			ovnis.add(App->entity_manager->CreateEntity(ovni_iterator->data, ENTITY_BIRD));
 		}
 	}
+
+	current_level = next_level;
 }
 
 void j1Scene::SetUpUI(Levels next_level)
@@ -356,9 +366,12 @@ void j1Scene::SetUpUI(Levels next_level)
 
 bool j1Scene::load(pugi::xml_node &save)
 {
-
-	player_entity->position.x = save.child("player").attribute("x").as_int();
-	player_entity->position.y = save.child("player").attribute("y").as_int();
+	if (save != NULL) {
+		if (save.child("player").attribute("level").as_int() != current_level)
+			ChangeMap((Levels)(save.child("player").attribute("level").as_int()));
+		player_entity->position.x = save.child("player").attribute("x").as_int();
+		player_entity->position.y = save.child("player").attribute("y").as_int();
+	}
 
 	return true;
 }
@@ -367,20 +380,30 @@ bool j1Scene::save(pugi::xml_node &save) const
 {
 	if (save.child("player") == NULL) {
 		save.append_child("player");
-	}
-
-	if (save.child("player").attribute("x") == NULL) {
 		save.child("player").append_attribute("x") = player_entity->position.x;
-	}
-	else {
-		save.child("player").attribute("x").set_value(player_entity->position.x);
-	}
-
-	if (save.child("player").attribute("y") == NULL) {
 		save.child("player").append_attribute("y") = player_entity->position.y;
+		save.child("player").append_attribute("level") = (int)current_level;
 	}
 	else {
-		save.child("player").attribute("y").set_value(player_entity->position.y);
+		if (save.child("player").attribute("x") == NULL) {
+			save.child("player").append_attribute("x") = player_entity->position.x;
+		}
+		else {
+			save.child("player").attribute("x").set_value(player_entity->position.x);
+		}
+
+		if (save.child("player").attribute("y") == NULL) {
+			save.child("player").append_attribute("y") = player_entity->position.y;
+		}
+		else {
+			save.child("player").attribute("y").set_value(player_entity->position.y);
+		}
+		if (save.child("player").attribute("level") == NULL) {
+			save.child("player").append_attribute("level") = (int)current_level;
+		}
+		else {
+			save.child("player").attribute("level").set_value((int)current_level);
+		}
 	}
 
 	return true;

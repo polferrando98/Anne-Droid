@@ -72,7 +72,7 @@ public:
 	Entity* player_entity = nullptr;
 	p2List<Entity*> ovnis;
 
-	Levels current_level_enum = LEVEL_NONE;
+	Levels current_level = LEVEL_NONE;
 	Levels level_to_load_on_postUpdate = LEVEL_NONE;
 
 	bool camera_change = true;
