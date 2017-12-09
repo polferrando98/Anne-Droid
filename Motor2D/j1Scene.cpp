@@ -169,19 +169,22 @@ void j1Scene::CheckDoorEntrance()
 
 void j1Scene::ManageInput()
 {
-	BROFILER_CATEGORY("Scene Manage Input", Profiler::Color::Cyan)
-		if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
-		{
-			ChangeMap(LEVEL_1);
-		}
+	BROFILER_CATEGORY("Scene Manage Input", Profiler::Color::Cyan);
+
+	if (App->input->GetKey(SDL_SCANCODE_0) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN)
+		ChangeMap(START_MENU);
+
+	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
+		ChangeMap(LEVEL_1);
+
+	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
+		ChangeMap(LEVEL_1);
+
 	if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)
-	{
 		ChangeMap(LEVEL_2);
-	}
+
 	if (App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
-	{
 		ChangeMap(LEVEL_3);
-	}
 
 
 	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
@@ -276,6 +279,9 @@ void j1Scene::LoadCurrentLevel(Levels next_level)
 	case SETTINGS:
 		App->map->Load("menu.tmx");
 		break;
+	case CREDITS:
+		App->map->Load("menu.tmx");
+		break;
 	case END:
 		App->map->Load("end.tmx");
 		break;
@@ -337,6 +343,9 @@ void j1Scene::SetUpUI(Levels next_level)
 	case SETTINGS:
 		App->gui->AddUIText({ 50,20 }, "Settings");
 		break;
+	case CREDITS:
+		App->gui->AddUIText({ 50,20 }, "By Nina Lopez and Pol Ferrando");
+		break;
 	case END:
 
 		break;
@@ -384,6 +393,9 @@ void j1Scene::OnButtonClick(UIElement * trigger, Mouse_UI_Event mouse_event)
 
 	if (trigger->name == "Settings")
 		level_to_load_on_postUpdate = SETTINGS;
+
+	if (trigger->name == "Credits")
+		level_to_load_on_postUpdate = CREDITS;
 
 	if (trigger->name == "Exit")
 		post_update_ret = false;

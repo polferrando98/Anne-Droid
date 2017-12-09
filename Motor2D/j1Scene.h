@@ -10,7 +10,7 @@ struct SDL_Texture;
 
 class Entity;
 
-enum Levels {LEVEL_NONE, START_MENU, LEVEL_1, LEVEL_2, LEVEL_3, SETTINGS, END};
+enum Levels { LEVEL_NONE, START_MENU, LEVEL_1, LEVEL_2, LEVEL_3, SETTINGS, CREDITS, END };
 
 struct Level {
 	int index;
@@ -42,7 +42,7 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
-	bool ChangeMap(Levels next_level);
+	bool ChangeMap(Levels next_level); //
 
 	void ResetOvnis();
 
