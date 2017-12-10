@@ -125,6 +125,21 @@ void j1Gui::CleanAllUI()
 	}
 }
 
+void j1Gui::DeleteElement(UIElement * element)
+{
+	if (elements.start) {
+		p2List_item<UIElement*>* element_iterator;
+		for (element_iterator = elements.start; element_iterator != NULL; element_iterator = element_iterator->next)
+		{
+			if (element = element_iterator->data) {
+				RELEASE(element_iterator->data);
+				elements.del(element_iterator);
+			}
+		}
+		elements.clear();
+	}
+}
+
 UIElement* j1Gui::AddUIElement(iPoint position, UIType type)
 {
 	UIElement* elem;

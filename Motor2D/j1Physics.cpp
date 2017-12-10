@@ -168,59 +168,12 @@ void j1Physics::ApplyMaxVelocity(Entity & entity)
 			entity.velocity.x = -maxVelocity.x / normalize;
 	}
 }
-//The idea was that it could be used for any moving object, but in the case of this game it is just the player
-//void j1Physics::UpdatePlayerPhysics(fPoint &position, fPoint &velocity, Collider* collider, Direction_x &colliding_x, Direction_y & colliding_y) 
-//{
-//	ManageGroundCollisions(&position, &velocity, collider, colliding_x, colliding_y);
-//	checkDeathCollisions(&position, velocity, collider);
-//	CheckDoorEntry(position, velocity, collider);
-//}
-//
-//void j1Physics::ManageGroundCollisions(fPoint *position, fPoint *velocity, Collider* collider, Direction_x& colliding_x, Direction_y& colliding_y)
-//{
-//	Collider newCollider = *collider;
-//	fPoint newPosition;
-//	fPoint pos_differential;
-//
-//	//The idea is to go one axis at a time
-//
-//	//X_AXIS
-//	newPosition = calculateNewPosition(*position, *velocity, X_axis);
-//
-//	newCollider.rect.x = newPosition.x;
-//	pos_differential.x = newPosition.x - position->x;
-//
-//	colliding_x = checkGroundXCollisions(newCollider, pos_differential);
-//
-//	if (colliding_x == RIGHT || colliding_x == LEFT) {
-//		velocity->x = 0;
-//	}
-//	else {
-//		position->x += velocity->x;
-//	}
-//
-//	newCollider.rect.x = position->x; //if this is commented player gets stuck to walls
-//
-//	//Y_AXIS
-//	newPosition = calculateNewPosition(*position, *velocity, Y_axis);
-//
-// 	newCollider.rect.y = newPosition.y;
-//	pos_differential.y = newPosition.y - position->y;
-//
-//	colliding_y = checkGroundYCollisions(newCollider, pos_differential);
-//
-//	if (colliding_y == UP || colliding_y == DOWN) {
-//		velocity->y = 0;
-//		//friction = collided->friction;
-//	}
-//	else {
-//		position->y += velocity->y;
-//	}
-//}
+
 
 Direction_x j1Physics::checkGroundXCollisions(Collider new_collider, fPoint pos_differential, Entity & entity) const
 {
 	Direction_x colliding_x = NONE_X;
+
 	if (checkColliders(new_collider, WALL)) {
 		if (pos_differential.x > 0)
 			colliding_x = RIGHT;
@@ -274,29 +227,6 @@ fPoint j1Physics::calculateNewPosition(fPoint position, fPoint velocity, fPoint 
 	}
 
 	return newPosition;
-}
-
-void j1Physics::checkDeathCollisions(fPoint * position, fPoint & velocity, Collider * collider)
-{
-	Collider newCollider = *collider;
-	bool colliding_x = false;
-
-	
-	fPoint newPosition;
-
-
-	newCollider.rect.x = newPosition.x;
-	newPosition.x = position->x + velocity.x * normalize;
-	newPosition.y = position->y + velocity.y * normalize;
-
-	
-	newCollider.rect.y = newPosition.y;
-
-
-	if (checkColliders(newCollider, DEATH)) {
-		position->x = App->map->data.player_start_position.x;
-		position->y = App->map->data.player_start_position.y;
-	}
 }
 
 Collider* j1Physics::AddCollider(SDL_Rect *rect, const Collider_Type type)

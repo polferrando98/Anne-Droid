@@ -194,9 +194,19 @@ void Player::Respawn()
 {
 	acceleration.SetToZero();
 	velocity.SetToZero();
+
 	position.x = App->map->data.player_start_position.x;
 	position.y = App->map->data.player_start_position.y;
+
 	life_state = ALIVE;
+
+	if (App->scene->player_lives > 1) 
+		App->scene->player_lives--;
+	else {
+		App->scene->player_lives = 3;
+		App->scene->level_to_load_on_postUpdate = LEVEL_1;
+	}
+	App->scene->SetUpLivesIcons();
 }
 
 

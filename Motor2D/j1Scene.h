@@ -9,6 +9,7 @@
 struct SDL_Texture;
 
 class Entity;
+class Picture;
 
 enum Levels { LEVEL_NONE, START_MENU, LEVEL_1, LEVEL_2, LEVEL_3, SETTINGS, CREDITS, END };
 
@@ -53,6 +54,8 @@ public:
 
 	void OnButtonClick(UIElement* trigger, Mouse_UI_Event mouse_event) override;
 
+	void SetUpLivesIcons();
+
 private:
 
 	void CameraFollowPlayer();
@@ -67,7 +70,7 @@ private:
 
 	void SetUpUI(Levels next_level);
 
-	void SetUpLivesIcons();
+
 
 public:
 
@@ -78,6 +81,8 @@ public:
 	Levels level_to_load_on_postUpdate = LEVEL_NONE;
 
 	bool camera_change = true;
+
+	int player_lives = 3;
 
 private:
 
@@ -92,7 +97,8 @@ private:
 	SDL_Rect button_down_rect_section = { 0,200,button_width,button_height };
 	SDL_Rect button_disabled_rect_section = { 0,300,button_width,button_height };
 
-	int player_lives = 3;
+	p2List<Picture*> lives_icons;
+
 };
 
 #endif // __j1SCENE_H__

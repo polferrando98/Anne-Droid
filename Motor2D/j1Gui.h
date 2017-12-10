@@ -44,6 +44,8 @@ public:
 
 	void CleanAllUI();
 
+	void DeleteElement(UIElement* element);
+
 	// Gui creation functions
 	UIElement* AddUIElement(iPoint position, UIType type);
 

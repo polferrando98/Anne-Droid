@@ -13,6 +13,7 @@
 #include "j1EntityManager.h"
 #include "j1Gui.h"
 #include "Button.h"
+#include "Picture.h"
 #include "Window.h"
 #include "Walker.h"
 #include "Brofiler\Brofiler.h"
@@ -179,9 +180,6 @@ void j1Scene::ManageInput()
 	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
 		ChangeMap(LEVEL_1);
 
-	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
-		ChangeMap(LEVEL_1);
-
 	if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)
 		ChangeMap(LEVEL_2);
 
@@ -189,7 +187,7 @@ void j1Scene::ManageInput()
 		ChangeMap(LEVEL_3);
 
 
-	//Required
+	//Debug funcitonality
 
 	/// ​Start from the very first level
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
@@ -375,9 +373,15 @@ void j1Scene::SetUpUI(Levels next_level)
 
 void j1Scene::SetUpLivesIcons()
 {
+	if (lives_icons.start) {
+		for (p2List_item<Picture*>* lives_icons_iterator = lives_icons.start; lives_icons_iterator; lives_icons_iterator = lives_icons_iterator->next) {
+			App->gui->DeleteElement((UIElement*)lives_icons_iterator->data);
+			lives_icons.del(lives_icons_iterator);
+		}
+	}
 	int lives_icon_margin = 100;
 	for (int i = 0; i < player_lives; i++) {
-		App->gui->AddUIPicture({ 100 + lives_icon_margin * i,50 }, { 250,0,100,100 });
+		lives_icons.add(App->gui->AddUIPicture({ 100 + lives_icon_margin * i,50 }, { 250,0,100,100 }));
 	}
 }
 
