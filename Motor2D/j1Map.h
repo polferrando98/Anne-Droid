@@ -14,7 +14,8 @@ enum ObjectTypes {
 	OBJECT_TYPE_DOOR,
 	OBJECT_TYPE_PLAYER,
 	OBJECT_TYPE_ICE,
-	OBJECT_TYPE_OVNI
+	OBJECT_TYPE_OVNI,
+	OBJECT_TYPE_GEAR
 };
 
 struct Object {
@@ -148,6 +149,7 @@ struct MapData
 	p2List<ObjectGroup*>	objectGroups;
 	fPoint					player_start_position;
 	p2List<fPoint>			ovni_position_list;
+	p2List<iPoint>			gear_position_list;
 	fPoint					door_position;
 	
 };
@@ -167,6 +169,7 @@ public:
 
 	// Called each loop iteration
 	void Draw();
+
 	bool ReadPositions();
 	void PlaceTileColliders();
 

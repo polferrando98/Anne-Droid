@@ -324,6 +324,14 @@ void j1Scene::SetUpLevel(Levels next_level)
 		{
 			ovnis.add(App->entity_manager->CreateEntity(ovni_iterator->data, ENTITY_BIRD));
 		}
+
+		for (p2List_item<iPoint> *gear_iterator = App->map->data.gear_position_list.start; gear_iterator; gear_iterator = gear_iterator->next)
+		{
+			Picture* new_gear;
+			new_gear = App->gui->AddUIPicture(gear_iterator->data, { 350,0,100,100 });
+			new_gear->move_with_camera = false;
+			gears.add(new_gear);
+		}
 	}
 
 	current_level = next_level;

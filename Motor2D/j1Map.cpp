@@ -117,6 +117,9 @@ bool j1Map::ReadPositions()
 			case OBJECT_TYPE_OVNI:
 				data.ovni_position_list.add({ (float)col_rect.x, (float)col_rect.y });
 				break;
+			case OBJECT_TYPE_GEAR:
+				data.gear_position_list.add({ (int)col_rect.x, (int)col_rect.y });
+				break;
 			default:
 				break;
 			}
@@ -639,6 +642,10 @@ bool j1Map::LoadObject(pugi::xml_node &object_node, Object *object)
 	else if (object_type == "ovni")
 	{
 		object->type = OBJECT_TYPE_OVNI;
+	}
+	else if (object_type == "gear")
+	{
+		object->type = OBJECT_TYPE_GEAR;
 	}
 	else
 	{

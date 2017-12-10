@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="175" height="36" tilewidth="65" tileheight="65" nextobjectid="32">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="175" height="36" tilewidth="65" tileheight="65" nextobjectid="37">
  <tileset firstgid="1" name="tiles" tilewidth="65" tileheight="65" tilecount="231" columns="21">
   <image source="tiles.png" width="1420" height="768"/>
   <terraintypes>
@@ -12701,5 +12701,8 @@
   <object id="29" name="ovni" type="ovni" x="7427" y="1704" width="66" height="56"/>
   <object id="30" name="ovni" type="ovni" x="6983" y="820" width="66" height="56"/>
   <object id="31" name="ovni" type="ovni" x="6739" y="788" width="66" height="56"/>
+ </objectgroup>
+ <objectgroup name="gear">
+  <object id="32" name="gear" type="gear" x="1896.97" y="1160.61" width="81.8182" height="78.7879"/>
  </objectgroup>
 </map>

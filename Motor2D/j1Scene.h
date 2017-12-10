@@ -76,6 +76,7 @@ public:
 
 	Entity* player_entity = nullptr;
 	p2List<Entity*> ovnis;
+	
 
 	Levels current_level = LEVEL_NONE;
 	Levels level_to_load_on_postUpdate = LEVEL_NONE;
@@ -98,6 +99,7 @@ private:
 	SDL_Rect button_disabled_rect_section = { 0,300,button_width,button_height };
 
 	p2List<Picture*> lives_icons;
+	p2List<Picture*> gears;
 
 };
 
