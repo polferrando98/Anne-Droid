@@ -18,6 +18,8 @@
 #include "Walker.h"
 #include "j1Physics.h"
 #include "Brofiler\Brofiler.h"
+#include "j1Timer.h"
+
 
 j1Scene::j1Scene() : j1Module()
 {
@@ -55,9 +57,16 @@ bool j1Scene::PreUpdate(float dt)
 // Called each loop iteration
 bool j1Scene::Update(float dt)
 {
-	BROFILER_CATEGORY("Scene Update", Profiler::Color::DodgerBlue)
+	BROFILER_CATEGORY("Scene Update", Profiler::Color::DodgerBlue);
 
-		ManageInput();
+	ManageInput();
+
+	if (timer_label)
+	{
+		sprintf_s(timerbuffer, "%f", timer.ReadSec());
+		timer_label->SetText(timerbuffer);
+		LOG(timerbuffer);
+	}
 
 	if (camera_change == true)
 		CameraFollowPlayer();
@@ -76,8 +85,8 @@ bool j1Scene::PostUpdate()
 {
 	BROFILER_CATEGORY("Scene Post Update", Profiler::Color::Cyan)
 
-	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
-		post_update_ret = false;
+		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+			post_update_ret = false;
 
 	CheckDoorEntrance();
 
@@ -160,7 +169,7 @@ void j1Scene::DebugCamera(Direction_x type, Direction_y type2)
 void j1Scene::CheckDoorEntrance()
 {
 	if (player_entity) {
-		LOG("%f, %f", App->entity_manager->player_entity->position.x, App->entity_manager->player_entity->position.y);
+		//LOG("%f, %f", App->entity_manager->player_entity->position.x, App->entity_manager->player_entity->position.y);
 		if (App->entity_manager->player_entity->position.x >= App->map->data.door_position.x && App->entity_manager->player_entity->position.y <= App->map->data.door_position.y)
 		{
 			if (current_level == LEVEL_1)
@@ -313,6 +322,8 @@ void j1Scene::CleanLevel()
 
 void j1Scene::SetUpLevel(Levels next_level)
 {
+	PERF_START(timer);
+
 	LoadCurrentLevel(next_level);
 
 	SetUpUI(next_level);
@@ -442,6 +453,7 @@ void j1Scene::DeleteGearList()
 
 void j1Scene::SetUpLivesIconsAndGears()
 {
+	//Lives
 	if (lives_icons.start) {
 		for (p2List_item<Picture*>* lives_icons_iterator = lives_icons.start; lives_icons_iterator; lives_icons_iterator = lives_icons_iterator->next) {
 			App->gui->DeleteElement((UIElement*)lives_icons_iterator->data);
@@ -455,6 +467,8 @@ void j1Scene::SetUpLivesIconsAndGears()
 		lives_icons.add(App->gui->AddUIPicture({ 100 + lives_icon_margin * i, 50 }, { 250,0,100,100 }));
 	}
 
+
+	//Gears icon
 	if (!gears_incon)
 		gears_incon = App->gui->AddUIPicture({ 100, 150 }, gears_icon_section);
 	else {
@@ -463,6 +477,7 @@ void j1Scene::SetUpLivesIconsAndGears()
 		gears_incon = App->gui->AddUIPicture({ 100, 150 }, gears_icon_section);
 	}
 
+	//Geras number
 	char buffer[50];
 	char buffer_2[9999];
 	sprintf_s(buffer, "%d", gears_collected);
@@ -478,16 +493,28 @@ void j1Scene::SetUpLivesIconsAndGears()
 		gears_number->position = { 200,175 }; //SPAGHUETTI
 	}
 
+
+	//Timer
+
+	if (!timerbuffer) 
+		timer_label = App->gui->AddUIText({ 150, 100 }, timerbuffer);
+	else {
+		App->gui->DeleteElement(timer_label);
+		timer_label = App->gui->AddUIText({ 150, 100 }, timerbuffer);
+	}
+	timer_label->MoveInPercentage({ 80,10 }); //SPAGHUETTI
+
+	//Score
 	if (!score_number) {
 		score_number = App->gui->AddUIText({ 1350, 25 }, buffer_2);
-		score_number->position = { 1250,75 }; //SPAGHUETTI
+
 	}
 	else {
 		App->gui->DeleteElement(score_number);
 		score_number = App->gui->AddUIText({ 1350, 25 }, buffer_2);
-		score_number->position = { 1250,75 }; //SPAGHUETTI
 	}
-	LOG("PENE");
+	score_number->MoveInPercentage({80,20}); //SPAGHUETTI
+
 }
 
 bool j1Scene::load(pugi::xml_node &save)

@@ -4,6 +4,7 @@
 #include "j1Module.h"
 #include "j1Map.h"
 #include "p2PQueue.h"
+#include "j1Timer.h"
 
 class Collider;
 
@@ -15,6 +16,7 @@ struct SDL_Texture;
 class Entity;
 class Picture;
 class Label;
+class j1Timer;
 
 enum Levels { LEVEL_NONE, START_MENU, LEVEL_1, LEVEL_2, LEVEL_3, SETTINGS, CREDITS, END };
 
@@ -103,6 +105,10 @@ public:
 
 	int gears_collected = 0;
 
+	char timerbuffer[50];
+
+	j1Timer timer;
+
 private:
 
 	SDL_Texture* debug_tex;
@@ -121,7 +127,11 @@ private:
 
 	Picture* gears_incon = nullptr;
 	Label* gears_number = nullptr;
+
+	Label* timer_label = nullptr;
+
 	Label* score_number = nullptr;
+
 
 	SDL_Rect gears_icon_section = { 350,100,100,100 };
 
