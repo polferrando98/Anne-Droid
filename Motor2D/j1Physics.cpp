@@ -189,6 +189,10 @@ Direction_x j1Physics::checkGroundXCollisions(Collider new_collider, fPoint pos_
 	if (Collider* colb = checkColliders(new_collider, COL_GEAR)) {
 		ManageGearCollisions(colb);
 	}
+
+	if (checkColliders(new_collider, DOOR)) {
+		App->scene->GoToNextLevel();
+	}
 	return colliding_x;
 }
 
@@ -207,6 +211,10 @@ Direction_y j1Physics::checkGroundYCollisions(Collider new_collider, fPoint pos_
 
 	if (Collider* colb = checkColliders(new_collider, COL_GEAR)) {
 		ManageGearCollisions(colb);
+	}
+
+	if (checkColliders(new_collider, DOOR)) {
+		App->scene->GoToNextLevel();
 	}
 
 	return colliding_y;

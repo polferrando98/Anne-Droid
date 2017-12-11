@@ -432,6 +432,34 @@ void j1Scene::DeleteGearPictureFromCollider(Collider * col)
 	}
 }
 
+void j1Scene::GoToNextLevel()
+{
+	switch (current_level)
+	{
+	case LEVEL_NONE:
+		break;
+	case START_MENU:
+		break;
+	case LEVEL_1:
+		ChangeMap(LEVEL_2);
+		break;
+	case LEVEL_2:
+		ChangeMap(LEVEL_3);
+		break;
+	case LEVEL_3:
+		ChangeMap(END);
+		break;
+	case SETTINGS:
+		break;
+	case CREDITS:
+		break;
+	case END:
+		break;
+	default:
+		break;
+	}
+}
+
 
 void j1Scene::AddGearColliders()
 {
