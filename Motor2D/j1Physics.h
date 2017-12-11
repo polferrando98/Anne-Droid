@@ -9,7 +9,7 @@
 #include "j1Module.h"
 
 
-enum Collider_Type {PLAYER, WALL, DEATH, DOOR, ICE, COL_WALKER};
+enum Collider_Type {PLAYER, WALL, DEATH, DOOR, ICE, COL_WALKER, COL_GEAR};
 enum Direction_x { NONE_X, LEFT, RIGHT};
 enum Direction_y { NONE_Y, UP, DOWN };
 enum Axis {BOTH_AXIS, X_axis, Y_axis};
@@ -24,7 +24,7 @@ struct Collider{
 };
 
 class Entity;
-// ----------------------------------------------------
+
 class j1Physics : public j1Module
 {
 public:

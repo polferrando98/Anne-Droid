@@ -62,6 +62,8 @@ private:
 	void CheckDoorEntrance();
 	void ManageInput();
 	void DrawDebugPathfinding();
+
+
 	void SetCurrentLevel();
 	void LoadCurrentLevel(Levels next_level);
 	void CleanLevel();
@@ -69,6 +71,9 @@ private:
 	void SetUpLevel(Levels next_level);
 
 	void SetUpUI(Levels next_level);
+
+	void AddGearColliders();
+
 
 
 

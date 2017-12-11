@@ -332,6 +332,8 @@ void j1Scene::SetUpLevel(Levels next_level)
 			new_gear->move_with_camera = false;
 			gears.add(new_gear);
 		}
+
+		AddGearColliders();
 	}
 
 	current_level = next_level;
@@ -376,6 +378,19 @@ void j1Scene::SetUpUI(Levels next_level)
 		break;
 	default:
 		break;
+	}
+}
+
+void j1Scene::AddGearColliders()
+{
+	for (p2List_item<Picture*>* gears_iterator = gears.start; gears_iterator; gears_iterator = gears_iterator->next) {
+		SDL_Rect gear_rect{
+			gears_iterator->data->position.x,
+			gears_iterator->data->position.y,
+			100,
+			100
+		};
+		App->physics->AddCollider(&gear_rect, COL_GEAR);
 	}
 }
 
