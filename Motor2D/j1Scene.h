@@ -56,6 +56,8 @@ public:
 
 	void SetUpLivesIcons();
 
+	void AddGears();
+
 private:
 
 	void CameraFollowPlayer();
@@ -71,6 +73,7 @@ private:
 	void SetUpLevel(Levels next_level);
 
 	void SetUpUI(Levels next_level);
+
 
 	void AddGearColliders();
 

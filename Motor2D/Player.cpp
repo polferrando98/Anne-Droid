@@ -52,10 +52,13 @@ bool Player::Update(float dt)
 	
 	App->physics->ApplyMaxVelocity(*this);
 	Move();
+
 	ManageAnimation();
+
 	if (y_axis_collision == DOWN) {
 		grounded = true;
 	}
+
 	// Direction
 	double_jump_avaliable = false;
 
@@ -64,7 +67,6 @@ bool Player::Update(float dt)
 		if (life_state == DEAD) 
 		{
 			Respawn();
-			App->scene->ResetOvnis();
 		}
 	}
 
@@ -192,6 +194,7 @@ void Player::ApplyMaxVelocity()
 
 void Player::Respawn()
 {
+
 	acceleration.SetToZero();
 	velocity.SetToZero();
 
@@ -206,6 +209,8 @@ void Player::Respawn()
 		App->scene->player_lives = 3;
 		App->scene->level_to_load_on_postUpdate = LEVEL_1;
 	}
+
+	App->scene->ResetOvnis();
 	App->scene->SetUpLivesIcons();
 }
 

@@ -8,7 +8,6 @@
 #include "j1Window.h"
 #include "j1Map.h"
 #include "j1Scene.h"
-#include "j1Player.h"
 #include "j1Pathfinding.h"
 #include "j1EntityManager.h"
 #include "j1Gui.h"
@@ -92,6 +91,7 @@ bool j1Scene::PostUpdate()
 // Called before quitting
 bool j1Scene::CleanUp()
 {
+	CleanLevel();
 	LOG("Freeing scene");
 
 	return true;
@@ -325,15 +325,7 @@ void j1Scene::SetUpLevel(Levels next_level)
 			ovnis.add(App->entity_manager->CreateEntity(ovni_iterator->data, ENTITY_BIRD));
 		}
 
-		for (p2List_item<iPoint> *gear_iterator = App->map->data.gear_position_list.start; gear_iterator; gear_iterator = gear_iterator->next)
-		{
-			Picture* new_gear;
-			new_gear = App->gui->AddUIPicture(gear_iterator->data, { 350,0,100,100 });
-			new_gear->move_with_camera = false;
-			gears.add(new_gear);
-		}
-
-		AddGearColliders();
+		AddGears();
 	}
 
 	current_level = next_level;
@@ -381,6 +373,24 @@ void j1Scene::SetUpUI(Levels next_level)
 	}
 }
 
+void j1Scene::AddGears()
+{
+	if (!gears.start) {
+		for (p2List_item<iPoint> *gear_iterator = App->map->data.gear_position_list.start; gear_iterator; gear_iterator = gear_iterator->next)
+		{
+			Picture* new_gear;
+			new_gear = App->gui->AddUIPicture(gear_iterator->data, { 350,0,100,100 });
+			new_gear->move_with_camera = false;
+			gears.add(new_gear);
+		}
+	}
+	else {
+		LOG("DAMN");
+	}
+
+	AddGearColliders();
+}
+
 void j1Scene::AddGearColliders()
 {
 	for (p2List_item<Picture*>* gears_iterator = gears.start; gears_iterator; gears_iterator = gears_iterator->next) {
@@ -402,7 +412,9 @@ void j1Scene::SetUpLivesIcons()
 			lives_icons.del(lives_icons_iterator);
 		}
 	}
+
 	int lives_icon_margin = 100;
+
 	for (int i = 0; i < player_lives; i++) {
 		lives_icons.add(App->gui->AddUIPicture({ 100 + lives_icon_margin * i,50 }, { 250,0,100,100 }));
 	}

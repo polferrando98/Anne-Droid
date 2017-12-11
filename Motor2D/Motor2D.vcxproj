@@ -103,7 +103,6 @@
     <ClCompile Include="Picture.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PugiXml\src\pugixml.cpp" />
-    <ClCompile Include="j1Player.cpp" />
     <ClCompile Include="j1FadeToBlack.cpp" />
     <ClCompile Include="j1Timer.cpp" />
     <ClCompile Include="j1Pathfinding.cpp" />
@@ -126,7 +125,6 @@
     <ClInclude Include="j1EntityManager.h" />
     <ClInclude Include="j1FadeToBlack.h" />
     <ClInclude Include="j1Physics.h" />
-    <ClInclude Include="j1Player.h" />
     <ClInclude Include="j1Map.h" />
     <ClInclude Include="j1Scene.h" />
     <ClInclude Include="Label.h" />

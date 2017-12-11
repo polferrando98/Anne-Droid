@@ -9,7 +9,6 @@
 #include "j1Window.h"
 #include "j1Map.h"
 #include "j1Scene.h"
-#include "j1Player.h"
 #include "p2Log.h"
 #include "j1App.h"
 #include "j1Pathfinding.h"

@@ -5,7 +5,6 @@
 #include "j1Textures.h"
 #include "j1Map.h"
 #include "j1Physics.h"
-#include "j1Player.h"
 #include "Brofiler\Brofiler.h"
 #include <math.h>
 

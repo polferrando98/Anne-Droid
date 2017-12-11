@@ -3,7 +3,6 @@
 #include "j1Textures.h"
 #include "j1Input.h"
 #include "j1Render.h"
-#include "j1Player.h"
 #include "j1Scene.h"
 #include "j1Entity.h"
 
