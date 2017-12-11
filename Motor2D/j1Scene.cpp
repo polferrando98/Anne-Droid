@@ -406,9 +406,13 @@ void j1Scene::DeleteGearPictureFromCollider(Collider * col)
 			App->gui->DeleteElement((UIElement*)gears_iterator->data);
 			gears.del(gears_iterator);
 			gears_collected++;
+			score += 100;
 			char buffer[50];
+			char buffer_2[10000];
 			sprintf_s(buffer, "%d", gears_collected);
+			sprintf_s(buffer_2, "%d", score);
 			gears_number->SetText(buffer);
+			score_number->SetText(buffer_2);
 		}
 	}
 }
@@ -459,7 +463,9 @@ void j1Scene::SetUpLivesIconsAndGears()
 	}
 
 	char buffer[50];
+	char buffer_2[9999];
 	sprintf_s(buffer, "%d", gears_collected);
+	sprintf_s(buffer_2, "%d", score);
 
 	if (!gears_number) {
 		gears_number = App->gui->AddUIText({ 150, 100 }, buffer);
@@ -471,6 +477,15 @@ void j1Scene::SetUpLivesIconsAndGears()
 		gears_number->position = { 200,175 }; //SPAGHUETTI
 	}
 
+	if (!score_number) {
+		score_number = App->gui->AddUIText({ 1350, 25 }, buffer_2);
+		score_number->position = { 1250,75 }; //SPAGHUETTI
+	}
+	else {
+		App->gui->DeleteElement(score_number);
+		score_number = App->gui->AddUIText({ 1350, 25 }, buffer_2);
+		score_number->position = { 1250,75 }; //SPAGHUETTI
+	}
 	LOG("PENE");
 }
 

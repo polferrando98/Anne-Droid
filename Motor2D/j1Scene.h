@@ -99,6 +99,7 @@ public:
 	bool camera_change = true;
 
 	int player_lives = 3;
+	
 
 private:
 
@@ -118,10 +119,12 @@ private:
 
 	Picture* gears_incon = nullptr;
 	Label* gears_number = nullptr;
+	Label* score_number = nullptr;
 
 	SDL_Rect gears_icon_section = { 350,100,100,100 };
 
 	int gears_collected = 0;
+	int score = 0;
 
 };
 
