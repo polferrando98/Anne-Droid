@@ -375,10 +375,12 @@ void j1Scene::SetUpUI(Levels next_level)
 
 		break;
 	case SETTINGS:
-		App->gui->AddUIText({ 50,20 }, "Settings");
+		App->gui->AddUIText({ 40,20 }, "Settings");
+
 		break;
 	case CREDITS:
-		App->gui->AddUIText({ 50,20 }, "By Nina Lopez and Pol Ferrando");
+		App->gui->AddUIText({ 30,35 }, "MIT License Copyright(c)[2017]");
+		App->gui->AddUIText({ 30,50 }, "By Nina López and Pol Ferrando");
 		break;
 	case END:
 
@@ -415,9 +417,13 @@ void j1Scene::DeleteGearPictureFromCollider(Collider * col)
 			App->gui->DeleteElement((UIElement*)gears_iterator->data);
 			gears.del(gears_iterator);
 			gears_collected++;
+			score += 100;
 			char buffer[50];
+			char buffer_2[10000];
 			sprintf_s(buffer, "%d", gears_collected);
+			sprintf_s(buffer_2, "%d", score);
 			gears_number->SetText(buffer);
+			score_number->SetText(buffer_2);
 		}
 	}
 }
@@ -472,7 +478,9 @@ void j1Scene::SetUpLivesIconsAndGears()
 
 	//Geras number
 	char buffer[50];
+	char buffer_2[9999];
 	sprintf_s(buffer, "%d", gears_collected);
+	sprintf_s(buffer_2, "%d", score);
 
 	if (!gears_number) {
 		gears_number = App->gui->AddUIText({ 150, 100 }, buffer);
@@ -484,6 +492,7 @@ void j1Scene::SetUpLivesIconsAndGears()
 		gears_number->position = { 200,175 }; //SPAGHUETTI
 	}
 
+
 	//Timer
 
 	if (!timerbuffer) 
@@ -493,6 +502,17 @@ void j1Scene::SetUpLivesIconsAndGears()
 		timer_label = App->gui->AddUIText({ 150, 100 }, timerbuffer);
 	}
 	timer_label->MoveInPercentage({ 80,10 }); //SPAGHUETTI
+
+	//Score
+	if (!score_number) {
+		score_number = App->gui->AddUIText({ 1350, 25 }, buffer_2);
+
+	}
+	else {
+		App->gui->DeleteElement(score_number);
+		score_number = App->gui->AddUIText({ 1350, 25 }, buffer_2);
+	}
+	score_number->MoveInPercentage({80,20}); //SPAGHUETTI
 
 }
 
