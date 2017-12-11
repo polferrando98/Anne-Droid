@@ -1,6 +1,6 @@
 ﻿<sprites>
 
-<player anim_speed = "0.5f">
+<player anim_speed = "0.25f">
 
 <idle loop = "true">
 
@@ -97,7 +97,7 @@
 </death>
 </player>
 
-<enemy anim_speed ="0.5f">
+<enemy anim_speed ="0.25f">
 <ovni loop = "true">
 <sprite x="2" y="14" w="53" h="30"/>
 <sprite x="60" y="14" w="53" h="30"/>
