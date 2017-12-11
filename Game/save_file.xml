@@ -5,7 +5,7 @@
 	<window />
 	<textures />
 	<audio>
-		<volume value="0" />
+		<volume value="48" />
 	</audio>
 	<map />
 	<player />
@@ -13,11 +13,11 @@
 	<gui />
 	<fonts />
 	<scene>
-		<player x="1057.97339" y="1437" level="2" />
+		<player x="1021.25" y="1437" level="2" />
 	</scene>
 	<EntityManager />
 	<physics />
 	<renderer>
-		<camera x="-583" y="-1037" />
+		<camera x="-541" y="-1037" />
 	</renderer>
 </save>

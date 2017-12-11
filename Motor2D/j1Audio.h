@@ -42,6 +42,9 @@ public:
 
 	bool load(pugi::xml_node &save);
 	bool save(pugi::xml_node &save) const;
+	int buttonfx;
+	int jumpfx;
+	int gearfx;
 
 private:
 	_Mix_Music*			music;

@@ -2,7 +2,7 @@
 #include "j1App.h"
 #include "j1Input.h"
 #include "p2Log.h"
-
+#include "j1Audio.h"
 #include "j1Render.h"
 #include "j1Window.h"
 #include "j1Module.h"
@@ -54,6 +54,7 @@ void InteractiveUIElement::ManageEvents()
 			element_event = MOUSE_LEAVE;
 		}
 		else if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN) {
+			App->audio->PlayFx(App->audio->buttonfx);
 			element_event = CLICK_DOWN;
 		}
 		break;
