@@ -364,10 +364,12 @@ void j1Scene::SetUpUI(Levels next_level)
 
 		break;
 	case SETTINGS:
-		App->gui->AddUIText({ 50,20 }, "Settings");
+		App->gui->AddUIText({ 40,20 }, "Settings");
+
 		break;
 	case CREDITS:
-		App->gui->AddUIText({ 50,20 }, "By Nina Lopez and Pol Ferrando");
+		App->gui->AddUIText({ 30,35 }, "MIT License Copyright(c)[2017]");
+		App->gui->AddUIText({ 30,50 }, "By Nina López and Pol Ferrando");
 		break;
 	case END:
 
