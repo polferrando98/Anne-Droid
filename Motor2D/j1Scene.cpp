@@ -345,11 +345,11 @@ void j1Scene::SetUpUI(Levels next_level)
 	{
 	case START_MENU:
 	{
-		App->gui->AddUIButton({ 50,10 }, "Play", this, button_up_rect_section, button_hover_rect_section, button_down_rect_section, button_disabled_rect_section);
-		Button* continue_button = App->gui->AddUIButton({ 50,20 }, "Continue", this, button_up_rect_section, button_hover_rect_section, button_down_rect_section, button_disabled_rect_section);
-		App->gui->AddUIButton({ 50,30 }, "Settings", this, button_up_rect_section, button_hover_rect_section, button_down_rect_section, button_disabled_rect_section);
-		App->gui->AddUIButton({ 50,40 }, "Credits", this, button_up_rect_section, button_hover_rect_section, button_down_rect_section, button_disabled_rect_section);
-		App->gui->AddUIButton({ 50,50 }, "Exit", this, button_up_rect_section, button_hover_rect_section, button_down_rect_section, button_disabled_rect_section);
+		App->gui->AddUIButton({ 50,30 }, "Play", this, button_up_rect_section, button_hover_rect_section, button_down_rect_section, button_disabled_rect_section);
+		Button* continue_button = App->gui->AddUIButton({ 50,40 }, "Continue", this, button_up_rect_section, button_hover_rect_section, button_down_rect_section, button_disabled_rect_section);
+		App->gui->AddUIButton({ 50,50 }, "Settings", this, button_up_rect_section, button_hover_rect_section, button_down_rect_section, button_disabled_rect_section);
+		App->gui->AddUIButton({ 50,60 }, "Credits", this, button_up_rect_section, button_hover_rect_section, button_down_rect_section, button_disabled_rect_section);
+		App->gui->AddUIButton({ 50,70 }, "Exit", this, button_up_rect_section, button_hover_rect_section, button_down_rect_section, button_disabled_rect_section);
 
 		if (!App->save_file_exists)
 			continue_button->Disable();
