@@ -88,7 +88,6 @@ void j1EntityManager::DeleteOvnis()
 		p2List_item<Entity*>* entities_iterator;
 		for (entities_iterator = entites.start; entities_iterator != nullptr; entities_iterator = entities_iterator->next)
 		{
-			if (entities_iterator->data)
 			if (entities_iterator->data->type == ENTITY_BIRD) {
 				RELEASE(entities_iterator->data);
 				entites.del(entities_iterator);

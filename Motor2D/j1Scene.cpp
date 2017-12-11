@@ -277,7 +277,6 @@ void j1Scene::LoadCurrentLevel(Levels next_level)
 		break;
 	case LEVEL_1:
 		App->map->Load("1.tmx");
-		gears_collected = 0;
 		break;
 	case LEVEL_2:
 		App->map->Load("2.tmx");
@@ -356,7 +355,6 @@ void j1Scene::SetUpUI(Levels next_level)
 		if (!App->save_file_exists)
 			continue_button->Disable();
 	}
-
 	break;
 	case LEVEL_1:
 	{

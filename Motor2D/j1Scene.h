@@ -100,6 +100,8 @@ public:
 
 	int player_lives = 3;
 
+	int gears_collected = 0;
+
 private:
 
 	SDL_Texture* debug_tex;
@@ -121,7 +123,6 @@ private:
 
 	SDL_Rect gears_icon_section = { 350,100,100,100 };
 
-	int gears_collected = 0;
 
 };
 
