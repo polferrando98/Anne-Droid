@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<save>
+	<app />
+	<input />
+	<window />
+	<textures />
+	<audio>
+		<volume value="0" />
+	</audio>
+	<map />
+	<player />
+	<pathfinding />
+	<gui />
+	<fonts />
+	<scene>
+		<player x="1057.97339" y="1437" level="2" />
+	</scene>
+	<EntityManager />
+	<physics />
+	<renderer>
+		<camera x="-583" y="-1037" />
+	</renderer>
+</save>

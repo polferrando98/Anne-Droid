@@ -2,9 +2,13 @@
 #define __j1SCENE_H__
 
 #include "j1Module.h"
-#include "j1Physics.h"
 #include "j1Map.h"
 #include "p2PQueue.h"
+
+class Collider;
+
+enum Direction_x;
+enum Direction_y;
 
 struct SDL_Texture;
 
@@ -79,7 +83,7 @@ private:
 
 	void AddGearColliders();
 
-
+	void DeleteGearList();
 
 
 public:
@@ -110,6 +114,9 @@ private:
 
 	p2List<Picture*> lives_icons;
 	p2List<Picture*> gears;
+
+
+	int gears_collected = 0;
 
 };
 

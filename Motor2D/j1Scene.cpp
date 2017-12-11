@@ -15,6 +15,7 @@
 #include "Picture.h"
 #include "Window.h"
 #include "Walker.h"
+#include "j1Physics.h"
 #include "Brofiler\Brofiler.h"
 
 j1Scene::j1Scene() : j1Module()
@@ -334,6 +335,8 @@ void j1Scene::SetUpLevel(Levels next_level)
 void j1Scene::SetUpUI(Levels next_level)
 {
 	App->gui->CleanAllUI();
+	DeleteGearList();
+
 
 	if (next_level == LEVEL_1 || next_level == LEVEL_2 || next_level == LEVEL_3)
 		SetUpLivesIcons();
@@ -386,10 +389,15 @@ void j1Scene::AddGears()
 		}
 	}
 	else {
-		LOG("DAMN");
+		for (p2List_item<Picture*>* gear_iterator = gears.start; gear_iterator; gear_iterator = gear_iterator->next)
+		{
+			LOG("HMM");
+		}
 	}
 
+	App->physics->DeleteGearColliders();
 	AddGearColliders();
+	LOG("HMM");
 }
 
 void j1Scene::DeleteGearPictureFromCollider(Collider * col)
@@ -398,8 +406,9 @@ void j1Scene::DeleteGearPictureFromCollider(Collider * col)
 		iPoint gears_iterator_pos = { gears_iterator->data->position.x,gears_iterator->data->position.y };
 		iPoint col_pos = { col->rect.x,col->rect.y };
 		if (col_pos == gears_iterator_pos) {
-			RELEASE(gears_iterator->data);
+			App->gui->DeleteElement((UIElement*)gears_iterator->data);
 			gears.del(gears_iterator);
+			gears_collected++;
 		}
 	}
 }
@@ -416,6 +425,14 @@ void j1Scene::AddGearColliders()
 		};
 		App->physics->AddCollider(&gear_rect, COL_GEAR);
 	}
+}
+
+void j1Scene::DeleteGearList()
+{
+	//for (p2List_item<Picture*>* gears_iterator = gears.start; gears_iterator; gears_iterator = gears_iterator->next) {
+	//	RELEASE(gears_iterator->data);
+	//}
+	gears.clear();
 }
 
 void j1Scene::SetUpLivesIcons()
