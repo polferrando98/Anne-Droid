@@ -212,6 +212,7 @@ void Player::Respawn()
 
 	App->scene->ResetOvnis();
 	App->scene->SetUpLivesIcons();
+	App->scene->AddGears();
 }
 
 

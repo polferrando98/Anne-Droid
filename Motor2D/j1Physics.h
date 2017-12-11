@@ -62,6 +62,8 @@ public:
 
 	void LoadPhysicsValues();
 
+	void DeleteGearColliders();
+
 private:
 
 

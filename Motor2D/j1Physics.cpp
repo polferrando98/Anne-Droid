@@ -367,3 +367,15 @@ void j1Physics::LoadPhysicsValues() {
 	/*	App->player->maxVelocity.x = phy_player.child("max_velocity").attribute("value").as_int();*/
 	}
 }
+
+void j1Physics::DeleteGearColliders()
+{
+	for (p2List_item<Collider*>* colliders_iterator = collider_list.start; colliders_iterator; colliders_iterator = colliders_iterator->next)
+	{
+		if (colliders_iterator->data->type == COL_GEAR)
+		{
+			RELEASE(colliders_iterator->data);
+			collider_list.del(colliders_iterator);
+		}
+	}
+}

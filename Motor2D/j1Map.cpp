@@ -313,6 +313,9 @@ bool j1Map::CleanUp()
 		data.objectGroups.clear();
 	}
 
+	data.ovni_position_list.clear();
+	data.gear_position_list.clear();
+
 	// Clean up the pugui tree
 	map_file.reset();
 

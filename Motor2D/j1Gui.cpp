@@ -113,15 +113,30 @@ void j1Gui::ManageFocus()
 	}
 }
 
+void j1Gui::CleanAllDynamicUI()
+{
+	if (elements.start) {
+		p2List_item<UIElement*>* element_iterator;
+		for (element_iterator = elements.start; element_iterator != NULL; element_iterator = element_iterator->next)
+		{
+			if (element_iterator->data->move_with_camera == true)
+			{ 
+				RELEASE(element_iterator->data);
+				elements.del(element_iterator);
+			}
+		}
+	}
+}
+
 void j1Gui::CleanAllUI()
 {
 	if (elements.start) {
 		p2List_item<UIElement*>* element_iterator;
 		for (element_iterator = elements.start; element_iterator != NULL; element_iterator = element_iterator->next)
 		{
-			RELEASE(element_iterator->data)
+				RELEASE(element_iterator->data);
+				elements.del(element_iterator);
 		}
-		elements.clear();
 	}
 }
 
