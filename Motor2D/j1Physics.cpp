@@ -187,15 +187,7 @@ Direction_x j1Physics::checkGroundXCollisions(Collider new_collider, fPoint pos_
 	}
 
 	if (Collider* colb = checkColliders(new_collider, COL_GEAR)) {
-		for (p2List_item<Collider*>* colliders_iterator = collider_list.start; colliders_iterator; colliders_iterator = colliders_iterator->next) 
-		{
-			if (colb == colliders_iterator->data) 
-			{
-				App->scene->DeleteGearPictureFromCollider(colb);
-				RELEASE(colliders_iterator->data);
-				collider_list.del(colliders_iterator);
-			}
-		}
+		ManageGearCollisions(colb);
 	}
 	return colliding_x;
 }
@@ -214,15 +206,7 @@ Direction_y j1Physics::checkGroundYCollisions(Collider new_collider, fPoint pos_
 	}
 
 	if (Collider* colb = checkColliders(new_collider, COL_GEAR)) {
-		for (p2List_item<Collider*>* colliders_iterator = collider_list.start; colliders_iterator; colliders_iterator = colliders_iterator->next)
-		{
-			if (colb == colliders_iterator->data)
-			{
-				App->scene->DeleteGearPictureFromCollider(colb);
-				RELEASE(colliders_iterator->data);
-				collider_list.del(colliders_iterator);
-			}
-		}
+		ManageGearCollisions(colb);
 	}
 
 	return colliding_y;
@@ -374,6 +358,19 @@ void j1Physics::DeleteGearColliders()
 	{
 		if (colliders_iterator->data->type == COL_GEAR)
 		{
+			RELEASE(colliders_iterator->data);
+			collider_list.del(colliders_iterator);
+		}
+	}
+}
+
+void j1Physics::ManageGearCollisions(Collider *gear_col)
+{
+	for (p2List_item<Collider*>* colliders_iterator = collider_list.start; colliders_iterator; colliders_iterator = colliders_iterator->next)
+	{
+		if (gear_col == colliders_iterator->data)
+		{
+			App->scene->DeleteGearPictureFromCollider(gear_col);
 			RELEASE(colliders_iterator->data);
 			collider_list.del(colliders_iterator);
 		}

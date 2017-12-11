@@ -13,6 +13,7 @@
 #include "j1Gui.h"
 #include "Button.h"
 #include "Picture.h"
+#include "Label.h"
 #include "Window.h"
 #include "Walker.h"
 #include "j1Physics.h"
@@ -276,6 +277,7 @@ void j1Scene::LoadCurrentLevel(Levels next_level)
 		break;
 	case LEVEL_1:
 		App->map->Load("1.tmx");
+		gears_collected = 0;
 		break;
 	case LEVEL_2:
 		App->map->Load("2.tmx");
@@ -339,7 +341,7 @@ void j1Scene::SetUpUI(Levels next_level)
 
 
 	if (next_level == LEVEL_1 || next_level == LEVEL_2 || next_level == LEVEL_3)
-		SetUpLivesIcons();
+		SetUpLivesIconsAndGears();
 
 	switch (next_level)  //WIP
 	{
@@ -387,12 +389,7 @@ void j1Scene::AddGears()
 			gears.add(new_gear);
 		}
 	}
-	else {
-		for (p2List_item<Picture*>* gear_iterator = gears.start; gear_iterator; gear_iterator = gear_iterator->next)
-		{
-			LOG("HMM");
-		}
-	}
+
 
 	App->physics->DeleteGearColliders();
 	AddGearColliders();
@@ -408,6 +405,9 @@ void j1Scene::DeleteGearPictureFromCollider(Collider * col)
 			App->gui->DeleteElement((UIElement*)gears_iterator->data);
 			gears.del(gears_iterator);
 			gears_collected++;
+			char buffer[50];
+			sprintf_s(buffer, "%d", gears_collected);
+			gears_number->SetText(buffer);
 		}
 	}
 }
@@ -434,7 +434,7 @@ void j1Scene::DeleteGearList()
 	gears.clear();
 }
 
-void j1Scene::SetUpLivesIcons()
+void j1Scene::SetUpLivesIconsAndGears()
 {
 	if (lives_icons.start) {
 		for (p2List_item<Picture*>* lives_icons_iterator = lives_icons.start; lives_icons_iterator; lives_icons_iterator = lives_icons_iterator->next) {
@@ -446,8 +446,31 @@ void j1Scene::SetUpLivesIcons()
 	int lives_icon_margin = 100;
 
 	for (int i = 0; i < player_lives; i++) {
-		lives_icons.add(App->gui->AddUIPicture({ 100 + lives_icon_margin * i,50 }, { 250,0,100,100 }));
+		lives_icons.add(App->gui->AddUIPicture({ 100 + lives_icon_margin * i, 50 }, { 250,0,100,100 }));
 	}
+
+	if (!gears_incon)
+		gears_incon = App->gui->AddUIPicture({ 100, 150 }, gears_icon_section);
+	else {
+		if (App->gui->DeleteElement(gears_incon))
+			RELEASE(gears_incon);
+		gears_incon = App->gui->AddUIPicture({ 100, 150 }, gears_icon_section);
+	}
+
+	char buffer[50];
+	sprintf_s(buffer, "%d", gears_collected);
+
+	if (!gears_number) {
+		gears_number = App->gui->AddUIText({ 150, 100 }, buffer);
+		gears_number->position = { 200,175 }; //SPAGHUETTI
+	}
+	else {
+		App->gui->DeleteElement(gears_number);
+		gears_number = App->gui->AddUIText({ 150, 100 }, buffer);
+		gears_number->position = { 200,175 }; //SPAGHUETTI
+	}
+
+	LOG("PENE");
 }
 
 bool j1Scene::load(pugi::xml_node &save)

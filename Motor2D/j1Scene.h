@@ -14,6 +14,7 @@ struct SDL_Texture;
 
 class Entity;
 class Picture;
+class Label;
 
 enum Levels { LEVEL_NONE, START_MENU, LEVEL_1, LEVEL_2, LEVEL_3, SETTINGS, CREDITS, END };
 
@@ -58,7 +59,7 @@ public:
 
 	void OnButtonClick(UIElement* trigger, Mouse_UI_Event mouse_event) override;
 
-	void SetUpLivesIcons();
+	void SetUpLivesIconsAndGears();
 
 	void AddGears();
 
@@ -115,6 +116,10 @@ private:
 	p2List<Picture*> lives_icons;
 	p2List<Picture*> gears;
 
+	Picture* gears_incon = nullptr;
+	Label* gears_number = nullptr;
+
+	SDL_Rect gears_icon_section = { 350,100,100,100 };
 
 	int gears_collected = 0;
 

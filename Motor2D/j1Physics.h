@@ -64,6 +64,8 @@ public:
 
 	void DeleteGearColliders();
 
+	void ManageGearCollisions(Collider  *gear_col);
+
 private:
 
 

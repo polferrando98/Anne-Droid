@@ -140,8 +140,9 @@ void j1Gui::CleanAllUI()
 	}
 }
 
-void j1Gui::DeleteElement(UIElement * element)
+bool j1Gui::DeleteElement(UIElement * element)
 {
+	bool ret = false;
 	if (elements.start) {
 		p2List_item<UIElement*>* element_iterator;
 		for (element_iterator = elements.start; element_iterator != NULL; element_iterator = element_iterator->next)
@@ -149,9 +150,11 @@ void j1Gui::DeleteElement(UIElement * element)
 			if (element == element_iterator->data) {
 				RELEASE(element_iterator->data);
 				elements.del(element_iterator);
+				return ret;
 			}
 		}
 	}
+	return ret;
 }
 
 UIElement* j1Gui::AddUIElement(iPoint position, UIType type)
@@ -207,8 +210,7 @@ Picture* j1Gui::AddUIPicture(iPoint position,  SDL_Rect section)
 
 	elem->id = elements.count();
 
-
-		elem->texture = atlas;
+	elem->texture = atlas;
 
 	if (!SDL_RectEmpty(&section))
 		elem->section = section;
