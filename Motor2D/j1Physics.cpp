@@ -80,6 +80,8 @@ void j1Physics::DebugDraw() const
 	{
 		pCollider = collider_iterator->data;
 
+		if (!App->render->isInsideCam({ pCollider->rect.x,pCollider->rect.y }))
+			continue;
 
 		if (pCollider->visble) {
 			switch (pCollider->type)

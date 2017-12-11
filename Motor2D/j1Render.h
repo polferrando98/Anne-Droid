@@ -43,6 +43,8 @@ public:
 	// Set background color
 	void SetBackgroundColor(SDL_Color color);
 
+	bool isInsideCam(SDL_Point point);
+
 	//pathfinding
 
 	iPoint ScreenToWorld(int x, int y) const;
