@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="175" height="36" tilewidth="65" tileheight="65" nextobjectid="33">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="175" height="36" tilewidth="65" tileheight="65" nextobjectid="43">
  <tileset firstgid="1" name="tiles" tilewidth="65" tileheight="65" tilecount="231" columns="21">
   <image source="tiles.png" width="1420" height="768"/>
   <terraintypes>
@@ -12755,5 +12755,15 @@
  </objectgroup>
  <objectgroup name="gear">
   <object id="32" name="gear" type="gear" x="1610" y="685" width="89" height="87"/>
+  <object id="33" name="gear" type="gear" x="1919.5" y="1168.5" width="89" height="87"/>
+  <object id="34" name="gear" type="gear" x="2323.5" y="904.5" width="89" height="87"/>
+  <object id="35" name="gear" type="gear" x="2747.5" y="840.5" width="89" height="87"/>
+  <object id="36" name="gear" type="gear" x="3059.5" y="1320.5" width="89" height="87"/>
+  <object id="37" name="gear" type="gear" x="3759.5" y="868.5" width="89" height="87"/>
+  <object id="38" name="gear" type="gear" x="3487.5" y="1052.5" width="89" height="87"/>
+  <object id="39" name="gear" type="gear" x="4439.5" y="912.5" width="89" height="87"/>
+  <object id="40" name="gear" type="gear" x="5131.5" y="916.5" width="89" height="87"/>
+  <object id="41" name="gear" type="gear" x="6187.5" y="1040.5" width="89" height="87"/>
+  <object id="42" name="gear" type="gear" x="7291.5" y="976.5" width="89" height="87"/>
  </objectgroup>
 </map>
