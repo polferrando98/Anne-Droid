@@ -356,6 +356,7 @@ void j1Scene::SetUpUI(Levels next_level)
 		if (!App->save_file_exists)
 			continue_button->Disable();
 	}
+
 	break;
 	case LEVEL_1:
 	{
