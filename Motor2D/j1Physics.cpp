@@ -171,7 +171,7 @@ void j1Physics::ApplyMaxVelocity(Entity & entity)
 }
 
 
-Direction_x j1Physics::checkGroundXCollisions(Collider new_collider, fPoint pos_differential, Entity & entity) const
+Direction_x j1Physics::checkGroundXCollisions(Collider new_collider, fPoint pos_differential, Entity & entity) 
 {
 	Direction_x colliding_x = NONE_X;
 
@@ -185,10 +185,22 @@ Direction_x j1Physics::checkGroundXCollisions(Collider new_collider, fPoint pos_
 	if (checkColliders(new_collider, DEATH)) {
 		entity.life_state = DEAD;
 	}
+
+	if (Collider* colb = checkColliders(new_collider, COL_GEAR)) {
+		for (p2List_item<Collider*>* colliders_iterator = collider_list.start; colliders_iterator; colliders_iterator = colliders_iterator->next) 
+		{
+			if (colb == colliders_iterator->data) 
+			{
+				App->scene->DeleteGearPictureFromCollider(colb);
+				RELEASE(colliders_iterator->data);
+				collider_list.del(colliders_iterator);
+			}
+		}
+	}
 	return colliding_x;
 }
 
-Direction_y j1Physics::checkGroundYCollisions(Collider new_collider, fPoint pos_differential, Entity & entity) const
+Direction_y j1Physics::checkGroundYCollisions(Collider new_collider, fPoint pos_differential, Entity & entity)
 {
 	Direction_y colliding_y = NONE_Y;
 	if (checkColliders(new_collider, WALL)) {
@@ -200,6 +212,19 @@ Direction_y j1Physics::checkGroundYCollisions(Collider new_collider, fPoint pos_
 	if (checkColliders(new_collider, DEATH)) {
 		entity.life_state = DEAD;
 	}
+
+	if (Collider* colb = checkColliders(new_collider, COL_GEAR)) {
+		for (p2List_item<Collider*>* colliders_iterator = collider_list.start; colliders_iterator; colliders_iterator = colliders_iterator->next)
+		{
+			if (colb == colliders_iterator->data)
+			{
+				App->scene->DeleteGearPictureFromCollider(colb);
+				RELEASE(colliders_iterator->data);
+				collider_list.del(colliders_iterator);
+			}
+		}
+	}
+
 	return colliding_y;
 }
 
@@ -240,7 +265,7 @@ Collider* j1Physics::AddCollider(SDL_Rect *rect, const Collider_Type type)
 	return pCollider;
 }
 
-bool j1Physics::checkColliders(Collider object_col, Collider_Type type_to_collide) const
+Collider* j1Physics::checkColliders(Collider object_col, Collider_Type type_to_collide) const
 {
 	p2List_item<Collider*>* collider_iterator_b;
 
@@ -263,14 +288,14 @@ bool j1Physics::checkColliders(Collider object_col, Collider_Type type_to_collid
 			if (!SameType(object_col.type, collider_iterator_b->data->type)) {
 				bool intersect = SDL_IntersectRect(&rect_a, &rect_b, &intersection);
 				if (intersect) {
-					return true;
+					return collider_iterator_b->data;
 				}
 			}
 		}
 
 	}
 
-	return false;
+	return nullptr;
 }
 
 inline bool j1Physics::SameType(Collider_Type type_1, Collider_Type type_2) const

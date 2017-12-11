@@ -58,6 +58,8 @@ public:
 
 	void AddGears();
 
+	void DeleteGearPictureFromCollider(Collider* col);
+
 private:
 
 	void CameraFollowPlayer();
