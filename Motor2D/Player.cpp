@@ -194,7 +194,6 @@ void Player::ApplyMaxVelocity()
 
 void Player::Respawn()
 {
-
 	acceleration.SetToZero();
 	velocity.SetToZero();
 
@@ -207,6 +206,7 @@ void Player::Respawn()
 		App->scene->player_lives--;
 	else {
 		App->scene->player_lives = 3;
+		App->scene->gears_collected = 0;
 		App->scene->level_to_load_on_postUpdate = LEVEL_1;
 	}
 
