@@ -498,7 +498,8 @@ void j1Scene::SetUpLivesIconsAndGears()
 		lives_icons.add(App->gui->AddUIPicture({ 100 + lives_icon_margin * i, 50 }, { 250,0,100,100 }));
 	}
 
-
+	timer_icon = App->gui->AddUIPicture({ 1050, 55 }, timer_icon_section);
+	score_icon = App->gui->AddUIPicture({ 1052, 140 }, score_icon_section);
 	//Gears icon
 	if (!gears_incon)
 		gears_incon = App->gui->AddUIPicture({ 100, 150 }, gears_icon_section);
@@ -507,7 +508,8 @@ void j1Scene::SetUpLivesIconsAndGears()
 			RELEASE(gears_incon);
 		gears_incon = App->gui->AddUIPicture({ 100, 150 }, gears_icon_section);
 	}
-
+	
+		
 	//Geras number
 	char buffer[50];
 	char buffer_2[9999];

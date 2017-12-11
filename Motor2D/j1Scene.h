@@ -128,6 +128,8 @@ private:
 	p2List<Picture*> gears;
 
 	Picture* gears_incon = nullptr;
+	Picture* timer_icon = nullptr;
+	Picture* score_icon = nullptr;
 	Label* gears_number = nullptr;
 
 	Label* timer_label = nullptr;
@@ -136,8 +138,8 @@ private:
 
 
 	SDL_Rect gears_icon_section = { 350,100,100,100 };
-
-
+	SDL_Rect timer_icon_section = { 518,110,60,62 };
+	SDL_Rect score_icon_section = { 638,110,52,67 };
 	int score = 0;
 
 
