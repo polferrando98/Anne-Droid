@@ -364,8 +364,9 @@ void j1Scene::SetUpUI(Levels next_level)
 
 		break;
 	case SETTINGS:
-		App->gui->AddUIText({ 40,20 }, "Settings");
-
+		App->gui->AddUIText({ 43,20 }, "Settings");
+		App->gui->AddUIButton({ 35,50 }, "Vol -", this, button_up_rect_section, button_hover_rect_section, button_down_rect_section, button_disabled_rect_section);
+		App->gui->AddUIButton({ 60,50 }, "Vol +", this, button_up_rect_section, button_hover_rect_section, button_down_rect_section, button_disabled_rect_section);
 		break;
 	case CREDITS:
 		App->gui->AddUIText({ 30,35 }, "MIT License Copyright(c)[2017]");
@@ -552,4 +553,11 @@ void j1Scene::OnButtonClick(UIElement * trigger, Mouse_UI_Event mouse_event)
 
 	if (trigger->name == "Exit")
 		post_update_ret = false;
+
+	if(trigger->name == "Vol -")
+		App->audio->volumeDown();
+	if (trigger->name == "Vol +")
+		App->audio->volumeUp();
+
 }
+
