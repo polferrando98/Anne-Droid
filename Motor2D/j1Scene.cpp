@@ -391,6 +391,19 @@ void j1Scene::AddGears()
 	AddGearColliders();
 }
 
+void j1Scene::DeleteGearPictureFromCollider(Collider * col)
+{
+	for (p2List_item<Picture*>* gears_iterator = gears.start; gears_iterator; gears_iterator = gears_iterator->next) {
+		iPoint gears_iterator_pos = { gears_iterator->data->position.x,gears_iterator->data->position.y };
+		iPoint col_pos = { col->rect.x,col->rect.y };
+		if (col_pos == gears_iterator_pos) {
+			RELEASE(gears_iterator->data);
+			gears.del(gears_iterator);
+		}
+	}
+}
+
+
 void j1Scene::AddGearColliders()
 {
 	for (p2List_item<Picture*>* gears_iterator = gears.start; gears_iterator; gears_iterator = gears_iterator->next) {

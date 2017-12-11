@@ -14,7 +14,8 @@ enum Direction_x { NONE_X, LEFT, RIGHT};
 enum Direction_y { NONE_Y, UP, DOWN };
 enum Axis {BOTH_AXIS, X_axis, Y_axis};
 
-struct Collider{
+class Collider{
+public:
 	Collider(SDL_Rect *rectangle, Collider_Type type, float friction);
 	void UpdatePosition(fPoint newPos);
 	SDL_Rect rect;
@@ -46,14 +47,14 @@ public:
 	void DebugDraw() const;
 
 	bool UpdateEntityPhysics(Entity &entity, float dt);
-	Direction_x checkGroundXCollisions(Collider new_collider, fPoint pos_differential, Entity & entity) const;
-	Direction_y checkGroundYCollisions(Collider new_collider, fPoint pos_differential, Entity & entity) const;
+	Direction_x checkGroundXCollisions(Collider new_collider, fPoint pos_differential, Entity & entity);
+	Direction_y checkGroundYCollisions(Collider new_collider, fPoint pos_differential, Entity & entity);
 	fPoint calculateNewPosition(fPoint position, fPoint velocity, fPoint acceleration, Axis axis) const;
 	void ApplyMaxVelocity(Entity &entity);
 
 	Collider* AddCollider(SDL_Rect *rect, const Collider_Type type);
 
-	bool checkColliders(Collider object_col, Collider_Type type_to_ignore) const;
+	Collider* checkColliders(Collider object_col, Collider_Type type_to_ignore) const;
 
 	inline bool SameType(Collider_Type type_1, Collider_Type type_2) const;
 
