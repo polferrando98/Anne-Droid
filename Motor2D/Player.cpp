@@ -101,7 +101,6 @@ void Player::Move()
 	
 	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
 	{
-		App->audio->PlayFx(App->audio->jumpfx);
 		DoJump();
 	}
 
@@ -162,9 +161,10 @@ void Player::ManageAnimation()
 
 void Player::DoJump()
 {
-	App->audio->PlayFx(1);
+	
 	{
 		if (!grounded && double_jump_avaliable) {
+			App->audio->PlayFx(App->audio->jumpfx);
 			jump.current_frame = 0.0f;
 			jump_left.current_frame = 0.0f;
 			velocity.y = -JUMP_SPEED;
@@ -172,6 +172,7 @@ void Player::DoJump()
 
 		}
 		if (grounded) {
+			App->audio->PlayFx(App->audio->jumpfx);
 			jump.current_frame = 0.0f;
 			jump_left.current_frame = 0.0f;
 			velocity.y = -JUMP_SPEED;
