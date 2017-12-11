@@ -67,6 +67,8 @@ public:
 
 	void DeleteGearPictureFromCollider(Collider* col);
 
+	void GoToNextLevel();
+
 private:
 
 	void CameraFollowPlayer();
