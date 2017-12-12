@@ -5,6 +5,7 @@
 #include "j1Map.h"
 #include "j1Input.h"
 #include "j1Scene.h"
+#include "j1FadeToBlack.h"
 
 
 Player::Player(fPoint position) : Entity(position, ENTITY_PLAYER)
@@ -66,6 +67,7 @@ bool Player::Update(float dt)
 	{
 		if (life_state == DEAD) 
 		{
+			App->fade->FadeToBlack(2.0f);
 			Respawn();
 		}
 	}
