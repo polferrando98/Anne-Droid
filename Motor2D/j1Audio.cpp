@@ -2,10 +2,9 @@
 #include "p2Log.h"
 #include "j1Audio.h"
 #include "p2List.h"
-
 #include "SDL/include/SDL.h"
 #include "SDL_mixer\include\SDL_mixer.h"
-
+#include "j1Scene.h"
 #include "j1App.h"
 #include "j1Input.h"
 
@@ -58,8 +57,10 @@ bool j1Audio::Awake(pugi::xml_node& config)
 	jumpfx = LoadFx("audio/fx/jump_fx.wav");
 	buttonfx = LoadFx("audio/fx/buttonsound.wav");
 	gearfx = LoadFx("audio/fx/gearsound.wav");
-	PlayMusic("audio/music/anne-droid-music.ogg");
-	
+
+	PlayMusic("audio/music/annedroid_music.ogg");
+
+
 	Mix_VolumeMusic(0);
 
 	return ret;
@@ -186,6 +187,7 @@ bool j1Audio::PlayFx(unsigned int id, int repeat)
 
 bool j1Audio::Update(float dt)
 {
+	
 	if (volume > maxVolume)
 		volume = maxVolume;
 	if (volume < 0)

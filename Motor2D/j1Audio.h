@@ -45,6 +45,7 @@ public:
 	int buttonfx;
 	int jumpfx;
 	int gearfx;
+	int menufx;
 
 private:
 	_Mix_Music*			music;

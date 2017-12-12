@@ -349,9 +349,12 @@ void j1Scene::SetUpUI(Levels next_level)
 	App->gui->CleanAllUI();
 	DeleteGearList();
 
-
+	
+		
 	if (next_level == LEVEL_1 || next_level == LEVEL_2 || next_level == LEVEL_3)
+	{
 		SetUpLivesIconsAndGears();
+	}
 
 	switch (next_level)  //WIP
 	{
