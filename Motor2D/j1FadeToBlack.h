@@ -4,7 +4,6 @@
 
 #include "j1Module.h"
 #include "SDL\include\SDL_rect.h"
-
 class j1FadeToBlack : public j1Module
 {
 public:
@@ -15,7 +14,9 @@ public:
 
 	//update_status Update();
 	bool PostUpdate();
-	bool FadeToBlack(j1Module* module_off, j1Module* module_on, float time = 2.0f);
+	//bool FadeToBlack(j1Module* module_off, j1Module* module_on, float time = 2.0f);
+	//bool FadeToBlack(Levels* level_off, Levels* level_on, float time = 2.0f);
+	bool FadeToBlack(float time = 2.0f);
 
 private:
 
@@ -29,7 +30,7 @@ private:
 	Uint32 start_time = 0;
 	Uint32 total_time = 0;
 
-	j1Module* module_on, *module_off;
+	
 	SDL_Rect screen;
 };
 

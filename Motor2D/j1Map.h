@@ -9,6 +9,7 @@
 #include "j1Pathfinding.h"
 
 
+
 enum ObjectTypes {
 	OBJECT_TYPE_UNKNOWN = 0,
 	OBJECT_TYPE_GROUND,

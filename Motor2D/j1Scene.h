@@ -68,6 +68,7 @@ public:
 	void DeleteGearPictureFromCollider(Collider* col);
 
 	void GoToNextLevel();
+	void onFadeInEnd();
 
 private:
 
@@ -104,7 +105,8 @@ public:
 
 	int player_lives = 3;
 	
-
+	Levels start_menu = START_MENU;
+	Levels level_1 = LEVEL_1;
 	int gears_collected = 0;
 
 	char timerbuffer[50];

@@ -5,6 +5,7 @@
 #include "j1Map.h"
 #include "j1Input.h"
 #include "j1Scene.h"
+#include "j1FadeToBlack.h"
 
 
 Player::Player(fPoint position) : Entity(position, ENTITY_PLAYER)
@@ -71,6 +72,7 @@ bool Player::Update(float dt)
 	{
 		if (life_state == DEAD) 
 		{
+			App->fade->FadeToBlack(2.0f);
 			Respawn();
 		}
 	}
@@ -166,27 +168,46 @@ void Player::ManageAnimation()
 
 void Player::DoJump()
 {
-	
+
 	{
-		if (!grounded && double_jump_avaliable) {
-			App->audio->PlayFx(App->audio->jumpfx);
-			jump.current_frame = 0.0f;
-			jump_left.current_frame = 0.0f;
-			velocity.y = -JUMP_SPEED;
-			double_jump_avaliable = false;
+		if (!App->god_mode) {
+			if (!grounded && double_jump_avaliable) {
+				App->audio->PlayFx(App->audio->jumpfx);
+				jump.current_frame = 0.0f;
+				jump_left.current_frame = 0.0f;
+				velocity.y = -JUMP_SPEED;
+				double_jump_avaliable = false;
 
+			}
+			if (grounded) {
+				App->audio->PlayFx(App->audio->jumpfx);
+				jump.current_frame = 0.0f;
+				jump_left.current_frame = 0.0f;
+				velocity.y = -JUMP_SPEED;
+
+				grounded = false;
+			}
 		}
-		if (grounded) {
-			App->audio->PlayFx(App->audio->jumpfx);
-			jump.current_frame = 0.0f;
-			jump_left.current_frame = 0.0f;
-			velocity.y = -JUMP_SPEED;
+		else{
 
-			grounded = false;
+			if (!grounded) {
+				App->audio->PlayFx(App->audio->jumpfx);
+				jump.current_frame = 0.0f;
+				jump_left.current_frame = 0.0f;
+				velocity.y = -JUMP_SPEED;
+
+			}
+			if (grounded) {
+				App->audio->PlayFx(App->audio->jumpfx);
+				jump.current_frame = 0.0f;
+				jump_left.current_frame = 0.0f;
+				velocity.y = -JUMP_SPEED;
+
+				grounded = false;
+			}
 		}
 	}
 }
-
 void Player::ApplyMaxVelocity()
 {
 	

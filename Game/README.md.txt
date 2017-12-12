@@ -29,7 +29,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 Anne Droid is a platformer game where the player has to reach two doors to survive.
-Enemies use pathfinding(A*) to get to the player.
+For the second assignment enemies use pathfinding(A*) to get to the player.
+For the third assignment there is UI implemented with score, timer, lifes and gears.
 
 Gihub Link: https://github.com/polferrando98/Anne-Droid
 
@@ -52,5 +53,10 @@ F11--> Enable/Disable FPS cap to 30
 If you are in debug mode you can move
 the camera with up/down/left/right.
 
+Cheats:
+0 --> Start menu
+1 --> Level 1
+2 --> Level 2
+3 --> Level 3
 
 by Pol Ferrando && Nina Lopez
