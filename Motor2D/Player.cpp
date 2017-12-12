@@ -163,7 +163,7 @@ void Player::DoJump()
 {
 
 	{
-		if (!App->god_mode)
+		if (!App->god_mode) {
 			if (!grounded && double_jump_avaliable) {
 				App->audio->PlayFx(App->audio->jumpfx);
 				jump.current_frame = 0.0f;
@@ -172,22 +172,22 @@ void Player::DoJump()
 				double_jump_avaliable = false;
 
 			}
-		if (grounded) {
-			App->audio->PlayFx(App->audio->jumpfx);
-			jump.current_frame = 0.0f;
-			jump_left.current_frame = 0.0f;
-			velocity.y = -JUMP_SPEED;
+			if (grounded) {
+				App->audio->PlayFx(App->audio->jumpfx);
+				jump.current_frame = 0.0f;
+				jump_left.current_frame = 0.0f;
+				velocity.y = -JUMP_SPEED;
 
-			grounded = false;
+				grounded = false;
+			}
 		}
-		else {
+		else{
 
 			if (!grounded) {
 				App->audio->PlayFx(App->audio->jumpfx);
 				jump.current_frame = 0.0f;
 				jump_left.current_frame = 0.0f;
 				velocity.y = -JUMP_SPEED;
-				//double_jump_avaliable = false;
 
 			}
 			if (grounded) {

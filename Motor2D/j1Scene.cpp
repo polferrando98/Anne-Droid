@@ -395,10 +395,12 @@ void j1Scene::SetUpUI(Levels next_level)
 		App->gui->AddUIButton({ 60,40 }, "Music +", this, button_up_rect_section, button_hover_rect_section, button_down_rect_section, button_disabled_rect_section);
 		App->gui->AddUIButton({ 35,60 }, "Sound Fx -", this, button_up_rect_section, button_hover_rect_section, button_down_rect_section, button_disabled_rect_section);
 		App->gui->AddUIButton({ 60,60 }, "Sound Fx +", this, button_up_rect_section, button_hover_rect_section, button_down_rect_section, button_disabled_rect_section);
+		App->gui->AddUIButton({ 47,77 }, "Menu", this, button_up_rect_section, button_hover_rect_section, button_down_rect_section, button_disabled_rect_section);
 		break;
 	case CREDITS:
 		App->gui->AddUIText({ 30,35 }, "MIT License Copyright(c)[2017]");
 		App->gui->AddUIText({ 30,50 }, "By Nina López and Pol Ferrando");
+		App->gui->AddUIButton({ 47,77 }, "Menu", this, button_up_rect_section, button_hover_rect_section, button_down_rect_section, button_disabled_rect_section);
 		break;
 	case END:
 
@@ -634,6 +636,9 @@ void j1Scene::OnButtonClick(UIElement * trigger, Mouse_UI_Event mouse_event)
 		App->audio->volumeDown();
 	if (trigger->name == "Music +")
 		App->audio->volumeUp();
+
+	if (trigger->name == "Menu")
+		level_to_load_on_postUpdate = START_MENU;
 	/*if (trigger->name == "Sound Fx -")
 		App->audio->volumeDown();
 	if (trigger->name == "Sound Fx +")
