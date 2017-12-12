@@ -18,8 +18,14 @@ j1EntityManager::~j1EntityManager()
 
 bool j1EntityManager::CleanUp()
 {
-	DeleteOvnis();
-	DeletePlayer();
+	if (entites.start) {
+		p2List_item<Entity*>* entities_iterator;
+		for (entities_iterator = entites.start; entities_iterator != nullptr; entities_iterator = entities_iterator->next)
+		{
+			RELEASE(entities_iterator->data);
+		}
+		entites.clear();
+	}
 	return true;
 }
 
@@ -99,13 +105,22 @@ void j1EntityManager::DeleteOvnis()
 void j1EntityManager::DeletePlayer()
 {
 	if (entites.start) {
+		p2List <Entity*> entitiesToDelete;
 		p2List_item<Entity*>* entities_iterator;
 		for (entities_iterator = entites.start; entities_iterator != nullptr; entities_iterator = entities_iterator->next)
 		{
 			if (entities_iterator->data->type == ENTITY_PLAYER) {
 				RELEASE(entities_iterator->data);
-				entites.del(entities_iterator);
+				player_entity = nullptr;
+				entitiesToDelete.add(entities_iterator->data);
 			}
 		}
+
+		for (entities_iterator = entitiesToDelete.start; entities_iterator != nullptr; entities_iterator = entities_iterator->next)
+		{
+			entites.del(entites.At(entites.find(entities_iterator->data)));
+		}
+
+		entitiesToDelete.clear();
 	}
 }

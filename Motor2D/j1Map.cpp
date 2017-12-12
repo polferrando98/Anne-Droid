@@ -299,9 +299,6 @@ bool j1Map::CleanUp()
 		item = item->next;
 	}
 
-
-	data.tilesets.clear();
-
 	// Clean up all layer data
 	p2List_item<Layer*>* item_layer;
 	item_layer = data.layers.start;
@@ -311,6 +308,8 @@ bool j1Map::CleanUp()
 		RELEASE(item_layer->data);
 		item_layer = item_layer->next;
 	}
+
+
 	data.tilesets.clear();
 	// Remove all layers
 	data.layers.clear();
@@ -377,8 +376,8 @@ MapData* j1Map::Load(const char* file_name)
 		data.tilesets.add(set);
 	}
 
-	 //TODO 4: Iterate all layers and load each of them
-	 //Load layer info ----------------------------------------------
+	//TODO 4: Iterate all layers and load each of them
+	//Load layer info ----------------------------------------------
 	pugi::xml_node layer_node;
 
 	for (layer_node = map_file.child("map").child("layer"); layer_node && ret; layer_node = layer_node.next_sibling("layer"))
@@ -394,6 +393,8 @@ MapData* j1Map::Load(const char* file_name)
 	}
 
 	pugi::xml_node object_group_node;
+
+
 	for (object_group_node = map_file.child("map").child("objectgroup"); object_group_node && ret; object_group_node = object_group_node.next_sibling()) {
 		ObjectGroup* objectGroup = new ObjectGroup();
 
@@ -403,6 +404,7 @@ MapData* j1Map::Load(const char* file_name)
 		}
 		data.objectGroups.add(objectGroup);
 	}
+
 
 	if (ret == true)
 	{
@@ -744,4 +746,17 @@ bool j1Map::isWalkableFromPos(iPoint pos)
 	if (!tile->is_ground)
 		return true;
 	return false;
+}
+
+ObjectGroup::~ObjectGroup()
+{
+	p2List_item<Object*>* item_object;
+	
+	item_object = objects.start;
+
+	while (item_object != NULL)
+	{
+		RELEASE(item_object->data);
+		item_object = item_object->next;
+	}
 }

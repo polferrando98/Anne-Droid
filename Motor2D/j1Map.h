@@ -237,10 +237,7 @@ private:
 struct ObjectGroup {
 	p2SString			name;
 	p2List<Object*>		objects;
-	~ObjectGroup() {
-		p2List_item<Object*>* item_object;
-		item_object = App->map->data.objectGroups.start->data->objects.start;
-	}
+	~ObjectGroup();
 };
 
 #endif // __j1MAP_H__

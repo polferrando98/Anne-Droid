@@ -362,14 +362,28 @@ void j1Physics::LoadPhysicsValues() {
 
 void j1Physics::DeleteGearColliders()
 {
+	if (!collider_list.start)
+		return;
+
+	p2List <Collider*> colliders_to_delete;
+
 	for (p2List_item<Collider*>* colliders_iterator = collider_list.start; colliders_iterator; colliders_iterator = colliders_iterator->next)
 	{
+		if (!colliders_iterator->data)
+			return;
 		if (colliders_iterator->data->type == COL_GEAR)
 		{
 			RELEASE(colliders_iterator->data);
-			collider_list.del(colliders_iterator);
+			colliders_to_delete.add(colliders_iterator->data);
 		}
 	}
+
+	for (p2List_item<Collider*>* colliders_iterator = colliders_to_delete.start; colliders_iterator; colliders_iterator = colliders_iterator->next)
+	{
+		collider_list.del(collider_list.At(collider_list.find(colliders_iterator->data)));
+	}
+
+	colliders_to_delete.clear();
 }
 
 void j1Physics::ManageGearCollisions(Collider *gear_col)
@@ -383,4 +397,14 @@ void j1Physics::ManageGearCollisions(Collider *gear_col)
 			collider_list.del(colliders_iterator);
 		}
 	}
+}
+
+bool j1Physics::DeleteCollider(Collider * collider_to_delete)
+{
+	if (!collider_list.start)
+		return false;
+	int index = collider_list.find(collider_to_delete);
+	p2List_item<Collider*>* item_to_delete = collider_list.At(index);
+	collider_list.del(item_to_delete);
+	return true;
 }

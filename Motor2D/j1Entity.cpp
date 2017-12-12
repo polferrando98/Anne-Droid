@@ -36,3 +36,8 @@ void Entity::UpdateCurrentTile()
 {
 	current_tile = App->map->WorldToMap(position.x + (collider->rect.w/2), position.y + (collider->rect.h / 2));
 }
+
+Entity::~Entity()
+{
+	collider = nullptr;
+}

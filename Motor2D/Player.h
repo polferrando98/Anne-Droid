@@ -6,7 +6,7 @@ class Player :
 {
 public:
 	Player(fPoint position);
-	~Player();
+	~Player();;
 
 
 	bool Update(float dt);

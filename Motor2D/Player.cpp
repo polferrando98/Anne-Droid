@@ -39,6 +39,11 @@ Player::Player(fPoint position) : Entity(position, ENTITY_PLAYER)
 	max_velocity.y = 10.0f;
 }
 
+Player::~Player()
+{
+	//App->physics->DeleteCollider(collider);
+}
+
 
 bool Player::Update(float dt)
 {

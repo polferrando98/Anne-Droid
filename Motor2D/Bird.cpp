@@ -113,4 +113,5 @@ bool Bird::GoToDestination()
 
 Bird::~Bird()
 {
+	//App->physics->DeleteCollider(collider);
 }

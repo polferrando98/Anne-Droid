@@ -327,8 +327,7 @@ void j1Scene::CleanLevel()
 
 	ovnis.clear();
 
-	App->entity_manager->DeleteOvnis();
-	App->entity_manager->DeletePlayer();
+	App->entity_manager->CleanUp();
 
 }
 

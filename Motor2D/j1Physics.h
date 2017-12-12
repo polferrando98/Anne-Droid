@@ -66,6 +66,8 @@ public:
 
 	void ManageGearCollisions(Collider  *gear_col);
 
+	bool DeleteCollider(Collider* collider_to_delete);
+
 private:
 
 

@@ -31,6 +31,8 @@ public:
 	void UpdateCurrentTile();
 	virtual void Respawn() {};
 
+	~Entity();
+
 public:
 	p2SString		name;
 	LifeState		life_state;
