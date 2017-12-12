@@ -9,7 +9,7 @@
 
 j1FadeToBlack::j1FadeToBlack()
 {
-	screen = { 0, 0, SCREEN_WIDTH * SCREEN_SIZE, SCREEN_HEIGHT * SCREEN_SIZE };
+	screen = { 0, 0, 1424, 800 };
 	name.create("player");
 }
 
@@ -40,10 +40,6 @@ bool j1FadeToBlack::PostUpdate()
 		if (now >= total_time)
 		{
 			
-			//enable disable modules todo
-			module_off->Disable();
-			module_on->Enable();
-			
 			total_time += total_time;
 			start_time = SDL_GetTicks();
 			current_step = fade_step::fade_from_black;
@@ -55,8 +51,8 @@ bool j1FadeToBlack::PostUpdate()
 		normalized = 1.0f - normalized;
 
 		if (now >= total_time) {
-			//todo onfadeintheend
-			module_on->onFadeInEnd();
+			total_time += total_time;
+			start_time = SDL_GetTicks();
 			current_step = fade_step::none;
 		}
 	} break;
@@ -69,15 +65,13 @@ bool j1FadeToBlack::PostUpdate()
 	return UPDATE_CONTINUE;
 }
 
-// Fade to black. At mid point deactivate one module, then activate the other
-bool j1FadeToBlack::FadeToBlack(j1Module* module_off, j1Module* module_on, float time)
+
+bool j1FadeToBlack::FadeToBlack(float time)
 {
 	bool ret = false;
 	if (current_step == fade_step::none)
 	{
-		this->module_off = module_off;
-		this->module_on = module_on;
-		current_step = fade_step::fade_to_black;
+		current_step = fade_step::fade_from_black;
 		start_time = SDL_GetTicks();
 		total_time = (Uint32)(time * 0.5f * 1000.0f);
 		ret = true;
@@ -85,4 +79,5 @@ bool j1FadeToBlack::FadeToBlack(j1Module* module_off, j1Module* module_on, float
 
 	return ret;
 }
+
 

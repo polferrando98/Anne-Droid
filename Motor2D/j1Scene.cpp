@@ -19,6 +19,7 @@
 #include "j1Physics.h"
 #include "Brofiler\Brofiler.h"
 #include "j1Timer.h"
+#include "j1FadeToBlack.h"
 
 
 j1Scene::j1Scene() : j1Module()
@@ -361,8 +362,6 @@ void j1Scene::SetUpUI(Levels next_level)
 	App->gui->CleanAllUI();
 	DeleteGearList();
 
-	
-		
 	if (next_level == LEVEL_1 || next_level == LEVEL_2 || next_level == LEVEL_3)
 	{
 		SetUpLivesIconsAndGears();
@@ -372,6 +371,7 @@ void j1Scene::SetUpUI(Levels next_level)
 	{
 	case START_MENU:
 	{
+		App->fade->FadeToBlack(2.0f);
 		App->gui->AddUIButton({ 50,30 }, "Play", this, button_up_rect_section, button_hover_rect_section, button_down_rect_section, button_disabled_rect_section);
 		Button* continue_button = App->gui->AddUIButton({ 50,40 }, "Continue", this, button_up_rect_section, button_hover_rect_section, button_down_rect_section, button_disabled_rect_section);
 		App->gui->AddUIButton({ 50,50 }, "Settings", this, button_up_rect_section, button_hover_rect_section, button_down_rect_section, button_disabled_rect_section);
@@ -384,11 +384,16 @@ void j1Scene::SetUpUI(Levels next_level)
 	break;
 	case LEVEL_1:
 	{
+		App->fade->FadeToBlack(3.0f);
+		App->gui->AddUIButton({ 85,90 }, "Pause", this, button_up_rect_section, button_hover_rect_section, button_down_rect_section, button_disabled_rect_section);
 		break;
 	}
 	case LEVEL_2:
-
+	{
+		App->fade->FadeToBlack(3.0f);
+		App->gui->AddUIButton({ 85,90 }, "Pause", this, button_up_rect_section, button_hover_rect_section, button_down_rect_section, button_disabled_rect_section);
 		break;
+	}
 	case SETTINGS:
 		App->gui->AddUIText({ 43,20 }, "Settings");
 		App->gui->AddUIButton({ 35,40 }, "Music -", this, button_up_rect_section, button_hover_rect_section, button_down_rect_section, button_disabled_rect_section);
@@ -396,6 +401,7 @@ void j1Scene::SetUpUI(Levels next_level)
 		App->gui->AddUIButton({ 35,60 }, "Sound Fx -", this, button_up_rect_section, button_hover_rect_section, button_down_rect_section, button_disabled_rect_section);
 		App->gui->AddUIButton({ 60,60 }, "Sound Fx +", this, button_up_rect_section, button_hover_rect_section, button_down_rect_section, button_disabled_rect_section);
 		App->gui->AddUIButton({ 47,77 }, "Menu", this, button_up_rect_section, button_hover_rect_section, button_down_rect_section, button_disabled_rect_section);
+		
 		break;
 	case CREDITS:
 		App->gui->AddUIText({ 30,35 }, "MIT License Copyright(c)[2017]");
@@ -403,7 +409,6 @@ void j1Scene::SetUpUI(Levels next_level)
 		App->gui->AddUIButton({ 47,77 }, "Menu", this, button_up_rect_section, button_hover_rect_section, button_down_rect_section, button_disabled_rect_section);
 		break;
 	case END:
-
 		break;
 	default:
 		break;
@@ -475,6 +480,10 @@ void j1Scene::GoToNextLevel()
 	default:
 		break;
 	}
+}
+
+void j1Scene::onFadeInEnd()
+{
 }
 
 

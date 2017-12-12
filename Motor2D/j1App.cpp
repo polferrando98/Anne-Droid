@@ -31,15 +31,15 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	render = new j1Render();
 	tex = new j1Textures();
 	audio = new j1Audio();
-	scene = new j1Scene();
 	fade = new j1FadeToBlack();
+	scene = new j1Scene();
 	map = new j1Map();
 	physics = new j1Physics();
 	entity_manager = new j1EntityManager();
 	pathfinding = new j1PathFinding();
 	font = new j1Fonts();
 	gui = new j1Gui();
-
+	
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
 
@@ -49,14 +49,12 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(tex);
 	AddModule(audio);
 	AddModule(map);
-	AddModule(fade);
-
 	AddModule(pathfinding);
-
 	AddModule(gui);
-	AddModule(font);
 
+	AddModule(font);
 	AddModule(scene);
+	AddModule(fade);
 	AddModule(entity_manager);
 	AddModule(physics);
 
