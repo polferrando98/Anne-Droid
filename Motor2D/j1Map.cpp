@@ -31,8 +31,10 @@ bool j1Map::Awake(pugi::xml_node& config)
 
 void j1Map::Draw()
 {
-	BROFILER_CATEGORY("Map Draw", Profiler::Color::DodgerBlue)
+	BROFILER_CATEGORY("Map Draw", Profiler::Color::DodgerBlue);
 	if (map_loaded == false)
+		return;
+	if (!data.tilesets.start)
 		return;
 
 	TileSet* set = data.tilesets.At(0)->data;
@@ -58,7 +60,7 @@ void j1Map::Draw()
 					float camera_increment = layer2_parallax * (App->render->camera.x);
 					real_col += (int)camera_increment;
 				}
-				if (App->render->isInsideCam({real_col,real_row}))
+				if (App->render->isInsideCam({ real_col,real_row }))
 					App->render->Blit(data.tilesets.At(0)->data->texture, real_col, real_row, &set->GetTileRect(id));
 
 
@@ -124,7 +126,10 @@ void j1Map::PlaceTileColliders()
 	if (map_loaded == false)
 		return;
 
-	TileSet* set = data.tilesets.At(0)->data;
+	if (!data.tilesets.start)
+		return;
+
+	TileSet* set = data.tilesets.start->data;
 
 	for (p2List_item<Layer*> *layer_iterator = data.layers.start; layer_iterator; layer_iterator = layer_iterator->next)
 	{
@@ -200,6 +205,20 @@ iPoint j1Map::WorldToMap(int x, int y) const
 	return ret;
 }
 
+TileSet::~TileSet()
+{
+	p2List_item<Tile*>* item;
+	item = tiles.start;
+
+	while (item != NULL)
+	{
+		RELEASE(item->data);
+		item = item->next;
+	}
+
+	tiles.clear();
+}
+
 SDL_Rect TileSet::GetTileRect(int id) const
 {
 	int relative_id = id - firstgid;
@@ -236,7 +255,7 @@ Tile* TileSet::FindTileWithid(int id) const
 			return tile_iterator->data;
 		}
 	}
-	
+
 
 }
 
@@ -275,9 +294,12 @@ bool j1Map::CleanUp()
 
 	while (item != NULL)
 	{
+		App->tex->UnLoad(item->data->texture);
 		RELEASE(item->data);
 		item = item->next;
 	}
+
+
 	data.tilesets.clear();
 
 	// Clean up all layer data
@@ -295,19 +317,13 @@ bool j1Map::CleanUp()
 
 	// Clean up Objects
 	if (data.objectGroups.start) {
-		p2List_item<Object*>* item_object;
+
 		p2List_item<ObjectGroup*>* item_objectGroup = data.objectGroups.start;
-		item_object = data.objectGroups.start->data->objects.start;
 
-
-		while (item_object != NULL)
+		while (item_objectGroup != NULL)
 		{
-			if (item_object->data != NULL)
-				RELEASE(item_object->data);
-			if (item_object->next != NULL)
-				item_object = item_object->next;
-			else
-				break;
+			RELEASE(item_objectGroup->data);
+			item_objectGroup = item_objectGroup->next;
 		}
 
 		data.objectGroups.clear();
@@ -342,7 +358,7 @@ MapData* j1Map::Load(const char* file_name)
 		ret = LoadMap();
 	}
 
-	// Load all tilesets info ----------------------------------------------
+	//// Load all tilesets info ----------------------------------------------
 	pugi::xml_node tileset;
 	for (tileset = map_file.child("map").child("tileset"); tileset && ret; tileset = tileset.next_sibling("tileset"))
 	{
@@ -361,8 +377,8 @@ MapData* j1Map::Load(const char* file_name)
 		data.tilesets.add(set);
 	}
 
-	// TODO 4: Iterate all layers and load each of them
-	// Load layer info ----------------------------------------------
+	 //TODO 4: Iterate all layers and load each of them
+	 //Load layer info ----------------------------------------------
 	pugi::xml_node layer_node;
 
 	for (layer_node = map_file.child("map").child("layer"); layer_node && ret; layer_node = layer_node.next_sibling("layer"))
@@ -387,11 +403,6 @@ MapData* j1Map::Load(const char* file_name)
 		}
 		data.objectGroups.add(objectGroup);
 	}
-
-
-
-
-
 
 	if (ret == true)
 	{
@@ -544,7 +555,7 @@ bool j1Map::LoadTile(pugi::xml_node &tile_node, Tile * tile)
 			tile->death = property_node.attribute("value").as_bool();
 	}
 
-	
+
 	return true;
 }
 
