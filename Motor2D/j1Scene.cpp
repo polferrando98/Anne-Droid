@@ -193,6 +193,7 @@ void j1Scene::ManageInput()
 
 
 	//Shortcuts to navigation
+
 	if (App->input->GetKey(SDL_SCANCODE_0) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN)
 		ChangeMap(START_MENU);
 
@@ -204,6 +205,9 @@ void j1Scene::ManageInput()
 
 	if (App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
 		ChangeMap(LEVEL_3);
+
+	if (App->input->GetKey(SDL_SCANCODE_7) == KEY_DOWN)
+		ChangeMap(SETTINGS);
 
 
 	//Debug funcitonality

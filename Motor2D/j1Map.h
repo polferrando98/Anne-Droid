@@ -5,7 +5,9 @@
 #include "p2List.h"
 #include "p2Point.h"
 #include "j1Module.h"
+#include "j1App.h"
 #include "j1Pathfinding.h"
+
 
 enum ObjectTypes {
 	OBJECT_TYPE_UNKNOWN = 0,
@@ -18,6 +20,8 @@ enum ObjectTypes {
 	OBJECT_TYPE_GEAR
 };
 
+struct ObjectGroup;
+
 struct Object {
 	uint id;
 	ObjectTypes type;
@@ -29,6 +33,7 @@ struct Object {
 };
 struct Properties
 {
+
 	struct Property
 	{
 		p2SString name;
@@ -75,10 +80,6 @@ struct Layer {
 	}
 };
 
-struct ObjectGroup {
-	p2SString			name;
-	p2List<Object*>		objects;
-};
 
 struct Tile
 {
@@ -104,6 +105,7 @@ inline void ToRowsAndCols(int *x, int *y)  {
 struct TileSet
 {
 	// TODO 7: Create a method that receives a tile id and returns it's Rectfind the Rect associated with a specific tile id
+	~TileSet();
 	SDL_Rect GetTileRect(int id) const;
 	bool IsWall(int id) const;
 	bool IsDeath(int id) const;
@@ -116,7 +118,9 @@ struct TileSet
 	int					spacing;
 	int					tile_width;
 	int					tile_height;
+
 	SDL_Texture*		texture;
+
 	int					tex_width;
 	int					tex_height;
 	int					num_tiles_width;
@@ -227,6 +231,16 @@ private:
 	pugi::xml_document	map_file;
 	p2SString			folder;
 	bool				map_loaded;
+};
+
+
+struct ObjectGroup {
+	p2SString			name;
+	p2List<Object*>		objects;
+	~ObjectGroup() {
+		p2List_item<Object*>* item_object;
+		item_object = App->map->data.objectGroups.start->data->objects.start;
+	}
 };
 
 #endif // __j1MAP_H__
