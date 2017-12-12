@@ -2,7 +2,7 @@
 #include "j1App.h"
 #include "j1Render.h"
 #include "j1Fonts.h"
-
+#include "j1Textures.h"
 
 Label::Label(iPoint position, p2SString text, SDL_Color color) : UIElement(position, LABEL)
 {
@@ -20,6 +20,7 @@ bool Label::Update(float dt)
 
 void Label::SetText(p2SString text)
 {
+	App->tex->UnLoad(texture);
 	this->text = text;
 	texture = App->font->Print(text.GetString(), color, font);
 	UpdateSize();
