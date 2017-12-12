@@ -63,9 +63,17 @@ bool j1Scene::Update(float dt)
 
 	if (timer_label)
 	{
-		sprintf_s(timerbuffer, "%f", timer.ReadSec());
-		timer_label->SetText(timerbuffer);
-		LOG(timerbuffer);
+		sprintf_s(timerbuffer, "%.2f", timer.ReadSec());
+		p2SString timer_string = timerbuffer;
+		timer_string += "s";
+		timer_label->SetText(timer_string);
+	}
+
+	if (gears_collected >= 5) {
+		player_lives++;
+		gears_collected = 0;
+		gears_number->SetText(gears_collected);
+		SetUpLivesIconsAndGears();
 	}
 
 	if (camera_change == true)
@@ -378,8 +386,8 @@ void j1Scene::SetUpUI(Levels next_level)
 		App->gui->AddUIText({ 43,20 }, "Settings");
 		App->gui->AddUIButton({ 35,40 }, "Music -", this, button_up_rect_section, button_hover_rect_section, button_down_rect_section, button_disabled_rect_section);
 		App->gui->AddUIButton({ 60,40 }, "Music +", this, button_up_rect_section, button_hover_rect_section, button_down_rect_section, button_disabled_rect_section);
-	/*	App->gui->AddUIButton({ 35,60 }, "Sound Fx -", this, button_up_rect_section, button_hover_rect_section, button_down_rect_section, button_disabled_rect_section);
-		App->gui->AddUIButton({ 60,60 }, "Sound Fx +", this, button_up_rect_section, button_hover_rect_section, button_down_rect_section, button_disabled_rect_section);*/
+		App->gui->AddUIButton({ 35,60 }, "Sound Fx -", this, button_up_rect_section, button_hover_rect_section, button_down_rect_section, button_disabled_rect_section);
+		App->gui->AddUIButton({ 60,60 }, "Sound Fx +", this, button_up_rect_section, button_hover_rect_section, button_down_rect_section, button_disabled_rect_section);
 		break;
 	case CREDITS:
 		App->gui->AddUIText({ 30,35 }, "MIT License Copyright(c)[2017]");
@@ -500,6 +508,7 @@ void j1Scene::SetUpLivesIconsAndGears()
 
 	timer_icon = App->gui->AddUIPicture({ 1050, 55 }, timer_icon_section);
 	score_icon = App->gui->AddUIPicture({ 1052, 140 }, score_icon_section);
+
 	//Gears icon
 	if (!gears_incon)
 		gears_incon = App->gui->AddUIPicture({ 100, 150 }, gears_icon_section);
