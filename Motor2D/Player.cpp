@@ -235,6 +235,7 @@ void Player::Respawn()
 	else {
 		App->scene->player_lives = 3;
 		App->scene->gears_collected = 0;
+		App->scene->score = 0;
 		App->scene->level_to_load_on_postUpdate = START_MENU;
 	}
 

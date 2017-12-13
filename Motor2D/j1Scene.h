@@ -107,7 +107,9 @@ public:
 	
 	Levels start_menu = START_MENU;
 	Levels level_1 = LEVEL_1;
+
 	int gears_collected = 0;
+	int score = 0;
 
 	char timerbuffer[50];
 
@@ -142,7 +144,6 @@ private:
 	SDL_Rect gears_icon_section = { 350,100,100,100 };
 	SDL_Rect timer_icon_section = { 518,110,60,62 };
 	SDL_Rect score_icon_section = { 638,110,52,67 };
-	int score = 0;
 
 
 };
