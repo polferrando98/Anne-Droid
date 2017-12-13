@@ -70,14 +70,14 @@ void UIElement::MoveInPercentage(fPoint position_in_percentage)
 void UIElement::AdjustToPivot()
 {
 	if (!SDL_RectEmpty(&section)) {
-		position.x -= (section.w / 2);
-		position.y -= (section.h / 2);
+		position.x -= (section.w  * pivot.x);
+		position.y -= (section.h * pivot.y);
 	}
 	else { //if section is empty we will draw the full texture
 		iPoint size;
 		SDL_QueryTexture(texture, 0, 0, &size.x, &size.y);
-		position.x -= size.x / 2;
-		position.y -= size.y / 2;
+		position.x -= size.x * pivot.x;
+		position.y -= size.y * pivot.y;
 	}
 
 }
