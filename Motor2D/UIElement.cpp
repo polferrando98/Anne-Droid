@@ -63,6 +63,8 @@ void UIElement::MoveInPercentage(fPoint position_in_percentage)
 	SDL_GetWindowSize(App->win->window, &window_size.x, &window_size.y);
 	position.x = (window_size.x * position_in_percentage.x);
 	position.y = (window_size.y * position_in_percentage.y);
+
+	AdjustToPivot();
 }
 
 void UIElement::AdjustToPivot()

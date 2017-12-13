@@ -70,6 +70,8 @@ public:
 	void GoToNextLevelOnPostUpdate();
 	void onFadeInEnd();
 
+	void ResetGame();
+
 private:
 
 	void CameraFollowPlayer();
@@ -89,6 +91,8 @@ private:
 	void DeleteGearList();
 
 
+
+
 public:
 
 	Entity* player_entity = nullptr;
@@ -101,9 +105,6 @@ public:
 	bool camera_change = true;
 
 	int player_lives = 3;
-	
-	Levels start_menu = START_MENU;
-	Levels level_1 = LEVEL_1;
 
 	int gears_collected = 0;
 	int score = 0;

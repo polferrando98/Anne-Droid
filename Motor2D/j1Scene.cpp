@@ -282,7 +282,7 @@ void j1Scene::LoadCurrentLevel(Levels next_level)
 		App->map->Load("menu.tmx");
 		break;
 	case END:
-		App->map->Load("end.tmx");
+		App->map->Load("menu.tmx");
 		break;
 	default:
 		break;
@@ -374,7 +374,7 @@ void j1Scene::SetUpUI(Levels next_level)
 		break;
 	}
 	case SETTINGS:
-		App->gui->AddUIText({ 43,20 }, "Settings");
+		App->gui->AddUIText({ 50,20 }, "Settings");
 		App->gui->AddUIButton({ 35,40 }, "Music -", this, button_up_rect_section, button_hover_rect_section, button_down_rect_section, button_disabled_rect_section);
 		App->gui->AddUIButton({ 60,40 }, "Music +", this, button_up_rect_section, button_hover_rect_section, button_down_rect_section, button_disabled_rect_section);
 		App->gui->AddUIButton({ 35,60 }, "Sound Fx -", this, button_up_rect_section, button_hover_rect_section, button_down_rect_section, button_disabled_rect_section);
@@ -383,11 +383,14 @@ void j1Scene::SetUpUI(Levels next_level)
 		
 		break;
 	case CREDITS:
-		App->gui->AddUIText({ 30,35 }, "MIT License Copyright(c)[2017]");
-		App->gui->AddUIText({ 30,50 }, "By Nina López and Pol Ferrando");
+		App->gui->AddUIText({ 50,35 }, "MIT License Copyright(c)[2017]");
+		App->gui->AddUIText({ 50,50 }, "By Nina López and Pol Ferrando");
 		App->gui->AddUIButton({ 47,77 }, "Menu", this, button_up_rect_section, button_hover_rect_section, button_down_rect_section, button_disabled_rect_section);
 		break;
 	case END:
+		App->gui->AddUIText({ 50,30 }, "Congratulations, you completed the game!");
+		App->gui->AddUIText({ 50,40 }, "Thanks for playing, hope you enjoyed it :)");
+		App->gui->AddUIButton({ 50,60 }, "Menu", this, button_up_rect_section, button_hover_rect_section, button_down_rect_section, button_disabled_rect_section);
 		break;
 	default:
 		break;
@@ -492,6 +495,14 @@ void j1Scene::DeleteGearList()
 	gears.clear();
 }
 
+void j1Scene::ResetGame()
+{
+	App->scene->player_lives = 3;
+	App->scene->gears_collected = 0;
+	App->scene->score = 0;
+	App->scene->level_to_load_on_postUpdate = START_MENU;
+}
+
 void j1Scene::SetUpLivesIconsAndGears()
 {
 	//Lives
@@ -546,6 +557,7 @@ void j1Scene::SetUpLivesIconsAndGears()
 		App->gui->DeleteElement(timer_label);
 		timer_label = App->gui->AddUIText({ 150, 100 }, timerbuffer);
 	}
+	timer_label->pivot = { 0.0f,0.0f };
 	timer_label->MoveInPercentage({ 80,10 }); //SPAGHUETTI
 
 	//Score
@@ -557,6 +569,7 @@ void j1Scene::SetUpLivesIconsAndGears()
 		App->gui->DeleteElement(score_number);
 		score_number = App->gui->AddUIText({ 1350, 25 }, buffer_2);
 	}
+	score_number->pivot = { 0.0f,0.0f };
 	score_number->MoveInPercentage({80,20}); //SPAGHUETTI
 
 }
@@ -625,13 +638,15 @@ void j1Scene::OnButtonClick(UIElement * trigger, Mouse_UI_Event mouse_event)
 	if (trigger->name == "Exit")
 		post_update_ret = false;
 
-	if(trigger->name == "Music -")
+	if (trigger->name == "Music -")
 		App->audio->volumeDown();
 	if (trigger->name == "Music +")
 		App->audio->volumeUp();
 
-	if (trigger->name == "Menu")
+	if (trigger->name == "Menu") {
 		level_to_load_on_postUpdate = START_MENU;
+		ResetGame();
+	}
 	/*if (trigger->name == "Sound Fx -")
 		App->audio->volumeDown();
 	if (trigger->name == "Sound Fx +")

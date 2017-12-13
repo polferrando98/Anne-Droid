@@ -14,6 +14,10 @@ Label::Label(iPoint position, p2SString text, SDL_Color color) : UIElement(posit
 
 bool Label::Update(float dt)
 {
+	if (PositionChanged()) {
+		AdjustToPivot();
+	}
+
 	Draw();
 	return true;
 }
