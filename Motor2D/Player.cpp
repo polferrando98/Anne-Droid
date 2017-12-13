@@ -42,7 +42,7 @@ Player::Player(fPoint position) : Entity(position, ENTITY_PLAYER)
 
 Player::~Player()
 {
-	//App->physics->DeleteCollider(collider);
+	App->physics->DeleteCollider(collider);
 }
 
 

@@ -312,17 +312,8 @@ bool j1Map::CleanUp()
 	// Remove all layers
 	data.layers.clear();
 
-	// Clean up Objects
+	 //Clean up Objects
 	if (data.objectGroups.start) {
-
-		p2List_item<ObjectGroup*>* item_objectGroup = data.objectGroups.start;
-
-		//while (item_objectGroup != NULL)
-		//{
-		//	RELEASE(item_objectGroup->data);
-		//	item_objectGroup = item_objectGroup->next;
-		//}
-
 		data.objectGroups.clear();
 	}
 
@@ -757,4 +748,6 @@ ObjectGroup::~ObjectGroup()
 		RELEASE(item_object->data);
 		item_object = item_object->next;
 	}
+
+	name.Clear();
 }

@@ -67,7 +67,7 @@ public:
 
 	void DeleteGearPictureFromCollider(Collider* col);
 
-	void GoToNextLevel();
+	void GoToNextLevelOnPostUpdate();
 	void onFadeInEnd();
 
 private:

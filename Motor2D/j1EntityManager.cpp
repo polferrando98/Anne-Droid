@@ -23,6 +23,7 @@ bool j1EntityManager::CleanUp()
 	{
 		RELEASE(entities_iterator->data);
 	}
+	player_entity = nullptr;
 	entites.clear();
 
 	return true;

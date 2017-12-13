@@ -322,13 +322,19 @@ void j1Scene::LoadCurrentLevel(Levels next_level)
 
 void j1Scene::CleanLevel()
 {
+	App->physics->CleanUp();
+
+
 	App->map->CleanUp();
 
-	App->physics->CleanUp();
+
+
 
 	ovnis.clear();
 
 	App->entity_manager->CleanUp();
+
+	player_entity = nullptr;
 
 }
 
@@ -343,13 +349,12 @@ void j1Scene::SetUpLevel(Levels next_level)
 	App->map->PlaceTileColliders();
 
 	if (App->map->ReadPositions()) {
-		player_entity = App->entity_manager->CreateEntity(App->map->data.player_start_position, ENTITY_PLAYER);
+		player_entity = App->entity_manager->CreateEntity(App->map->data.player_start_position, ENTITY_PLAYER);  //Why does this make a mem leak?
 
 		for (p2List_item<fPoint> *ovni_iterator = App->map->data.ovni_position_list.start; ovni_iterator; ovni_iterator = ovni_iterator->next)
 		{
 			ovnis.add(App->entity_manager->CreateEntity(ovni_iterator->data, ENTITY_BIRD));
 		}
-
 		AddGears();
 	}
 
@@ -453,7 +458,7 @@ void j1Scene::DeleteGearPictureFromCollider(Collider * col)
 	}
 }
 
-void j1Scene::GoToNextLevel()
+void j1Scene::GoToNextLevelOnPostUpdate()
 {
 	switch (current_level)
 	{
@@ -462,13 +467,13 @@ void j1Scene::GoToNextLevel()
 	case START_MENU:
 		break;
 	case LEVEL_1:
-		ChangeMap(LEVEL_2);
+		level_to_load_on_postUpdate = LEVEL_2;
 		break;
 	case LEVEL_2:
-		ChangeMap(LEVEL_3);
+		level_to_load_on_postUpdate = LEVEL_3;
 		break;
 	case LEVEL_3:
-		ChangeMap(END);
+		level_to_load_on_postUpdate = END;
 		break;
 	case SETTINGS:
 		break;

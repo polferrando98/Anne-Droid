@@ -142,19 +142,13 @@ void j1Gui::CleanAllUI()
 
 bool j1Gui::DeleteElement(UIElement * element)
 {
-	bool ret = false;
-	if (elements.start) {
-		p2List_item<UIElement*>* element_iterator;
-		for (element_iterator = elements.start; element_iterator != NULL; element_iterator = element_iterator->next)
-		{
-			if (element == element_iterator->data) {
-				RELEASE(element_iterator->data);
-				elements.del(element_iterator);
-				return ret;
-			}
-		}
-	}
-	return ret;
+	if (element == NULL)
+		return false;
+	int index_to_del = elements.find(element);
+	if (index_to_del == -1)
+		return false;
+	elements.del(elements.At(index_to_del));
+	return true;
 }
 
 UIElement* j1Gui::AddUIElement(iPoint position, UIType type)
