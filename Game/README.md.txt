@@ -32,7 +32,7 @@ Anne Droid is a platformer game where the player has to reach two doors to survi
 For the second assignment enemies use pathfinding(A*) to get to the player.
 For the third assignment there is UI implemented with score, timer, lifes and gears.
 
-Gihub Link: https://github.com/polferrando98/Anne-Droid
+Webpage Link: https://polferrando98.github.io/Anne-Droid/
 
 Controls:
 
