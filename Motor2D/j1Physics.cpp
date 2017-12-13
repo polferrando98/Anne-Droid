@@ -399,7 +399,7 @@ void j1Physics::ManageGearCollisions(Collider *gear_col)
 		}
 	}
 
-	RELEASE(colliders_iterator->data);
+	RELEASE(collider_to_delete->data);
 	collider_list.del(collider_to_delete);
 }
 
