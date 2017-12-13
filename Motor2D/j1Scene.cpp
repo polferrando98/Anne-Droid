@@ -295,6 +295,8 @@ void j1Scene::LoadCurrentLevel(Levels next_level)
 	switch (next_level)  //WIP
 	{
 	case START_MENU:
+		App->render->camera.x = 0;
+		App->render->camera.y = 0;
 		App->map->Load("menu.tmx");
 		break;
 	case LEVEL_1:
@@ -307,12 +309,18 @@ void j1Scene::LoadCurrentLevel(Levels next_level)
 		App->map->Load("3.tmx");
 		break;
 	case SETTINGS:
+		App->render->camera.x = 0;
+		App->render->camera.y = 0;
 		App->map->Load("menu.tmx");
 		break;
 	case CREDITS:
+		App->render->camera.x = 0;
+		App->render->camera.y = 0;
 		App->map->Load("menu.tmx");
 		break;
 	case END:
+		App->render->camera.x = 0;
+		App->render->camera.y = 0;
 		App->map->Load("end.tmx");
 		break;
 	default:
