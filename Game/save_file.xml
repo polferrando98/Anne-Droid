@@ -13,7 +13,7 @@
 	<gui />
 	<fonts />
 	<scene>
-		<player x="8175.23926" y="1307" level="4" />
+		<player x="8175" y="1307" level="4" />
 	</scene>
 	<EntityManager />
 	<physics />

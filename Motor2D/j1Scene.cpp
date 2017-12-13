@@ -364,13 +364,13 @@ void j1Scene::SetUpUI(Levels next_level)
 	case LEVEL_1:
 	{
 		App->fade->FadeToBlack(3.0f);
-		App->gui->AddUIButton({ 85,90 }, "Pause", this, button_up_rect_section, button_hover_rect_section, button_down_rect_section, button_disabled_rect_section);
+		
 		break;
 	}
 	case LEVEL_2:
 	{
 		App->fade->FadeToBlack(3.0f);
-		App->gui->AddUIButton({ 85,90 }, "Pause", this, button_up_rect_section, button_hover_rect_section, button_down_rect_section, button_disabled_rect_section);
+		
 		break;
 	}
 	case SETTINGS:
