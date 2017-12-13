@@ -286,8 +286,6 @@ bool j1Map::CleanUp()
 {
 	LOG("Unloading map");
 
-	data.ovni_position_list.clear();
-
 	// Remove all tilesets
 	p2List_item<TileSet*>* item;
 	item = data.tilesets.start;
@@ -319,11 +317,11 @@ bool j1Map::CleanUp()
 
 		p2List_item<ObjectGroup*>* item_objectGroup = data.objectGroups.start;
 
-		while (item_objectGroup != NULL)
-		{
-			RELEASE(item_objectGroup->data);
-			item_objectGroup = item_objectGroup->next;
-		}
+		//while (item_objectGroup != NULL)
+		//{
+		//	RELEASE(item_objectGroup->data);
+		//	item_objectGroup = item_objectGroup->next;
+		//}
 
 		data.objectGroups.clear();
 	}
