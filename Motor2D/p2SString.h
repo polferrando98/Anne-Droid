@@ -242,7 +242,7 @@ public:
 
 		char* p1 = str + begin;
 		char* p2 = str + end + 1;
-
+		
 		while(*p1++ = *p2++);
 
 		return true;

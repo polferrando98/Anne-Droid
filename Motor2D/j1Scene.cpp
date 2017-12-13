@@ -291,6 +291,16 @@ void j1Scene::LoadCurrentLevel(Levels next_level)
 
 void j1Scene::CleanLevel()
 {
+	gears_incon = nullptr;
+	timer_icon = nullptr;
+	score_icon = nullptr;
+	gears_number = nullptr;
+
+	timer_label = nullptr;
+
+	score_number = nullptr;
+
+
 	App->physics->CleanUp();
 
 	App->map->CleanUp();
@@ -416,7 +426,7 @@ void j1Scene::DeleteGearPictureFromCollider(Collider * col)
 			gears_collected++;
 			score += 100;
 			char buffer[50];
-			char buffer_2[10000];
+			char buffer_2[50];
 			sprintf_s(buffer, "%d", gears_collected);
 			sprintf_s(buffer_2, "%d", score);
 			gears_number->SetText(buffer);
