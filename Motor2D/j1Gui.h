@@ -42,8 +42,6 @@ public:
 
 	void ManageFocus();
 
-	void CleanAllDynamicUI();
-
 	void CleanAllUI();
 
 	bool DeleteElement(UIElement* element);

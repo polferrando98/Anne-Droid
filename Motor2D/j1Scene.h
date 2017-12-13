@@ -73,12 +73,9 @@ public:
 private:
 
 	void CameraFollowPlayer();
-	void CheckDoorEntrance();
 	void ManageInput();
 	void DrawDebugPathfinding();
 
-
-	void SetCurrentLevel();
 	void LoadCurrentLevel(Levels next_level);
 	void CleanLevel();
 

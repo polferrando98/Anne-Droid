@@ -734,7 +734,7 @@ bool j1Map::isWalkableFromPos(iPoint pos)
 
 	Tile* tile = tileset->FindTileWithid(id);
 
-	if (tile->is_ground) { //Dangerous
+	if (tile) { //Dangerous
 		if (!tile->is_ground)
 			return true;
 	}

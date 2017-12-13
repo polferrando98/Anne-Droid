@@ -97,7 +97,6 @@ bool j1Scene::PostUpdate()
 		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 			post_update_ret = false;
 
-	CheckDoorEntrance();
 
 	if (level_to_load_on_postUpdate != LEVEL_NONE)
 	{
@@ -129,12 +128,10 @@ bool j1Scene::ChangeMap(Levels next_level)
 
 void j1Scene::ResetOvnis()
 {
-
 	for (p2List_item<Entity*> *ovni_iterator = ovnis.start; ovni_iterator; ovni_iterator = ovni_iterator->next)
 	{
 		ovni_iterator->data->Respawn();
 	}
-
 }
 
 void j1Scene::CameraFollowPlayer()
@@ -174,19 +171,6 @@ void j1Scene::DebugCamera(Direction_x type, Direction_y type2)
 	}
 }
 
-
-void j1Scene::CheckDoorEntrance()
-{
-	if (player_entity) {
-		//LOG("%f, %f", App->entity_manager->player_entity->position.x, App->entity_manager->player_entity->position.y);
-		if (App->entity_manager->player_entity->position.x >= App->map->data.door_position.x && App->entity_manager->player_entity->position.y <= App->map->data.door_position.y)
-		{
-			if (current_level == LEVEL_1)
-				ChangeMap(LEVEL_2);
-
-		}
-	}
-}
 
 void j1Scene::ManageInput()
 {
@@ -272,31 +256,14 @@ void j1Scene::DrawDebugPathfinding()
 	}
 }
 
-void j1Scene::SetCurrentLevel()
-{
-	switch (current_level)
-	{
-	case START_MENU:
-		break;
-	case LEVEL_1:
-		current_level = LEVEL_2;
-		break;
-	case LEVEL_2:
-		break;
-	case END:
-		break;
-	default:
-		break;
-	}
-}
-
 void j1Scene::LoadCurrentLevel(Levels next_level)
 {
+	App->render->camera.x = 0;
+	App->render->camera.y = 0;
+
 	switch (next_level)  //WIP
 	{
 	case START_MENU:
-		App->render->camera.x = 0;
-		App->render->camera.y = 0;
 		App->map->Load("menu.tmx");
 		break;
 	case LEVEL_1:
@@ -309,18 +276,12 @@ void j1Scene::LoadCurrentLevel(Levels next_level)
 		App->map->Load("3.tmx");
 		break;
 	case SETTINGS:
-		App->render->camera.x = 0;
-		App->render->camera.y = 0;
 		App->map->Load("menu.tmx");
 		break;
 	case CREDITS:
-		App->render->camera.x = 0;
-		App->render->camera.y = 0;
 		App->map->Load("menu.tmx");
 		break;
 	case END:
-		App->render->camera.x = 0;
-		App->render->camera.y = 0;
 		App->map->Load("end.tmx");
 		break;
 	default:
@@ -332,18 +293,13 @@ void j1Scene::CleanLevel()
 {
 	App->physics->CleanUp();
 
-
 	App->map->CleanUp();
-
-
-
 
 	ovnis.clear();
 
 	App->entity_manager->CleanUp();
 
 	player_entity = nullptr;
-
 }
 
 void j1Scene::SetUpLevel(Levels next_level)
@@ -357,6 +313,7 @@ void j1Scene::SetUpLevel(Levels next_level)
 	App->map->PlaceTileColliders();
 
 	if (App->map->ReadPositions()) {
+
 		player_entity = App->entity_manager->CreateEntity(App->map->data.player_start_position, ENTITY_PLAYER);  //Why does this make a mem leak?
 
 		for (p2List_item<fPoint> *ovni_iterator = App->map->data.ovni_position_list.start; ovni_iterator; ovni_iterator = ovni_iterator->next)
@@ -447,12 +404,14 @@ void j1Scene::AddGears()
 
 void j1Scene::DeleteGearPictureFromCollider(Collider * col)
 {
+	p2List_item<Picture*>* gear_to_delete = nullptr;
+
 	for (p2List_item<Picture*>* gears_iterator = gears.start; gears_iterator; gears_iterator = gears_iterator->next) {
 		iPoint gears_iterator_pos = { gears_iterator->data->position.x,gears_iterator->data->position.y };
 		iPoint col_pos = { col->rect.x,col->rect.y };
 		if (col_pos == gears_iterator_pos) {
 			App->gui->DeleteElement((UIElement*)gears_iterator->data);
-			gears.del(gears_iterator);
+			gear_to_delete = gears_iterator;
 			App->audio->PlayFx(App->audio->gearfx);
 			gears_collected++;
 			score += 100;
@@ -464,6 +423,9 @@ void j1Scene::DeleteGearPictureFromCollider(Collider * col)
 			score_number->SetText(buffer_2);
 		}
 	}
+
+	if (gear_to_delete)
+	gears.del(gear_to_delete);
 }
 
 void j1Scene::GoToNextLevelOnPostUpdate()
@@ -526,8 +488,8 @@ void j1Scene::SetUpLivesIconsAndGears()
 	if (lives_icons.start) {
 		for (p2List_item<Picture*>* lives_icons_iterator = lives_icons.start; lives_icons_iterator; lives_icons_iterator = lives_icons_iterator->next) {
 			App->gui->DeleteElement((UIElement*)lives_icons_iterator->data);
-			lives_icons.del(lives_icons_iterator);
 		}
+		lives_icons.clear();
 	}
 
 	int lives_icon_margin = 100;

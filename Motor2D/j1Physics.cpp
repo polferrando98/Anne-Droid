@@ -388,15 +388,19 @@ void j1Physics::DeleteGearColliders()
 
 void j1Physics::ManageGearCollisions(Collider *gear_col)
 {
-	for (p2List_item<Collider*>* colliders_iterator = collider_list.start; colliders_iterator; colliders_iterator = colliders_iterator->next)
+	p2List_item<Collider*>* colliders_iterator = nullptr;
+	p2List_item<Collider*>* collider_to_delete = nullptr;
+	for (colliders_iterator = collider_list.start; colliders_iterator; colliders_iterator = colliders_iterator->next)
 	{
 		if (gear_col == colliders_iterator->data)
 		{
 			App->scene->DeleteGearPictureFromCollider(gear_col);
-			RELEASE(colliders_iterator->data);
-			collider_list.del(colliders_iterator);
+			collider_to_delete = colliders_iterator;
 		}
 	}
+
+	RELEASE(colliders_iterator->data);
+	collider_list.del(collider_to_delete);
 }
 
 bool j1Physics::DeleteCollider(Collider * collider_to_delete)

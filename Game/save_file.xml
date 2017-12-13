@@ -13,11 +13,11 @@
 	<gui />
 	<fonts />
 	<scene>
-		<player x="6874.09229" y="1242" level="4" />
+		<player x="8175.23926" y="1307" level="4" />
 	</scene>
 	<EntityManager />
 	<physics />
 	<renderer>
-		<camera x="-6400" y="-842" />
+		<camera x="-7701" y="-907" />
 	</renderer>
 </save>
