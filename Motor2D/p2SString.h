@@ -202,7 +202,7 @@ public:
 				strcpy_s(str, size, tmp);
 				delete[] tmp;
 			}
-
+			
 			strcat_s(str, size, string);
 		}
 

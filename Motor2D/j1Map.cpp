@@ -234,6 +234,7 @@ bool TileSet::IsWall(int id) const
 {
 	Tile* tile = FindTileWithid(id);
 	bool ret = false;
+	if (tile)
 	ret = tile->is_ground;
 	return ret;
 }
@@ -242,6 +243,7 @@ bool TileSet::IsDeath(int id) const
 {
 	Tile* tile = FindTileWithid(id);
 	bool ret = false;
+	if (tile)
 	ret = tile->death;
 	return ret;
 }
@@ -256,7 +258,7 @@ Tile* TileSet::FindTileWithid(int id) const
 		}
 	}
 
-
+	return nullptr;
 }
 
 int TileSet::GetIdFromPos(iPoint pos, Layer* layer) const
@@ -732,8 +734,10 @@ bool j1Map::isWalkableFromPos(iPoint pos)
 
 	Tile* tile = tileset->FindTileWithid(id);
 
-	if (!tile->is_ground)
-		return true;
+	if (tile->is_ground) { //Dangerous
+		if (!tile->is_ground)
+			return true;
+	}
 	return false;
 }
 
