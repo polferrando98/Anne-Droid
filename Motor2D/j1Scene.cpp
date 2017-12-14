@@ -300,6 +300,8 @@ void j1Scene::CleanLevel()
 
 	score_number = nullptr;
 
+	player_entity = nullptr;
+
 
 	App->physics->CleanUp();
 
@@ -309,7 +311,6 @@ void j1Scene::CleanLevel()
 
 	App->entity_manager->CleanUp();
 
-	player_entity = nullptr;
 }
 
 void j1Scene::SetUpLevel(Levels next_level)
@@ -318,7 +319,7 @@ void j1Scene::SetUpLevel(Levels next_level)
 
 	LoadCurrentLevel(next_level);
 
-	SetUpUI(next_level);
+	//SetUpUI(next_level);
 
 	App->map->PlaceTileColliders();
 

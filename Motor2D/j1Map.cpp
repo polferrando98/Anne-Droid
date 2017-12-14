@@ -77,8 +77,6 @@ bool j1Map::ReadPositions()
 
 	SDL_Rect col_rect;
 
-	ObjectGroup start = *data.objectGroups.start->data;
-
 	p2List_item<ObjectGroup*>* object_group_iterator = nullptr;
 
 	p2List_item<Object*>* object_iterator;
@@ -315,10 +313,18 @@ bool j1Map::CleanUp()
 	data.layers.clear();
 
 	 //Clean up Objects
-	if (data.objectGroups.start) {
-		data.objectGroups.clear();
+
+	p2List_item<ObjectGroup*>* object_group_iterator;
+	object_group_iterator = data.objectGroups.start;
+
+	while (object_group_iterator != NULL)  //Comment this loop to hide the crash inside a rug of memory leaks
+	{
+		RELEASE(object_group_iterator->data);
+		object_group_iterator = object_group_iterator->next;
 	}
 
+	data.objectGroups.clear();
+	
 	data.ovni_position_list.clear();
 	data.gear_position_list.clear();
 
@@ -753,5 +759,5 @@ ObjectGroup::~ObjectGroup()
 		item_object = item_object->next;
 	}
 
-	name.Clear();
+	objects.clear();
 }
