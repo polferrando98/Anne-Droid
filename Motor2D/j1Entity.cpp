@@ -40,4 +40,6 @@ void Entity::UpdateCurrentTile()
 Entity::~Entity()
 {
 	collider = nullptr;
+	App->tex->UnLoad(texture);
+	texture = nullptr;
 }

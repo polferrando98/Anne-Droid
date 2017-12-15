@@ -319,13 +319,13 @@ void j1Scene::SetUpLevel(Levels next_level)
 
 	LoadCurrentLevel(next_level);
 
-	//SetUpUI(next_level);
+	SetUpUI(next_level);
 
 	App->map->PlaceTileColliders();
 
 	if (App->map->ReadPositions()) {
 
-		player_entity = App->entity_manager->CreateEntity(App->map->data.player_start_position, ENTITY_PLAYER);  //Why does this make a mem leak?
+		player_entity = App->entity_manager->CreateEntity(App->map->data.player_start_position, ENTITY_PLAYER); 
 
 		for (p2List_item<fPoint> *ovni_iterator = App->map->data.ovni_position_list.start; ovni_iterator; ovni_iterator = ovni_iterator->next)
 		{
