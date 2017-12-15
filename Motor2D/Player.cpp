@@ -228,6 +228,9 @@ void Player::Respawn()
 	position.x = App->map->data.player_start_position.x;
 	position.y = App->map->data.player_start_position.y;
 
+	collider->rect.x = App->map->data.player_start_position.x;
+	collider->rect.y = App->map->data.player_start_position.y;
+
 	life_state = ALIVE;
 
 	if (App->scene->player_lives > 1) 

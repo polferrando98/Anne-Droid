@@ -49,6 +49,9 @@ public:
 	bool UpdateEntityPhysics(Entity &entity, float dt);
 	Direction_x checkGroundXCollisions(Collider new_collider, fPoint pos_differential, Entity & entity);
 	Direction_y checkGroundYCollisions(Collider new_collider, fPoint pos_differential, Entity & entity);
+
+	bool checkOtherCollisions(Collider new_collider, Entity & entity);
+
 	fPoint calculateNewPosition(fPoint position, fPoint velocity, fPoint acceleration, Axis axis) const;
 	void ApplyMaxVelocity(Entity &entity);
 

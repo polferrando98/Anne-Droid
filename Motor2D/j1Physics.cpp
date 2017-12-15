@@ -123,6 +123,14 @@ bool j1Physics::UpdateEntityPhysics(Entity & entity, float dt)
 	//HARDCODE
 	entity.acceleration.y = 1.0f;
 
+	if (entity.type == ENTITY_PLAYER) {
+		newPosition = calculateNewPosition(entity.position, entity.velocity, entity.acceleration, BOTH_AXIS);
+		if (checkOtherCollisions(newCollider, entity))
+			return true;
+	}
+
+	//Both Axis
+
 	//Y_AXIS
 	newPosition = calculateNewPosition(entity.position, entity.velocity, entity.acceleration, Y_axis);
 
@@ -157,6 +165,10 @@ bool j1Physics::UpdateEntityPhysics(Entity & entity, float dt)
 		entity.velocity.x += entity.acceleration.x * normalize;
 		entity.position.x += entity.velocity.x *normalize;
 	}
+
+	
+
+
 	return true;
 }
 
@@ -182,17 +194,6 @@ Direction_x j1Physics::checkGroundXCollisions(Collider new_collider, fPoint pos_
 			colliding_x = LEFT;
 	}
 
-	if (checkColliders(new_collider, DEATH)) {
-		entity.life_state = DEAD;
-	}
-
-	if (Collider* colb = checkColliders(new_collider, COL_GEAR)) {
-		ManageGearCollisions(colb);
-	}
-
-	if (checkColliders(new_collider, DOOR)) {
-		App->scene->GoToNextLevelOnPostUpdate();
-	}
 	return colliding_x;
 }
 
@@ -205,19 +206,30 @@ Direction_y j1Physics::checkGroundYCollisions(Collider new_collider, fPoint pos_
 		if (pos_differential.y < 0)
 			colliding_y = UP;
 	}
+
+
+	return colliding_y;
+}
+
+bool j1Physics::checkOtherCollisions(Collider new_collider, Entity & entity)
+{
+	bool ret = false;
+
 	if (checkColliders(new_collider, DEATH)) {
 		entity.life_state = DEAD;
+		ret = true;
 	}
 
 	if (Collider* colb = checkColliders(new_collider, COL_GEAR)) {
 		ManageGearCollisions(colb);
+		ret = true;
 	}
 
 	if (checkColliders(new_collider, DOOR)) {
 		App->scene->GoToNextLevelOnPostUpdate();
+		ret = true;
 	}
-
-	return colliding_y;
+	return ret;
 }
 
 
